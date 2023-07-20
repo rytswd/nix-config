@@ -1,0 +1,62 @@
+[core]
+	autocrlf = input
+	editor = vim
+
+[user]
+	name = Ryota
+	useConfigOnly = true
+	signingkey = 678FE5498813DE6A
+
+[github]
+	user = rytswd
+
+[color]
+	branch = true
+	ui = true
+	diff = true
+	status = true
+
+[alias]
+	s = status
+	c = commit -am
+	ci = commit
+	amend = commit --amend
+	co = checkout
+	ls = branch -a
+	lg = log --oneline --decorate --graph
+	lga = log --oneline --all --decorate --graph
+	rbi = rebase --interactive
+	rba = rebase --abort
+	forget = update-index --assume-unchanged
+	unforget = update-index --no-assume-unchanged
+	fp = fetch --prune
+	hide = update-index --assume-unchanged
+	unhide = update-index --no-assume-unchanged
+	unhide-all = update-index --really-refresh
+	hidden = !git ls-files -v | grep \"^[a-z]\"
+	ignored = !git status -s --ignored | grep \"^!!\"
+
+[help]
+	autocorrect = 1
+
+[commit]
+	gpgsign = true
+
+[push]
+	# default = simple
+	default = current
+
+[pull]
+	rebase = true
+
+[rebase]
+	autoStash = true
+
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge --skip -- %f
+	process = git-lfs filter-process --skip
+
+[http]
+	cookiefile = ~/.gitcookies

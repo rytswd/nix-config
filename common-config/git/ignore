@@ -1,0 +1,14 @@
+;;; Files to ignore from git
+
+;; macOS related files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+
+;; Worktree related
+.worktrees/

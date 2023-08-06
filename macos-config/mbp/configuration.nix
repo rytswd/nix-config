@@ -64,6 +64,7 @@ in {
           "FiraMono"
           "Hack"
           "DroidSansMono"
+          "Noto"
         ]; })
     ];
   };

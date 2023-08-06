@@ -69,10 +69,15 @@
         pkgs.poetry
         pkgs.python311.pkgs.pip
       ]
+      # Node.js related setup
+      ++ [
+        pkgs.nodePackages.pnpm
+        pkgs.nodePackages.prettier
+      ]
       # JetBrains setup
       ++ [
         # pkgs.jetbrains.idea-ultimate
-        pkgs.jetbrains.idea-community
+        # pkgs.jetbrains.idea-community
       ]
       # + GCP specific setup
       # Ref: https://github.com/NixOS/nixpkgs/issues/99280

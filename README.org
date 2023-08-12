@@ -6,7 +6,7 @@ The Nix configurations are all managed in this directory. The idea is to ensure 
 
 * Nix Setup
 
-** For Mac
+** For macOS
 
 Firstly, install Nix.
 
@@ -29,6 +29,6 @@ nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
 Ref: https://github.com/LnL7/nix-darwin/
 #+end_quote
 
-** For VM
+** For VM (on Mac)
 
 To be updated

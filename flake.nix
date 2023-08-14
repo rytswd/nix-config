@@ -93,7 +93,12 @@
           inherit nixpkgs nixpkgs-unstable home-manager;
           system = "${mbp-arch}-darwin";
           username = "ryota";
-          overlays = [ vscodeOverlay goOverlay  rustOverlay fenixOverlay ];
+          overlays = [
+            vscodeOverlay
+            goOverlay
+            rustOverlay
+            fenixOverlay
+          ];
         });
         ryota-test-mbp = (import ./macos-config/mbp {
           inherit (nixpkgs) lib;

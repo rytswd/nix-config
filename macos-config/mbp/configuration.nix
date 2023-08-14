@@ -65,6 +65,7 @@ in {
           "Hack"
           "DroidSansMono"
           "Noto"
+          "NerdFontsSymbolsOnly"
         ]; })
     ];
   };

@@ -1,5 +1,32 @@
 { config, pkgs, username, ... }:
 
+let
+  # emacs-overlay = import (fetchTarball {
+  #     url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+  #     sha256 = "1jppksrfvbk5ypiqdz4cddxdl8z6zyzdb2srq8fcffr327ld5jj2";
+  #   });
+  # nixpkgs-with-emacs = import (builtins.fetchTarball {
+  #   url = "https://github.com/NixOS/nixpkgs/archive/5f98e7c92b1a7030324c85c40fa0b46e0ba4cb23.tar.gz";
+  #   sha256 = "sha256:1i2f7hfw5xp3hhkaaq8z6z9bhdx5yf2j65pmg4f1wxv4d0dswfpi";
+  # }) {};
+  # emacs-29-macport = nixpkgs-with-emacs.emacs.override {
+  #   withNativeCompilation = true;
+  #   withSQLite3 = true;
+  #   withTreeSitter = true;
+  #   withWebP = true;
+  # };
+  my-emacs = pkgs.emacs29.override {
+    withNativeCompilation = true;
+    withSQLite3 = true;
+    withTreeSitter = true;
+    withWebP = true;
+  };
+  my-emacs-with-packages = (pkgs.emacsPackagesFor my-emacs).emacsWithPackages (epkgs: with epkgs; [
+    vterm
+    multi-vterm
+    treesit-grammars.with-all-grammars
+  ]);
+in
 {
   home = {
     stateVersion = "22.11";
@@ -17,9 +44,12 @@
           mkcert    # https://github.com/FiloSottile/mkcert
           bottom    # https://github.com/ClementTsang/bottom
           htop      # https://github.com/htop-dev/htop
-          cmake     # Needed for compiling Emacs's vterm
           pass      # https://www.passwordstore.org/
           git-lfs   # https://github.com/git-lfs/git-lfs
+          # cmake     # Needed for compiling Emacs's vterm
+          # libvterm  # Needed for Emacs's vterm
+          zellij    # https://github.com/zellij-org/zellij
+          tree-sitter # https://github.com/tree-sitter/tree-sitter
 
           # + More Utilities
           # These can be somewhat env specific.
@@ -44,9 +74,10 @@
           yarn
           pandoc      # Markdown support
           shellcheck  # I want this for any code base
+          clang-tools
 
           # + Editors
-          emacs
+          # emacs         # This is defined below in the program section.
           vscode
           vscode-insiders # Added from the overlay setup
 
@@ -60,7 +91,7 @@
           awscli
 
           # + Other Tools
-          surrealdb
+          # surrealdb # TODO: This is failing to build now.
         ;
       }
       # Python setup
@@ -89,7 +120,7 @@
       # + Other
       ++ [
         (import ../../common-config/overlays/erdtree.nix { inherit (pkgs) lib rustPlatform fetchFromGitHub; }) # Install erdtree directly
-        (import ../../common-config/overlays/mirrord.nix { inherit pkgs; }) # mirrord isn't available in nixpkgs
+        # (import ../../common-config/overlays/mirrord.nix { inherit pkgs; }) # mirrord isn't available in nixpkgs
       ]
     ;
 
@@ -120,6 +151,11 @@
     aliasLs = import ../../common-config/home-manager/aliases-ls.nix;
   in {
     home-manager.enable = true;
+
+    emacs = {
+      enable = true;
+      package = my-emacs-with-packages;
+    };
 
     # + Terminals
     alacritty = {
@@ -173,9 +209,9 @@
       enable = true;
       # I'm not managing extensions via home-manager.
       # extensions = with pkgs.vscode-extensions; [
-        # dracula-theme.theme-dracula
-        # vscodevim.vim
-        # yzhang.markdown-all-in-one
+      # dracula-theme.theme-dracula
+      # vscodevim.vim
+      # yzhang.markdown-all-in-one
       # ];
     };
 

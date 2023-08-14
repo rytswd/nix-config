@@ -11,5 +11,6 @@
   shellAbbrs = {
     tm = "tmux new-session -A -D -s main";
     ec = "emacsclient";
+    flake = "nix flake";
   };
 }

@@ -10,6 +10,9 @@
 [github]
 	user = rytswd
 
+[gitlab]
+	user = rytswd
+
 [color]
 	branch = true
 	ui = true

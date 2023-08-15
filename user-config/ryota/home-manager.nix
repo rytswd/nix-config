@@ -110,14 +110,19 @@ in
       ]
       # Dictionaries
       ++ [
-        # nuspell   # https://github.com/nuspell/nuspell
-        # hunspell  # https://github.com/hunspell/hunspell
-        # enchant   # https://github.com/AbiWord/enchant
-        pkgs.enchant
+        pkgs.enchant  # https://github.com/AbiWord/enchant
+        (pkgs.aspellWithDicts (dicts: with dicts; [
+          en
+          en-computers
+          en-science
+        ]))
         (pkgs.hunspellWithDicts (with pkgs.hunspellDicts; [
           en_GB-large
           en_US
         ]))
+        # Other packages
+        # pkgs.nuspell   # https://github.com/nuspell/nuspell
+        # pkgs.hunspell  # https://github.com/hunspell/hunspell
       ]
       # JetBrains setup
       ++ [

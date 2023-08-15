@@ -35,6 +35,9 @@ in
     hash = "sha256-vK5Q5SDAdfnGGZH6Ikb+ot6lMNjzoiofwxbnXqO20/k=";
     # hash = "sha256-zf14Ubj5aHW9q42Kd8034MXqRiBT4DoEwDx2KW+45AQ=";
     # hash = "sha256-BE51k7BK/M5qQ1+0FcRD1VXk0wfPFiNQUtV6gHfN3pw="; # for 3.46.0
+    postFetch = ''
+      rm rust-toolchain.toml
+    '';
   };
 
   cargoLock = {

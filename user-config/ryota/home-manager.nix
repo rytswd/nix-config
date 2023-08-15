@@ -1,35 +1,35 @@
 { config, pkgs, username, ... }:
 
-let
-  # emacs-overlay = import (fetchTarball {
-  #     url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-  #     sha256 = "1jppksrfvbk5ypiqdz4cddxdl8z6zyzdb2srq8fcffr327ld5jj2";
-  #   });
-  # nixpkgs-with-emacs = import (builtins.fetchTarball {
-  #   url = "https://github.com/NixOS/nixpkgs/archive/5f98e7c92b1a7030324c85c40fa0b46e0ba4cb23.tar.gz";
-  #   sha256 = "sha256:1i2f7hfw5xp3hhkaaq8z6z9bhdx5yf2j65pmg4f1wxv4d0dswfpi";
-  # }) {};
-  # emacs-29-macport = nixpkgs-with-emacs.emacs.override {
-  #   withNativeCompilation = true;
-  #   withSQLite3 = true;
-  #   withTreeSitter = true;
-  #   withWebP = true;
-  # };
+# let
+#   # emacs-overlay = import (fetchTarball {
+#   #     url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+#   #     sha256 = "1jppksrfvbk5ypiqdz4cddxdl8z6zyzdb2srq8fcffr327ld5jj2";
+#   #   });
+#   # nixpkgs-with-emacs = import (builtins.fetchTarball {
+#   #   url = "https://github.com/NixOS/nixpkgs/archive/5f98e7c92b1a7030324c85c40fa0b46e0ba4cb23.tar.gz";
+#   #   sha256 = "sha256:1i2f7hfw5xp3hhkaaq8z6z9bhdx5yf2j65pmg4f1wxv4d0dswfpi";
+#   # }) {};
+#   # emacs-29-macport = nixpkgs-with-emacs.emacs.override {
+#   #   withNativeCompilation = true;
+#   #   withSQLite3 = true;
+#   #   withTreeSitter = true;
+#   #   withWebP = true;
+#   # };
 
-  # NOTE: This macport installation fails with clang-wrapper / compiler-rt dependencies.
-  # my-emacs = pkgs.emacs29-macport.override {
-  my-emacs = pkgs.emacs29.override {
-    withNativeCompilation = true;
-    withSQLite3 = true;
-    withTreeSitter = true;
-    withWebP = true;
-  };
-  my-emacs-with-packages = (pkgs.emacsPackagesFor my-emacs).emacsWithPackages (epkgs: with epkgs; [
-    vterm
-    multi-vterm
-    jinx    # https://github.com/minad/jinx
-  ]);
-in
+#   # NOTE: This macport installation fails with clang-wrapper / compiler-rt dependencies.
+#   # my-emacs = pkgs.emacs29-macport.override {
+#   my-emacs = pkgs.emacs29.override {
+#     withNativeCompilation = true;
+#     withSQLite3 = true;
+#     withTreeSitter = true;
+#     withWebP = true;
+#   };
+#   my-emacs-with-packages = (pkgs.emacsPackagesFor my-emacs).emacsWithPackages (epkgs: with epkgs; [
+#     vterm
+#     multi-vterm
+#     jinx    # https://github.com/minad/jinx
+#   ]);
+# in
 {
   home = {
     # NOTE: This state version failed to build once -- it seems OK now.
@@ -98,19 +98,19 @@ in
         ;
       }
       # Python setup
-      ++ [
-        pkgs.python311
-        pkgs.poetry
-        pkgs.python311.pkgs.pip
-      ]
+      ++ (with pkgs; [
+        python311
+        poetry
+        python311.pkgs.pip
+      ])
       # Node.js related setup
-      ++ [
-        pkgs.nodePackages.pnpm
-        pkgs.nodePackages.prettier
-      ]
+      ++ (with pkgs.nodePackages; [
+        pnpm
+        prettier
+      ])
       # Dictionaries
       ++ [
-        pkgs.enchant  # https://github.com/AbiWord/enchant
+        # pkgs.enchant  # https://github.com/AbiWord/enchant
         (pkgs.aspellWithDicts (dicts: with dicts; [
           en
           en-computers
@@ -122,7 +122,6 @@ in
         ]))
         # Other packages
         # pkgs.nuspell   # https://github.com/nuspell/nuspell
-        # pkgs.hunspell  # https://github.com/hunspell/hunspell
       ]
       # JetBrains setup
       ++ [
@@ -164,19 +163,10 @@ in
     };
   };
 
-  programs = let
-    # Because these aliases are used for multiple shells, they are imported heer
-    # and assigned as a variable that can be used multiple times.
-    # NOTE: If you try to use import expression multiple times, it causes an
-    # error.
-    aliasLs = import ../../common-config/home-manager/aliases-ls.nix;
-  in {
+  programs = {
     home-manager.enable = true;
 
-    emacs = {
-      enable = true;
-      package = my-emacs-with-packages;
-    };
+    emacs = import ../../common-config/home-manager/emacs.nix { inherit pkgs; };
 
     # + Terminals
     alacritty = {

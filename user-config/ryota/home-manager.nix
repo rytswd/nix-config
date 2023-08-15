@@ -15,6 +15,9 @@ let
   #   withTreeSitter = true;
   #   withWebP = true;
   # };
+
+  # NOTE: This macport installation fails with clang-wrapper / compiler-rt dependencies.
+  # my-emacs = pkgs.emacs29-macport.override {
   my-emacs = pkgs.emacs29.override {
     withNativeCompilation = true;
     withSQLite3 = true;
@@ -25,11 +28,14 @@ let
     vterm
     multi-vterm
     treesit-grammars.with-all-grammars
+    jinx
   ]);
 in
 {
   home = {
-    stateVersion = "22.11";
+    # NOTE: This state version failed to build once -- it seems OK now.
+    stateVersion = "23.05";
+    # stateVersion = "22.11";
 
     username = "${username}";
     homeDirectory = "/Users/${username}";
@@ -46,8 +52,6 @@ in
           htop      # https://github.com/htop-dev/htop
           pass      # https://www.passwordstore.org/
           git-lfs   # https://github.com/git-lfs/git-lfs
-          # cmake     # Needed for compiling Emacs's vterm
-          # libvterm  # Needed for Emacs's vterm
           zellij    # https://github.com/zellij-org/zellij
           tree-sitter # https://github.com/tree-sitter/tree-sitter
 
@@ -105,6 +109,17 @@ in
         pkgs.nodePackages.pnpm
         pkgs.nodePackages.prettier
       ]
+      # Dictionaries
+      ++ [
+        # nuspell   # https://github.com/nuspell/nuspell
+        # hunspell  # https://github.com/hunspell/hunspell
+        # enchant   # https://github.com/AbiWord/enchant
+        pkgs.enchant
+        (pkgs.hunspellWithDicts (with pkgs.hunspellDicts; [
+          en_GB-large
+          en_US
+        ]))
+      ]
       # JetBrains setup
       ++ [
         # pkgs.jetbrains.idea-ultimate
@@ -112,6 +127,8 @@ in
       ]
       # + GCP specific setup
       # Ref: https://github.com/NixOS/nixpkgs/issues/99280
+      # TODO: Consider removing this from Home Manager, it is quite annoying
+      # how slow it is to fetch the source.
       ++ [
         (with pkgs.google-cloud-sdk;
           withExtraComponents ([ components.gke-gcloud-auth-plugin ])

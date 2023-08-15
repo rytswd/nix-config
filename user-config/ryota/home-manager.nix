@@ -27,8 +27,7 @@ let
   my-emacs-with-packages = (pkgs.emacsPackagesFor my-emacs).emacsWithPackages (epkgs: with epkgs; [
     vterm
     multi-vterm
-    treesit-grammars.with-all-grammars
-    jinx
+    jinx    # https://github.com/minad/jinx
   ]);
 in
 {

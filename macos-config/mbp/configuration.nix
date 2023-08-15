@@ -22,6 +22,9 @@ in {
 
     settings = {
       trusted-users = [ "@admin" ];
+
+      substituters = [ "https://rytswd-nix-config.cachix.org" ];
+      trusted-public-keys = [ "rytswd-nix-config.cachix.org-1:fpZQ465aGF2LYQ8oKOrd5c8kxaNmD7wBEK/yyhSQozo=" ];
     };
   };
 
@@ -39,16 +42,16 @@ in {
         jq
         comma
         nix-index
+        cachix
         # Ensure that the latest zsh is available globally. This is to ensure
         # any app that needs to tie to a shell setup would be backed by Nix. An
         # example is Alacritty, where it needs to use the right shell version
         # specified in the config.
         zsh
       ;
-    }
-    ;
+    };
   };
-
+    
   users.users.${username} = {
     home = "/Users/${username}";
     shell = pkgs.fish; # TODO: This is not being picked up correctly.

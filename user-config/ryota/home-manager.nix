@@ -33,33 +33,43 @@
           #--------------------------------
           # authy
           keybase
+          # surrealdb # TODO: This is failing to build now.
 
           ###------------------------------
           ##   Kubernetes
           #--------------------------------
           docker
           kubectl
+          kustomize
+          kubernetes-helm
           kind
           krew
           k9s
           kube3d
           kubectx
+          kubeseal
           pinniped
+          istioctl
 
-          deno
           ###------------------------------
           ##   Coding
           #--------------------------------
+
           # Go
           go    # Needed because Vim plugin govim requires this.
+          ko
           gopls
 
           # JS
+          deno
           yarn
-          pandoc      # Markdown support
+
           # Shell
           shellcheck  # I want this for any code base
+
           # Markdown
+          pandoc      # Markdown support
+
           # C
           clang-tools
 

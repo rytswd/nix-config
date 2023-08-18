@@ -8,10 +8,13 @@
     homeDirectory = "/Users/${username}";
 
     packages =
+      # Some common packages I use for any envs are bundled in a separate file.
       import(../../common-config/home-manager/packages.nix) { inherit pkgs; }
       ++ pkgs.lib.attrValues {
         inherit (pkgs)
-          # + Additional Utilities
+          ###------------------------------
+          ##   Additional Utilities
+          #--------------------------------
           du-dust   # https://github.com/bootandy/dust
           bandwhich # https://github.com/imsnif/bandwhich
           mkcert    # https://github.com/FiloSottile/mkcert
@@ -22,12 +25,18 @@
           zellij    # https://github.com/zellij-org/zellij
           tree-sitter # https://github.com/tree-sitter/tree-sitter
 
-          # + More Utilities
+          ###------------------------------
+          ##   More Utilities
+          #
           # These can be somewhat env specific.
+          #
+          #--------------------------------
           # authy
           keybase
 
-          # + Kubernetes
+          ###------------------------------
+          ##   Kubernetes
+          #--------------------------------
           docker
           kubectl
           kind
@@ -37,46 +46,63 @@
           kubectx
           pinniped
 
-          # + Coding
           deno
+          ###------------------------------
+          ##   Coding
+          #--------------------------------
+          # Go
           go    # Needed because Vim plugin govim requires this.
           gopls
 
+          # JS
           yarn
           pandoc      # Markdown support
+          # Shell
           shellcheck  # I want this for any code base
+          # Markdown
+          # C
           clang-tools
 
-          # + Editors
-          # emacs         # This is defined below in the program section.
+          ###------------------------------
+          ##   Editors
+          #
+          # NOTE: Emacs is defined in programs section instead.
+          #--------------------------------
           vscode
           vscode-insiders # Added from the overlay setup
 
-          # + Other UI Tools
+          ###------------------------------
+          ##   Other UI Tools
+          #--------------------------------
           discord
           slack
           zoom-us
           # rectangle # https://rectangleapp.com/ # No longer using this as I'm now using Raycast.
 
-          # + Services
+          ###------------------------------
+          ##   Services
+          #--------------------------------
           awscli
-
-          # + Other Tools
-          # surrealdb # TODO: This is failing to build now.
         ;
       }
-      # Python setup
+      ###------------------------------
+      ##   Python
+      #--------------------------------
       ++ (with pkgs; [
         python311
         poetry
         python311.pkgs.pip
       ])
-      # Node.js related setup
+      ###------------------------------
+      ##   Node Packages
+      #--------------------------------
       ++ (with pkgs.nodePackages; [
         pnpm
         prettier
       ])
-      # Dictionaries
+      ###------------------------------
+      ##   Dictionaries
+      #--------------------------------
       ++ [
         # pkgs.enchant  # https://github.com/AbiWord/enchant
         (pkgs.aspellWithDicts (dicts: with dicts; [
@@ -91,12 +117,16 @@
         # Other packages
         # pkgs.nuspell   # https://github.com/nuspell/nuspell
       ]
-      # JetBrains setup
+      ###------------------------------
+      ##   JetBrains Related
+      #--------------------------------
       ++ [
         # pkgs.jetbrains.idea-ultimate
         # pkgs.jetbrains.idea-community
       ]
-      # + GCP specific setup
+      ###------------------------------
+      ##   GCP
+      #--------------------------------
       # Ref: https://github.com/NixOS/nixpkgs/issues/99280
       # TODO: Consider removing this from Home Manager, it is quite annoying
       # how slow it is to fetch the source.
@@ -105,7 +135,9 @@
           withExtraComponents ([ components.gke-gcloud-auth-plugin ])
         )
       ]
-      # + Other
+      ###------------------------------
+      ##   Other
+      #--------------------------------
       ++ [
         (import ../../common-config/overlays/erdtree.nix { inherit (pkgs) lib rustPlatform fetchFromGitHub; }) # Install erdtree directly
         # (import ../../common-config/overlays/mirrord.nix { inherit pkgs; }) # mirrord isn't available in nixpkgs

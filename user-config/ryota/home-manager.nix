@@ -260,6 +260,8 @@
 
       "bat/config".source = ./bat-config.sh;
 
+      "enchant/enchant.ordering".source = ../../common-config/enchant.ordering;
+
       "git".source = ../../common-config/git;
       "git".recursive = true;
 

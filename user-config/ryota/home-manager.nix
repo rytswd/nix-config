@@ -284,5 +284,8 @@
       # dedicated configuration file.
       "zsh-abbr/user-abbreviations".source = ../../common-config/zsh/zsh-abbr.txt;
     };
+    # dataFile = {
+    #   "hunspell/some_dict".source = some_file; # TODO: If I were to pull in like this, I need to sort this out.
+    # };
   };
 }

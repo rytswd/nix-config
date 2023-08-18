@@ -93,32 +93,40 @@ in {
   homebrew = {
     enable = true;
     casks = [
-      # + Editors
-      # TODO: Work out Emacs setup here
-      # "d12frosted/emacs-plus/emacs-plus@29"
-
-      # + Browser
+      ###------------------------------
+      ##   Browser
+      #--------------------------------
       "brave-browser"
       "google-chrome"
       "firefox"
       "microsoft-edge-dev"
 
-      # + Input
+      ###------------------------------
+      ##   Input
+      #--------------------------------
       "google-japanese-ime"
 
-      # + Storage
+      ###------------------------------
+      ##   Storage
+      #--------------------------------
       # "google-drive"
 
-      # + Music
+      ###------------------------------
+      ##   Music
+      #--------------------------------
       "spotify"
 
-      # + Utilities
+      ###------------------------------
+      ##   Utilities
+      #--------------------------------
       "kap"
       "authy"
       "raycast"
       "docker"
 
-      # + Other
+      ###------------------------------
+      ##   Other
+      #--------------------------------
       "gather"
     ];
   };
@@ -154,7 +162,6 @@ in {
 
         NSAutomaticCapitalizationEnabled = false;     # Disable automatic capitalization.
         NSAutomaticPeriodSubstitutionEnabled = false; # Disable double-space to add period.
-
 
         # TODO: Check whether these values are better managed at different level
         # than NSGlobalDomain.

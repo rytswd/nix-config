@@ -2,7 +2,9 @@
 
 pkgs.lib.attrValues {
   inherit (pkgs)
-    # + Core
+    ###------------------------------
+    ##   Core Packages
+    #--------------------------------
     coreutils
     curl
     git # NOTE: This is actually installed at system level.
@@ -11,7 +13,9 @@ pkgs.lib.attrValues {
     watch
     wget
 
-    # + Utilities
+    ###------------------------------
+    ##   Utilities
+    #--------------------------------
     bat
     delta
     exa
@@ -22,7 +26,12 @@ pkgs.lib.attrValues {
     # rm-improved
     # sd
 
-    # + Other
+    ###------------------------------
+    ##   Other
+    #--------------------------------
+    # I used to use most of the below, but starting to move away from them.
+    # I currently don't see anything to be installed at this level.
+
     # tailscale
     # alacritty
     # slack

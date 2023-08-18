@@ -12,7 +12,7 @@ let
   # }) {};
 
   # NOTE: This macport installation fails with clang-wrapper / compiler-rt dependencies.
-  # my-emacs = pkgs.emacs29-macport.override {
+  # emacs = pkgs.emacs29-macport.override {
   emacs = pkgs.emacs29.override {
     withNativeCompilation = true;
     withSQLite3 = true;

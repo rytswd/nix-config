@@ -73,6 +73,9 @@
           # C
           clang-tools
 
+          # Protobuf
+          buf
+
           ###------------------------------
           ##   Editors
           #

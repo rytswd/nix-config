@@ -1,40 +1,8 @@
 { config, pkgs, username, ... }:
 
-# let
-#   # emacs-overlay = import (fetchTarball {
-#   #     url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-#   #     sha256 = "1jppksrfvbk5ypiqdz4cddxdl8z6zyzdb2srq8fcffr327ld5jj2";
-#   #   });
-#   # nixpkgs-with-emacs = import (builtins.fetchTarball {
-#   #   url = "https://github.com/NixOS/nixpkgs/archive/5f98e7c92b1a7030324c85c40fa0b46e0ba4cb23.tar.gz";
-#   #   sha256 = "sha256:1i2f7hfw5xp3hhkaaq8z6z9bhdx5yf2j65pmg4f1wxv4d0dswfpi";
-#   # }) {};
-#   # emacs-29-macport = nixpkgs-with-emacs.emacs.override {
-#   #   withNativeCompilation = true;
-#   #   withSQLite3 = true;
-#   #   withTreeSitter = true;
-#   #   withWebP = true;
-#   # };
-
-#   # NOTE: This macport installation fails with clang-wrapper / compiler-rt dependencies.
-#   # my-emacs = pkgs.emacs29-macport.override {
-#   my-emacs = pkgs.emacs29.override {
-#     withNativeCompilation = true;
-#     withSQLite3 = true;
-#     withTreeSitter = true;
-#     withWebP = true;
-#   };
-#   my-emacs-with-packages = (pkgs.emacsPackagesFor my-emacs).emacsWithPackages (epkgs: with epkgs; [
-#     vterm
-#     multi-vterm
-#     jinx    # https://github.com/minad/jinx
-#   ]);
-# in
 {
   home = {
-    # NOTE: This state version failed to build once -- it seems OK now.
     stateVersion = "23.05";
-    # stateVersion = "22.11";
 
     username = "${username}";
     homeDirectory = "/Users/${username}";

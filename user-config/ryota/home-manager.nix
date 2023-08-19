@@ -274,6 +274,9 @@
       "git".source = ../../common-config/git;
       "git".recursive = true;
 
+      "kind".source = ./kind-config;
+      "kind".recursive = true;
+      
       # Providing the below config via programs.tmux instead.
       # "tmux/tmux.conf".source        = ../../common-config/tmux/tmux.conf;
       "tmux/keybindings.conf".source = ../../common-config/tmux/keybindings.conf;

@@ -112,6 +112,8 @@
       ++ (with pkgs.nodePackages; [
         pnpm
         prettier
+        vscode-langservers-extracted
+        mermaid-cli
       ])
       ###------------------------------
       ##   Dictionaries

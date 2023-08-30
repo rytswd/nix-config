@@ -27,10 +27,9 @@
 
           ###------------------------------
           ##   More Utilities
-          #
-          # These can be somewhat env specific.
-          #
           #--------------------------------
+          # These can be somewhat env specific.
+
           # authy
           keybase
           # surrealdb # TODO: This is failing to build now.
@@ -78,9 +77,8 @@
 
           ###------------------------------
           ##   Editors
-          #
-          # NOTE: Emacs is defined in programs section instead.
           #--------------------------------
+          # NOTE: Emacs is defined in programs section instead.
           vscode
           vscode-insiders # Added from the overlay setup
 

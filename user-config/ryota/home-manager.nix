@@ -101,17 +101,19 @@
       #--------------------------------
       ++ (with pkgs; [
         python311
-        poetry
+        poetry    # https://python-poetry.org/
         python311.pkgs.pip
+        grip      # https://github.com/joeyespo/grip
       ])
       ###------------------------------
       ##   Node Packages
       #--------------------------------
       ++ (with pkgs.nodePackages; [
-        pnpm
-        prettier
+        pnpm        # https://pnpm.io/
+        prettier    # https://prettier.io/
         vscode-langservers-extracted
-        mermaid-cli
+        # svelte-language-server
+        mermaid-cli # https://mermaid.js.org/ -- also known as mmdc
       ])
       ###------------------------------
       ##   Dictionaries

@@ -32,6 +32,7 @@
 
           # authy
           keybase
+          # puppeteer-cli # Used for mermaid -- NOTE: Broken and cannot be installed
           # surrealdb # TODO: This is failing to build now.
 
           ###------------------------------
@@ -103,7 +104,7 @@
         python311
         poetry    # https://python-poetry.org/
         python311.pkgs.pip
-        grip      # https://github.com/joeyespo/grip
+        # grip      # https://github.com/joeyespo/grip # Fails to build following flake update
       ])
       ###------------------------------
       ##   Node Packages

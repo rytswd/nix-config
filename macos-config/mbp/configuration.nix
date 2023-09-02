@@ -38,16 +38,28 @@ in {
     # Globally installed packages
     systemPackages = pkgs.lib.attrValues {
       inherit (pkgs)
+        ###------------------------------
+        ##   System Tools
+        #--------------------------------
         git
         jq
-        comma
-        nix-index
-        cachix
         # Ensure that the latest zsh is available globally. This is to ensure
         # any app that needs to tie to a shell setup would be backed by Nix. An
         # example is Alacritty, where it needs to use the right shell version
         # specified in the config.
         zsh
+
+        ###------------------------------
+        ##   Nix Related
+        #--------------------------------
+        comma
+        nix-index
+        cachix
+
+        ###------------------------------
+        ##   UI Tools
+        #--------------------------------
+        # karabiner-elements # Couldn't make it work, disabling
       ;
     };
   };

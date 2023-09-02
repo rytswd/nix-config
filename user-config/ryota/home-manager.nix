@@ -60,6 +60,12 @@
           ko
           gopls
 
+          # Rust
+          rustc
+          cargo
+          rust-analyzer
+          # rustup # Not working, probably due to overlay?
+
           # JS
           deno
           yarn

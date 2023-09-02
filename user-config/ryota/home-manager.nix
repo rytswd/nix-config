@@ -33,7 +33,7 @@
           # authy
           keybase
           # puppeteer-cli # Used for mermaid -- NOTE: Broken and cannot be installed
-          # surrealdb # TODO: This is failing to build now.
+          surrealdb
 
           ###------------------------------
           ##   Kubernetes

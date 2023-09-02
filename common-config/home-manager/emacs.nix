@@ -11,9 +11,13 @@ let
   #   sha256 = "sha256:1i2f7hfw5xp3hhkaaq8z6z9bhdx5yf2j65pmg4f1wxv4d0dswfpi";
   # }) {};
 
-  # NOTE: This macport installation fails with clang-wrapper / compiler-rt dependencies.
-  # emacs = pkgs.emacs29-macport.override {
-  emacs = pkgs.emacs29.override {
+  emacs-macport = pkgs.emacs29-macport.override {
+    withNativeCompilation = true;
+    withSQLite3 = true;
+    withTreeSitter = true;
+    withWebP = true;
+  };
+  emacs-plus = pkgs.emacs29.override {
     withNativeCompilation = true;
     withSQLite3 = true;
     withTreeSitter = true;
@@ -30,8 +34,13 @@ let
 in
 {
   enable = true;
+  
+  # TODO: Emacs Macport works with transparency, but I get a bit of weird frame
+  # jitters with it. For now, I'm using emacs-plus which seems to be more stable
+  # (but does not support true transpaerncy, precision scroll, etc.).
   # package = emacs-with-packages;
-  package = emacs;
+  package = emacs-plus;
+  
   extraPackages = (epkgs: with epkgs; [
     vterm
     multi-vterm

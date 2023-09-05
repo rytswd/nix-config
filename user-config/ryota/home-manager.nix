@@ -32,7 +32,7 @@
 
           # authy
           keybase
-          # puppeteer-cli # Used for mermaid -- NOTE: Broken and cannot be installed
+          # puppeteer-cli # Used for mermaid -- NOTE: Broken with mesa dependency and cannot be installed
           surrealdb
 
           ###------------------------------

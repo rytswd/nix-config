@@ -18,7 +18,7 @@ pkgs.lib.attrValues {
     #--------------------------------
     bat
     delta
-    exa
+    eza
     fd
     jq # NOTE: This is actually installed at system level.
     ripgrep

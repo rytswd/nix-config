@@ -3,7 +3,7 @@
 {
   enable = true;
   shellAliases =
-    (import ./aliases-ls.nix { withExa = true; }) //
+    (import ./aliases-ls.nix { withEza = true; }) //
     {
       # Any aliases specific for bash can be defined here.
 

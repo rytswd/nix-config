@@ -4,7 +4,7 @@
   enable = true;
   # Add fish specific aliases
   shellAliases =
-    (import ./aliases-ls.nix { withExa = true; }) //
+    (import ./aliases-ls.nix { withEza = true; }) //
     {
       # Any aliases specific for fish can be defined here.
     };

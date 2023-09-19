@@ -1,4 +1,4 @@
-{ withExa ? false }:
+{ withEza ? false }:
 
 {
   # Use default ls.
@@ -8,17 +8,17 @@
   la  = "ls -laF --color=auto --group-directories-first";
   ll  = "ls -ltrF --color=auto --group-directories-first";
 }
-# If exa is the preference, override the ls based commands. Otherwise, add
+# If eza is the preference, override the ls based commands. Otherwise, add
 # equivalent commands with an "x" prefix.
-// (if (withExa) then {
-  ls  = "exa --group-directories-first --classify";
-  l   = "exa -l --group-directories-first --classify";
-  ll  = "exa -lT --group-directories-first --classify";
-  la  = "exa -la --group-directories-first --classify";
-  llt = "exa -laTF --git --group-directories-first --git-ignore --ignore-glob .git";
+// (if (withEza) then {
+  ls  = "eza --group-directories-first --classify";
+  l   = "eza -l --group-directories-first --classify";
+  ll  = "eza -lT --group-directories-first --classify";
+  la  = "eza -la --group-directories-first --classify";
+  llt = "eza -laTF --git --group-directories-first --git-ignore --ignore-glob .git";
 } else {
-  xls = "exa --group-directories-first --classify";
-  xl  = "exa -l --group-directories-first --classify";
-  xll = "exa -laTF --git --group-directories-first --git-ignore --ignore-glob .git";
-  xla = "exa -la --group-directories-first --classify";
+  xls = "eza --group-directories-first --classify";
+  xl  = "eza -l --group-directories-first --classify";
+  xll = "eza -laTF --git --group-directories-first --git-ignore --ignore-glob .git";
+  xla = "eza -la --group-directories-first --classify";
 })

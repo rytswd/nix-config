@@ -75,13 +75,16 @@ in {
     fonts = [
       (pkgs.nerdfonts.override {
         fonts = [
+          "DroidSansMono"
           "FiraCode"
           "FiraMono"
           "Hack"
-          "DroidSansMono"
-          "Noto"
+          "Iosevka"
           "NerdFontsSymbolsOnly"
+          "Noto"
         ]; })
+    ] ++ [
+      pkgs.raleway
     ];
   };
 

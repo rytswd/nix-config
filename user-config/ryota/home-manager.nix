@@ -3,7 +3,7 @@
 {
   # TODO: Work around for build error relating to 'mistune.renderers' has no attribute 'BaseRenderer'.
   manual.manpages.enable = false;
-  
+
   home = {
     stateVersion = "23.05";
 

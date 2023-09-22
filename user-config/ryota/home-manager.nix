@@ -74,6 +74,9 @@
           deno
           yarn
 
+          # Sass
+          dart-sass
+
           # Shell
           shellcheck  # I want this for any code base
 

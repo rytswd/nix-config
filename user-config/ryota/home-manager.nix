@@ -120,7 +120,7 @@
         pnpm        # https://pnpm.io/
         prettier    # https://prettier.io/
         vscode-langservers-extracted
-        # svelte-language-server
+        svelte-language-server
         mermaid-cli # https://mermaid.js.org/ -- also known as mmdc
       ])
       ###------------------------------

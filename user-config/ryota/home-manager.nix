@@ -111,7 +111,7 @@
         python311
         poetry    # https://python-poetry.org/
         python311.pkgs.pip
-        # grip      # https://github.com/joeyespo/grip # Fails to build following flake update
+        python311.pkgs.grip # https://github.com/joeyespo/grip
       ])
       ###------------------------------
       ##   Node Packages

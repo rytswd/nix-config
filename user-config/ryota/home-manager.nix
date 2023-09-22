@@ -34,6 +34,7 @@
           keybase
           # puppeteer-cli # Used for mermaid -- NOTE: Broken with mesa dependency and cannot be installed
           surrealdb
+          pngpaste # https://github.com/jcsalterego/pngpaste
 
           ###------------------------------
           ##   Kubernetes

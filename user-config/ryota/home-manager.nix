@@ -54,6 +54,7 @@
           kubeseal
           pinniped
           istioctl
+          civo
 
           ###------------------------------
           ##   Coding
@@ -108,6 +109,7 @@
           ##   Services
           #--------------------------------
           awscli
+          flyctl
         ;
       }
       ###------------------------------
@@ -118,6 +120,7 @@
         poetry    # https://python-poetry.org/
         python311.pkgs.pip
         python311.pkgs.grip # https://github.com/joeyespo/grip
+        python311.pkgs.diagrams
       ])
       ###------------------------------
       ##   Node Packages

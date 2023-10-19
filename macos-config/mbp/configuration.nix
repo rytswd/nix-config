@@ -142,7 +142,7 @@ in {
       ###------------------------------
       ##   Other
       #--------------------------------
-      "gather"
+      # "gather"
       "signal" # signal-desktop package on Nix doesn't work on macOS.
     ];
   };

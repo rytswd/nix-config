@@ -45,5 +45,6 @@ in
     vterm
     multi-vterm
     jinx
+    treesit-grammars.with-all-grammars
   ]);
 }

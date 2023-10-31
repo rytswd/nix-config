@@ -1,18 +1,9 @@
-{ config, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let username = inputs.username;
 in {
   nix = {
     configureBuildUsers = true;
-
-    # Enable experimental Nix command and Flakes.
-    extraOptions = ''
-      experimental-features = nix-command flakes
-      auto-optimise-store = true
-      keep-outputs = true
-      keep-derivations = true
-      extra-platforms = x86_64-darwin aarch64-darwin
-    '';
 
     gc = {
       automatic = true;
@@ -23,14 +14,39 @@ in {
     settings = {
       trusted-users = [ "@admin" ];
 
-      substituters = [ "https://rytswd-nix-config.cachix.org" ];
-      trusted-public-keys = [ "rytswd-nix-config.cachix.org-1:fpZQ465aGF2LYQ8oKOrd5c8kxaNmD7wBEK/yyhSQozo=" ];
+      auto-optimise-store = true;
+      # Recommended when using `direnv` etc.
+      keep-derivations = true;
+      keep-outputs = true;
+
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+
+      substituters = [
+        "https://cache.nixos.org/"
+        "https://rytswd-nix-config.cachix.org"
+      ];
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "rytswd-nix-config.cachix.org-1:fpZQ465aGF2LYQ8oKOrd5c8kxaNmD7wBEK/yyhSQozo="
+        # "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+        # "emacs-osx.cachix.org-1:Q2++pOcNsiEjmDLufCzzdquwktG3fFDYzZrd8cEj5Aw="
+        # "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
+
+      extra-platforms = lib.mkIf (pkgs.system == "aarch64-darwin") [ "x86_64-darwin" "aarch64-darwin" ];
+
     };
   };
 
   # Ensure Nix daemon is running.
   services = {
-    nix-daemon.enable = true;
+    nix-daemon = {
+      enable = true;
+      logFile = "/var/log/nix-daemon.log";
+    };
   };
 
   environment = {

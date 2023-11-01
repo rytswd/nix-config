@@ -43,7 +43,7 @@ in
   
   extraPackages = (epkgs: with epkgs; [
     vterm
-    multi-vterm
+    # multi-vterm
     jinx
     treesit-grammars.with-all-grammars
   ]);

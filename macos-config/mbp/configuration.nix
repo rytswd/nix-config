@@ -37,12 +37,11 @@ in {
       ];
 
       extra-platforms = lib.mkIf (pkgs.system == "aarch64-darwin") [ "x86_64-darwin" "aarch64-darwin" ];
-
     };
   };
 
-  # Ensure Nix daemon is running.
   services = {
+    # Ensure Nix daemon is running.
     nix-daemon = {
       enable = true;
       logFile = "/var/log/nix-daemon.log";
@@ -226,6 +225,12 @@ in {
       };
 
       trackpad.Clicking = true;
+
+      # TODO: Needs to be tested.
+      # keyboard = {
+      #   enableKeyMapping = true;
+      #   remapCapsLockToControl = true;
+      # };
 
       # screencapture.location = "/Users/${username}/Google \Drive/My \Drive/Screenshots";
 

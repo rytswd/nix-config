@@ -55,7 +55,7 @@
         # + Overlays
         # Go -- prefer the latest version
         goOverlay = (final: prev: {
-          go = nixpkgs-unstable.legacyPackages.${prev.system}.go_1_20;
+          go = nixpkgs-unstable.legacyPackages.${prev.system}.go_1_21;
         });
         vscodeOverlay = import ./common-config/overlays/vscode.nix;
 

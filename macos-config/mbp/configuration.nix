@@ -100,6 +100,7 @@ in {
         ]; })
     ] ++ [
       pkgs.raleway
+      pkgs.monaspace
     ];
   };
 

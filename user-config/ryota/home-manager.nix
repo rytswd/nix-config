@@ -38,6 +38,7 @@
           # puppeteer-cli # Used for mermaid -- NOTE: Broken with mesa dependency and cannot be installed
           surrealdb
           pngpaste # https://github.com/jcsalterego/pngpaste
+          ollama   # https://github.com/jmorganca/ollama
 
           ###------------------------------
           ##   Kubernetes
@@ -295,7 +296,7 @@
 
       "kind".source = ./kind-config;
       "kind".recursive = true;
-      
+
       # Providing the below config via programs.tmux instead.
       # "tmux/tmux.conf".source        = ../../common-config/tmux/tmux.conf;
       "tmux/keybindings.conf".source = ../../common-config/tmux/keybindings.conf;

@@ -98,7 +98,7 @@
             vscodeOverlay
             goOverlay
             rustOverlay
-            fenixOverlay
+            # fenixOverlay
           ];
         });
         ryota-test-mbp = (import ./macos-config/mbp {

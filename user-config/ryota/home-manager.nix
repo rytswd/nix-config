@@ -221,6 +221,7 @@
     bash = import ../../common-config/home-manager/bash.nix { inherit pkgs; };
     fish = import ../../common-config/home-manager/fish.nix { inherit pkgs; };
     zsh  = import ../../common-config/home-manager/zsh.nix  { inherit pkgs; };
+    nushell = import ../../common-config/home-manager/nushell.nix { inherit pkgs; };
 
     tmux = import ../../common-config/home-manager/tmux.nix { inherit pkgs; };
 

@@ -19,6 +19,7 @@ let
   };
   emacs-plus = pkgs.emacs29.override {
     withNativeCompilation = true;
+    withNS = true;
     withSQLite3 = true;
     withTreeSitter = true;
     withWebP = true;
@@ -38,7 +39,6 @@ in
   # TODO: Emacs Macport works with transparency, but I get a bit of weird frame
   # jitters with it. For now, I'm using emacs-plus which seems to be more stable
   # (but does not support true transpaerncy, precision scroll, etc.).
-  # package = emacs-with-packages;
   package = emacs-plus;
   
   extraPackages = (epkgs: with epkgs; [

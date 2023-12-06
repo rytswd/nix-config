@@ -252,7 +252,7 @@
       enableBashIntegration = true;
       enableZshIntegration = true;
       enableFishIntegration = true;
-      # enableNushellIntegration = true; # Commenting out as I'm not using Nushell at the moment
+      enableNushellIntegration = true;
     };
 
     # + Editors

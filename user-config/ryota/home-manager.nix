@@ -67,10 +67,15 @@
           gopls
 
           # Rust
-          rustc
-          cargo
-          rust-analyzer
-          # rustup # Not working, probably due to overlay?
+          # NOTE: Rust setup is either to use Nix based build setup, or rely on
+          # rustup. Because when I really need to get a version controlled Rust,
+          # it would be based on direnv setup, I'm using rustup as the default
+          # instead. Nix setup here only handles the installation on rustup CLI
+          # itself, and the rest is managed outside of Nix for simplicity.
+          rustup
+          # rustc
+          # cargo
+          # rust-analyzer
 
           # JS
           deno

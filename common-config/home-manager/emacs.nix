@@ -40,6 +40,7 @@ in
   # jitters with it. For now, I'm using emacs-plus which seems to be more stable
   # (but does not support true transpaerncy, precision scroll, etc.).
   package = emacs-plus;
+  # package = emacs-macport;
   
   extraPackages = (epkgs: with epkgs; [
     vterm

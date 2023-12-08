@@ -48,10 +48,10 @@ in {
     };
     # TODO: Check if I can move this off from mbp-config, so that it doesn't
     # affect all users at the same time.
-    yabai = {
-      enable = true;
-      # yabai would pick up the config under XDG_CONFIG_HOME.
-    };
+    # yabai = {
+    #   enable = true;
+    #   # yabai would pick up the config under XDG_CONFIG_HOME.
+    # };
   };
 
   environment = {

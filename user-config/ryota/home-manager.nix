@@ -185,6 +185,7 @@
       #--------------------------------
       ++ [
         pkgs.skhd
+        pkgs.yabai
       ]
       ###------------------------------
       ##   Other
@@ -226,6 +227,39 @@
         RunAtLoad = true;
         ProcessType = "Background";
         WorkingDirectory = "/tmp/";
+      };
+    };
+    yabai = {
+      enable = true;
+      config = {
+        ProgramArguments = [
+          # TODO: Correct the XDG directory reference
+          "${pkgs.yabai}/bin/yabai"
+          "-c"
+          "/Users/${username}/.config/yabai/yabairc"
+        ];
+        EnvironmentVariables = {
+          # Ensure PATH is correctly handled
+          PATH = pkgs.lib.concatStringsSep ":" [
+            "/Users/${username}/.nix-profile/bin"
+            "/etc/profiles/per-user/${username}/bin"
+            "/run/current-system/sw/bin"
+            "/nix/var/nix/profiles/default/bin"
+            "/usr/local/bin"
+            "/usr/bin"
+            "/usr/sbin"
+            "/bin"
+            "/sbin"
+          ];
+        };
+        # Although I would usually want to keep it runnig, yabai, upon startup,
+        # updates the window configuration of any open windows. That would be
+        # really annoying, and would want to keep it stopped.
+        KeepAlive = false;
+        RunAtLoad = true;
+        WorkingDirectory  = "/tmp/";
+        StandardOutPath   = "/tmp/yabai.log";
+        StandardErrorPath = "/tmp/yabai.log";
       };
     };
     skhd = {

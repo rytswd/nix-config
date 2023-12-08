@@ -39,6 +39,7 @@
           surrealdb
           pngpaste # https://github.com/jcsalterego/pngpaste
           ollama   # https://github.com/jmorganca/ollama
+          imagemagick # https://github.com/imagemagick/imagemagick
 
           ###------------------------------
           ##   Kubernetes

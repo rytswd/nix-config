@@ -271,7 +271,11 @@
           "-c"
           "/Users/${username}/.config/skhd/skhdrc"
         ];
-        KeepAlive = true;
+        KeepAlive = {
+          # When stopped with launchctl, keep it stopped.
+          # Otherwise try to restart at all the time.
+          SuccessfulExit = false;
+        };
         RunAtLoad = true;
         WorkingDirectory  = "/tmp/";
         StandardOutPath   = "/tmp/skhd.log";

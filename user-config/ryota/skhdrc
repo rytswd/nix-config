@@ -1,5 +1,28 @@
-# move window and split
-ctrl + alt - j : yabai -m window --warp south
-ctrl + alt - k : yabai -m window --warp north
-ctrl + alt - h : yabai -m window --warp west
-ctrl + alt - l : yabai -m window --warp east
+###========================================
+##   Yabai Configuration
+#==========================================
+
+###----------------------------------------
+##   Start / Stop
+#------------------------------------------
+ctrl + alt - escape : launchctl start org.nixos.yabai
+ctrl + alt - escape : launchctl stop org.nixos.yabai
+
+
+###----------------------------------------
+##   Window Size
+#------------------------------------------
+# A lot of configs coming from:
+# https://github.com/FelixKratz/dotfiles/blob/master/.config/skhd/skhdrc
+ctrl + lalt - return : yabai -m window --toggle zoom-fullscreen
+ctrl + lalt - f10    : yabai -m window --toggle float
+ctrl + lalt - left   : yabai -m window --resize right:-100:0 || yabai -m window --resize left:-100:0
+ctrl + lalt - right  : yabai -m window --resize right:100:0 || yabai -m window --resize left:100:0
+
+
+###========================================
+##   Sketchybar Configuration
+#==========================================
+rshift + ralt - space : sketchybar --bar hidden=toggle
+rshift + rcmd - space : sketchybar --remove '/.*/' && sh -c 'export CONFIG_DIR=$HOME/.config/sketchybar && $CONFIG_DIR/sketchybarrc'
+

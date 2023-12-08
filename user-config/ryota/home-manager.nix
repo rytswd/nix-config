@@ -326,6 +326,7 @@
       "tmux/options.conf".source     = ../../common-config/tmux/options.conf;
       # "tmux/tpm.conf".source         = ../../common-config/tmux/tpm.conf;
 
+      "yabai/yabairc".source = ./yabairc;
       # ZSH abbreviation with https://github.com/olets/zsh-abbr needs a
       # dedicated configuration file.
       "zsh-abbr/user-abbreviations".source = ../../common-config/zsh/zsh-abbr.txt;

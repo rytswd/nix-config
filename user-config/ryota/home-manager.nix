@@ -181,6 +181,12 @@
         )
       ]
       ###------------------------------
+      ##   macOS Specific
+      #--------------------------------
+      ++ [
+        pkgs.skhd
+      ]
+      ###------------------------------
       ##   Other
       #--------------------------------
       ++ [
@@ -220,6 +226,22 @@
         RunAtLoad = true;
         ProcessType = "Background";
         WorkingDirectory = "/tmp/";
+      };
+    };
+    skhd = {
+      enable = true;
+      config = {
+        ProgramArguments = [
+          # TODO: Correct the XDG directory reference
+          "${pkgs.skhd}/bin/skhd"
+          "-c"
+          "/Users/${username}/.config/skhd/skhdrc"
+        ];
+        KeepAlive = true;
+        RunAtLoad = true;
+        WorkingDirectory  = "/tmp/";
+        StandardOutPath   = "/tmp/skhd.log";
+        StandardErrorPath = "/tmp/skhd.log";
       };
     };
   };
@@ -326,7 +348,9 @@
       "tmux/options.conf".source     = ../../common-config/tmux/options.conf;
       # "tmux/tpm.conf".source         = ../../common-config/tmux/tpm.conf;
 
+      "skhd/skhdrc".source   = ./skhdrc;
       "yabai/yabairc".source = ./yabairc;
+
       # ZSH abbreviation with https://github.com/olets/zsh-abbr needs a
       # dedicated configuration file.
       "zsh-abbr/user-abbreviations".source = ../../common-config/zsh/zsh-abbr.txt;

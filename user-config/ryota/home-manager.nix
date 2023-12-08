@@ -208,6 +208,22 @@
     };
   };
 
+  launchd.agents = {
+    ollama = {
+      enable = true;
+      config = {
+        ProgramArguments = [
+          "${pkgs.ollama}/bin/ollama"
+          "serve"
+        ];
+        KeepAlive = true;
+        RunAtLoad = true;
+        ProcessType = "Background";
+        WorkingDirectory = "/tmp/";
+      };
+    };
+  };
+
   programs = {
     home-manager.enable = true;
 

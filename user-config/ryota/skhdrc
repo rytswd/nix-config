@@ -19,10 +19,20 @@ lctrl + lalt - escape : echo "Toggling yabai..."; \
 #------------------------------------------
 # A lot of configs coming from:
 # https://github.com/FelixKratz/dotfiles/blob/master/.config/skhd/skhdrc
-ctrl + lalt - return : yabai -m window --toggle zoom-fullscreen
-ctrl + lalt - f10    : yabai -m window --toggle float
-ctrl + lalt - left   : yabai -m window --resize right:-100:0 || yabai -m window --resize left:-100:0
-ctrl + lalt - right  : yabai -m window --resize right:100:0 || yabai -m window --resize left:100:0
+
+# Detach the window from tiling.
+lctrl + lalt - f10    : yabai -m window --toggle float
+# Maximise the window -- first try to fill the entire screen based on grid of
+# X:Y:Xoff:Yoff:W:H, which would fail when the window is managed by yabai. As a
+# fall back, use the "--toggle zoom-fullscreen", which would make the fullscreen
+# even when managed.
+lctrl + lalt - return : yabai -m window --grid 1:1:0:0:1:1 > /dev/null || yabai -m window --toggle zoom-fullscreen
+
+# Location aware resize so that it does the most natural shrink / expand.
+lctrl + lalt - left   : yabai -m window --resize right:-100:0 > /dev/null || yabai -m window --resize left:-100:0 > /dev/null
+lctrl + lalt - right  : yabai -m window --resize right:100:0 > /dev/null || yabai -m window --resize left:100:0 > /dev/null
+# lctrl + lalt - up     : yabai -m window --resize bottom:0:100 > /dev/null || yabai -m window --resize top:0:100 > /dev/null
+# lctrl + lalt - down   : yabai -m window --resize bottom:0:-100 > /dev/null || yabai -m window --resize top:0:-100 > /dev/null
 
 
 ###========================================

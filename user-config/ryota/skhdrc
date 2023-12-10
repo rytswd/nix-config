@@ -39,5 +39,6 @@ lctrl + lalt - right  : yabai -m window --resize right:100:0 > /dev/null || yaba
 ##   Sketchybar Configuration
 #==========================================
 rshift + ralt - space : sketchybar --bar hidden=toggle
-rshift + rcmd - space : sketchybar --remove '/.*/' && sh -c 'export CONFIG_DIR=$HOME/.config/sketchybar && $CONFIG_DIR/sketchybarrc'
+rshift + ralt - escape : sketchybar --bar hidden=toggle
+# rshift + rcmd - space : sketchybar --remove '/.*/' && sh -c 'export CONFIG_DIR=$HOME/.config/sketchybar && $CONFIG_DIR/sketchybarrc'
 

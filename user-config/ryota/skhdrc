@@ -5,9 +5,14 @@
 ###----------------------------------------
 ##   Start / Stop
 #------------------------------------------
-ctrl + alt - escape : launchctl start org.nixos.yabai
-ctrl + alt - escape : launchctl stop org.nixos.yabai
-
+lctrl + lalt - escape : echo "Toggling yabai..."; \
+    if launchctl list org.nix-community.home.yabai | grep -q "PID"; then; \
+        echo "Stopping yabai"; \
+        launchctl stop org.nix-community.home.yabai; \
+    else; \
+        echo "Starting yabai"; \
+        launchctl start org.nix-community.home.yabai; \
+    fi
 
 ###----------------------------------------
 ##   Window Size

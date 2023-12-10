@@ -184,6 +184,7 @@
       ##   macOS Specific
       #--------------------------------
       ++ [
+        pkgs.sketchybar
         pkgs.skhd
         pkgs.yabai
       ]
@@ -280,6 +281,38 @@
         WorkingDirectory  = "/tmp/";
         StandardOutPath   = "/tmp/skhd.log";
         StandardErrorPath = "/tmp/skhd.log";
+      };
+    };
+    sketchybar = {
+      enable = true;
+      config = {
+        ProgramArguments = [
+          "${pkgs.sketchybar}/bin/sketchybar"
+          "-c"
+          "/Users/${username}/.config/sketchybar/sketchybarrc.nu"
+        ];
+        EnvironmentVariables = {
+          # Ensure PATH is correctly handled
+          PATH = pkgs.lib.concatStringsSep ":" [
+            "/Users/${username}/.nix-profile/bin"
+            "/etc/profiles/per-user/${username}/bin"
+            "/run/current-system/sw/bin"
+            "/nix/var/nix/profiles/default/bin"
+            "/usr/local/bin"
+            "/usr/bin"
+            "/usr/sbin"
+            "/bin"
+            "/sbin"
+          ];
+        };
+        # Although I would usually want to keep it runnig, there are cases where
+        # I want to test updating some configurations. For that, it's best to
+        # stop using Nix based version and run a local process instead.
+        KeepAlive = false;
+        RunAtLoad = true;
+        WorkingDirectory  = "/tmp/";
+        StandardOutPath   = "/tmp/sketchybar.log";
+        StandardErrorPath = "/tmp/sketchybar.log";
       };
     };
   };
@@ -385,6 +418,9 @@
       "tmux/keybindings.conf".source = ../../common-config/tmux/keybindings.conf;
       "tmux/options.conf".source     = ../../common-config/tmux/options.conf;
       # "tmux/tpm.conf".source         = ../../common-config/tmux/tpm.conf;
+
+      "sketchybar".source = ./sketchybar;
+      "sketchybar".recursive = true;
 
       "skhd/skhdrc".source   = ./skhdrc;
       "yabai/yabairc".source = ./yabairc;

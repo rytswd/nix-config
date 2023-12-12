@@ -21,7 +21,7 @@ export module calendar {
       #----------------------
       $"background.height=($appearance.item_background_height)"
       $"background.y_offset=0"
-      $"background.color=($colour.glass_dark)"
+      $"background.color=($appearance.item_background_colour)"
       $"background.padding_right=4"
       $"background.padding_left=0"
       $"background.corner_radius=($appearance.item_background_corner_radius)"
@@ -32,22 +32,23 @@ export module calendar {
       #----------------------
       # N/A
       $"icon="
-      $"icon.color=($colour.subtle_black)"
-      $"icon.background.color=($colour.glass)"
+      $"icon.color=($appearance.item_icon_colour)"
+      $"icon.color=($colour.blue)"
+      # $"icon.background.color=($colour.blue)"
 
       $"icon.width=18"
-      $"icon.font.size=22"
+      $"icon.font.size=24"
       $"icon.background.height=17"
-      $"icon.y_offset=1"
-      $"icon.background.y_offset=1"
+      $"icon.y_offset=2"
+      $"icon.background.y_offset=0"
       $"icon.background.corner_radius=0"
-      $"icon.padding_left=0"
+      $"icon.padding_left=3"
 
 
       ###--------------------
       ##   Label
       #----------------------
-      $"label.color=($colour.subtle_black)"
+      $"label.color=($appearance.item_label_colour)"
       $"label.font=($appearance.item_font):Light:13.0"
       $"label.width=85"
       $"label.align=right"
@@ -87,7 +88,7 @@ export module clock {
       $"background.height=($appearance.item_background_height)"
       $"background.y_offset=0"
 
-      $"background.color=($colour.glass_dark)"
+      $"background.color=($appearance.item_background_colour)"
       $"background.padding_right=4"
       $"background.padding_left=0"
       $"background.corner_radius=($appearance.item_background_corner_radius)"
@@ -97,22 +98,23 @@ export module clock {
       ##   Icon
       #----------------------
       # Icon will be rendered based on time
-      $"icon.color=($colour.subtle_black)"
-      $"icon.background.color=($colour.glass)"
+      $"icon.color=($appearance.item_icon_colour)"
+      $"icon.color=($colour.green)"
+      # $"icon.background.color=($colour.green)"
 
       $"icon.width=18"
-      $"icon.font.size=25"
+      $"icon.font.size=27"
       $"icon.background.height=17"
       $"icon.y_offset=1"
       $"icon.background.y_offset=1"
       $"icon.background.corner_radius=25"
-      $"icon.padding_left=0"
+      $"icon.padding_left=3"
 
 
       ###--------------------
       ##   Label
       #----------------------
-      $"label.color=($colour.subtle_black)"
+      $"label.color=($appearance.item_label_colour)"
       $"label.font=($appearance.item_font):Thin:13.0"
       $"label.width=65"
       $"label.padding_left=8"

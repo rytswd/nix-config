@@ -33,14 +33,14 @@ def main [] {
     #----------------------
     # Icon setup
     $"icon.font=($appearance.font):Bold:17.0"
-    $"icon.color=($colour.white)"
+    $"icon.color=($appearance.item_icon_colour)"
 
     ###--------------------
     ##   Label
     #----------------------
     # Label setup
     $"label.font=($appearance.font):Bold:14.0"
-    $"label.color=($colour.white)"
+    $"label.color=($appearance.item_label_colour)"
 
     ###--------------------
     ##   Padding
@@ -64,12 +64,12 @@ def main [] {
   log info "Setting up the bar"
   (sketchybar --bar
     position=top
-    sticky=on
+    sticky=off   # Should be on when window switch is minimal
     display=all
 
     $"height=($appearance.bar_height)"
-    $"y_offset=($appearance.top_margin)"
-    $"margin=($appearance.yabai_padding)"
+    $"y_offset=($appearance.top_margin)"  # Top
+    $"margin=($appearance.yabai_padding)" # Left and right
 
     # Remove any padding in case bar is not visible. When padding is really
     # needed, it can be set to items instead.
@@ -81,7 +81,7 @@ def main [] {
     notch_width=200
 
     $"color=($colour.transparent)"
-    # $"shadow=($colour.grey)"
+    $"shadow=($colour.grey)"
     blur_radius=10
   )
   log info "Setting up the bar, complete"

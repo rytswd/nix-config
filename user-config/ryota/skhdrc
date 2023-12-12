@@ -31,8 +31,8 @@ lctrl + lalt - return : yabai -m window --grid 1:1:0:0:1:1 > /dev/null || yabai 
 # Location aware resize so that it does the most natural shrink / expand.
 lctrl + lalt - left   : yabai -m window --resize right:-100:0 > /dev/null || yabai -m window --resize left:-100:0 > /dev/null
 lctrl + lalt - right  : yabai -m window --resize right:100:0 > /dev/null || yabai -m window --resize left:100:0 > /dev/null
-lctrl + lalt - up     : yabai -m window --resize bottom:0:100 > /dev/null || yabai -m window --resize top:0:100 > /dev/null
-lctrl + lalt - down   : yabai -m window --resize bottom:0:-100 > /dev/null || yabai -m window --resize top:0:-100 > /dev/null
+lctrl + lalt - up     : yabai -m window --resize bottom:0:-100 > /dev/null || yabai -m window --resize top:0:-100 > /dev/null
+lctrl + lalt - down   : yabai -m window --resize bottom:0:100 > /dev/null || yabai -m window --resize top:0:100 > /dev/null
 
 
 ###========================================

@@ -14,7 +14,7 @@ export const name = "TextInputMenuAgent,Item-0"
 # TODO: Consider creating a separate input setup -- the original icon is quite ugly
 
 export def item [] {
-  log info "Rendering input"
+  log info "Rendering input -- using alias"
 
   # sketchybar command requires the specific syntax to be followed. For some
   # complex scenarios, I need to set up a separate variable and pass that into

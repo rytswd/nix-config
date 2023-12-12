@@ -133,6 +133,8 @@ def main [] {
     --add bracket right
       # List of items to belong to the bracket
       clock
+      calendar
+      battery
       "TextInputMenuAgent,Item-0"
     --set         right
     $"background.color=($appearance.bracket_background_colour)"

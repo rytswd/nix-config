@@ -22,10 +22,10 @@ export module calendar {
       $"background.height=($appearance.item_background_height)"
       $"background.y_offset=0"
       $"background.color=($colour.glass_dark)"
-      $"background.padding_right=0"
-      $"background.padding_left=4"
+      $"background.padding_right=4"
+      $"background.padding_left=0"
       $"background.corner_radius=($appearance.item_background_corner_radius)"
-      $"blur_radius=3"
+      $"blur_radius=($appearance.item_blur_radius)"
 
       ###--------------------
       ##   Icon
@@ -48,8 +48,8 @@ export module calendar {
       ##   Label
       #----------------------
       $"label.color=($colour.subtle_black)"
-      $"label.font=($appearance.item_font):Light:14.5"
-      $"label.width=92"
+      $"label.font=($appearance.item_font):Light:13.0"
+      $"label.width=85"
       $"label.align=right"
       $"label.padding_right=5"
       $"label.y_offset=-1"
@@ -88,8 +88,8 @@ export module clock {
       $"background.y_offset=0"
 
       $"background.color=($colour.glass_dark)"
-      $"background.padding_right=0"
-      $"background.padding_left=4"
+      $"background.padding_right=4"
+      $"background.padding_left=0"
       $"background.corner_radius=($appearance.item_background_corner_radius)"
       $"blur_radius=($appearance.item_blur_radius)"
 
@@ -113,8 +113,8 @@ export module clock {
       ##   Label
       #----------------------
       $"label.color=($colour.subtle_black)"
-      $"label.font=($appearance.item_font):Thin:14.5"
-      $"label.width=70"
+      $"label.font=($appearance.item_font):Thin:13.0"
+      $"label.width=65"
       $"label.padding_left=8"
       $"label.y_offset=-1"
 

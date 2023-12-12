@@ -25,8 +25,8 @@ export def item () {
     $"background.y_offset=0"
 
     $"background.color=($colour.glass_dark)"
-    $"background.padding_right=0"
-    $"background.padding_left=4"
+    $"background.padding_right=4"
+    $"background.padding_left=0"
     $"background.corner_radius=($appearance.item_background_corner_radius)"
     $"blur_radius=($appearance.item_blur_radius)"
 
@@ -35,15 +35,9 @@ export def item () {
     #----------------------
     # Icon will be rendered based on battery percentage
     $"icon.color=($colour.subtle_black)"
-    # $"icon.background.color=($colour.glass)"
-
     $"icon.width=10"
     $"icon.font.size=23"
-    # $"icon.background.height=17"
     $"icon.y_offset=1"
-    # $"icon.background.y_offset=1"
-    # $"icon.background.corner_radius=0"
-    # $"icon.background.width=10"
     $"icon.padding_left=0"
 
 
@@ -51,9 +45,11 @@ export def item () {
     ##   Label
     #----------------------
     $"label.color=($colour.subtle_black)"
-    $"label.font=($appearance.item_font):Thin:14.5"
-    $"label.width=50"
+    $"label.font=($appearance.item_font):Thin:13.0"
+    $"label.width=42"
+    $"label.align=right"
     $"label.padding_left=8"
+    $"label.padding_right=5"
     $"label.y_offset=-1"
 
     ###--------------------

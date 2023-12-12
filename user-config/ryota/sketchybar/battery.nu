@@ -46,9 +46,8 @@ export def item () {
     #----------------------
     $"label.color=($colour.subtle_black)"
     $"label.font=($appearance.item_font):Thin:13.0"
-    $"label.width=42"
     $"label.align=right"
-    $"label.padding_left=8"
+    $"label.padding_left=7"
     $"label.padding_right=5"
     $"label.y_offset=-1"
 
@@ -77,23 +76,29 @@ def main () {
 
   mut icon = "󱟩"
   mut battery_colour = $"($colour.subtle_black)"
+  let battery_label = $"($percentage | fill -a right -c ' ' -w 2)%"
 
   if ($ac_on) {
     $icon = ($percentage | map-to-icon-with-power)
   } else {
     $icon = ($percentage | map-to-icon)
   }
-  if ($percentage > 10 and $percentage <= 20) {
+
+  if ($percentage > 5 and $percentage <= 20) {
     $battery_colour = $"($colour.orange)"
-  } else if ($percentage <= 10) {
+  } else if ($percentage <= 5) {
     $battery_colour = $"($colour.red)"
   }
+
+  mut padding_adjustment = $"label.padding_left=7"
+  if ($ac_on) { $padding_adjustment = $"label.padding_left=12" }
 
   (sketchybar
     --set ($name)
     $"icon=($icon)"
     $"icon.color=($battery_colour)"
-    $"label=($percentage)%"
+    $"label=($battery_label)"
+    $"($padding_adjustment)"
   )
 }
 
@@ -102,11 +107,11 @@ def map-to-icon () {
   let battery = $in | into int
   mut index = 0
 
-  if ($battery > 80) {
+  if ($battery > 70) {
     $index = 3
-  } else if ($battery > 50) {
+  } else if ($battery > 30) {
     $index = 2
-  } else if ($battery > 20) {
+  } else if ($battery > 10) {
     $index = 1
   } else {
     $index = 0
@@ -120,11 +125,11 @@ def map-to-icon-with-power () {
   let battery = $in | into int
   mut index = 0
 
-  if ($battery > 80) {
+  if ($battery > 70) {
     $index = 3
-  } else if ($battery > 50) {
+  } else if ($battery > 30) {
     $index = 2
-  } else if ($battery > 20) {
+  } else if ($battery > 10) {
     $index = 1
   } else {
     $index = 0

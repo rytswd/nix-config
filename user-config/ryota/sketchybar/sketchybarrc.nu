@@ -102,7 +102,15 @@ def main [] {
   # Right -- the first item will be rightmost
   use datetime.nu; datetime clock item; datetime calendar item
   use battery.nu; battery item
-  use input.nu; input item
+  # use input.nu; input item
+  use aliases.nu; aliases items  # This creates its own bracket
+  use stats.nu; stats items      # This creates its own bracket
+
+  # TODO: Stats provides nice views, but seems to have strange startup
+  # behaviour. Also it actually places extra components in the native menubar
+  # which is actually making the situation worse (I want to be able to interact
+  # with the menu bar item at times). I'd need to think about replacing with my
+  # own impl.
 
   log info "Setting up the items, complete"
 

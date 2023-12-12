@@ -27,9 +27,8 @@ export const yabai_padding = 12
 ###----------------------------------------
 ##   Bar Settings
 #------------------------------------------
-export const top_padding   = 2
-export const top_margin    = 2
-export const bar_height    = 36
+export const top_margin    = 6
+export const bar_height    = 32
 
 
 ###========================================

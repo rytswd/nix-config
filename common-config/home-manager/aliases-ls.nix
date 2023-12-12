@@ -13,12 +13,13 @@
 // (if (withEza) then {
   ls  = "eza --group-directories-first --classify";
   l   = "eza -l --group-directories-first --classify";
-  ll  = "eza -lT --group-directories-first --classify";
   la  = "eza -la --group-directories-first --classify";
-  llt = "eza -laTF --git --group-directories-first --git-ignore --ignore-glob .git";
+  ll  = "eza -lT --group-directories-first --classify --sort modified";
+  llt = "eza -laTF --git --group-directories-first --git-ignore --ignore-glob .git --sort modified";
 } else {
   xls = "eza --group-directories-first --classify";
   xl  = "eza -l --group-directories-first --classify";
-  xll = "eza -laTF --git --group-directories-first --git-ignore --ignore-glob .git";
   xla = "eza -la --group-directories-first --classify";
+  xll  = "eza -lT --group-directories-first --classify --sort modified";
+  xllt = "eza -laTF --git --group-directories-first --git-ignore --ignore-glob .git --sort modified";
 })

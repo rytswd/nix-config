@@ -275,7 +275,7 @@
         ];
         KeepAlive = {
           # When stopped with launchctl, keep it stopped.
-          # Otherwise try to restart at all the time.
+          # Otherwise try to restart at all time.
           SuccessfulExit = false;
         };
         RunAtLoad = true;

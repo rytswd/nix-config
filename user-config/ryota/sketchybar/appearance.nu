@@ -56,3 +56,8 @@ export const item_background_corner_radius  = 5
 # Background blur radius
 export const item_blur_radius               = 30
 export const item_font                      = "FiraMono Nerd Font"
+
+export const item_main_colour               = $colour.subtle_black
+export const item_background_colour         = $colour.glass_dark
+export const item_icon_colour               = $item_main_colour
+export const item_label_colour              = $item_main_colour

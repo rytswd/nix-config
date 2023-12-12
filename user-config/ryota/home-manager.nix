@@ -224,6 +224,7 @@
           "${pkgs.ollama}/bin/ollama"
           "serve"
         ];
+        # Always keep it running.
         KeepAlive = true;
         RunAtLoad = true;
         ProcessType = "Background";

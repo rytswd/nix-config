@@ -31,15 +31,14 @@ lctrl + lalt - return : yabai -m window --grid 1:1:0:0:1:1 > /dev/null || yabai 
 # Location aware resize so that it does the most natural shrink / expand.
 lctrl + lalt - left   : yabai -m window --resize right:-100:0 > /dev/null || yabai -m window --resize left:-100:0 > /dev/null
 lctrl + lalt - right  : yabai -m window --resize right:100:0 > /dev/null || yabai -m window --resize left:100:0 > /dev/null
-# lctrl + lalt - up     : yabai -m window --resize bottom:0:100 > /dev/null || yabai -m window --resize top:0:100 > /dev/null
-# lctrl + lalt - down   : yabai -m window --resize bottom:0:-100 > /dev/null || yabai -m window --resize top:0:-100 > /dev/null
+lctrl + lalt - up     : yabai -m window --resize bottom:0:100 > /dev/null || yabai -m window --resize top:0:100 > /dev/null
+lctrl + lalt - down   : yabai -m window --resize bottom:0:-100 > /dev/null || yabai -m window --resize top:0:-100 > /dev/null
 
 
 ###========================================
 ##   Sketchybar Configuration
 #==========================================
 rshift + ralt - space : sketchybar --bar hidden=toggle
-rshift + ralt - escape : sketchybar --bar hidden=toggle
 # rshift + rcmd - space : sketchybar --remove '/.*/' && sh -c 'export CONFIG_DIR=$HOME/.config/sketchybar && $CONFIG_DIR/sketchybarrc'
 
 
@@ -50,7 +49,7 @@ rshift + ralt - escape : sketchybar --bar hidden=toggle
 # - Set it so that it does not bind when using Emacs
 lctrl + lalt - n [
     "Emacs" ~
-    *: emacsclient --eval '(rytswd/org-roam-capture-todo :keys "t")'; \
+    *: emacsclient --eval '(rytswd/org-roam-capture-todo :keys "m")'; \
         yabai -m window --focus \
             "$(yabai -m query --windows | jq -r 'map(select(."app"=="Emacs")) | .[0].id')"
 ]

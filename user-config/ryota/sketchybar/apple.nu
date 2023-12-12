@@ -23,9 +23,9 @@ export def icon [] {
     ##   Background
     #----------------------
     # $"background.color=($colour.overlay)"
-    $"background.corner_radius=($appearance.background_corner_radius)"
-    $"background.height=($appearance.background_height)"
-    $"blur_radius=($appearance.blur_radius)"
+    $"background.corner_radius=($appearance.item_background_corner_radius)"
+    $"background.height=($appearance.item_background_height)"
+    $"blur_radius=($appearance.item_blur_radius)"
     # background.padding_left=4
     shadow=on
 
@@ -34,13 +34,18 @@ export def icon [] {
     #----------------------
     icon=""
     icon.y_offset=1
-    $"icon.color=($colour.white)"
+    $"icon.color=($colour.subtle_black)"
     icon.padding_right=10
     icon.padding_left=10
 
     ###--------------------
     ##   Label
     #----------------------
+    # label=""
+    # label.y_offset=1
+    # label.font="Hack Nerd Font:Bold:14.0"
+    # $"label.color=($colour.white)"
+    # label.padding_left=-11
     label.drawing=off
 
     ###--------------------

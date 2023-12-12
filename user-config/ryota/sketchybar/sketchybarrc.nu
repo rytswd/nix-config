@@ -13,7 +13,6 @@ use std log
 # Import colours, and other common settings
 use colour.nu
 use appearance.nu
-use mbp_env.nu
 
 def main [] {
   log info "Sketchybarrc being loaded, initialising..."
@@ -27,7 +26,7 @@ def main [] {
     ##   Background
     #----------------------
     # Ensure height of the background fills the height of the bar by default.
-    $"background.height=($mbp_env.height)"
+    $"background.height=($appearance.bar_height)"
 
     ###--------------------
     ##   Icon
@@ -68,9 +67,9 @@ def main [] {
     sticky=on
     display=all
 
-    $"height=($mbp_env.height)"
-    y_offset=5
-    margin=12 # Should match with yabai's padding
+    $"height=($appearance.bar_height)"
+    $"y_offset=($appearance.top_margin)"
+    $"margin=($appearance.yabai_padding)"
 
     # Remove any padding in case bar is not visible. When padding is really
     # needed, it can be set to items instead.
@@ -101,7 +100,8 @@ def main [] {
   use front_app.nu; front_app item
 
   # Right -- the first item will be rightmost
-  use clock.nu; clock item
+  use datetime.nu; datetime clock item; datetime calendar item
+  use battery.nu; battery item
   use input.nu; input item
 
   log info "Setting up the items, complete"
@@ -121,12 +121,12 @@ def main [] {
       # '/space\..*/' # TODO: Commenting out while this is being worked on.
       front_app
     --set         left
-    $"background.color=($colour.glass)"
-    $"background.height=($mbp_env.height)"
-    background.corner_radius=10
-    # $"background.border_color=($colour.green)"
-    # background.border_width=3
-    padding_left=4
+    $"background.color=($appearance.bracket_background_colour)"
+    $"background.height=($appearance.bracket_height)"
+    $"background.corner_radius=($appearance.bracket_background_corner_radius)"
+    # $"background.border_color=($colour.orange)"
+    # $"background.border_width=1"
+    # $"padding_left=($appearance.bracket_padding_side)"
   )
 
   (sketchybar
@@ -135,12 +135,12 @@ def main [] {
       clock
       "TextInputMenuAgent,Item-0"
     --set         right
-    $"background.color=($colour.glass)"
-    $"background.height=($mbp_env.height)"
-    background.corner_radius=10
+    $"background.color=($appearance.bracket_background_colour)"
+    $"background.height=($appearance.bracket_height)"
+    $"background.corner_radius=($appearance.bracket_background_corner_radius)"
     # $"background.border_color=($colour.green)"
-    # background.border_width=3
-    padding_right=4
+    # $"background.border_width=1"
+    # $"padding_right=($appearance.bracket_padding_side)"
   )
 
   log info "Setting up brackets, complete"

@@ -27,23 +27,23 @@ export def item [] {
     ##   Background
     #----------------------
     # $"background.color=($colour.green)"
-    $"background.corner_radius=($appearance.background_corner_radius)"
-    $"background.height=($appearance.background_height)"
-    $"blur_radius=($appearance.blur_radius)"
-    background.padding_left=4
-    background.padding_right=-5
+    $"background.corner_radius=($appearance.item_background_corner_radius)"
+    $"background.height=($appearance.item_background_height)"
+    $"blur_radius=($appearance.item_blur_radius)"
+    $"background.padding_left=4"
+    $"background.padding_right=-5"
     # shadow=on
 
     ###--------------------
     ##   Icon
     #----------------------
-    icon.drawing=off
+    $"icon.drawing=off"
 
     ###--------------------
     ##   Label
     #----------------------
-    label.drawing=off
-    label.padding_right=-20
+    $"label.drawing=off"
+    $"label.padding_right=-20"
 
     ###--------------------
     ##   Misc Appearance

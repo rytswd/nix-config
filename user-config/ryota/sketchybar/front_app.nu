@@ -21,10 +21,10 @@ export def item () {
     ###--------------------
     ##   Background
     #----------------------
-    $"background.height=($appearance.background_height)"
+    $"background.height=($appearance.item_background_height)"
     background.y_offset=0
     $"background.color=($colour.glass_dark)"
-    $"background.corner_radius=($appearance.background_corner_radius)"
+    $"background.corner_radius=($appearance.item_background_corner_radius)"
     blur_radius=30
     $"background.border_width=2"
     background.padding_right=4
@@ -40,15 +40,15 @@ export def item () {
     # the icon image of the app.
     icon.background.drawing=on
     icon.background.image.scale=0.8
-    icon.background.image.padding_left=5
+    icon.background.image.padding_left=0
     icon.background.image.padding_right=5
 
 
     ###--------------------
     ##   Label
     #----------------------
-    $"label.color=($colour.white)"
-    label.font="FiraMono Nerd Font:Light:13.0"
+    $"label.color=($colour.subtle_black)"
+    $"label.font=($appearance.item_font):Light:13.0"
     label.padding_right=10
     label.y_offset=-1
 

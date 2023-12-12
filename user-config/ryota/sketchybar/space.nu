@@ -31,7 +31,7 @@ export def item () {
       $"background.height=($appearance.background_height)"
       background.y_offset=0
       $"background.color=($colour.blue)"
-      $"background.corner_radius=($appearance.background_corner_radius)"
+      $"background.corner_radius=($appearance.item_background_corner_radius)"
       # blur_radius=3
       $"background.border_color=($colour.black)"
       $"background.border_width=2"

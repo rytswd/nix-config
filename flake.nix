@@ -72,6 +72,7 @@
         rustOverlay = rust-overlay.overlays.default;
         fenixOverlay = fenix.overlays.default;
 
+        treemacs-overlay = (import ./common-config/overlays/tree-sitter.nix );
     in {
       # ====
       # macOS (Darwin) Configurations
@@ -99,6 +100,8 @@
             goOverlay
             rustOverlay
             # fenixOverlay
+
+            treemacs-overlay
           ];
         });
         ryota-test-mbp = (import ./macos-config/mbp {

@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/fwcd/tree-sitter-kotlin",
+  "rev": "0ef87892401bb01c84b40916e1f150197bc134b1",
+  "date": "",
+  "path": "/nix/store/49cvpcypxjzpb0srcpd383ay9f0g19dy-tree-sitter-kotlin",
+  "sha256": "",
+  "hash": "",
+  "fetchLFS": false,
+  "fetchSubmodules": false,
+  "deepClone": false,
+  "leaveDotGit": false
+}

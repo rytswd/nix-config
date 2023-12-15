@@ -14,21 +14,26 @@ export const font = "Hack Nerd Font"
 #==========================================
 # Bar is the main component which runs across the entire screen width.
 
+export const bar_colour         = $colour.transparent
+export const bar_shadow         = $colour.subtle_black
+export const bar_blur_radius    = 100
+export const bar_conrer_radius   = 10
+
 ###----------------------------------------
 ##   macOS Related
 #------------------------------------------
-export const notch_height = 32 # For reference
+export const notch_height   = 32 # For reference
 
 ###----------------------------------------
 ##   yabai Related
 #------------------------------------------
-export const yabai_padding = 12
+export const yabai_padding  = 12
 
 ###----------------------------------------
 ##   Bar Settings
 #------------------------------------------
-export const top_margin    = 6
-export const bar_height    = 32
+export const bar_top_margin = 6
+export const bar_height     = 32
 
 
 ###========================================

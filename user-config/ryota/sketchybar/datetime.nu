@@ -33,7 +33,7 @@ export module calendar {
       # N/A
       $"icon="
       $"icon.color=($appearance.item_icon_colour)"
-      $"icon.color=($colour.blue)"
+      # $"icon.color=($colour.blue)"
       # $"icon.background.color=($colour.blue)"
 
       $"icon.width=18"
@@ -50,8 +50,9 @@ export module calendar {
       #----------------------
       $"label.color=($appearance.item_label_colour)"
       $"label.font=($appearance.item_font):Light:13.0"
-      $"label.width=85"
+      # $"label.width=85"
       $"label.align=right"
+      $"label.padding_left=9"
       $"label.padding_right=5"
       $"label.y_offset=-1"
 
@@ -99,7 +100,7 @@ export module clock {
       #----------------------
       # Icon will be rendered based on time
       $"icon.color=($appearance.item_icon_colour)"
-      $"icon.color=($colour.green)"
+      # $"icon.color=($colour.green)"
       # $"icon.background.color=($colour.green)"
 
       $"icon.width=18"
@@ -117,7 +118,7 @@ export module clock {
       $"label.color=($appearance.item_label_colour)"
       $"label.font=($appearance.item_font):Thin:13.0"
       $"label.width=65"
-      $"label.padding_left=8"
+      $"label.padding_left=9"
       $"label.y_offset=-1"
 
       ###--------------------

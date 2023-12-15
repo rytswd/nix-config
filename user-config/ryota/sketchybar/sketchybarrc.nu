@@ -63,26 +63,26 @@ def main [] {
   # Bar goes from left to right all the way on top or bottom of the screen.
   log info "Setting up the bar"
   (sketchybar --bar
-    position=top
-    sticky=off   # Should be on when window switch is minimal
-    display=all
+    $"position=top"
+    $"sticky=off"       # Should be on when window switch is minimal
+    $"display=all"
 
     $"height=($appearance.bar_height)"
-    $"y_offset=($appearance.top_margin)"  # Top
+    $"y_offset=($appearance.bar_top_margin)"  # Top
     $"margin=($appearance.yabai_padding)" # Left and right
 
     # Remove any padding in case bar is not visible. When padding is really
     # needed, it can be set to items instead.
-    padding_right=0
-    padding_left=0
+    $"padding_right=0"
+    $"padding_left=0"
 
-    corner_radius=10
+    $"corner_radius=($appearance.bar_conrer_radius)"
 
-    notch_width=200
+    $"notch_width=200"
 
-    $"color=($colour.transparent)"
-    $"shadow=($colour.grey)"
-    blur_radius=10
+    $"color=($appearance.bar_colour)"
+    $"shadow=($appearance.bar_shadow)"
+    $"blur_radius=($appearance.bar_blur_radius)"
   )
   log info "Setting up the bar, complete"
 
@@ -104,7 +104,7 @@ def main [] {
   use battery.nu; battery item
   # use input.nu; input item
   use aliases.nu; aliases items  # This creates its own bracket
-  use stats.nu; stats items      # This creates its own bracket
+  # use stats.nu; stats items      # This creates its own bracket
 
   # TODO: Stats provides nice views, but seems to have strange startup
   # behaviour. Also it actually places extra components in the native menubar

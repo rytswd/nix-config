@@ -27,6 +27,7 @@
           git-lfs   # https://github.com/git-lfs/git-lfs
           zellij    # https://github.com/zellij-org/zellij
           tree-sitter # https://github.com/tree-sitter/tree-sitter
+          procs     # https://github.com/dalance/procs
 
           ###------------------------------
           ##   More Utilities

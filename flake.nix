@@ -21,13 +21,13 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    emacs-29-src = {
-      url = "github:emacs-mirror/emacs/emacs-29";
-      flake = false;
-    };
-    emacs-overaly = {
-      url = "github:Nix-Community/emacs-overlay";
-    };
+    # emacs-29-src = {
+    #   url = "github:emacs-mirror/emacs/emacs-29";
+    #   flake = false;
+    # };
+    # emacs-overaly = {
+    #   url = "github:Nix-Community/emacs-overlay";
+    # };
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
@@ -45,8 +45,8 @@
     , nixpkgs-unstable
     , home-manager
     , darwin
-    , emacs-29-src
-    , emacs-overlay
+    # , emacs-29-src
+    # , emacs-overlay
     , rust-overlay
     , fenix
     , ... }:
@@ -72,7 +72,8 @@
         rustOverlay = rust-overlay.overlays.default;
         fenixOverlay = fenix.overlays.default;
 
-        treemacs-overlay = (import ./common-config/overlays/tree-sitter.nix );
+        emacs-overlay = (import ./common-config/overlays/emacs.nix );
+        tree-sitter-overlay = (import ./common-config/overlays/tree-sitter.nix );
     in {
       # ====
       # macOS (Darwin) Configurations
@@ -101,7 +102,8 @@
             rustOverlay
             # fenixOverlay
 
-            treemacs-overlay
+            emacs-overlay
+            tree-sitter-overlay
           ];
         });
         ryota-test-mbp = (import ./macos-config/mbp {

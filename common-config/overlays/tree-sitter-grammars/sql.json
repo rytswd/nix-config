@@ -1,0 +1,9 @@
+{
+  "url": "https://github.com/derekstride/tree-sitter-sql",
+  "rev": "b599f6a1ca37cb5bae827a424cd98371a0d91bdc",
+  "sha256": "sha256-GwDkAgWcMyASzfd8layZjjEigXelJbtQTgWe7VBLgwM",
+  "fetchLFS": false,
+  "fetchSubmodules": false,
+  "deepClone": false,
+  "leaveDotGit": false
+}

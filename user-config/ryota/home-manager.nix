@@ -100,9 +100,11 @@
           ###------------------------------
           ##   Editors
           #--------------------------------
-          # NOTE: Emacs is defined in programs section instead.
+          # Emacs is configured at programs.emacs.
+          # emacs-macport-rytswd  # Custom definition from overlay.
+
           vscode
-          vscode-insiders # Added from the overlay setup
+          vscode-insiders   # Added from the overlay setup
 
           ###------------------------------
           ##   Other UI Tools
@@ -321,7 +323,10 @@
   programs = {
     home-manager.enable = true;
 
-    emacs = import ../../common-config/home-manager/emacs.nix { inherit pkgs; };
+    emacs = {
+      enable = true;
+      package = pkgs.emacs-plus-rytswd; # Based on overlay
+    };
 
     # + Terminals
     alacritty = {

@@ -160,6 +160,7 @@ in {
       "authy"
       "raycast"
       "docker"
+      "orbstack"
 
       ###------------------------------
       ##   Other

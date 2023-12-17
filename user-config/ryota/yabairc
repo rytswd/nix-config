@@ -78,3 +78,4 @@ yabai -m rule --add label="About This Mac" app="System Information" title="About
 yabai -m rule --add label="Docker Desktop" app="^Docker Desktop$" manage=off
 yabai -m rule --add label="Raycast" app="^Raycast$" manage=off
 yabai -m rule --add label="Stats" app="^Stats$" manage=off
+yabai -m rule --add label="OrbStack" app="^OrbStack$" manage=off

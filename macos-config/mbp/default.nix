@@ -1,4 +1,12 @@
-{ lib, nixpkgs, nixpkgs-unstable, home-manager, darwinSystem, overlays, username, system, ...}:
+{ lib
+, nixpkgs
+, nixpkgs-unstable
+, home-manager
+, darwinSystem
+, overlays
+, username
+, system
+, ...}:
 
 darwinSystem {
   inherit system;

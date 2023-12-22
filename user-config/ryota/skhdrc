@@ -34,6 +34,27 @@ lctrl + lalt - right  : yabai -m window --resize right:100:0 > /dev/null || yaba
 lctrl + lalt - up     : yabai -m window --resize bottom:0:-100 > /dev/null || yabai -m window --resize top:0:-100 > /dev/null
 lctrl + lalt - down   : yabai -m window --resize bottom:0:100 > /dev/null || yabai -m window --resize top:0:100 > /dev/null
 
+###----------------------------------------
+##   Window Position
+#------------------------------------------
+# Cycle through window setup (clockwise)
+lctrl + lalt - f9     : yabai -m space --rotate 270 > /dev/null
+
+# Move window to space
+lctrl + lalt - 1      : yabai -m window --space 1
+lctrl + lalt - 2      : yabai -m window --space 2
+lctrl + lalt - 3      : yabai -m window --space 3
+lctrl + lalt - 4      : yabai -m window --space 4
+lctrl + lalt - 5      : yabai -m window --space 5
+
+# Cycle through focused window
+lctrl + lalt - tab [
+    # Disable mapping for some applications that uses Ctrl + Option + Tab
+    "Emacs" ~
+    # "Arc" ~ # Disabling Arc for now
+
+    *: yabai -m window --focus next > /dev/null || yabai -m window --focus first > /dev/null
+]
 
 ###========================================
 ##   Sketchybar Configuration

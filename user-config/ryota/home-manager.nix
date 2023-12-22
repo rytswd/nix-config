@@ -18,16 +18,17 @@
           ###------------------------------
           ##   Additional Utilities
           #--------------------------------
-          du-dust   # https://github.com/bootandy/dust
-          bandwhich # https://github.com/imsnif/bandwhich
-          mkcert    # https://github.com/FiloSottile/mkcert
-          bottom    # https://github.com/ClementTsang/bottom
-          htop      # https://github.com/htop-dev/htop
-          pass      # https://www.passwordstore.org/
-          git-lfs   # https://github.com/git-lfs/git-lfs
-          zellij    # https://github.com/zellij-org/zellij
-          tree-sitter # https://github.com/tree-sitter/tree-sitter
-          procs     # https://github.com/dalance/procs
+          du-dust       # https://github.com/bootandy/dust
+          bandwhich     # https://github.com/imsnif/bandwhich
+          mkcert        # https://github.com/FiloSottile/mkcert
+          bottom        # https://github.com/ClementTsang/bottom
+          htop          # https://github.com/htop-dev/htop
+          pass          # https://www.passwordstore.org/
+          git-lfs       # https://github.com/git-lfs/git-lfs
+          zellij        # https://github.com/zellij-org/zellij
+          tree-sitter   # https://github.com/tree-sitter/tree-sitter
+          atuin         # https://github.com/atuinsh/atuin
+          procs         # https://github.com/dalance/procs
 
           ###------------------------------
           ##   More Utilities
@@ -35,12 +36,13 @@
           # These can be somewhat env specific.
 
           # authy
-          keybase
-          # puppeteer-cli # Used for mermaid -- NOTE: Broken with mesa dependency and cannot be installed
-          surrealdb
-          pngpaste # https://github.com/jcsalterego/pngpaste
-          ollama   # https://github.com/jmorganca/ollama
-          imagemagick # https://github.com/imagemagick/imagemagick
+          keybase       # https://keybase.io/
+          surrealdb     # https://surrealdb.com/
+          pngpaste      # https://github.com/jcsalterego/pngpaste
+          graphviz
+          ollama        # https://github.com/jmorganca/ollama
+          imagemagick   # https://github.com/imagemagick/imagemagick
+          librsvg       # https://wiki.gnome.org/Projects/LibRsvg
 
           ###------------------------------
           ##   Kubernetes
@@ -62,9 +64,13 @@
           ###------------------------------
           ##   Coding
           #--------------------------------
+          # Many coding dependencies are better handled per project / directory,
+          # but here are some common ones I would always want to keep in my PATH
+          # for convenience, or I need to have in PATH due to existing setup
+          # expect such tools to be available.
 
           # Go
-          go    # Needed because Vim plugin govim requires this.
+          go            # Needed because Vim plugin govim requires this.
           ko
           gopls
 
@@ -87,10 +93,10 @@
           dart-sass
 
           # Shell
-          shellcheck  # I want this for any code base
+          shellcheck    # I want this for any code base
 
           # Markdown
-          pandoc      # Markdown support
+          pandoc        # Markdown support
 
           # C
           clang-tools
@@ -190,9 +196,12 @@
       ##   macOS Specific
       #--------------------------------
       ++ [
-        pkgs.sketchybar
-        pkgs.skhd
-        pkgs.yabai
+        pkgs.sketchybar # https://github.com/FelixKratz/SketchyBar
+        pkgs.skhd       # https://github.com/koekeishiya/skhd
+        pkgs.yabai      # https://github.com/koekeishiya/yabai
+
+        # I don't use this anymore.
+        # pkgs.stats      # https://github.com/exelban/stats
       ]
       ###------------------------------
       ##   Other
@@ -222,6 +231,7 @@
     };
   };
 
+  # Startup Processes
   launchd.agents = {
     ollama = {
       enable = true;
@@ -374,6 +384,11 @@
 
     zoxide = {
       enable = true;
+
+      # package =
+      #   (pkgs.callPackage ../../common-config/overlays/zoxide.nix {})
+      # ;
+
       enableBashIntegration = true;
       enableZshIntegration = true;
       enableFishIntegration = true;

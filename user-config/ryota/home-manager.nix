@@ -121,7 +121,6 @@
           discord
           slack
           zoom-us
-          # rectangle # https://rectangleapp.com/ # No longer using this as I'm now using Raycast.
 
           ###------------------------------
           ##   Services

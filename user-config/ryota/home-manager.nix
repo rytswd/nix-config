@@ -148,6 +148,10 @@
         prettier    # https://prettier.io/
         vscode-langservers-extracted
         svelte-language-server
+        # NOTE: mermaid-cli has a runtime dependency against puppeteer, which in
+        # turn requires chromium binary to be made available. As I couldn't sort
+        # out Chromium installation via Nix, I'm currently using Homebrew Cask
+        # to install Chromium.
         mermaid-cli # https://mermaid.js.org/ -- also known as mmdc
       ])
       ###------------------------------

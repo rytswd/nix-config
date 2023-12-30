@@ -396,10 +396,6 @@
     zoxide = {
       enable = true;
 
-      # package =
-      #   (pkgs.callPackage ../../common-config/overlays/zoxide.nix {})
-      # ;
-
       enableBashIntegration = true;
       enableZshIntegration = true;
       enableFishIntegration = true;

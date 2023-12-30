@@ -29,6 +29,7 @@
           tree-sitter   # https://github.com/tree-sitter/tree-sitter
           atuin         # https://github.com/atuinsh/atuin
           procs         # https://github.com/dalance/procs
+          git-codereview # https://golang.org/x/review/git-codereview
 
           ###------------------------------
           ##   More Utilities

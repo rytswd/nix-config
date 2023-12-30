@@ -46,6 +46,13 @@
           librsvg       # https://wiki.gnome.org/Projects/LibRsvg
 
           ###------------------------------
+          ##   Email
+          #--------------------------------
+          mu
+          isync
+          msmtp
+
+          ###------------------------------
           ##   Kubernetes
           #--------------------------------
           docker

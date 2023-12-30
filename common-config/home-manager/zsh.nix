@@ -4,7 +4,9 @@
   enable = true;
 
   enableAutosuggestions = true;
-  enableSyntaxHighlighting = true;
+  syntaxHighlighting = {
+    enable  = true;
+  };
   shellAliases =
     (import ./aliases-ls.nix { withEza = false; }) //
     {

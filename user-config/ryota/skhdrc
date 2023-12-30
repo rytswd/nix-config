@@ -1,3 +1,10 @@
+###============================================================
+##   skhd Configuration
+#==============================================================
+# https://github.com/koekeishiya/skhd
+# skhd is simple hotkey daemon. This is not the easiest and most intuitive, but
+# effective and efficient, which works just as intended for most use cases.
+
 ###========================================
 ##   Yabai Configuration
 #==========================================

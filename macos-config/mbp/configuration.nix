@@ -133,6 +133,7 @@ in {
       ###------------------------------
       ##   Browser
       #--------------------------------
+      "chromium"
       "brave-browser"
       "google-chrome"
       "firefox"

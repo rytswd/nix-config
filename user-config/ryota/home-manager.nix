@@ -5,7 +5,7 @@
   manual.manpages.enable = false;
 
   home = {
-    stateVersion = "23.05";
+    stateVersion = "23.11";
 
     username = "${username}";
     homeDirectory = "/Users/${username}";

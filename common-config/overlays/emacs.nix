@@ -5,6 +5,7 @@ let
     vterm
     jinx
     pdf-tools
+    mu4e
     treesit-grammars.with-all-grammars
   ]);
 

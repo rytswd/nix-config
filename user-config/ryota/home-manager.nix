@@ -445,6 +445,8 @@
       "kind".source = ./kind-config;
       "kind".recursive = true;
 
+      "ghostty/config".source = ../../common-config/ghostty/config;
+
       # Providing the below config via programs.tmux instead.
       # "tmux/tmux.conf".source        = ../../common-config/tmux/tmux.conf;
       "tmux/keybindings.conf".source = ../../common-config/tmux/keybindings.conf;

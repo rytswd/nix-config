@@ -1,0 +1,28 @@
+###----------------------------------------
+##   Font
+#------------------------------------------
+font-size               = 12
+font-thicken            = true
+font-family             = "FiraCode Nerd Font"
+font-family-bold        = "FiraCode Nerd Font-Bold"
+font-family-italic      = "FiraCode Nerd Font-Italic"
+font-family-bold-italic = "FiraCode Nerd Font-BoldItalic"
+
+###----------------------------------------
+##   Background
+#------------------------------------------
+background-opacity      = 0.8
+background-blur-radius  = 10
+
+###----------------------------------------
+##   Padding
+#------------------------------------------
+window-padding-x        = 10
+window-padding-y        = 10
+
+###----------------------------------------
+##   macOS Specific
+#------------------------------------------
+macos-non-native-fullscreen = true
+macos-option-as-alt     = true
+window-decoration       = false

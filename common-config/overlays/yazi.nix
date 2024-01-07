@@ -2,6 +2,8 @@ final: prev:
 
 {
   yazi = prev.yazi.overrideAttrs (old: rec {
+    version = "0.1.6-latest"; # Created for my own use case
+
     src = prev.fetchFromGitHub {
       owner = "sxyazi";
       repo = "yazi";

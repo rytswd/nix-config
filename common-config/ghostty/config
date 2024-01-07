@@ -13,6 +13,7 @@ font-family-bold-italic = "FiraCode Nerd Font-BoldItalic"
 #------------------------------------------
 background-opacity      = 0.8
 background-blur-radius  = 10
+unfocused-split-opacity = 0.6
 
 ###----------------------------------------
 ##   Padding
@@ -25,4 +26,15 @@ window-padding-y        = 10
 #------------------------------------------
 macos-non-native-fullscreen = true
 macos-option-as-alt     = true
-window-decoration       = false
+window-decoration       = true
+
+###----------------------------------------
+##   Key Bindings
+#------------------------------------------
+# NOTE: Config can be reloaded with Shift + Cmd + , (comma)
+keybind = ctrl+tab=goto_split:next
+keybind = ctrl+shift+tab=goto_split:previous
+keybind = cmd+ctrl+left=resize_split:left,20
+keybind = cmd+ctrl+right=resize_split:right,20
+keybind = cmd+ctrl+up=resize_split:up,20
+keybind = cmd+ctrl+down=resize_split:down,20

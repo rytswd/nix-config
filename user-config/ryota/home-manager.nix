@@ -246,7 +246,11 @@
 
     # Environment variables
     sessionVariables = {
-      EDITOR = "vim";
+      # Although I use Emacs for my main driver, I want to ensure that this
+      # editor choice works in any environment, even when Emacs server is not
+      # running. I could use `emacs -nw`, but for now, as my Emacs configuration
+      # only works for GUI version, using nvim as the default makes it easy.
+      EDITOR = "nvim";
       LESS = "-iMNR";
       # TODO: Add DIRENV_LOG_FORMAT to be an empty string to suppress the output
     };
@@ -361,6 +365,49 @@
     emacs = {
       enable = true;
       package = pkgs.emacs-plus-rytswd; # Based on overlay
+    };
+
+    # I don't use too much of vim, but making it available for some use cases.
+    # Most of the configs were taken from @micnncim 🥰
+    neovim = {
+      enable = true;
+      plugins = with pkgs; [
+        vimPlugins.copilot-vim
+        vimPlugins.nord-nvim
+        vimPlugins.nvim-treesitter
+        vimPlugins.nvim-treesitter-textobjects
+        vimPlugins.vim-markdown
+        {
+          plugin = vimPlugins.hop-nvim;
+          type = "lua";
+          config = ''
+            require("hop").setup { keys = 'uhetonas' } -- Dvorak
+            nmap("<Leader>w", ":HopWord<CR>")
+            nmap("<Leader>l", ":HopLine<CR>")
+            nmap("<Leader>s", ":HopChar1<CR>")
+          '';
+        }
+        {
+          plugin = vimPlugins.nvim-surround;
+          type = "lua";
+          config = ''
+            require("nvim-surround").setup()
+          '';
+        }
+      ];
+      extraConfig = ''
+        colorscheme nord
+
+        set number
+
+        nnoremap <Space> <Nop>
+        let g:mapleader = "\<Space>"
+      '';
+      extraLuaConfig = ''
+        local function nmap(shortcut, command, opts)
+          vim.keymap.set("n", shortcut, command, opts or { noremap = true, silent = true })
+        end
+      '';
     };
 
     # + Terminals

@@ -1,5 +1,5 @@
 abbr "tm"="tmux new-session -A -D -s main"
-abbr "ec"="emacsclient"
+abbr "ec"="emacsclient -n"
 abbr "flake"="nix flake"
 abbr "rebuild"="cd ~/Coding/github.com/rytswd/nix-config; darwin-rebuild switch --flake "
 abbr "ghtargz"="OWNER=rytswd REPO=something BRANCH=main DIR=/; curl -sSL https://codeload.github.com/$OWNER/$REPO/tar.gz/$BRANCH | tar -xz --strip=2 ${REPO}-${BRANCH}${DIR}"

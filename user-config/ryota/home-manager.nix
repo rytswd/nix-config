@@ -517,7 +517,8 @@
       "tmux/options.conf".source     = ../../common-config/tmux/options.conf;
       # "tmux/tpm.conf".source         = ../../common-config/tmux/tpm.conf;
 
-      "yazi/yazi.toml".source = ../../common-config/yazi/yazi.toml;
+      "yazi".source = ../../common-config/yazi;
+      "yazi".recursive = true;
 
       "sketchybar".source = ./sketchybar;
       "sketchybar".recursive = true;

@@ -37,6 +37,10 @@
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    ghostty = {
+      url = "git+ssh://git@github.com/mitchellh/ghostty";
+    };
   };
 
   outputs =
@@ -49,6 +53,7 @@
     # , emacs-overlay
     , rust-overlay
     , fenix
+    , ghostty
     , ... }:
     let mbp-arch = "aarch64";
 
@@ -93,7 +98,7 @@
         ryota-mbp = (import ./macos-config/mbp {
           inherit (nixpkgs) lib;
           inherit (darwin.lib) darwinSystem;
-          inherit nixpkgs nixpkgs-unstable home-manager;
+          inherit nixpkgs nixpkgs-unstable home-manager ghostty;
           system = "${mbp-arch}-darwin";
           username = "ryota";
           overlays = [

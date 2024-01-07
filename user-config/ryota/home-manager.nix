@@ -1,4 +1,4 @@
-{ config, pkgs, username, ... }:
+{ config, pkgs, username, ghostty, ... }:
 
 {
   # TODO: Work around for build error relating to 'mistune.renderers' has no attribute 'BaseRenderer'.
@@ -185,6 +185,16 @@
         #   en_US
         # ]))
       ]
+      ###------------------------------
+      ##   Ghostty
+      #--------------------------------
+      # Because it's managed in a private repository for now, adding this as a
+      # separate entry.
+      # NOTE: Ghostty cannot be built using Nix only, and it's built using xcode
+      # in the officual build. For now, I'm sticking to that instead.
+      # ++ [
+      #   ghostty.packages.aarch64-darwin.default
+      # ]
       ###------------------------------
       ##   JetBrains Related
       #--------------------------------

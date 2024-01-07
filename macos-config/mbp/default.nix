@@ -6,12 +6,13 @@
 , overlays
 , username
 , system
+, ghostty
 , ...}:
 
 darwinSystem {
   inherit system;
   inputs = { inherit username; };
-  specialArgs = { inherit lib nixpkgs nixpkgs-unstable home-manager username; };
+  specialArgs = { inherit lib nixpkgs nixpkgs-unstable home-manager username ghostty; };
   modules = [
     # Ensure to allow unfree packages first, such as VSCode, Zoom, etc.
     {
@@ -29,7 +30,7 @@ darwinSystem {
     home-manager.darwinModules.home-manager {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = { inherit username; };  # Pass flake variable
+      home-manager.extraSpecialArgs = { inherit username ghostty; };  # Pass flake variable
       home-manager.users.${username} = import ../../user-config/${username}/home-manager.nix;
     }
   ];

@@ -3,6 +3,4 @@ abbr "ec"="emacsclient"
 abbr "flake"="nix flake"
 abbr "rebuild"="cd ~/Coding/github.com/rytswd/nix-config; darwin-rebuild switch --flake "
 abbr "ghtargz"="OWNER=rytswd REPO=something BRANCH=main DIR=/; curl -sSL https://codeload.github.com/$OWNER/$REPO/tar.gz/$BRANCH | tar -xz --strip=2 ${REPO}-${BRANCH}${DIR}"
-
-# TODO: I should probably fix this, as it assumes the config to be in a specific directory.
-abbr "kind-standard"="kind create cluster --config ~/Coding/home/other/kubernetes/kind-config/standard.yaml"
+abbr "kind-standard"="kind create cluster --config ~/.config/kind/standard.yaml"

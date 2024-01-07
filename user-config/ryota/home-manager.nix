@@ -437,6 +437,13 @@
       enableZshIntegration = true;
       enableFishIntegration = true;
     };
+    yazi = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+      enableFishIntegration = true;
+      enableNushellIntegration = true;
+    };
 
     starship = {
       enable = true;
@@ -509,6 +516,8 @@
       "tmux/keybindings.conf".source = ../../common-config/tmux/keybindings.conf;
       "tmux/options.conf".source     = ../../common-config/tmux/options.conf;
       # "tmux/tpm.conf".source         = ../../common-config/tmux/tpm.conf;
+
+      "yazi".source = ./yazi.toml;
 
       "sketchybar".source = ./sketchybar;
       "sketchybar".recursive = true;

@@ -1,0 +1,39 @@
+# Taken from the official repo for explicit configuration.
+# Ref:
+# https://github.com/sxyazi/yazi/blob/main/yazi-config/preset/yazi.toml
+
+[manager]
+ratio           = [ 1, 2, 5 ]
+sort_by         = "natural"
+sort_sensitive  = true
+sort_reverse    = false
+sort_dir_first  = true
+linemode        = "size"
+show_hidden     = true
+show_symlink    = true
+
+[preview]
+tab_size        = 2
+max_width       = 900
+max_height      = 1200
+cache_dir       = ""
+# ueberzug_scale  = 1
+# ueberzug_offset = [ 0, 0, 0, 0 ]
+
+[opener]
+edit = [
+	{ exec = 'emacsclient -n "$@"', desc = "Emacs",             block = false },
+	{ exec = 'nvim "$@"',           desc = "NeoVim"},
+	{ exec = 'code "$@"',           desc = "VSCode",            for = "macos" },
+	{ exec = 'code-insiders "$@"',  desc = "VSCode Insiders",   for = "macos" },
+]
+open = [
+	# { exec = 'xdg-open "$@"',             desc = "Open", for = "linux" },
+	{ exec = 'open "$@"',           desc = "Open",              for = "macos" },
+	# { exec = 'start "%1"', orphan = true, desc = "Open", for = "windows" }
+]
+reveal = [
+	{ exec = 'open -R "$1"',        desc = "Reveal",            for = "macos" },
+	# { exec = 'explorer /select,%1', orphan = true, desc = "Reveal", for = "windows" },
+	# { exec = '''exiftool "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show EXIF", for = "unix" },
+]

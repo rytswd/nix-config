@@ -509,7 +509,10 @@
       "kind".source = ./kind-config;
       "kind".recursive = true;
 
-      "ghostty/config".source = ../../common-config/ghostty/config;
+      # TODO: Ghostty configs are still being worked on, and thus the config
+      # is only mapped as a backup. Once all the configuration needs are clear,
+      # ensure to use this as the main config.
+      "ghostty/config_bak".source = ../../common-config/ghostty/config;
 
       # Providing the below config via programs.tmux instead.
       # "tmux/tmux.conf".source        = ../../common-config/tmux/tmux.conf;

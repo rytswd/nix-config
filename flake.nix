@@ -79,6 +79,7 @@
 
         emacs-overlay = (import ./common-config/overlays/emacs.nix );
         tree-sitter-overlay = (import ./common-config/overlays/tree-sitter.nix );
+        yazi-overlay = (import ./common-config/overlays/yazi.nix );
     in {
       # ====
       # macOS (Darwin) Configurations
@@ -109,6 +110,7 @@
 
             emacs-overlay
             tree-sitter-overlay
+            yazi-overlay
           ];
         });
         ryota-test-mbp = (import ./macos-config/mbp {

@@ -229,6 +229,8 @@
         pkgs.skhd       # https://github.com/koekeishiya/skhd
         pkgs.yabai      # https://github.com/koekeishiya/yabai
 
+        pkgs.utm
+
         # I don't use this anymore.
         # pkgs.stats      # https://github.com/exelban/stats
       ]

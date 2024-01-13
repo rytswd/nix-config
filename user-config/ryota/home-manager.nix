@@ -224,7 +224,7 @@
       ###------------------------------
       ##   macOS Specific
       #--------------------------------
-      ++ [
+      ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
         pkgs.sketchybar # https://github.com/FelixKratz/SketchyBar
         pkgs.skhd       # https://github.com/koekeishiya/skhd
         pkgs.yabai      # https://github.com/koekeishiya/yabai

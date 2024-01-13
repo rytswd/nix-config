@@ -93,6 +93,10 @@
           # cargo
           # rust-analyzer
 
+          # Zig
+          zig
+          zls
+
           # JS
           deno
           yarn

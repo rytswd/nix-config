@@ -427,6 +427,8 @@
     };
 
     # + Terminals
+    # NOTE: I don't use neither Alacritty nor Kitty these days, but keeping them
+    # around just for reference and when I need to test against.
     alacritty = {
       enable = true;
     };

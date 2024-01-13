@@ -80,6 +80,7 @@
           go            # Needed because Vim plugin govim requires this.
           ko
           gopls
+          templ
 
           # Rust
           # NOTE: Rust setup is either to use Nix based build setup, or rely on

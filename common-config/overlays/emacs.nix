@@ -1,5 +1,8 @@
 final: prev:
 
+# Ref:
+# https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/emacs/make-emacs.nix
+
 let
   packages = (epkgs: with epkgs; [
     vterm
@@ -57,6 +60,7 @@ let
     withImageMagick = true;
   };
   emacs-plus-rytswd = emacs-plus.overrideAttrs (oldAttrs: {
+    pname = "emacs-plus";
     configureFlags = (oldAttrs.configureFlags or []) ++ [
       "--with-xwidgets" # withXwidgets flag is somehow disabled for darwin.
     ];

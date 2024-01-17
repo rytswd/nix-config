@@ -88,7 +88,7 @@
     vscodeOverlay = (import ./common-config/overlays/vscode.nix);
     emacs-overlay = (import ./common-config/overlays/emacs.nix );
     tree-sitter-overlay = (import ./common-config/overlays/tree-sitter.nix );
-    yazi-overlay = (import ./common-config/overlays/yazi.nix );
+    # yazi-overlay = (import ./common-config/overlays/yazi.nix );
 
     overlays = [
       vscodeOverlay
@@ -99,7 +99,7 @@
 
       emacs-overlay
       tree-sitter-overlay
-      yazi-overlay
+      # yazi-overlay
     ];
 
       in {
@@ -146,7 +146,7 @@
         nixosConfigurations = {
           mbp-2021-utm = (import ./nixos-config/mbp-utm {
             inherit (nixpkgs) lib;
-            inherit (nixpkgs.lib) nixosSystem;
+            inherit (nixpkgs-unstable.lib) nixosSystem;
             inherit nixpkgs nixpkgs-unstable home-manager ghostty;
             system = "${mbp-arch}-linux";
             overlays = overlays;

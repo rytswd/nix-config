@@ -20,7 +20,7 @@ final: prev:
     });
 
     # Needed to generate completions spec
-    YAZI_GEN_COMPLETIONS = true;
+    # YAZI_GEN_COMPLETIONS = true;
 
     # Needed to override the installShellCompletion step
     postInstall = with prev.lib;

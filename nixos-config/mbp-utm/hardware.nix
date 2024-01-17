@@ -5,6 +5,8 @@
 #
 # While most of the configurations are kept as generated, there are some parts
 # that have been added, removed, or modified.
+#
+# Other configurations for this machine can be found in other files.
 
 { config
 , lib

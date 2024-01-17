@@ -20,6 +20,12 @@ let linuxGnome = true; in {
     loader.systemd-boot.consoleMode = "0";
   };
 
+  hardware.opengl = {
+    enable = true;
+    # driSupport32Bit = true;
+    # extraPackages = [ pkgs.virglrenderer ];
+  };
+
   networking = {
     # The global useDHCP flag is deprecated, therefore explicitly set to false here.
     # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -60,12 +66,14 @@ let linuxGnome = true; in {
   # tweak more.
   services.xserver = if linuxGnome then {
     enable = true;
-    layout = "us";
+    layout = "us,us";
+    xkbVariant = "dvorak,";
     desktopManager.gnome.enable = true;
     displayManager.gdm.enable = true;
   } else {
     enable = true;
-    layout = "us";
+    layout = "us,us";
+    xkbVariant = "dvorak,";
     dpi = 220;
 
     desktopManager = {
@@ -92,9 +100,8 @@ let linuxGnome = true; in {
   environment.systemPackages = with pkgs; [
     gnumake
     killall
-    niv
     rxvt_unicode
-    # xclip # NOTE: modified
+    xclip
 
     git # NOTE: modified
 
@@ -105,18 +112,11 @@ let linuxGnome = true; in {
 
     cachix # NOTE: added
 
-    # VMware on M1 doesn't support automatic resizing yet and on
-    # my big monitor it doesn't detect the resolution either so we just
-    # manualy create the resolution and switch to it with this script.
-    # This script could be better but its hopefully temporary so just force it.
-    (writeShellScriptBin "xrandr-6k" ''
-            xrandr --newmode "6016x3384_60.00"  1768.50  6016 6544 7216 8416  3384 3387 3392 3503 -hsync +vsync
-            xrandr --addmode Virtual-1 6016x3384_60.00
-            xrandr -s 6016x3384_60.00
-        '')
-    (writeShellScriptBin "xrandr-mbp" ''
-            xrandr -s 2880x1800
-        '')
+    # For hypervisors that support auto-resizing, this script forces it.
+    # I've noticed not everyone listens to the udev events so this is a hack.
+    (writeShellScriptBin "xrandr-auto" ''
+      xrandr --output Virtual-1 --auto
+    '')
   ];
 
   services = {
@@ -126,6 +126,8 @@ let linuxGnome = true; in {
       PasswordAuthentication = true;
       PermitRootLogin = "yes"; # As I'm still testing, this makes it easier.
     };
+
+    spice-vdagentd.enable = true;
 
     # TODO: Clipboard stuff, not sure why it's here, will need to move to somewhere else.
     # greenclip.enable = true;

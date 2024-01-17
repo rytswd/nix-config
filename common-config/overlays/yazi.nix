@@ -2,13 +2,13 @@ final: prev:
 
 {
   yazi = prev.yazi.overrideAttrs (old: rec {
-    version = "0.1.6-latest"; # Created for my own use case
+    version = "0.2.1-latest"; # Created for my own use case
 
     src = prev.fetchFromGitHub {
       owner = "sxyazi";
       repo = "yazi";
-      rev = "ac4afaf44eeb1b24554500b5f51037b06fb419fe";
-      sha256 = "sha256-ROGd5QwY4j461rln7d5KRgHrFNtIIwar4kE/TnsYO20=";
+      rev = "1036685f912f162fcd5c2cd25444706217354a6a";
+      sha256 = "sha256-XdN2oP5c2lK+bR3i+Hwd4oOlccMQisbzgevHsZ8YbSQ=";
     };
 
     # Ref: https://discourse.nixos.org/t/is-it-possible-to-override-cargosha256-in-buildrustpackage/4393/3
@@ -16,7 +16,7 @@ final: prev:
     cargoDeps = old.cargoDeps.overrideAttrs (prev.lib.const {
       name = "yazi-vendor.tar.gz";
       inherit src;
-      outputHash = "sha256-RTw9+y+pDyWEgitCaeoINO8dN5VcQoBB1LeEj4wc0Rg=";
+      outputHash = "sha256-SkqcMQGNVNvQ5oMrHS4QrQiFU8PfE0woLizCgN10v+o=";
     });
 
     # Needed to generate completions spec

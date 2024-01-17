@@ -26,8 +26,8 @@ nixpkgs.lib.nixosSystem rec {
     ../modules/system/packages.nix
 
     # Set up user details.
-    ../modules/users/ryota
-    ../modules/users/rytswd
+    ../modules/user/ryota
+    ../modules/user/rytswd
 
     # Set up home-manager.
     home-manager.nixosModules.home-manager {

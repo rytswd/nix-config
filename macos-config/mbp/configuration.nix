@@ -1,6 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config
+, lib
+, pkgs
+, inputs
+, ... }:
 
-let username = inputs.username;
+let username = "ryota"; # FIXME this is broken now.
 in {
   nix = {
     configureBuildUsers = true;
@@ -12,6 +16,7 @@ in {
     };
 
     settings = {
+      max-jobs = 8;
       trusted-users = [ "@admin" ];
 
       auto-optimise-store = true;
@@ -28,15 +33,17 @@ in {
         "https://cache.nixos.org/"
         "https://nix-community.cachix.org"
         "https://rytswd-nix-config.cachix.org"
-        "https://ghostty.cachix.org"
+        # "https://ghostty.cachix.org"
       ];
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "rytswd-nix-config.cachix.org-1:fpZQ465aGF2LYQ8oKOrd5c8kxaNmD7wBEK/yyhSQozo="
+        # "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
+
+        # Unused
         # "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
         # "emacs-osx.cachix.org-1:Q2++pOcNsiEjmDLufCzzdquwktG3fFDYzZrd8cEj5Aw="
-        "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
       ];
 
       extra-platforms = lib.mkIf (pkgs.system == "aarch64-darwin") [ "x86_64-darwin" "aarch64-darwin" ];
@@ -88,11 +95,6 @@ in {
     };
   };
     
-  users.users.${username} = {
-    home = "/Users/${username}";
-    shell = pkgs.fish; # TODO: This is not being picked up correctly.
-  };
-
   fonts = {
     fontDir.enable = true;
     # Ref: https://nixos.wiki/wiki/Fonts

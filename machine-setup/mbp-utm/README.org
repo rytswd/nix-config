@@ -1,0 +1,159 @@
+#+title: UTM Setup
+
+This document is about how to set up UTM https://github.com/utmapp/UTM on my macOS machine (as of writing, it is M1 MBP) for NixOS. As this is more for my own usages, it may not be generic enough to work for all cases.
+
+* Install UTM
+One can install UTM from https://mac.getutm.app/, but as I use Nix for my macOS configurations as well, I simply need to pull in the UTM package of ~nixpkgs.utm~. This can be found in my ~user-config~ directory.
+
+* Prepare UTM
+** Download NixOS Image
+https://nixos.org/download
+NixOS for M1 family chipset is available in the official website.
+#+DOWNLOADED: screenshot @ 2024-01-14 22:37:40
+[[file:Prepare_UTM/2024-01-14_22-37-40_screenshot.png]]
+
+** Use NixOS Image
+Start UTM, and select "Create a New Virtual Machine"
+#+DOWNLOADED: screenshot @ 2024-01-14 23:02:39
+[[file:Prepare_UTM/2024-01-14_23-02-39_screenshot.png]]
+
+Select "Virtualize" as I can get the NixOS image with the matching architecture.
+#+DOWNLOADED: screenshot @ 2024-01-14 23:03:32
+[[file:Prepare_UTM/2024-01-14_23-03-32_screenshot.png]]
+
+Select "Other"
+#+DOWNLOADED: screenshot @ 2024-01-14 23:04:45
+[[file:Prepare_UTM/2024-01-14_23-04-45_screenshot.png]]
+
+Set the ISO downloaded
+#+DOWNLOADED: screenshot @ 2024-01-14 23:05:51
+[[file:Prepare_UTM/2024-01-14_23-05-51_screenshot.png]]
+
+Set Memory and CPU Cores -- this depends on how much resource I have. As my use case on NixOS could be resource intensive, I allocate sufficient amount of memory and CPU.
+#+DOWNLOADED: screenshot @ 2024-01-14 23:08:03
+[[file:Prepare_UTM/2024-01-14_23-08-03_screenshot.png]]
+
+Set Storage -- I don't really need too much storage specifically on NixOS as I would be sharing my home directory between the machines. I just give 100GB which should be sufficient for most use cases.
+#+DOWNLOADED: screenshot @ 2024-01-14 23:12:47
+[[file:Prepare_UTM/2024-01-14_23-12-47_screenshot.png]]
+
+
+Shared Directory -- I set my home directory on macOS to be made available on VM (in the config here, it's ~/Users/ryota~ and thus you just see ~ryota~). I don't make it read-only, as I would want to be able to work on both machines.
+#+DOWNLOADED: screenshot @ 2024-01-14 23:14:17
+[[file:Prepare_UTM/2024-01-14_23-14-17_screenshot.png]]
+
+After all of the above is done, I get the summary like this. I just update the name to be "NixOS" (or could be anything else really), and check on the "Open VM Settings", which just would prompt me another configuration page after this.
+#+DOWNLOADED: screenshot @ 2024-01-14 23:17:18
+[[file:Prepare_UTM/2024-01-14_23-17-18_screenshot.png]]
+
+Once I'm done with creating the VM, I get another configuration window for VM.
+#+DOWNLOADED: screenshot @ 2024-01-14 23:18:18
+[[file:Prepare_UTM/2024-01-14_23-18-18_screenshot.png]]
+
+I don't have much to configure, but in the Display section, I adjust the display so that I get the most out from my VM.
+#+DOWNLOADED: screenshot @ 2024-01-16 11:07:12
+[[file:Prepare_UTM/2024-01-16_11-07-12_screenshot.png]]
+
+
+Also, remove the sound setup which I just don't use from VM
+#+DOWNLOADED: screenshot @ 2024-01-14 23:24:41
+[[file:Prepare_UTM/2024-01-14_23-24-41_screenshot.png]]
+
+After those changes are made, hit Save at bottom right corner.
+
+** Adjust UTM Setup
+When UTM is installed with Nix (not the NixOS itself, but rather on macOS using Nixpkgs), QEMU fails to start due to permission error on ~efi_vars.fd~.
+#+DOWNLOADED: screenshot @ 2024-01-14 23:26:39
+[[file:Prepare_UTM/2024-01-14_23-26-39_screenshot.png]]
+
+As of writing in Jan 2024, there is an open issue for this:
+https://github.com/NixOS/nixpkgs/issues/244663
+
+As the permission error is in the file under ~~/Library~ which is not under Nix control, I simply go in and update the permission on the file. (Note that the file name derives the VM name I gave earlier, and for me it uses "NixOS.utm".)
+#+begin_src bash
+  chmod 600 ~/Library/Containers/com.utmapp.UTM/Data/Documents/NixOS.utm/Data/efi_vars.fd
+#+end_src
+
+The default permission is set to ~444~, so I simply add write flag. As it doesn't make sense for other users to use (and they cannot use unless it's ~666~), I simply set this to ~600~ instead.
+
+* Start NixOS VM
+There are a few things that need to happen on the VM itself.
+
+** Prepare for Configuration from Host
+There are various ways to configure NixOS, but because this is a VM inside host system of macOS, I found it easiest to get run the necessary configuration commands from macOS rather by ssh-ing into the NixOS guest VM.
+In order to do that, I just need to start up a terminal in NixOS.
+
+*** Set ~root~ Password
+For the setup to work, I need ~root~ access, and as this setup is only for the initial configuration, I can set the ~root~ password to something as simple as ~root~. Once all the setup is complete, I can manage the ~root~ access however necessary.
+
+Because the original ~nixos~ user has ~sudo~ access, I just need to run the following:
+#+begin_src bash
+  sudo su
+#+end_src
+
+Once I have the ~root~ access, I change the password so that I can use it to connect via ssh.
+#+begin_src bash
+  passwd
+#+end_src
+This will prompt for the new password, and I set it to something as simple as ~root~.
+
+*** Check IP Address
+As long as the network sharing is set up for UTM (which is on by default), I can simply get the IP address with the follownig:
+#+begin_src bash
+  ip addr show enp0s1 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
+#+end_src
+
+For the future steps, I just take the env variable, so set the IP here.
+#+begin_src bash
+  export NIXOS_IP="REPLACEME"
+#+end_src
+
+*** SSH from Host
+With the above in place, I should be able to simply ssh into NixOS machine.
+#+begin_src bash
+  ssh -o PubkeyAuthentication=no \
+      -o UserKnownHostsFile=/dev/null \
+      -o StrictHostKeyChecking=no \
+      root@$NIXOS_IP
+#+end_src
+This step is only to test the SSH works as expectedly. I can simply exit once SSH is confirmed to work correctly.
+
+** Prepare VM
+TODO: Create the ~prepare-vm.sh~ file from Org Mode tangle. 
+
+Before using Nix configurations such as Flake to rebuild, I need to ensure that the disks are configured so that I can boot up NixOS correctly.
+
+I have created a simple shell script to SSH into it and sets up the basic disk partition etc.
+#+begin_src bash
+  ./prepare-vm.sh
+#+end_src
+
+Once the setup is complete, I can shut down the VM, remove the original boot image of NixOS.iso from UTM, and reboot. With that, I should have a fully operational NixOS ready to be used (although really vanilla setup).
+
+** Configure NixOS with Nix Flake
+Once the VM is ready, I can configure using Nix Flake and ~nixos-rebuild~.
+
+*** Copy Configuration Files
+As I have all of my configs available on my macOS, I can simply do ~rsync~ to copy over the Nix configuration files to NixOS.
+#+begin_src bash
+  rsync -avzP -e "ssh -o PubkeyAuthentication=no \
+      -o UserKnownHostsFile=/dev/null \
+      -o StrictHostKeyChecking=no" \
+        --exclude='.git/' \
+        --exclude='nixos-image' \
+        --rsync-path="sudo /run/current-system/sw/bin/rsync" \
+        ~/Coding/github.com/rytswd/nix-config/ root@${NIXOS_IP}:/nix-config
+#+end_src
+
+NOTE: I should remove the ~nixos-image~ directory altogether.
+
+*** Rebuild with Nix Flake
+With all the configuration files in place, I can rebuild NixOS using Nix Flake.
+#+begin_src bash
+  ssh -o PubkeyAuthentication=no \
+      -o UserKnownHostsFile=/dev/null \
+      -o StrictHostKeyChecking=no \
+      "root@${NIXOS_IP}" \
+      "sudo NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild switch --flake \"/nix-config#rytswd-mbp-2021-utm\""
+#+end_src
+

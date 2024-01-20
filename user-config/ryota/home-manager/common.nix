@@ -146,7 +146,10 @@
       ##   Python
       #--------------------------------
       ++ [
-        pkgs.python311
+        (pkgs.python311.withPackages (ps: with ps; [
+          pyyaml
+          pandas
+        ]))
         pkgs.poetry    # https://python-poetry.org/
         pkgs.python311.pkgs.pip
         pkgs.python311.pkgs.grip # https://github.com/joeyespo/grip

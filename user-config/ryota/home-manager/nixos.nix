@@ -8,11 +8,18 @@ let username = "ryota";
 in {
   imports = [
     ./common.nix
+    ./dconf.nix # For GNOME
   ];
 
   home = {
     username = "${username}";
     homeDirectory = "/home/${username}";
+
+    keyboard = {
+      layout = "us,us";
+      variant = "dvorak,";
+      options = ["ctrl:nocaps"];
+    };
 
     packages = [
       ###------------------------------

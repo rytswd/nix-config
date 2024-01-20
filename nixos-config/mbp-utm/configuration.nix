@@ -66,14 +66,18 @@ let linuxGnome = true; in {
   # tweak more.
   services.xserver = if linuxGnome then {
     enable = true;
-    layout = "us,us";
-    xkbVariant = "dvorak,";
+    exportConfiguration = true;
+    # System wide configuration, home-manager needs to be set up separately.
+    layout = "us,us,jp";
+    xkbVariant = "dvorak,,";
+    xkbOptions = "ctrl:nocaps"; # Configure Caps Lock to be ctrl.
     desktopManager.gnome.enable = true;
     displayManager.gdm.enable = true;
   } else {
     enable = true;
-    layout = "us,us";
-    xkbVariant = "dvorak,";
+    layout = "us,us,jp";
+    xkbVariant = "dvorak,,";
+    xkbOptions = "ctrl:nocaps"; # Configure Caps Lock to be ctrl.
     dpi = 220;
 
     desktopManager = {

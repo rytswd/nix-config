@@ -24,6 +24,11 @@ with lib.hm.gvariant;
       color-scheme = "prefer-dark";
     };
 
+    "org/gnome/desktop/peripherals/keyboard" = {
+      delay = mkUint32 195;
+      repeat-interval = mkUint32 13;
+    };
+
     "org/gnome/desktop/peripherals/mouse" = {
       natural-scroll = true;
     };

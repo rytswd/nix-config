@@ -1,4 +1,4 @@
-# macOS specific Home Manager configurations
+# NixOS specific Home Manager configurations
 
 { pkgs
 , ghostty

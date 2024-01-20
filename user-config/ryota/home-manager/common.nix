@@ -32,6 +32,7 @@
           git-codereview # https://golang.org/x/review/git-codereview
           git-crypt     # https://github.com/AGWA/git-crypt
           neofetch      # https://github.com/dylanaraps/neofetch
+          cloc          # https://github.com/AlDanial/cloc
 
           ###------------------------------
           ##   More Utilities

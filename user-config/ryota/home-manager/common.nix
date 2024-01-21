@@ -372,6 +372,9 @@
 
       "enchant/enchant.ordering".source = ../../../common-config/enchant.ordering;
 
+      "fd".source = ../../../common-config/fd;
+      "fd".recursive = true;
+
       "git".source = ../../../common-config/git;
       "git".recursive = true;
 

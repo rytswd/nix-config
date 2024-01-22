@@ -76,6 +76,12 @@ As the permission error is in the file under ~~/Library~ which is not under Nix 
 
 The default permission is set to ~444~, so I simply add write flag. As it doesn't make sense for other users to use (and they cannot use unless it's ~666~), I simply set this to ~600~ instead.
 
+** Other Personal Preferences
+There are some personal settings I add to UTM. I want to manage them with Nix, but for now, just keeping a note of them here.
+
+- Set the QEMU keyboard to use ~Cmd + Option~ for input capture/release (I use ~Ctrl + Option~ for window management using yabai and skhd)
+
+
 * Start NixOS VM
 There are a few things that need to happen on the VM itself.
 

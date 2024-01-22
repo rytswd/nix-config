@@ -33,6 +33,7 @@
           git-crypt     # https://github.com/AGWA/git-crypt
           neofetch      # https://github.com/dylanaraps/neofetch
           cloc          # https://github.com/AlDanial/cloc
+          dyff          # https://github.com/homeport/dyff
 
           ###------------------------------
           ##   More Utilities
@@ -241,6 +242,7 @@
       # TODO: Add DIRENV_LOG_FORMAT to be an empty string to suppress the output
 
       RIPGREP_CONFIG_PATH = "${config.xdg.configHome}/ripgrep/config";
+      KUBECTL_EXTERNAL_DIFF = "dyff between --omit-header --set-exit-code";
     };
   };
 

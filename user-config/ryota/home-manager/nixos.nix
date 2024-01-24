@@ -16,6 +16,11 @@ in {
     homeDirectory = "/home/${username}";
 
     packages = [
+      pkgs.vivaldi
+      # pkgs.brave # Not supported for aarch64-linux
+
+      pkgs.glxinfo # For OpenGL etc.
+
       ###------------------------------
       ##   Ghostty
       #--------------------------------

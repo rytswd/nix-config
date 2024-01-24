@@ -123,6 +123,23 @@ let linuxGnome = true; in {
     '')
   ];
 
+  programs = {
+    # These shell settings are global configurations, meaning they would work on
+    # files under /etc/ (and they would be stored in /etc/static/).
+    #
+    # NOTE: Upon the initial installation, the files such as /etc/bashrc, etc.
+    # need to be moved so that Nix can create the new files.
+    # bash.enable = true; # NOTE: This has no effect and needs to be taken out.
+    fish.enable = true;
+    zsh.enable = true;
+
+    # TODO: Check if this is necessary.
+    # gnupg.agent = {
+    #   enable = true;
+    #   enableSSHSupport = true;
+    # };
+  };
+
   services = {
     # Enable the OpenSSH daemon.
     openssh.enable = true;

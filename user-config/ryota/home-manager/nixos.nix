@@ -15,12 +15,6 @@ in {
     username = "${username}";
     homeDirectory = "/home/${username}";
 
-    keyboard = {
-      layout = "us,us";
-      variant = "dvorak,";
-      options = ["ctrl:nocaps"];
-    };
-
     packages = [
       ###------------------------------
       ##   Ghostty

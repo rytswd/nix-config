@@ -163,3 +163,11 @@ With all the configuration files in place, I can rebuild NixOS using Nix Flake.
       "sudo NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild switch --flake \"/nix-config#rytswd-mbp-2021-utm\""
 #+end_src
 
+* Other Notes
+The below is just some note that I will need to revisit:
+
+- Even with spice-vdagent, the display resolution didn't get updated when UTM window was resized -- it seems to have been fixed after restart of the host system?
+- rebuild doesn't always update dconf setup; only when a full rebuild is triggered due to the configuration change
+- I need to use env var for LIBGL even when graphics acceleration is set up from the host
+
+

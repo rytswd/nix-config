@@ -166,6 +166,7 @@ With all the configuration files in place, I can rebuild NixOS using Nix Flake.
 * Other Notes
 The below is just some note that I will need to revisit:
 
+- At some point I got the networking issue where I couldn't connect to internet from my guest NixOS. I updated the network setting to bridged, which seemed to do the trick. Not sure what's actually caused it, though, because it was working with the default network setup.
 - Even with spice-vdagent, the display resolution didn't get updated when UTM window was resized -- it seems to have been fixed after restart of the host system?
 - rebuild doesn't always update dconf setup; only when a full rebuild is triggered due to the configuration change
 - I need to use env var for LIBGL even when graphics acceleration is set up from the host

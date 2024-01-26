@@ -124,6 +124,8 @@ let linuxGnome = true; in {
     '')
     ];
 
+    # For now, we need this since hardware acceleration does not work.
+    variables.LIBGL_ALWAYS_SOFTWARE = "1";
   };
 
   programs = {

@@ -101,27 +101,30 @@ let linuxGnome = true; in {
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    gnumake
-    killall
-    rxvt_unicode
-    xclip
+  environment = {
+    systemPackages = with pkgs; [
+      gnumake
+      killall
+      rxvt_unicode
+      xclip
 
-    git # NOTE: modified
+      git # NOTE: modified
 
-    # This is needed for the vmware user tools clipboard to work.
-    # You can test if you don't need this by deleting this and seeing
-    # if the clipboard sill works.
-    gtkmm3
+      # This is needed for the vmware user tools clipboard to work.
+      # You can test if you don't need this by deleting this and seeing
+      # if the clipboard sill works.
+      gtkmm3
 
-    cachix # NOTE: added
+      cachix # NOTE: added
 
-    # For hypervisors that support auto-resizing, this script forces it.
-    # I've noticed not everyone listens to the udev events so this is a hack.
-    (writeShellScriptBin "xrandr-auto" ''
+      # For hypervisors that support auto-resizing, this script forces it.
+      # I've noticed not everyone listens to the udev events so this is a hack.
+      (writeShellScriptBin "xrandr-auto" ''
       xrandr --output Virtual-1 --auto
     '')
-  ];
+    ];
+
+  };
 
   programs = {
     # These shell settings are global configurations, meaning they would work on

@@ -67,7 +67,9 @@ let linuxGnome = true; in {
   services.xserver = if linuxGnome then {
     enable = true;
     exportConfiguration = true;
-    # System wide configuration, home-manager needs to be set up separately.
+    # System wide configuration, which would be overridden by user specified
+    # configuration. In order to persist with the relevant keyboard layouts,
+    # separate home-manager setup needs to be in place.
     layout = "us,us,jp";
     xkbVariant = "dvorak,,";
     xkbOptions = "ctrl:nocaps"; # Configure Caps Lock to be ctrl.
@@ -109,13 +111,10 @@ let linuxGnome = true; in {
       xclip
 
       git # NOTE: modified
-
-      # This is needed for the vmware user tools clipboard to work.
-      # You can test if you don't need this by deleting this and seeing
-      # if the clipboard sill works.
-      gtkmm3
-
       cachix # NOTE: added
+
+      # NOTE: I don't seem to need this.
+      # gtkmm3
 
       # For hypervisors that support auto-resizing, this script forces it.
       # I've noticed not everyone listens to the udev events so this is a hack.
@@ -153,6 +152,7 @@ let linuxGnome = true; in {
       PermitRootLogin = "yes"; # As I'm still testing, this makes it easier.
     };
 
+    # SPICE agent needed for screen resize handling, etc.
     spice-vdagentd.enable = true;
 
     # TODO: Clipboard stuff, not sure why it's here, will need to move to somewhere else.

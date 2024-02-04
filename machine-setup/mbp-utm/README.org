@@ -124,6 +124,12 @@ With the above in place, I should be able to simply ssh into NixOS machine.
 #+end_src
 This step is only to test the SSH works as expectedly. I can simply exit once SSH is confirmed to work correctly.
 
+**** Command Details
+- ~-o PubkeyAuthentication=no~: Disables public key authentication.
+- ~-o UserKnownHostsFile=/dev/null~: Ignores the known hosts file. This could be a security risk because it allows man-in-the-middle attacks, but because I'm connecting to a VM on the local machine, this makes it simple.
+- ~-o StrictHostKeyChecking=no~: Disables checking of host keys. This is another setting that can make ssh connections less secure, but with a local VM, it can simplify the setup.
+
+
 ** Prepare VM
 TODO: Create the ~prepare-vm.sh~ file from Org Mode tangle. 
 
@@ -151,7 +157,16 @@ As I have all of my configs available on my macOS, I can simply do ~rsync~ to co
         ~/Coding/github.com/rytswd/nix-config/ root@${NIXOS_IP}:/nix-config
 #+end_src
 
-NOTE: I should remove the ~nixos-image~ directory altogether.
+**** Command Details
+Above command uses the following input:
+- ~-a~: stands for "archive" and syncs directories recursively and preserves symbolic links, special and device files, modification times, group, owner, and permissions.
+- ~-v~: stands for "verbose". It provides more details about what the software is doing.
+- ~-z~: compresses the data before transferring. It reduces the amount of data sent over the network.
+- ~-P~: stands for "progress" and shows the progress of the transfer. It also allows partial data to be sent again if the transfer fails.
+- ~-e SSH OPTIONS~: SSH options
+- ~--exclude~: excludes files that match the specified pattern.
+- ~--rsync-path~: specifies the ~rsync~ command to run on the remote machine
+
 
 *** Rebuild with Nix Flake
 With all the configuration files in place, I can rebuild NixOS using Nix Flake.

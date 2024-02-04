@@ -84,7 +84,7 @@
           go            # Needed because Vim plugin govim requires this.
           ko
           gopls
-          templ # FIXME This should be commented in, only commented out for NixOS testing
+          templ
 
           # Rust
           # NOTE: Rust setup is either to use Nix based build setup, or rely on
@@ -108,7 +108,7 @@
           yarn
 
           # Sass
-          # dart-sass # TODO: This is not compiling at the moment
+          dart-sass
 
           # Shell
           shellcheck    # I want this for any code base

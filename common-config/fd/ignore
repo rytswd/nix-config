@@ -1,3 +1,5 @@
 .direnv/
 *.bak
 *_bak
+.git
+node_modules

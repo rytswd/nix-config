@@ -102,7 +102,24 @@ let
   });
   emacs-plus-rytswd-with-packages =
     (prev.emacsPackagesFor emacs-plus-rytswd).emacsWithPackages (packages);
+
+  ###----------------------------------------
+  ##   Emacs Pure GTK
+  #------------------------------------------
+  emacs-pgtk = prev.emacs29-pgtk.override {
+    withNativeCompilation = true;
+    withSQLite3 = true;
+    withTreeSitter = true;
+    withWebP = true;
+    withImageMagick = true;
+  };
+  emacs-pgtk-rytswd = emacs-pgtk.overrideAttrs (oldAttrs: {
+    pname = "emacs-pgtk";
+  });
+  emacs-pgtk-rytswd-with-packages =
+    (prev.emacsPackagesFor emacs-pgtk-rytswd).emacsWithPackages (packages);
 in {
   emacs-macport-rytswd = emacs-macport-rytswd-with-packages;
   emacs-plus-rytswd = emacs-plus-rytswd-with-packages;
+  emacs-pgtk-rytswd = emacs-pgtk-rytswd-with-packages;
 }

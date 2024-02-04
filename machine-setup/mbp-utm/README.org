@@ -175,7 +175,7 @@ With all the configuration files in place, I can rebuild NixOS using Nix Flake.
       -o UserKnownHostsFile=/dev/null \
       -o StrictHostKeyChecking=no \
       "root@${NIXOS_IP}" \
-      "sudo NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild switch --flake \"/nix-config#rytswd-mbp-2021-utm\""
+      "sudo NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild switch --flake \"/nix-config#mbp-2021-utm\""
 #+end_src
 
 * Other Notes

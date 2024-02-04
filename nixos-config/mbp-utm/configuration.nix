@@ -62,9 +62,7 @@ let linuxGnome = true; in {
     };
   };
 
-  # TODO: Temporarily copying mitchellh's config directly. I should probably
-  # tweak more.
-  services.xserver = if linuxGnome then {
+  services.xserver = {
     enable = true;
     exportConfiguration = true;
     # System wide configuration, which would be overridden by user specified
@@ -75,32 +73,6 @@ let linuxGnome = true; in {
     xkbOptions = "ctrl:nocaps"; # Configure Caps Lock to be ctrl.
     desktopManager.gnome.enable = true;
     displayManager.gdm.enable = true;
-  } else {
-    enable = true;
-    layout = "us,us,jp";
-    xkbVariant = "dvorak,,";
-    xkbOptions = "ctrl:nocaps"; # Configure Caps Lock to be ctrl.
-    dpi = 220;
-
-    desktopManager = {
-      xterm.enable = false;
-      wallpaper.mode = "fill";
-    };
-
-    displayManager = {
-      defaultSession = "none+i3";
-      lightdm.enable = true;
-
-      # AARCH64: For now, on Apple Silicon, we must manually set the
-      # display resolution. This is a known issue with VMware Fusion.
-      sessionCommands = ''
-        ${pkgs.xorg.xset}/bin/xset r rate 200 40
-      '';
-    };
-
-    windowManager = {
-      i3.enable = true;
-    };
   };
 
   environment = {
@@ -119,8 +91,8 @@ let linuxGnome = true; in {
       # For hypervisors that support auto-resizing, this script forces it.
       # I've noticed not everyone listens to the udev events so this is a hack.
       (writeShellScriptBin "xrandr-auto" ''
-      xrandr --output Virtual-1 --auto
-    '')
+        xrandr --output Virtual-1 --auto
+      '')
     ];
 
     # For now, we need this since hardware acceleration does not work.

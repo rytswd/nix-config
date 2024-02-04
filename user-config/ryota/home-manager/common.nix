@@ -261,8 +261,8 @@
     emacs = {
       enable = true;
       package = if pkgs.stdenv.isDarwin
-                                then pkgs.emacs-plus-rytswd # Based on overlay
-                                else pkgs.emacs; # TODO: I need to configure this correctly.
+                then pkgs.emacs-plus-rytswd  # Based on overlay
+                else pkgs.emacs-pgtk-rytswd; # Based on overlay
     };
 
     # NeoVim isn't my daily driver, but I use it time to time. The configuration

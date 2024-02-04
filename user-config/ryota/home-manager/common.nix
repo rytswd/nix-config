@@ -34,6 +34,7 @@
           neofetch      # https://github.com/dylanaraps/neofetch
           cloc          # https://github.com/AlDanial/cloc
           dyff          # https://github.com/homeport/dyff
+          hyperfine     # https://github.com/sharkdp/hyperfine
 
           ###------------------------------
           ##   More Utilities

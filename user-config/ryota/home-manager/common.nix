@@ -103,6 +103,7 @@
           # zig_0_12
 
           # JS
+          bun
           deno
           yarn
 

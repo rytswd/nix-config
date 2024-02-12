@@ -137,7 +137,7 @@ let
   ##   Main Setup
   #------------------------------------------
   # I could replace "emacs" but keeping it explicitly separate for now.
-  emacs-rytswd = if final.stdenv.isDarwin
+  emacs-rytswd = if prev.stdenv.isDarwin
                  then emacs-plus-rytswd
                  else emacs-pgtk-rytswd;
 in {

@@ -26,6 +26,7 @@ with lib.gvariant;
 
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
+      gtk-key-theme = "Emacs";
     };
 
     "org/gnome/desktop/peripherals/keyboard" = {
@@ -39,6 +40,30 @@ with lib.gvariant;
 
     "org/gnome/desktop/peripherals/touchpad" = {
       two-finger-scrolling-enabled = true;
+    };
+
+    "org/gnome/desktop/wm/keybindings" = {
+      activate-window-menu = [];
+      close = [ "<Shift><Super>comma" ];
+      maximize = [ "<Control><Alt><Super>Page_Up" ];
+      unmaximize = [ "<Control><Alt><Super>Page_Down" ];
+    };
+
+    "org/gnome/mutter" = {
+      overlay-key = "";
+    };
+
+    "org/gnome/mutter/keybindings" = {
+      toggle-tiled-left = [ "<Control><Alt><Super>Home" ];
+      toggle-tiled-right = [ "<Control><Alt><Super>End" ];
+    };
+
+    "org/gnome/nautilus/preferences" = {
+      migrated-gtk-settings = true;
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys" = {
+      search = [ "<Alt>space" ];
     };
 
     "org/gnome/desktop/screensaver" = {

@@ -170,8 +170,10 @@
         # setup
         pkgs.nodePackages.pnpm        # https://pnpm.io/
         pkgs.nodePackages.prettier    # https://prettier.io/
+        pkgs.nodePackages.typescript # Needed for the language server
 
         # Language Servers
+        pkgs.nodePackages.typescript-language-server
         pkgs.nodePackages.vscode-langservers-extracted
         pkgs.nodePackages.svelte-language-server
         pkgs.nodePackages."@astrojs/language-server"

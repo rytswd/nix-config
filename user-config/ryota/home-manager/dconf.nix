@@ -1,7 +1,7 @@
 # Generated via dconf2nix: https://github.com/gvolpe/dconf2nix
 { lib, ... }:
 
-with lib.hm.gvariant;
+with lib.gvariant;
 
 {
   dconf.settings = {
@@ -15,9 +15,13 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/input-sources" = {
-      mru-sources = [ (mkTuple [ "xkb" "us+dvorak" ]) ];
-      sources = [ (mkTuple [ "xkb" "us+dvorak" ]) (mkTuple [ "xkb" "us" ]) (mkTuple [ "xkb" "jp" ]) ];
-      xkb-options = [ "terminate:ctrl_alt_bksp" ];
+      # NOTE: It's not that I'm making a mistake with the syntax here, but the main problem seems to be that. When I reset, I get everything rolled back, unless it's provided as a part of dconf settings in nixos configuration. Rebuild works, so there is something else in this...
+      sources = [
+        (mkTuple [ "xkb" "us+dvorak" ])
+        (mkTuple [ "xkb" "us" ])
+        (mkTuple [ "xkb" "jp" ])
+      ];
+      xkb-options = [ "terminate:ctrl_alt_bksp" "caps:ctrl_modifier" ];
     };
 
     "org/gnome/desktop/interface" = {

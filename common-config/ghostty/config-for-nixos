@@ -3,10 +3,18 @@
 #------------------------------------------
 font-size               = 12
 font-thicken            = true
+
+# Default font
 font-family             = "FiraCode Nerd Font"
-font-family-bold        = "FiraCode Nerd Font-Bold"
-font-family-italic      = "FiraCode Nerd Font-Italic"
-font-family-bold-italic = "FiraCode Nerd Font-BoldItalic"
+# Bold
+font-family-bold        = "FiraCode Nerd Font"
+font-style-bold         = "SemiBold"
+# Italic
+font-family-italic      = "Iosevka Nerd Font"
+font-style-italic       = "Italic"
+# Bold and Italic
+font-family-bold-italic = "Iosevka Nerd Font"
+font-style-bold-italic  = "Bold Italic"
 
 ###----------------------------------------
 ##   Background
@@ -47,3 +55,4 @@ keybind = super+e=new_split:right
 keybind = super+shift+e=new_split:down
 keybind = super+comma=close_surface
 keybind = super+apostrophe=quit
+keybind = super+shift+w=reload_config

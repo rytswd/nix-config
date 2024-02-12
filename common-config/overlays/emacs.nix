@@ -25,14 +25,14 @@ let
   ###----------------------------------------
   ##   Emacs Macport
   #------------------------------------------
-  emacs-macport = prev.emacs29-macport.override {
+  emacs-macport-base = prev.emacs29-macport.override {
     withNativeCompilation = true;
     withSQLite3 = true;
     withTreeSitter = true;
     withWebP = true;
     withImageMagick = true;
   };
-  emacs-macport-rytswd = emacs-macport.overrideAttrs (oldAttrs: {
+  emacs-macport-patched = emacs-macport-base.overrideAttrs (oldAttrs: {
     pname = "emacs-macport";
     configureFlags = (oldAttrs.configureFlags or []) ++ [
       "--with-xwidgets" # withXwidgets flag is somehow disabled for macport upstream.
@@ -45,13 +45,12 @@ let
       })
     ];
   });
-  emacs-macport-rytswd-with-packages =
-    (prev.emacsPackagesFor emacs-macport-rytswd).emacsWithPackages (packages);
+  emacs-macport-rytswd = emacs-macport-patched.pkgs.withPackages (packages);
 
   ###----------------------------------------
   ##   Emacs Plus
   #------------------------------------------
-  emacs-plus = prev.emacs29.override {
+  emacs-plus-base = prev.emacs29.override {
     withNativeCompilation = true;
     withNS = true;
     withSQLite3 = true;
@@ -59,7 +58,7 @@ let
     withWebP = true;
     withImageMagick = true;
   };
-  emacs-plus-rytswd = emacs-plus.overrideAttrs (oldAttrs: {
+  emacs-plus-patched = emacs-plus-base.overrideAttrs (oldAttrs: {
     pname = "emacs-plus";
     configureFlags = (oldAttrs.configureFlags or []) ++ [
       "--with-xwidgets" # withXwidgets flag is somehow disabled for darwin.
@@ -100,26 +99,53 @@ let
       })
     ];
   });
-  emacs-plus-rytswd-with-packages =
-    (prev.emacsPackagesFor emacs-plus-rytswd).emacsWithPackages (packages);
+  emacs-plus-rytswd = emacs-plus-patched.pkgs.withPackages (packages);
 
   ###----------------------------------------
   ##   Emacs Pure GTK
   #------------------------------------------
-  emacs-pgtk = prev.emacs29-pgtk.override {
+  emacs-pgtk-base = prev.emacs29-pgtk.override {
     withNativeCompilation = true;
     withSQLite3 = true;
     withTreeSitter = true;
     withWebP = true;
     withImageMagick = true;
+    withXwidgets = true;
   };
-  emacs-pgtk-rytswd = emacs-pgtk.overrideAttrs (oldAttrs: {
-    pname = "emacs-pgtk";
+  emacs-pgtk-patched = emacs-pgtk-base.overrideAttrs (oldAttrs: {
+    # pname = "emacs-rytswd";
   });
-  emacs-pgtk-rytswd-with-packages =
-    (prev.emacsPackagesFor emacs-pgtk-rytswd).emacsWithPackages (packages);
+  emacs-pgtk-rytswd = emacs-pgtk-patched.pkgs.withPackages (packages);
+
+  ###----------------------------------------
+  ##   Emacs GTK3
+  #------------------------------------------
+  emacs-gtk3-base = prev.emacs29-gtk3.override {
+    withNativeCompilation = true;
+    withSQLite3 = true;
+    withTreeSitter = true;
+    withWebP = true;
+    withImageMagick = true;
+    withXwidgets = true;
+  };
+  emacs-gtk3-patched = emacs-gtk3-base.overrideAttrs (oldAttrs: {
+    # pname = "emacs-rytswd";
+  });
+  emacs-gtk3-rytswd = emacs-gtk3-patched.pkgs.withPackages (packages);
+
+  ###----------------------------------------
+  ##   Main Setup
+  #------------------------------------------
+  # I could replace "emacs" but keeping it explicitly separate for now.
+  emacs-rytswd = if final.stdenv.isDarwin
+                 then emacs-plus-rytswd
+                 else emacs-pgtk-rytswd;
 in {
-  emacs-macport-rytswd = emacs-macport-rytswd-with-packages;
-  emacs-plus-rytswd = emacs-plus-rytswd-with-packages;
-  emacs-pgtk-rytswd = emacs-pgtk-rytswd-with-packages;
+  emacs-rytswd = emacs-rytswd;
+
+  # Not used much, but keeping it around for easy testing.
+  emacs-macport-rytswd = emacs-macport-rytswd;
+  emacs-plus-rytswd = emacs-plus-rytswd;
+  emacs-pgtk-rytswd = emacs-pgtk-rytswd;
+  emacs-gtk3-rytswd = emacs-gtk3-rytswd;
 }

@@ -45,8 +45,8 @@ with lib.gvariant;
     "org/gnome/desktop/wm/keybindings" = {
       activate-window-menu = [];
       close = [ "<Shift><Super>comma" ];
-      maximize = [ "<Control><Alt><Super>Page_Up" ];
-      unmaximize = [ "<Control><Alt><Super>Page_Down" ];
+      maximize = [ "<Control><Alt>Page_Up" ];
+      unmaximize = [ "<Control><Alt>Page_Down" ];
     };
 
     "org/gnome/mutter" = {
@@ -54,8 +54,8 @@ with lib.gvariant;
     };
 
     "org/gnome/mutter/keybindings" = {
-      toggle-tiled-left = [ "<Control><Alt><Super>Home" ];
-      toggle-tiled-right = [ "<Control><Alt><Super>End" ];
+      toggle-tiled-left = [ "<Control><Alt>Home" ];
+      toggle-tiled-right = [ "<Control><Alt>End" ];
     };
 
     "org/gnome/nautilus/preferences" = {

@@ -131,9 +131,8 @@
           ###------------------------------
           ##   Editors
           #--------------------------------
-          # Emacs is configured at programs.emacs.
-          # emacs-macport-rytswd  # Custom definition from overlay.
-
+          # Emacs is configured at programs.emacs
+          # TODO: Add another Emacs so that I can test multiple Emacs builds.
           # NeoVim is configured at programs.neovim.
           # Helix is configured at programs.helix.
 

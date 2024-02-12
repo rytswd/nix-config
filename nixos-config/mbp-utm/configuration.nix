@@ -72,6 +72,7 @@ let linuxGnome = true; in {
     xkbVariant = "dvorak,,";
     xkbOptions = "ctrl:nocaps"; # Configure Caps Lock to be ctrl.
     desktopManager.gnome.enable = true;
+    desktopManager.gnome.extraGSettingsOverridePackages = [ pkgs.gnome.mutter ];
     displayManager.gdm.enable = true;
   };
 

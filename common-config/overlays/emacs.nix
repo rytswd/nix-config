@@ -4,14 +4,6 @@ final: prev:
 # https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/emacs/make-emacs.nix
 
 let
-  packages = (epkgs: with epkgs; [
-    vterm
-    jinx
-    pdf-tools
-    mu4e
-    treesit-grammars.with-all-grammars
-  ]);
-
   # Not all the dependencies below are used. This definition comes from the
   # upstream default.nix of Emacs.
   inherited = {
@@ -32,7 +24,7 @@ let
     withWebP = true;
     withImageMagick = true;
   };
-  emacs-macport-patched = emacs-macport-base.overrideAttrs (oldAttrs: {
+  emacs-macport-rytswd = emacs-macport-base.overrideAttrs (oldAttrs: {
     pname = "emacs-macport";
     configureFlags = (oldAttrs.configureFlags or []) ++ [
       "--with-xwidgets" # withXwidgets flag is somehow disabled for macport upstream.
@@ -45,7 +37,6 @@ let
       })
     ];
   });
-  emacs-macport-rytswd = emacs-macport-patched.pkgs.withPackages (packages);
 
   ###----------------------------------------
   ##   Emacs Plus
@@ -58,7 +49,7 @@ let
     withWebP = true;
     withImageMagick = true;
   };
-  emacs-plus-patched = emacs-plus-base.overrideAttrs (oldAttrs: {
+  emacs-plus-rytswd = emacs-plus-base.overrideAttrs (oldAttrs: {
     pname = "emacs-plus";
     configureFlags = (oldAttrs.configureFlags or []) ++ [
       "--with-xwidgets" # withXwidgets flag is somehow disabled for darwin.
@@ -99,7 +90,6 @@ let
       })
     ];
   });
-  emacs-plus-rytswd = emacs-plus-patched.pkgs.withPackages (packages);
 
   ###----------------------------------------
   ##   Emacs Pure GTK
@@ -112,10 +102,9 @@ let
     withImageMagick = true;
     withXwidgets = true;
   };
-  emacs-pgtk-patched = emacs-pgtk-base.overrideAttrs (oldAttrs: {
+  emacs-pgtk-rytswd = emacs-pgtk-base.overrideAttrs (oldAttrs: {
     # pname = "emacs-rytswd";
   });
-  emacs-pgtk-rytswd = emacs-pgtk-patched.pkgs.withPackages (packages);
 
   ###----------------------------------------
   ##   Emacs GTK3
@@ -128,10 +117,9 @@ let
     withImageMagick = true;
     withXwidgets = true;
   };
-  emacs-gtk3-patched = emacs-gtk3-base.overrideAttrs (oldAttrs: {
+  emacs-gtk3-rytswd = emacs-gtk3-base.overrideAttrs (oldAttrs: {
     # pname = "emacs-rytswd";
   });
-  emacs-gtk3-rytswd = emacs-gtk3-patched.pkgs.withPackages (packages);
 
   ###----------------------------------------
   ##   Main Setup
@@ -140,10 +128,29 @@ let
   emacs-rytswd = if prev.stdenv.isDarwin
                  then emacs-plus-rytswd
                  else emacs-pgtk-rytswd;
+
+  ###----------------------------------------
+  ##   Packages
+  #------------------------------------------
+  # When building with extra packages, this makes double wrapping and causes
+  # undesirable side effects when using home-manager's programs.emacs. When
+  # using the package directly, these can be helpful, but these are only meant
+  # to be references and not used in my configuration.
+  packages = (epkgs: with epkgs; [
+    vterm
+    jinx
+    pdf-tools
+    mu4e
+    treesit-grammars.with-all-grammars
+  ]);
+  emacs-macport-rytswd-with-packages = emacs-macport-rytswd.pkgs.withPackages (packages);
+  emacs-plus-rytswd-with-packages = emacs-plus-rytswd.pkgs.withPackages (packages);
+  emacs-pgtk-rytswd-with-packages = emacs-pgtk-rytswd.pkgs.withPackages (packages);
+  emacs-gtk3-rytswd-with-packages = emacs-gtk3-rytswd.pkgs.withPackages (packages);
+
 in {
   emacs-rytswd = emacs-rytswd;
 
-  # Not used much, but keeping it around for easy testing.
   emacs-macport-rytswd = emacs-macport-rytswd;
   emacs-plus-rytswd = emacs-plus-rytswd;
   emacs-pgtk-rytswd = emacs-pgtk-rytswd;

@@ -259,12 +259,19 @@
     # Emacs setup.
     # There is an overlay in place to configure how it's built. Actual Emacs
     # configurations are not managed in Nix, and is managed in a separate
-    # repository as of writing. (I may decide to change that at some point.)
+    # repository as of writing. This is because I like the fast feedback loop
+    # using Elpaca, and the packages installed here are those that need extra
+    # steps configuring using Elpaca.
     emacs = {
       enable = true;
-      package = if pkgs.stdenv.isDarwin
-                then pkgs.emacs-plus-rytswd  # Based on overlay
-                else pkgs.emacs-pgtk-rytswd; # Based on overlay
+      package = pkgs.emacs-rytswd; # Based on overlay with extra build flags.
+      extraPackages = (epkgs: with epkgs; [
+        vterm
+        jinx
+        pdf-tools
+        mu4e
+        treesit-grammars.with-all-grammars
+      ]);
     };
 
     # NeoVim isn't my daily driver, but I use it time to time. The configuration

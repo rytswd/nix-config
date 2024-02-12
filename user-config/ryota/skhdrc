@@ -74,17 +74,19 @@ rshift + ralt - space : sketchybar --bar hidden=toggle
 ##   Other Configurations
 #==========================================
 # Write a quick todo on Emacs
-# - Set it so that it does not bind when using Emacs
+# - Set it so that it does not bind when using Emacs, or UTM
 lctrl + lalt - n [
     "Emacs" ~
+    "UTM" ~
     *: emacsclient --eval '(rytswd/org-roam-capture-todo :keys "m")'; \
         yabai -m window --focus \
             "$(yabai -m query --windows | jq -r 'map(select(."app"=="Emacs")) | .[0].id')"
 ]
 # Focus on Emacs - '0x32' is for backtick (`)
-# - Set it so that it does not bind when using Emacs
+# - Set it so that it does not bind when using Emacs, or UTM
 lalt - 0x32 [
     "Emacs" ~
+    "UTM" ~
     *: yabai -m window --focus \
         "$(yabai -m query --windows | jq -r 'map(select(."app"=="Emacs")) | .[0].id')"
 ]

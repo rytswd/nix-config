@@ -33,4 +33,9 @@ in {
 
     stateVersion = "23.11";
   };
+  xdg = {
+    configFile = {
+      "ghostty/config".source = ../../../common-config/ghostty/config-for-nixos;
+    };
+  };
 }

@@ -52,3 +52,6 @@ You can find more in [[machine-setup/mbp/README.org]].
 
 ** For UTM (on Mac)
 You can find more in [[machine-setup/mbp-utm/README.org]].
+
+* My Configuration, Not Yours
+My configuration will not be useful as is for many, and it's never meant to be. I made all the configurations for my specific needs. You are welcome to have a look to understand how I work, how to configure with Nix, etc. I will check Issues and Pull Requests, but may not take in suggestions and configurations.

@@ -8,6 +8,16 @@ The Nix configurations are all managed in this directory. The idea is to ensure 
 ** Key Tools In Use
 You can find the actual configurations in various ~.nix~ files in this repository. Here is a list of items that are worth clarifying for anyone keen to understand how I work in general.
 
+| 🐱               | macOS      | NixOS     |
+|-------------------+------------+-----------|
+| Editor            | Emacs      | Emacs     |
+| Terminal          | Ghostty    | Ghostty   |
+|                   | [[https://github.com/alacritty/alacritty][Alacritty]]  | [[https://github.com/alacritty/alacritty][Alacritty]] |
+| Window Management | yabai      |           |
+| Shortcut          | skhd       |           |
+| Toolbar           | sketchybar |           |
+
+
 *** Both macOS and NixOS
 **** Editor
 Emacs

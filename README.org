@@ -5,6 +5,45 @@
 * Configuration Details
 The Nix configurations are all managed in this directory. The idea is to ensure I have all the ~$HOME~ setup defined declaratively, while allowing some imperacitve adjustments when and if necessary. Also, it is designed to work with various machines and environments, so that most of the configurations can be shared among the different environments, but still there would be some additional configuratinos made possible. (Or simply duplicating some resources.)
 
+** Key Tools In Use
+You can find the actual configurations in various ~.nix~ files in this repository. Here is a list of items that are worth clarifying for anyone keen to understand how I work in general.
+
+*** Both macOS and NixOS
+**** Editor
+Emacs
+NeoVim
+VSCode (only occassionally)
+**** Terminal
+Ghostty
+Alacritty (only occassionally): https://github.com/alacritty/alacritty
+Kitty (rarely): https://sw.kovidgoyal.net/kitty/
+
+*** macOS
+**** Window Management
+yabai: https://github.com/koekeishiya/yabai
+**** Shortcut Handling
+skhd: https://github.com/koekeishiya/skhd
+**** Toolbar
+sketchybar: https://github.com/felixkratz/sketchybar/
+**** App Launcher
+Raycast: https://www.raycast.com/
+**** Browser
+Arc Browser: https://arc.net/
+**** Other Tools
+UTM: https://github.com/utmapp/UTM
+Kap: https://getkap.co/
+KeyCastr: https://github.com/keycastr/keycastr
+
+*** NixOS
+**** Window Management
+TBC
+**** Shortcut Handling
+TBC
+**** App Launcher
+TBC
+**** Browser
+Vivaldi: https://vivaldi.com/
+
 * Nix Setup
 Nix is used for both macOS and NixOS for my configuration. You can check out both configurations here.
 

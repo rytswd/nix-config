@@ -9,7 +9,7 @@ The Nix configurations are all managed in this directory. The idea is to ensure 
 Nix is used for both macOS and NixOS for my configuration. You can check out both configurations here.
 
 ** For macOS
-You can find more in [[machine-setup/mbp/README.org]]
+You can find more in [[machine-setup/mbp/README.org]].
 
 ** For UTM (on Mac)
 You can find more in [[machine-setup/mbp-utm/README.org]].

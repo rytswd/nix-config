@@ -1,4 +1,4 @@
-#+title: UTM Setup
+#+title: UTM Setup on MacBook Pro
 
 This document is about how to set up UTM https://github.com/utmapp/UTM on my macOS machine (as of writing, it is M1 MBP) for NixOS. As this is more for my own usages, it may not be generic enough to work for all cases.
 

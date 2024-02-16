@@ -1,0 +1,4 @@
+#+title: Nix with MacBook Pro
+
+This details how I configure my MBP with Nix.
+

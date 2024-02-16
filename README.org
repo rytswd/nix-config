@@ -1,34 +1,15 @@
 #+title: Nix Config
 
 * Configuration Details
+[[file:images/2024-02-16_18-02-48_screenshot.png]]
 
 The Nix configurations are all managed in this directory. The idea is to ensure I have all the ~$HOME~ setup defined declaratively, while allowing some imperacitve adjustments when and if necessary. Also, it is designed to work with various machines and environments, so that most of the configurations can be shared among the different environments, but still there would be some additional configuratinos made possible. (Or simply duplicating some resources.)
 
 * Nix Setup
+Nix is used for both macOS and NixOS for my configuration. You can check out both configurations here.
 
 ** For macOS
+You can find more in [[machine-setup/mbp/README.org]]
 
-Firstly, install Nix.
-
-#+begin_src sh
-sh <(curl -L https://nixos.org/nix/install)
-#+end_src
-
-#+begin_quote
-Ref: https://nixos.org/download.html#nix-install-macos
-#+end_quote
-
-Then, install nix-darwin
-
-#+begin_src sh
-nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
-./result/bin/darwin-installer
-#+end_src
-
-#+begin_quote
-Ref: https://github.com/LnL7/nix-darwin/
-#+end_quote
-
-** For VM (on Mac)
-
-To be updated
+** For UTM (on Mac)
+You can find more in [[machine-setup/mbp-utm/README.org]].

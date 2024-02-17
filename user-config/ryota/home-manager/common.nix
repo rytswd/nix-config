@@ -221,8 +221,8 @@
       ##   Other
       #--------------------------------
       ++ [
-        (import ../../../common-config/overlays/erdtree.nix { inherit (pkgs) lib rustPlatform fetchFromGitHub; }) # Install erdtree directly
-        # (import ../../../common-config/overlays/mirrord.nix { inherit pkgs; }) # mirrord isn't available in nixpkgs
+        (import ../../../overlays/erdtree.nix { inherit (pkgs) lib rustPlatform fetchFromGitHub; }) # Install erdtree directly
+        # (import ../../../overlays/mirrord.nix { inherit pkgs; }) # mirrord isn't available in nixpkgs
       ]
     ;
 

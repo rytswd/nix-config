@@ -85,10 +85,10 @@
       go = nixpkgs-unstable.legacyPackages.${prev.system}.go_1_21;
     });
 
-    vscodeOverlay = (import ./common-config/overlays/vscode.nix);
-    emacs-overlay = (import ./common-config/overlays/emacs.nix );
-    tree-sitter-overlay = (import ./common-config/overlays/tree-sitter.nix );
-    # yazi-overlay = (import ./common-config/overlays/yazi.nix );
+    vscodeOverlay = (import ./overlays/vscode.nix);
+    emacs-overlay = (import ./overlays/emacs.nix );
+    tree-sitter-overlay = (import ./overlays/tree-sitter.nix );
+    # yazi-overlay = (import ./overlays/yazi.nix );
 
     overlays = [
       vscodeOverlay

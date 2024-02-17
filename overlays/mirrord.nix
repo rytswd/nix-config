@@ -18,13 +18,14 @@ let lib = pkgs.lib;
 in
 (pkgs.makeRustPlatform {
   inherit (fenix.toolchainOf {
-    date = "2023-04-19";
-    sha256 = "sha256-54rlXRNdMMf/KXvzoXPXHfAFZW4vGoYsd5yy8MKG+dI=";
+    date = "2023-09-23";
+    sha256 = "sha256-iFAX+BTKmiTKGbKwbKAO4Lg4ZQs+F7bzqi39w2/WYNo=";
   })
     cargo rustc rust-analyzer-nightly rust-src rustfmt;
 }).buildRustPackage rec {
   pname = "mirrord-layer";
-  version = "3.52.1";
+  version = "3.68.0";
+  # version = "3.52.1";
   # version = "3.47.0";
   # version = "3.46.0";
 
@@ -32,14 +33,16 @@ in
     owner = "metalbear-co";
     repo = "mirrord";
     rev = version;
-    hash = "sha256-vK5Q5SDAdfnGGZH6Ikb+ot6lMNjzoiofwxbnXqO20/k=";
+    hash = "sha256-63qJhje5YjeX55OIwMFk+qkbNgaZ6Nr1tL+GCbByzoY=";
+    # hash = "sha256-vK5Q5SDAdfnGGZH6Ikb+ot6lMNjzoiofwxbnXqO20/k="; # for 3.52.1
     # hash = "sha256-zf14Ubj5aHW9q42Kd8034MXqRiBT4DoEwDx2KW+45AQ=";
     # hash = "sha256-BE51k7BK/M5qQ1+0FcRD1VXk0wfPFiNQUtV6gHfN3pw="; # for 3.46.0
-    postFetch = ''
-      rm rust-toolchain.toml
-    '';
+    # postFetch = ''
+    #   rm rust-toolchain.toml
+    # '';
   };
-
+  
+  cargoHash = "";
   cargoLock = {
     lockFile = ./mirrord.Cargo.lock;
     allowBuiltinFetchGit = true; # Bypass the outputHashes setup
@@ -48,6 +51,7 @@ in
     #   "finalfusion-0.14.0" = "17f4bsdzpcshwh74w5z119xjy2if6l2wgyjy56v621skr2r8y904";
     # };
   };
+  cargoBuildFlags = ["-p" "mirrord"];
 
   buildInputs = [
     pkgs.protobuf

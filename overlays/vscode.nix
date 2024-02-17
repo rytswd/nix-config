@@ -14,7 +14,7 @@ in {
       # get updates almost daily, and isn't something I should need to keep
       # track of the version.
       url = "https://update.code.visualstudio.com/latest/darwin-universal/insider";
-      sha256 = "190sshqpy2a0l8yj1jvhdh1jpv4cb5mbim5j8ljcy2ys1gyd278w";
+      sha256 = "0z2563qn6rmsfyg273hr52zn5favqih3bpmvc3bngnm33l2y56f9";
     });
     version = "latest";
   });

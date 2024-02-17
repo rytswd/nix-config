@@ -125,13 +125,30 @@ let linuxGnome = true; in {
       PermitRootLogin = "yes"; # As I'm still testing, this makes it easier.
     };
 
-    # SPICE agent needed for screen resize handling, etc.
+    # SPICE agent needed for screen resize handling, clipboard, etc.
+    # Ref: https://docs.getutm.app/guest-support/linux/#spice-agent
     spice-vdagentd.enable = true;
 
-    # TODO: Clipboard stuff, not sure why it's here, will need to move to somewhere else.
-    # greenclip.enable = true;
+    # WebDav for sharing the host's directory in UTM guest machine.
+    # Ref: https://docs.getutm.app/guest-support/linux/#spice-webdav
+    spice-webdavd.enable = true;
+    # Ref: https://www.reddit.com/r/NixOS/comments/b5p6f7/how_do_i_use_davfs2/
+    davfs2.enable = true;
+    autofs = {
+      enable = true;
+      # Clear code inspired by:
+      # https://github.com/GaetanLepage/dotfiles/blob/7855d6e3f082cbdb1a20142a8299cb33729366ab/nixos/tuxedo/autofs.nix#L16
+      autoMaster = let mapConf = pkgs.writeText "autofs.mnt" ''
+        mbp \
+            -fstype=davfs,uid=1000,file_mode=666,dir_mode=777,rw \
+            :127.0.0.1:9843/Coding
+        '';
+      in ''
+        /utm-host   ${mapConf}  --timeout 600
+        /utm-host   /tmp/davfs  --timeout 600
+      '';
+    };
   };
-
 
 
   # This value determines the NixOS release from which the default

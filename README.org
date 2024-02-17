@@ -2,10 +2,10 @@
 
 [[file:images/2024-02-16_18-02-48_screenshot.png]]
 
-* My Configuration, Not Yours
+* 🌄 My Configuration, Not Yours
 My configuration will not be useful as is for many, and it's never meant to be. I made all the configurations for my specific needs. You are welcome to have a look to understand how I work, how to configure with Nix, etc. I will check Issues and Pull Requests, but may not take in suggestions and configurations.
 
-* Nix Setup
+* 🧪 Nix Setup
 Nix is used for both macOS and NixOS for my configuration. You can check out both configurations here. All the configurations are based on [[https://nixos.wiki/wiki/Flakes][Nix Flake]].
 
 ** For macOS
@@ -18,7 +18,7 @@ All the NixOS configurations are done with ~nixpkgs.lib.nixosSystem~ and [[https
 
 For the UTM setup for VM on macOS, you can find more in [[machine-setup/mbp-utm/README.org]]. Other VM solutions may also be added as I get to test more.
 
-* Configuration Details
+* 📜 Configuration Details
 The idea is to ensure I have all the ~$HOME~ setup defined declaratively, while allowing some imperative adjustments when and if necessary. Also, it is designed to work with various machines and environments, so that most of the configurations can be shared among the different environments, but still there would be some additional configurations made possible. (Or simply duplicating some resources.)
 
 ** Directories
@@ -27,13 +27,15 @@ To be updated (should be mostly clear by their names)
 ** Key Tools In Use
 You can find the actual configurations in various ~.nix~ files in this repository. Here is a list of items that are worth clarifying for anyone keen to understand how I work in general.
 
-*** Editor
+*** 📝 Editor
 I mainly use *Emacs* for any coding tasks, and many more (note taking, task management, email, etc.). All of my Emacs configurations are NOT in this repository, and I manage them in a separate repository (to be open sourced at some point).
 With my Emacs, I use [[https://github.com/emacs-evil/evil][Evil key bindings]] along with Emacs bindings. I use both Emacs and Vi bindings all the time, and thus NeoVim is also another platform I sometimes fall back to. I do have VSCode installed and use it occasionally, but rather rarely.
 
-*** Terminal
+*** 💻  Terminal
 I used to use various solutions, but now my main driver is *Ghostty*. It is performant and does everything I need well and cleanly. Before Ghostty, I used to use [[https://github.com/alacritty/alacritty][Alacritty]] and [[https://github.com/tmux/tmux][tmux]], but I do not feel the need anymore. I also have [[https://sw.kovidgoyal.net/kitty/][Kitty]] available, but I do not use it.
 
+*** ⚙️ Core Components
+Here is the list of tools I use for the key components of each OS.
 | 🐱               | macOS       | NixOS   |
 |-------------------+-------------+---------|
 | Window Management | [[https://github.com/koekeishiya/yabai][yabai]]       | TBC     |
@@ -42,7 +44,7 @@ I used to use various solutions, but now my main driver is *Ghostty*. It is perf
 | App Launcher      | [[https://www.raycast.com/][Raycast]]     | TBC     |
 | Browser           | [[https://arc.net/][Arc Browser]] | [[https://vivaldi.com/][Vivaldi]] |
 
-*** Other Tools
+*** 🍂 Other Tools
 For macOS
 - UTM: https://github.com/utmapp/UTM
 - Kap: https://getkap.co/

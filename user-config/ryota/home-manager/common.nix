@@ -137,7 +137,7 @@
           # Helix is configured at programs.helix.
 
           # vscode
-          # vscode-insiders   # Added from the overlay setup
+          vscode-insiders   # Added from the overlay setup
 
           ###------------------------------
           ##   Services

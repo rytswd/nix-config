@@ -37,6 +37,12 @@ in {
 
         # I don't use this anymore.
         # pkgs.stats      # https://github.com/exelban/stats
+      ]
+      ++ [
+        ###------------------------------
+        ##   Extra Setup
+        #--------------------------------
+        pkgs.vscode-insiders   # Added from the overlay setup
       ];
 
     stateVersion = "23.11";

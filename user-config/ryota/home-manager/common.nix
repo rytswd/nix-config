@@ -135,9 +135,7 @@
           # TODO: Add another Emacs so that I can test multiple Emacs builds.
           # NeoVim is configured at programs.neovim.
           # Helix is configured at programs.helix.
-
-          # vscode
-          vscode-insiders   # Added from the overlay setup
+          # VSCode is configured at programs.vscode.
 
           ###------------------------------
           ##   Services
@@ -255,6 +253,8 @@
   programs = {
     home-manager.enable = true;
 
+    # + Editors
+
     # Emacs setup.
     # There is an overlay in place to configure how it's built. Actual Emacs
     # configurations are not managed in Nix, and is managed in a separate
@@ -284,6 +284,17 @@
       enable = true;
       # Because Helix uses TOML for its configuration, I configure them separately.
     };
+
+    vscode = {
+      enable = true;
+      # I'm not managing extensions via home-manager.
+      # extensions = with pkgs.vscode-extensions; [
+      # dracula-theme.theme-dracula
+      # vscodevim.vim
+      # yzhang.markdown-all-in-one
+      # ];
+    };
+
 
     # + Terminals
     # NOTE: As I'm using using Ghostty, I don't use neither Alacritty nor Kitty
@@ -345,17 +356,6 @@
       enableZshIntegration = true;
       enableFishIntegration = true;
       enableNushellIntegration = true;
-    };
-
-    # + Editors
-    vscode = {
-      enable = true;
-      # I'm not managing extensions via home-manager.
-      # extensions = with pkgs.vscode-extensions; [
-      # dracula-theme.theme-dracula
-      # vscodevim.vim
-      # yzhang.markdown-all-in-one
-      # ];
     };
 
     # + Coding

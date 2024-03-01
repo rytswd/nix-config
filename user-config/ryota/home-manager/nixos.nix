@@ -33,6 +33,7 @@ in {
 
     stateVersion = "23.11";
   };
+
   programs = {
     wofi = {
       enable = true;

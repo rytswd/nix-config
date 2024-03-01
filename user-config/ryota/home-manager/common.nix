@@ -71,6 +71,8 @@
           kubeseal
           pinniped
           istioctl
+          cilium-cli
+          hubble
 
           ###------------------------------
           ##   Coding

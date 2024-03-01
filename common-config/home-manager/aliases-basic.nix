@@ -11,5 +11,5 @@
   untgz = "tar -zxf";
 
   # TODO move this to editor related aliases
-  vi = "vim";
+  vi = "nvim";
 }

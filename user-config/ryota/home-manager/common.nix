@@ -396,6 +396,8 @@
       # TODO: Move this to common config
       "bat/config".source = ../bat-config.sh;
 
+      "direnv/direnv.toml".source = ../../../common-config/direnv/direnv.toml;
+
       "enchant/enchant.ordering".source = ../../../common-config/enchant.ordering;
 
       "fd".source = ../../../common-config/fd;

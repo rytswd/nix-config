@@ -33,6 +33,13 @@ in {
 
     stateVersion = "23.11";
   };
+  programs = {
+    wofi = {
+      enable = true;
+      # More config to be placed here.
+    };
+  };
+
   xdg = {
     configFile = {
       "ghostty/config".source = ../../../common-config/ghostty/config-for-nixos;

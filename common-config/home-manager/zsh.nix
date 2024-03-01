@@ -13,7 +13,7 @@
       # Temporary alias for setting up Homebrew PATH for the current session.
       brewsup = "export PATH=\"/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}\"";
     };
-  history.size = 10000;
+  history.size = 100000;
   plugins = [
     # NOTE: This approach of having custom plugins work perfectly fine, but this
     # would also pollute the PATH with the plugins' directories. There may be a

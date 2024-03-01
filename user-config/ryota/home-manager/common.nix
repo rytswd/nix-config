@@ -245,8 +245,19 @@
       LESS = "-iMNR";
       # TODO: Add DIRENV_LOG_FORMAT to be an empty string to suppress the output
 
+      # ripgrep
       RIPGREP_CONFIG_PATH = "${config.xdg.configHome}/ripgrep/config";
+
+      # fzf
+      FZF_CTRL_T_OPTS="
+        --preview 'bat -n --color=always {}'
+        --bind 'ctrl-/:change-preview-window(down|hidden|)'";
+      # alt+c: fzf based cd, which can be triggered at any time to change dir.
+      FZF_ALT_C_OPTS = "--preview 'tree -C {}'";
+
+      # kubectl
       KUBECTL_EXTERNAL_DIFF = "dyff between --omit-header --set-exit-code";
+
     };
   };
 

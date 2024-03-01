@@ -44,6 +44,20 @@ in {
   xdg = {
     configFile = {
       "ghostty/config".source = ../../../common-config/ghostty/config-for-nixos;
+      "hypr/hyprland-custom.conf".source = ../../../common-config/hyprland/hyprland-custom.conf;
+    };
+  };
+
+  wayland = {
+    windowManager = {
+      hyprland = {
+        enable = true;
+        # This assumes that the above XDG config is mapped to provide extra conf
+        # file, which can refer to as a relative path.
+        extraConfig = ''
+          source=./hyprland-custom.conf
+        '';
+      };
     };
   };
 }

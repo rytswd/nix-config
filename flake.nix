@@ -82,7 +82,7 @@
 
     # TODO: Move this somewhere
     goOverlay = (final: prev: {
-      go = nixpkgs-unstable.legacyPackages.${prev.system}.go_1_21;
+      go = nixpkgs-unstable.legacyPackages.${prev.system}.go_1_22;
     });
 
     vscodeOverlay = (import ./overlays/vscode.nix);

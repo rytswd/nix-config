@@ -68,10 +68,9 @@ in {
       enable = true;
       config = {
         ProgramArguments = [
-          # TODO: Correct the XDG directory reference
           "${pkgs.yabai}/bin/yabai"
           "-c"
-          "/Users/${username}/.config/yabai/yabairc"
+          "${config.xdg.configHome}/yabai/yabairc"
         ];
         EnvironmentVariables = {
           # Ensure PATH is correctly handled
@@ -101,10 +100,9 @@ in {
       enable = true;
       config = {
         ProgramArguments = [
-          # TODO: Correct the XDG directory reference
           "${pkgs.skhd}/bin/skhd"
           "-c"
-          "/Users/${username}/.config/skhd/skhdrc"
+          "${config.xdg.configHome}/skhd/skhdrc"
         ];
         KeepAlive = {
           # When stopped with launchctl, keep it stopped.
@@ -123,7 +121,7 @@ in {
         ProgramArguments = [
           "${pkgs.sketchybar}/bin/sketchybar"
           "-c"
-          "/Users/${username}/.config/sketchybar/sketchybarrc.nu"
+          "${config.xdg.configHome}/sketchybar/sketchybarrc.nu"
         ];
         EnvironmentVariables = {
           # Ensure PATH is correctly handled
@@ -158,6 +156,7 @@ in {
       "sketchybar".recursive = true;
 
       "skhd/skhdrc".source   = ../skhdrc;
+
       "yabai/yabairc".source = ../yabairc;
     };
   };

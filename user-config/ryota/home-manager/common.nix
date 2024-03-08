@@ -29,6 +29,7 @@
           tree-sitter   # https://github.com/tree-sitter/tree-sitter
           atuin         # https://github.com/atuinsh/atuin
           procs         # https://github.com/dalance/procs
+          erdtree       # https://github.com/solidiquis/erdtree
           git-codereview # https://golang.org/x/review/git-codereview
           git-crypt     # https://github.com/AGWA/git-crypt
           neofetch      # https://github.com/dylanaraps/neofetch
@@ -221,7 +222,6 @@
       ##   Other
       #--------------------------------
       ++ [
-        (import ../../../overlays/erdtree.nix { inherit (pkgs) lib rustPlatform fetchFromGitHub; }) # Install erdtree directly
         # (import ../../../overlays/mirrord.nix { inherit pkgs; }) # mirrord isn't available in nixpkgs
       ]
     ;

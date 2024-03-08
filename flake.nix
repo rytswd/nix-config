@@ -88,6 +88,7 @@
     vscodeOverlay = (import ./overlays/vscode.nix);
     emacs-overlay = (import ./overlays/emacs.nix );
     tree-sitter-overlay = (import ./overlays/tree-sitter.nix );
+    # erdtree-overlay = (import ./overlays/erdtree.nix );
     # yazi-overlay = (import ./overlays/yazi.nix );
 
     overlays = [
@@ -99,6 +100,7 @@
 
       emacs-overlay
       tree-sitter-overlay
+      # erdtree-overlay
       # yazi-overlay
     ];
 

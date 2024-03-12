@@ -20,7 +20,9 @@ $git_status\
 $fill\
 [](#EBEBEB)\
 $cmd_duration\
-[](bg:#EBEBEB fg:#444444)\
+[](bg:#EBEBEB fg:#89BFD3)\
+$direnv\
+[](bg:#89BFD3 fg:#444444)\
 $jobs\
 $time\
 $line_break\
@@ -82,8 +84,17 @@ format = '[$all_status$ahead_behind ]($style)'
 symbol = "─"
 
 [cmd_duration]
-format = '[ $duration  ]($style)'
+format = '[  $duration ]($style)'
 style = "bg:#EBEBEB fg:#222222"
+
+[direnv]
+disabled = false # Disabled by default
+format = '[ 󱄅 $allowed ]($style)'
+style = "bg:#89BFD3 fg:#222222"
+symbol = '󱄅'
+allowed_msg = ''
+not_allowed_msg = ''
+denied_msg = ''
 
 [time]
 disabled = false # Disabled by default

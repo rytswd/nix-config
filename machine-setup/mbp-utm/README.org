@@ -178,7 +178,117 @@ With all the configuration files in place, I can rebuild NixOS using Nix Flake.
       "sudo NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild switch --flake \"/nix-config#mbp-2021-utm\""
 #+end_src
 
+
+* Setup Modification
+In some situation, I need to update the UTM configuration from the original preparation steps above.
+
+** Disk Size Update
+With the original setup above, I set up the VM with 100GB. I can update this with bigger disk on UTM.
+#+DOWNLOADED: screenshot @ 2024-03-16 13:42:43
+[[file:Setup_Modification/2024-03-16_13-42-43_screenshot.png]]
+
+For my setup, I updated the disk space from 100GB to 150GB. However, updating the disk here is not enough for NixOS to pick up.
+
+Assuming that the above preparation script is run, the disk setup would look something like the below:
+#+begin_src bash
+  ❯ sudo fdisk -l
+  GPT PMBR size mismatch (209715199 != 314572799) will be corrected by write.
+  The backup GPT table is not on the end of the device.
+  Disk /dev/vda: 150 GiB, 161061273600 bytes, 314572800 sectors
+  Units: sectors of 1 * 512 = 512 bytes
+  Sector size (logical/physical): 512 bytes / 512 bytes
+  I/O size (minimum/optimal): 512 bytes / 512 bytes
+  Disklabel type: gpt
+  Disk identifier: D720A027-9BF3-4B49-8EAF-5FA7BCB2BCCC
+
+  Device         Start       End   Sectors  Size Type
+  /dev/vda1    1048576 192937983 191889408 91.5G Linux filesystem
+  /dev/vda2  192937984 209713151  16775168    8G Linux swap
+  /dev/vda3       2048   1048575   1046528  511M EFI System
+
+  Partition table entries are not in disk order.
+#+end_src
+
+This means that I have set up the original disk space to be 150GB, but the partitions are not making use of the extra space. I need to re-partition ~/dev/vda1~ and ~/dev/vda2~. But before that, I first need to disable the swap usage.
+#+begin_src bash
+  ❯ sudo swapoff /dev/vda2
+#+end_src
+
+Now, I can run ~sudo fdisk /dev/vda~ to start updating the partition interactively.
+#+begin_src bash
+  # Use 'd' command to delete partition 1
+  d (follow prompts) # i.e. Partition number: 1
+  # Use 'd' command to delete partition 2
+  d (follow prompts) # i.e. Partition number: 2
+
+  # Use 'n' command to create new partition 1
+  d (follow prompts) # i.e. Partition number: 1
+                     #      -> First sector: (keep empty and use default)
+                     #      -> Last sector: -8G (keep 8G for the next partition)
+  # Use 'n' command to create new partition 2
+  d (follow prompts) # i.e. Partition number: 2
+                     #      -> First sector: (keep empty and use default)
+                     #      -> Last sector: (keep empty and use default)
+  t (follow prompts) # i.e. Partition number: 2
+                     #      -> L (list all options)
+                     #      -> (select "Linux swap" -- as of writing, it's 19)
+
+  # Use 'w' command to write changes to disk
+  w
+#+end_src
+
+After ~fdisk~ is complete, reboot the system with ~sudo reboot~.
+
+Once the system comes back up, everything is set up -- so I thought 🙃
+#+begin_src bash
+  ❯ df -h .
+  Filesystem                Size  Used Avail Use% Mounted on
+  /dev/disk/by-label/nixos   90G   86G     0 100% /
+#+end_src
+
+It was clear that my filesystem was not updated, although the partition has been updated. It was a simple fix.
+#+begin_src bash
+  ❯ sudo resize2fs /dev/vda1
+
+  resize2fs 1.47.0 (5-Feb-2023)
+  Filesystem at /dev/vda1 is mounted on /; on-line resizing required
+  old_desc_blocks = 12, new_desc_blocks = 18
+  The filesystem on /dev/vda1 is now 37093376 (4k) blocks long.
+
+  ❯ df -h .
+  Filesystem                Size  Used Avail Use% Mounted on
+  /dev/disk/by-label/nixos  139G   73G   60G  56% /
+#+end_src
+
+Also, ensure to run the following to get the swap in place correctly.
+#+begin_src bash
+  # Format the swap partition and again enable swap 
+  ❯ sudo mkswap /dev/vda2; sudo swapon /dev/vda2
+  Setting up swapspace version 1, size = 8 GiB (8588881920 bytes)
+  no label, UUID=7c95d918-2dbf-4751-9ae3-806588a9a9ab
+#+end_src
+
+With the above in place, I can confirm that the disk space is updated correctly.
+#+begin_src bash
+  ❯ sudo fdisk -l
+  Disk /dev/vda: 150 GiB, 161061273600 bytes, 314572800 sectors
+  Units: sectors of 1 * 512 = 512 bytes
+  Sector size (logical/physical): 512 bytes / 512 bytes
+  I/O size (minimum/optimal): 512 bytes / 512 bytes
+  Disklabel type: gpt
+  Disk identifier: D720A027-9BF3-4B49-8EAF-5FA7BCB2BCCC
+
+  Device         Start       End   Sectors   Size Type
+  /dev/vda1    1048576 297795583 296747008 141.5G Linux filesystem
+  /dev/vda2  297795584 314570751  16775168     8G Linux swap
+  /dev/vda3       2048   1048575   1046528   511M EFI System
+
+  Partition table entries are not in disk order.
+#+end_src
+
+
 * Other Notes
+
 The below is just some note that I will need to revisit:
 
 - At some point I got the networking issue where I couldn't connect to internet from my guest NixOS. I updated the network setting to bridged, which seemed to do the trick. Not sure what's actually caused it, though, because it was working with the default network setup.

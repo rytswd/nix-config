@@ -103,11 +103,6 @@
           # cargo
           # rust-analyzer
 
-          # Zig
-          zig
-          zls
-          # zig_0_12
-
           # JS
           bun
           deno
@@ -160,6 +155,14 @@
         pkgs.python311.pkgs.pip
         pkgs.python311.pkgs.grip # https://github.com/joeyespo/grip
         pkgs.python311.pkgs.diagrams
+      ]
+      ###------------------------------
+      ##   Zig
+      #--------------------------------
+      ++ [
+        # pkgs.zig
+        pkgs.zigpkgs.master # NOTE: Based on https://github.com/mitchellh/zig-overlay
+        pkgs.zls
       ]
       ###------------------------------
       ##   Node Packages

@@ -39,6 +39,7 @@
     };
 
     nixpkgs-zig-0-12.url = "github:vancluever/nixpkgs/vancluever-zig-0-12";
+
     zig = {
       url = "github:mitchellh/zig-overlay";
     };

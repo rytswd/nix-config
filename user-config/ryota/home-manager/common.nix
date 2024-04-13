@@ -111,6 +111,9 @@
           # Sass
           dart-sass
 
+          # HTML
+          emmet-language-server
+
           # Shell
           shellcheck    # I want this for any code base
 

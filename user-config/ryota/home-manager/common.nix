@@ -196,19 +196,16 @@
       #--------------------------------
       ++ [
         pkgs.enchant2  # https://github.com/AbiWord/enchant
-        pkgs.aspell
-        pkgs.aspellDicts.en
-        pkgs.aspellDicts.en-computers
-        pkgs.aspellDicts.en-science
         # pkgs.hunspell
         # pkgs.hunspellDicts.en_GB-large
         # pkgs.hunspellDicts.en_US-large
         pkgs.nuspell   # https://github.com/nuspell/nuspell
-        # (pkgs.aspellWithDicts (dicts: with dicts; [
-          # en
-          # en-computers
-          # en-science
-        # ]))
+        # aspell setup takes a function argument.
+        (with pkgs; aspellWithDicts (dicts: with dicts; [
+          aspellDicts.en
+          aspellDicts.en-computers
+          aspellDicts.en-science
+        ]))
         (with pkgs; hunspellWithDicts [
           hunspellDicts.en_GB-large
           hunspellDicts.en_US-large

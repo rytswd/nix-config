@@ -371,6 +371,8 @@
     };
     zoxide = {
       enable = true;
+      # In order to call the builtin 'cd', I can use 'builtin cd'.
+      options = [ "--cmd cd"];
 
       enableBashIntegration = true;
       enableZshIntegration = true;

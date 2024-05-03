@@ -92,9 +92,9 @@ disabled = false # Disabled by default
 format = '[ 󱄅 $allowed ]($style)'
 style = "bg:#89BFD3 fg:#222222"
 symbol = '󱄅'
-allowed_msg = ''
-not_allowed_msg = ''
-denied_msg = ''
+allowed_msg = ' '
+not_allowed_msg = ' '
+denied_msg = ' '
 
 [time]
 disabled = false # Disabled by default

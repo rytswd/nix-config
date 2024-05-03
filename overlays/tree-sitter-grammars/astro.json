@@ -1,7 +1,7 @@
 {
   "url": "https://github.com/virchau13/tree-sitter-astro",
-  "rev": "dfa0893bdc4bdfada102043404758c66e3580568",
-  "sha256": "sha256-gToRdyLvvDaeE1b9fYRVPFt1mtdR9kSYzqFBDUYpv3k=",
+  "rev": "4be180759ec13651f72bacee65fa477c64222a1a",
+  "sha256": "sha256-qc9InFEQgeFfFReJuQd8WjTNK4fFMEaWcqQUcGxxuBI=",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

@@ -91,6 +91,7 @@
     tree-sitter-overlay = (import ./overlays/tree-sitter.nix );
     # erdtree-overlay = (import ./overlays/erdtree.nix );
     # yazi-overlay = (import ./overlays/yazi.nix );
+    grip-overlay = (import ./overlays/grip.nix );
 
     overlays = [
       vscodeOverlay
@@ -103,6 +104,7 @@
       tree-sitter-overlay
       # erdtree-overlay
       # yazi-overlay
+      grip-overlay
     ];
 
       in {

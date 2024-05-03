@@ -200,19 +200,19 @@
         pkgs.aspellDicts.en
         pkgs.aspellDicts.en-computers
         pkgs.aspellDicts.en-science
-        pkgs.hunspell
-        pkgs.hunspellDicts.en_GB-large
-        pkgs.hunspellDicts.en_US-large
+        # pkgs.hunspell
+        # pkgs.hunspellDicts.en_GB-large
+        # pkgs.hunspellDicts.en_US-large
         pkgs.nuspell   # https://github.com/nuspell/nuspell
         # (pkgs.aspellWithDicts (dicts: with dicts; [
           # en
           # en-computers
           # en-science
         # ]))
-        # (pkgs.hunspellWithDicts (with pkgs.hunspellDicts; [
-        #   en_GB-large
-        #   en_US
-        # ]))
+        (with pkgs; hunspellWithDicts [
+          hunspellDicts.en_GB-large
+          hunspellDicts.en_US-large
+        ])
       ]
       ###------------------------------
       ##   GCP

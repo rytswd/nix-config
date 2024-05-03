@@ -156,7 +156,8 @@
         ]))
         pkgs.poetry    # https://python-poetry.org/
         pkgs.python311.pkgs.pip
-        pkgs.python311.pkgs.grip # https://github.com/joeyespo/grip
+        # pkgs.python311.pkgs.grip # https://github.com/joeyespo/grip
+        pkgs.python-grip # Overlay in place for the above to get the latest master.
         pkgs.python311.pkgs.diagrams
       ]
       ###------------------------------

@@ -1,0 +1,8 @@
+###------------------------------
+##    Spell Check Priority
+#--------------------------------
+
+*:AppleSpell,aspell,hunspell,nuspell
+en:hunspell,nuspell
+en-computers:aspell
+en-science:aspell

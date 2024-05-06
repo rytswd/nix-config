@@ -411,7 +411,8 @@
 
       "direnv/direnv.toml".source = ../../../common-config/direnv/direnv.toml;
 
-      "enchant/enchant.ordering".source = ../../../common-config/enchant.ordering;
+      # Enchant config, and pull in
+      "enchant/enchant.ordering".source = ../../../common-config/enchant/enchant.ordering;
 
       "fd".source = ../../../common-config/fd;
       "fd".recursive = true;

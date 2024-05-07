@@ -256,26 +256,6 @@ in {
       };
 
       trackpad.Clicking = true;
-
-      # TODO: Needs to be tested.
-      # keyboard = {
-      #   enableKeyMapping = true;
-      #   remapCapsLockToControl = true;
-      # };
-
-      # screencapture.location = "/Users/${username}/Google \Drive/My \Drive/Screenshots";
-
-      # CustomUserPreferences = {
-      #   "com.apple.HIToolbox" = {
-      #     # Add Dvorak
-      #     "com.apple.HIToolbox.AppleEnabledInputSources.0" = {
-      #       "InputSourceKind" = "Keyboard Layout";
-      #       "KeyboardLayout ID" = "16301";
-      #       "KeyboardLayout Name" = "DVORAK - QWERTY CMD";
-      #     };
-      #     "com.apple.HIToolbox.AppleFnUsageType" = 2; # Use F1, F2 as standard function keys
-      #   };
-      # };
     };
   };
 }

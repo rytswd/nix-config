@@ -212,41 +212,47 @@ in {
     };
 
     defaults = {
+      # Ref: https://github.com/LnL7/nix-darwin/tree/master/modules/system/defaults
+
       NSGlobalDomain = {
-        InitialKeyRepeat = 15;
-        KeyRepeat = 1;
+        InitialKeyRepeat    = 15;
+        KeyRepeat           = 1;
 
-        NSAutomaticCapitalizationEnabled = false;     # Disable automatic capitalization.
-        NSAutomaticPeriodSubstitutionEnabled = false; # Disable double-space to add period.
+        NSAutomaticCapitalizationEnabled        = false;    # Disable automatic capitalization.
+        NSAutomaticPeriodSubstitutionEnabled    = false;    # Disable double-space to add period.
 
-        # TODO: Check whether these values are better managed at different level
-        # than NSGlobalDomain.
+        "com.apple.keyboard.fnState"    = true; # Enable F1, F2, etc. as they are.
+        "com.apple.sound.beep.volume"   = 0.25; # Set the beep volume to 25%.
+
+        _HIHideMenuBar = true;  # Hide menu bar as I'm using more customisable menu bar.
+
+        # NOTE: Below is only for reference. They are set by different config options.
         # AppleShowAllFiles = true; # Always show hidden files.
-
-        "com.apple.keyboard.fnState" = true;        # Enable F1, F2, etc. as they are.
-        "com.apple.sound.beep.volume" = 0.25;  # Set the beep volume to 25%.
         # "com.apple.mouse.tapBehavior" = 1; # Enable tap to click.
       };
 
+      # Ref: clock setting
+      # https://github.com/LnL7/nix-darwin/blob/master/modules/system/defaults/clock.nix
+
       dock = {
-        autohide = true;
-        showhidden = true;
-        show-recents = false;
-        orientation = "bottom"; # NOTE: Updating this would require a restart.
-        wvous-tl-corner = 10; # Put display to sleep.
-        wvous-tr-corner = 1;  # Disabled.
-        wvous-bl-corner = 13; # Lock screen.
-        wvous-br-corner = 1;  # Disabled.
+        autohide        = true;
+        showhidden      = true;
+        show-recents    = false;
+        orientation     = "bottom"; # NOTE: Updating this would require a restart.
+        wvous-tl-corner = 10;       # Top Left:  Put display to sleep.
+        wvous-tr-corner = 1;        # Top Right: Disabled.
+        wvous-bl-corner = 13;       # Bottom Left:  Lock screen.
+        wvous-br-corner = 1;        # Bottom Right: Disabled.
       };
 
       finder = {
-        AppleShowAllFiles = true;       # Always show hidden files.
-        AppleShowAllExtensions = true;  # Always show file extensions.
-        QuitMenuItem = true;            # Enable "Quit Finder" menu item.
-        ShowPathbar = true;             # Show path bar.
+        AppleShowAllFiles       = true; # Always show hidden files.
+        AppleShowAllExtensions  = true; # Always show file extensions.
+        QuitMenuItem            = true; # Enable "Quit Finder" menu item.
+        ShowPathbar             = true; # Show path bar.
 
         FXEnableExtensionChangeWarning = false; # Disable warning when changing file extension.
-        FXPreferredViewStyle = "Nlsv";  # List view by default.
+        FXPreferredViewStyle    = "Nlsv";  # List view by default.
       };
 
       trackpad.Clicking = true;

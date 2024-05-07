@@ -34,6 +34,7 @@ Set Memory and CPU Cores -- this depends on how much resource I have. As my use 
 [[file:Prepare_UTM/2024-01-14_23-08-03_screenshot.png]]
 
 Set Storage -- I don't really need too much storage specifically on NixOS as I would be sharing my home directory between the machines. I just give 100GB which should be sufficient for most use cases.
+NOTE: When I run out of the disk space, I can easily update. The detailed steps are covered below.
 #+DOWNLOADED: screenshot @ 2024-01-14 23:12:47
 [[file:Prepare_UTM/2024-01-14_23-12-47_screenshot.png]]
 

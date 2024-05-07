@@ -42,7 +42,6 @@
           #--------------------------------
           # These can be somewhat env specific.
 
-          # authy
           keybase       # https://keybase.io/
           surrealdb     # https://surrealdb.com/
           graphviz      # https://graphviz.org/

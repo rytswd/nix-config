@@ -138,11 +138,15 @@ in {
       ###------------------------------
       ##   Browser
       #--------------------------------
+      # A lot of the below aren't supported by Nix on macOS, and thus using
+      # Homebrew instead.
+      "arc"
       "chromium"
       "brave-browser"
       "google-chrome"
       "firefox"
       "microsoft-edge-dev"
+      "vivaldi"
 
       ###------------------------------
       ##   Input
@@ -152,6 +156,7 @@ in {
       ###------------------------------
       ##   Storage
       #--------------------------------
+      "dropbox"
       # "google-drive"
 
       ###------------------------------
@@ -168,9 +173,8 @@ in {
       ###------------------------------
       ##   Utilities
       #--------------------------------
-      "kap"
-      "authy"
       "raycast"
+      "kap"
       "docker"
       "orbstack"
       "keycastr"

@@ -402,8 +402,7 @@
       # Instead of using programs.starship.settings, copy the TOML file over.
       "starship.toml".source = ../../../common-config/starship.toml;
 
-      # TODO: use toml instead
-      "alacritty/alacritty.yml".source = ../alacritty.yaml;
+      "alacritty/alacritty.toml".source = ../alacritty.toml;
 
       # TODO: Move this to common config
       "bat/config".source = ../bat-config.sh;

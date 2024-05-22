@@ -145,8 +145,8 @@ in {
       "brave-browser"
       "google-chrome"
       "firefox"
-      "microsoft-edge-dev"
       "vivaldi"
+      # "microsoft-edge-dev"
 
       ###------------------------------
       ##   Input

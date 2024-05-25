@@ -3,10 +3,8 @@
 {
   enable = true;
 
-  enableAutosuggestions = true;
-  syntaxHighlighting = {
-    enable  = true;
-  };
+  autosuggestion.enable = true;
+  syntaxHighlighting.enable  = true;
   shellAliases =
     (import ./aliases-ls.nix { withEza = false; }) //
     {

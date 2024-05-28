@@ -1,0 +1,9 @@
+{
+  "url": "https://github.com/faldor20/tree-sitter-roc",
+  "rev": "df46a85abda9f948d38f5d4e3684cec49c42fef2",
+  "sha256": "sha256-4E9ZnMizo+1wnnkYSPNKMkTTyDKRJT+JqtUWoJH45aA=",
+  "fetchLFS": false,
+  "fetchSubmodules": false,
+  "deepClone": false,
+  "leaveDotGit": false
+}

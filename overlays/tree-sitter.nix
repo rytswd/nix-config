@@ -10,6 +10,7 @@ final: prev:
       tree-sitter-nu = final.lib.importJSON ./tree-sitter-grammars/nu.json;
       tree-sitter-templ = final.lib.importJSON ./tree-sitter-grammars/templ.json;
       tree-sitter-sql = final.lib.importJSON ./tree-sitter-grammars/sql.json;
+      tree-sitter-roc = final.lib.importJSON ./tree-sitter-grammars/roc.json;
     };
   };
 }

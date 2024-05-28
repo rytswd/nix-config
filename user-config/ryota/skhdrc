@@ -4,6 +4,9 @@
 # https://github.com/koekeishiya/skhd
 # skhd is simple hotkey daemon. This is not the easiest and most intuitive, but
 # effective and efficient, which works just as intended for most use cases.
+#
+# NOTE: When updating the configuration, I would need to restart skhd process to
+# pick up the latest configuration.
 
 ###========================================
 ##   Yabai Configuration

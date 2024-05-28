@@ -106,7 +106,7 @@ def main [] {
   use datetime.nu; datetime clock item; datetime calendar item
   use battery.nu; battery item
   # use input.nu; input item
-  use aliases.nu; aliases items  # This creates its own bracket
+  # use aliases.nu; aliases items  # This creates its own bracket
   # use stats.nu; stats items      # This creates its own bracket
 
   # TODO: Stats provides nice views, but seems to have strange startup

@@ -1,2 +1,7 @@
 # Nix build result
 result
+
+# Custom file, which is ignored so that I can make the development only setup.
+# This is used so that Nix won't copy over the file, and I can use it to adjust
+# the application behaviour based on that, such as sketchybar.
+.dev_only

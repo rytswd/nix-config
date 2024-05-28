@@ -38,6 +38,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    roc = {
+      url = "github:roc-lang/roc";
+    };
+
     nixpkgs-zig-0-12.url = "github:vancluever/nixpkgs/vancluever-zig-0-12";
 
     zig = {
@@ -61,6 +65,7 @@
     , fenix
     , nixpkgs-zig-0-12
     , zig
+    , roc
     , ghostty
     , ... } @ inputs:
     let mbp-arch = "aarch64";
@@ -77,13 +82,15 @@
 	#   });
 	# });
 
+    # Language specific overlays
+    goOverlay = (final: prev: {
+      go = nixpkgs-unstable.legacyPackages.${prev.system}.go_1_22;
+    });
     rustOverlay = rust-overlay.overlays.default;
     fenixOverlay = fenix.overlays.default;
     zigOverlay = zig.overlays.default;
-
-    # TODO: Move this somewhere
-    goOverlay = (final: prev: {
-      go = nixpkgs-unstable.legacyPackages.${prev.system}.go_1_22;
+    rocOverlay = (final: prev: {
+      rocpkgs = roc.packages.${prev.system};
     });
 
     vscodeOverlay = (import ./overlays/vscode.nix);
@@ -99,6 +106,7 @@
       rustOverlay
       zigOverlay
       # fenixOverlay
+      rocOverlay
 
       emacs-overlay
       tree-sitter-overlay

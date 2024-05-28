@@ -66,8 +66,17 @@ lctrl + lalt - tab [
 ###========================================
 ##   Sketchybar Configuration
 #==========================================
-rshift + ralt - space : sketchybar --bar hidden=toggle
-# rshift + rcmd - space : sketchybar --remove '/.*/' && sh -c 'export CONFIG_DIR=$HOME/.config/sketchybar && $CONFIG_DIR/sketchybarrc'
+# Toggle sketchybar
+rshift + ralt - escape : sketchybar --bar hidden=toggle
+
+# Use sketchybar configuration directly without Nix (for development)
+rshift + ralt - f1 : sh -c "pkill -x sketchybar; \
+                            export CONFIG_DIR=$HOME/Coding/github.com/rytswd/nix-config/user-config/ryota/sketchybar && \
+                            sketchybar -c $HOME/Coding/github.com/rytswd/nix-config/user-config/ryota/sketchybar/sketchybarrc.nu"
+# Use sketchybar configuration directly from Nix (for stable)
+rshift + ralt - f2 : sh -c "pkill -x sketchybar; \
+                            export CONFIG_DIR=$XDG_CONFIG_HOME/sketchybar && \
+                            sketchybar -c $XDG_CONFIG_HOME/sketchybar/sketchybarrc.nu"
 
 
 ###========================================

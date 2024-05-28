@@ -57,3 +57,9 @@ export def icon [] {
   )
   log info "Rendering Apple icon, complete"
 }
+
+export def dev_icon () {
+  (sketchybar --set apple_log
+        icon=""
+        $"icon.color=($colour.magenta)")
+}

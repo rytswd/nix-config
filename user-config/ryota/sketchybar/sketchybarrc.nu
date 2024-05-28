@@ -96,6 +96,9 @@ def main [] {
 
   # Left -- the first item will be leftmost
   use apple.nu; apple icon
+  if (".dev_only" | path exists) {
+    apple dev_icon
+  }
   # use space.nu; space item # TODO: This is not working correctly.
   use front_app.nu; front_app item
 

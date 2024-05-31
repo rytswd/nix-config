@@ -10,7 +10,7 @@ use colour.nu
 # throughout.
 export const name = "apple_log"
 
-export def icon [] {
+export def icon () {
   log info "Rendering Apple icon"
 
   # sketchybar command requires the specific syntax to be followed. For some
@@ -61,5 +61,7 @@ export def icon [] {
 export def dev_icon () {
   (sketchybar --set apple_log
         icon=""
-        $"icon.color=($colour.magenta)")
+        $"icon.color=($colour.magenta)"
+        "blur_radius=1"
+  )
 }

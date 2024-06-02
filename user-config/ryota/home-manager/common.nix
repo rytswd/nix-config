@@ -75,6 +75,8 @@
           istioctl
           cilium-cli
           hubble
+          talosctl
+          vcluster
 
           ###------------------------------
           ##   Coding

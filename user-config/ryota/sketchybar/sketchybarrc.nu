@@ -168,12 +168,14 @@ def main [] {
       clock
       calendar
       battery
+      cpu
+      network
     --set         right
     $"background.color=($appearance.bracket_background_colour)"
     $"background.height=($appearance.bracket_height)"
     $"background.corner_radius=($appearance.bracket_background_corner_radius)"
     # $"background.border_color=($colour.green)"
-    # $"background.border_width=2"
+    # $"background.border_width=1"
     # $"padding_right=($appearance.bracket_padding_side)"
     $"background.padding_left=20"
   )

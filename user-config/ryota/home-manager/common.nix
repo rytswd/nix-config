@@ -415,6 +415,9 @@
       # TODO: Move this to common config
       "bat/config".source = ../bat-config.sh;
 
+      # Temporarily commenting out as I'm still exploring this.
+      # "btop/btop.conf".source = ../../../common-config/btop/btop.conf;
+
       "direnv/direnv.toml".source = ../../../common-config/direnv/direnv.toml;
 
       # Enchant config, and pull in

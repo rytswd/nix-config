@@ -64,6 +64,19 @@ in {
         WorkingDirectory = "/tmp/";
       };
     };
+    pueue = {
+      enable = true;
+      config = {
+        ProgramArguments = [
+          "${pkgs.pueue}/bin/pueued"
+        ];
+        # Always keep it running.
+        KeepAlive = true;
+        RunAtLoad = true;
+        ProcessType = "Background";
+        WorkingDirectory = "/tmp/";
+      };
+    };
     yabai = {
       enable = true;
       config = {

@@ -36,6 +36,8 @@
           cloc          # https://github.com/AlDanial/cloc
           dyff          # https://github.com/homeport/dyff
           hyperfine     # https://github.com/sharkdp/hyperfine
+          pueue         # https://github.com/Nukesor/pueue
+          btop          # https://github.com/aristocratos/btop
 
           ###------------------------------
           ##   More Utilities

@@ -68,16 +68,13 @@ export def item () {
   log info $"Rendering ($name), complete"
 }
 
-# main runs based on event subscription, and update the front_app item so that
-# the current application is correctly rendered in the item. It also fetches the
-# application icon.
 def main () {
   let b = (pmset -g batt)
   let percentage = ($b | parse --regex '(?P<Pct>\d+)%' | get 0 | get Pct | into int)
   let ac_on = ($b | str contains 'AC Power')
 
   mut icon = "󱟩"
-  mut battery_colour = $"($appearance.item_label_colour)"
+  mut battery_colour = $"($appearance.item_icon_colour)"
   let battery_label = $"($percentage | fill -a right -c ' ' -w 2)%"
 
   if ($ac_on) {

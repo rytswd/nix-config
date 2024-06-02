@@ -1,0 +1,1 @@
+All the extra tools are taken from https://github.com/FelixKratz/dotfiles/tree/master/.config/sketchybar/helpers/event_providers

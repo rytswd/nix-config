@@ -106,14 +106,36 @@ def main [] {
   use datetime.nu; datetime clock item; datetime calendar item
   use battery.nu; battery item
   # use input.nu; input item
-  # use aliases.nu; aliases items  # This creates its own bracket
-  # use stats.nu; stats items      # This creates its own bracket
 
-  # TODO: Stats provides nice views, but seems to have strange startup
-  # behaviour. Also it actually places extra components in the native menubar
-  # which is actually making the situation worse (I want to be able to interact
-  # with the menu bar item at times). I'd need to think about replacing with my
-  # own impl.
+  # CPU and network require extra tools to scrape the usage data. Because
+  # Nushell does not provide running process in the background, I'm using
+  # "pueue" and "pueued" to register the backend. If "pueue" is not available,
+  # both items won't be loaded.
+  if (which pueue | is-not-empty) {
+    # If there is no group for sketchybar defined, create it first.
+    # NOTE: pueued is assumed to be running.
+    if (pueue group --json | from json | get -i sketchybar | is-empty) {
+      pueue group add sketchybar
+    }
+    # Before proceeding, kill all the processes under sketchybar group.
+    pueue kill -g sketchybar
+    # Set background processes.
+    # NOTE: This assumes the following paths exists, which doesn't work well
+    # with Nix backed setup.
+    if ("./extra/event_providers/cpu_load/bin/cpu_load" | path exists) {
+      # NOTE: Event addition is not necessary as it is handled by the scraping
+      # jobs. But it may be simpler to run it here instead.
+      (sketchybar --add event cpu_update)
+      (sketchybar --add event network_update)
+      (pueue add -g sketchybar -i
+        ./extra/event_providers/cpu_load/bin/cpu_load cpu_update 2.0)
+      (pueue add -g sketchybar -i
+        ./extra/event_providers/network_load/bin/network_load en0 network_update 2.0)
+      # Register items.
+      use cpu.nu; cpu item
+      use network.nu; network item
+    }
+  }
 
   log info "Setting up the items, complete"
 

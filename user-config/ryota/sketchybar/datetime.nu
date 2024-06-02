@@ -39,9 +39,9 @@ export module calendar {
       # $"icon.background.color=($colour.blue)"
 
       $"icon.width=18"
-      $"icon.font.size=24"
+      $"icon.font.size=20"
       $"icon.background.height=17"
-      $"icon.y_offset=2"
+      $"icon.y_offset=1"
       $"icon.background.y_offset=0"
       $"icon.background.corner_radius=0"
       $"icon.padding_left=3"
@@ -108,7 +108,7 @@ export module clock {
       # $"icon.background.color=($colour.green)"
 
       $"icon.width=18"
-      $"icon.font.size=27"
+      $"icon.font.size=22"
       $"icon.background.height=17"
       $"icon.y_offset=1"
       $"icon.background.y_offset=1"

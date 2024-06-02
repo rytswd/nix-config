@@ -28,6 +28,8 @@ export def item () {
     $"background.padding_right=4"
     $"background.padding_left=0"
     $"background.corner_radius=($appearance.item_background_corner_radius)"
+    $"background.border_width=1"
+    $"background.border_color=($colour.glass_dark)"
     $"blur_radius=($appearance.item_blur_radius)"
 
     ###--------------------

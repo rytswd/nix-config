@@ -3,7 +3,7 @@
 use std log
 
 use appearance.nu
-# use colour.nu
+use colour.nu
 
 # In order to simplify "bracket" handling, it is best to stick the file name for
 # the name variable here. That way, it can be referred to with the same name
@@ -26,8 +26,9 @@ export def item () {
     $"background.color=($appearance.item_background_colour)"
     $"background.corner_radius=($appearance.item_background_corner_radius)"
     blur_radius=30
-    $"background.border_width=2"
     background.padding_right=4
+    $"background.border_width=1"
+    $"background.border_color=($colour.glass_dark)"
     # background.shadow.distance=1
     # $"background.shadow.color=($colour.grey)"
 

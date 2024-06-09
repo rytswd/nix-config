@@ -1,3 +1,6 @@
+# Ref:
+# https://github.com/mitchellh/ghostty/blob/main/src/config/Config.zig
+
 ###----------------------------------------
 ##   Font
 #------------------------------------------
@@ -27,6 +30,7 @@ window-padding-y        = 10
 macos-non-native-fullscreen = true
 macos-option-as-alt     = true
 window-decoration       = true
+macos-titlebar-style    = "tabs"
 
 ###----------------------------------------
 ##   Key Bindings

@@ -157,6 +157,13 @@
         # `username`). The actual code to load up the home-manager configs
         # is defined in `./user-config/<username>/home-manager.nix`.
         nixosConfigurations = {
+          asus-rog-zephyrus-g14-2024 = (import ./nixos-config/asus-rog-zephyrus-g14-2024 {
+            inherit (nixpkgs) lib;
+            inherit (nixpkgs-unstable.lib) nixosSystem;
+            inherit nixpkgs nixpkgs-unstable home-manager ghostty;
+            system = "x86_64-linux";
+            overlays = overlays;
+          });
           mbp-2021-utm = (import ./nixos-config/mbp-utm {
             inherit (nixpkgs) lib;
             inherit (nixpkgs-unstable.lib) nixosSystem;

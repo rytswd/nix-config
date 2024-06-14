@@ -178,6 +178,7 @@ in {
       "docker"
       "orbstack"
       "keycastr"
+      "protonvpn"
 
       ###------------------------------
       ##   Other

@@ -81,3 +81,4 @@ yabai -m rule --add label="Stats" app="^Stats$" manage=off
 yabai -m rule --add label="OrbStack" app="^OrbStack$" manage=off
 yabai -m rule --add label="Ghostty" app="^Ghostty$" manage=off
 yabai -m rule --add label="UTM" app="^UTM$" manage=off
+yabai -m rule --add label="Proton VPN" app="^ProtonVPN$" manage=off

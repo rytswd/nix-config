@@ -69,9 +69,11 @@ let linuxGnome = true; in {
     # System wide configuration, which would be overridden by user specified
     # configuration. In order to persist with the relevant keyboard layouts,
     # separate home-manager setup needs to be in place.
-    layout = "us,us,jp";
-    xkbVariant = "dvorak,,";
-    xkbOptions = "ctrl:nocaps"; # Configure Caps Lock to be ctrl.
+    xkb = {
+      layout = "us,us,jp";
+      variant = "dvorak,,";
+      options = "ctrl:nocaps"; # Configure Caps Lock to be ctrl.
+    };
     desktopManager.gnome.enable = true;
     desktopManager.gnome.extraGSettingsOverridePackages = [ pkgs.gnome.mutter ];
     # desktopManager.gnome.extraGSettingsOverrides = ''

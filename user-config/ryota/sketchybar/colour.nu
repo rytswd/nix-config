@@ -6,6 +6,7 @@
 export const black =          "0xff24283B"
 export const white =          "0xffDEEFF8"
 export const grey =           "0xff939AB7"
+export const darkgrey =       "0xff636A97"
 export const transparent =    "0x00000000"
 
 export const red =            "0xffF7768E"

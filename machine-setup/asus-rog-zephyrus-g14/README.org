@@ -1,0 +1,75 @@
+#+title: Asus ROG Zephyrus G14 Setup
+
+This document is about setting up my Asus ROG Zephyrus G14 machine for work.
+
+* Setup With Windows
+There are some parts that had to be done on Windows machine.
+
+** Adjust partition
+Ensure that I have enough disk space for NixOS configuration. While I don't see myself using Windows environment too much, I kept it around in some case when I want to test out with Windows. This can be done by a GUI helper, which can be launched by typing "partition" in the Windows menu.
+
+Because Windows 11 took up 90GB, I gave around 230GB for the entire disk space out of 1TB.
+
+** Asus Specific Settings
+Asus has "Armoury Crate" application which can adjust some settings for the device.
+
+*** "Slash Lighting"
+Asus ROG Zephyrus G14 (and G16) employs the LED "slash" light on the lid surface. This can be adjusted to show different lights. I want something subtle, and thus select a theme "Neoretro" and animation pattern of "Flux" with maximum interval, brightness set to 2%.
+Also, I do disable the App Notification.
+
+*** Lighting (For Keyborad Backlight)
+The colour setting can be switched using shortcut on Windows, but I don't really see myself changing it ever. I just set some not too distracting setup such as "Static", and adjust the colour to something I like instead.
+
+** BIOS
+In order to get into BIOS menu, I need to start up the machine while pressing ~F2~ key. This allows me to get the BIOS menu to make some startup adjustment.
+
+*** Disable Secure Boot
+In order for NixOS to boot from a USB device, I need to remove the "Secure Boot Control".
+
+1. Get into BIOS menu
+2. Press ~F7~ to get into "Advanced Mode"
+3. Navigate with arrow keys to select "Security" pane
+4. Under "Secure Boot", disable "Secure Boot Control"
+
+*** Update Boot Order
+Windows partition is the first in the list by default. By updating the boot loading priority, I can make the USB disk to be used for the initial setup.
+
+*** Save and Exit
+Ensure BIOS settings are saved with ~F10~.
+
+* NixOS Prep
+In order to get NixOS installed, I need a bootable device with NixOS installed.
+
+** On Another Machine
+If I can get another machine to configure, this should be just a matter of getting the NixOS image downloaded, and use ~dd~ or something similar
+
+** On Windows
+If I cannot get any other device to work (and this was the case for me), download Rufus https://rufus.ie/en/ to create a bootable device. In my case, I made a USB device with NixOS GNOME image first.
+
+* Installation
+Once the boot configuration is set up to use a device NixOS image, I can simply load up NixOS from the device, and then head into NixOS installation app. 
+
+** WiFi
+Before going into the NixOS config, I had a best chance of success by setting up WiFi just before that.
+
+** Install System
+NixOS installer is called Installation System in the dock.
+
+I need to set language setup, desktop choice, unfree software, etc. Most of them can stay with the default.
+
+* Initial Set Up
+While a lot of configurations are in this repository, I need to get some tools for the initial setup.
+
+** WiFi
+I need to get the network configuration first. This needs to be done manually.
+
+** Dark Mode
+While I will be able to adjust later, this makes it easier on my eyes 🫣
+
+** WIP From Terminal
+- install git
+- clone this repo
+- start rebuild
+
+
+

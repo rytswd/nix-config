@@ -78,7 +78,7 @@ export def item () {
     # This is an icon only item and shifting so that the other network details
     # can be seen in the remaining space.
     "icon=󱛇"
-    $"icon.color=($appearance.item_icon_colour)"
+    $"icon.color=($colour.muted)"
     $"icon.width=20"
     $"icon.font.size=20"
     $"icon.y_offset=1"
@@ -143,9 +143,11 @@ def network_load () {
 
 def wifi_change () {
   let wifi_icon = if (ipconfig getifaddr en0 | is-not-empty) {"󰖩"} else {"󰖪"}
+  let wifi_icon_colour = if (ipconfig getifaddr en0 | is-not-empty) {$appearance.item_icon_colour} else {$colour.muted}
 
   (sketchybar
     --set $name
     $"icon=($wifi_icon)"
+    $"icon.color=($wifi_icon_colour)"
   )
 }

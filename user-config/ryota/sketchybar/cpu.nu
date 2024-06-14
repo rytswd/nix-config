@@ -70,6 +70,7 @@ export def item () {
     ##   Logic
     #----------------------
     script="nu ./cpu.nu"
+    click_script="open /System/Applications/Utilities/Activity\ Monitor.app"
     --subscribe $"($name)" cpu_update
   )
 

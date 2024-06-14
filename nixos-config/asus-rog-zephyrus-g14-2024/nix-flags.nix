@@ -12,7 +12,7 @@
   };
 
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs.nixFlakes;
 
     # configureBuildUsers = true; # NOTE: Does not exist for NixOS
 

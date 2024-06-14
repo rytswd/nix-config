@@ -39,7 +39,7 @@ let linuxGnome = true; in {
 
     # TODO: Probably not needed.
     # Interface is this on M1
-    interfaces.ens160.useDHCP = true;
+    # interfaces.ens160.useDHCP = true;
   };
 
   # Ensure password can be changed with `passwd`.

@@ -21,6 +21,8 @@ in {
 
       pkgs.glxinfo # For OpenGL etc.
 
+      pkgs.signal-desktop
+
       ###------------------------------
       ##   Ghostty
       #--------------------------------

@@ -67,9 +67,14 @@ I need to get the network configuration first. This needs to be done manually.
 While I will be able to adjust later, this makes it easier on my eyes 🫣
 
 ** WIP From Terminal
-- install git
+- install git ~nix-shell -p git~
 - clone this repo
-- start rebuild
+- ensure ssh tokens are set up so that I can pull private repos from GitHub
+- ~ssh-keygen -t ed25519 -C "me@me.com" -f $HOME/.ssh/github_id_ed25519~
+- Update ~$HOME/.ssh/config~ to include the created SSH key
+- Register the key to GitHub
+- Ensure the keys are copied to the root user (beacues sudo is needed)
+- start rebuild ~sudo nixos-rebuild switch~
 
 
 

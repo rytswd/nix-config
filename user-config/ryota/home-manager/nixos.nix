@@ -22,6 +22,7 @@ in {
 
       pkgs.glxinfo # For OpenGL etc.
 
+      pkgs.protonvpn-gui
       pkgs.signal-desktop
 
       ###------------------------------

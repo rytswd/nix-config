@@ -124,6 +124,10 @@ let username = "ryota";
             format-source-muted = "";
             on-click = "pavucontrol";
           };
+          "hyprland/window" = {
+            icon = true;
+            format = "";
+          };
           "sway/mode" = { format = ''<span style="italic">{}</span>''; };
           temperature = {
             critical-threshold = 80;

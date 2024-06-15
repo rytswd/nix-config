@@ -18,7 +18,7 @@ in {
 
     packages = [
       pkgs.vivaldi
-      # pkgs.brave # Not supported for aarch64-linux
+      pkgs.brave # Not supported for aarch64-linux
 
       pkgs.glxinfo # For OpenGL etc.
 

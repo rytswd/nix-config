@@ -1,6 +1,7 @@
 # NixOS specific Home Manager configurations
 
-{ pkgs
+{ config
+, pkgs
 , ghostty
 , ... }:
 

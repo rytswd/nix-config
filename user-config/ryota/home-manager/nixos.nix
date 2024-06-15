@@ -65,8 +65,8 @@ let username = "ryota";
             "hyprland/submap"
           ];
           modules-left = [
-            "hyprland/window"
             "hyprland/workspaces"
+            "hyprland/window"
           ];
           modules-right = [
             "pulseaudio"

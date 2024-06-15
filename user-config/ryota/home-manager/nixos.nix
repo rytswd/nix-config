@@ -61,12 +61,12 @@ let username = "ryota";
           layer = "top";
           position = "top";
           tray = { spacing = 10; };
+          modules-left = [
+            "hyprland/window"
+            "hyprland/workspaces"
+          ];
           modules-center = [
             "hyprland/submap"
-          ];
-          modules-left = [
-            "hyprland/workspaces"
-            "hyprland/window"
           ];
           modules-right = [
             "pulseaudio"

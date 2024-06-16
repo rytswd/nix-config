@@ -83,6 +83,9 @@ let linuxGnome = true; in {
     displayManager.gdm.enable = true;
   };
 
+  # For bluetooth manager GUI
+  services.blueman.enable = true;
+
   environment = {
     systemPackages = with pkgs; [
       gnumake

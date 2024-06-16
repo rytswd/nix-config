@@ -6,7 +6,7 @@
 , ... }:
 
 let username = "ryota";
-  in {
+in {
     imports = [
       ./common.nix
       ./dconf.nix # For GNOME
@@ -25,6 +25,11 @@ let username = "ryota";
         pkgs.protonvpn-gui
         pkgs.signal-desktop
 
+        # For WiFi and network manager "nm-applet"
+	pkgs.networkmanagerapplet
+	
+	pkgs.gnome.seahorse
+
         ###------------------------------
         ##   Ghostty
         #--------------------------------
@@ -32,7 +37,7 @@ let username = "ryota";
         # separate entry.
         # NOTE: Ghostty cannot be built using Nix only for macOS, and thus this is
         # only built in NixOS.
-        ghostty.packages.aarch64-linux.default
+        ghostty.packages.x86_64-linux.default
       ];
 
       stateVersion = "23.11";
@@ -42,6 +47,41 @@ let username = "ryota";
       wofi = {
         enable = true;
         # More config to be placed here.
+	settings = {
+          gtk_dark = true;
+          insensitive = true;
+	  allow_images = true;
+	  image_size = 12;
+	};
+	style = ''
+	  window {
+	    font-size: 14px;
+	    font-family: "FiraCode Nerd Font";
+            background-color: rgba(0.4, 0.4, 0.4, 0.7);
+            margin: 30px;
+	    border-radius: 7px;
+	  }
+
+          #input {
+	    margin: 0.5em;
+            background-color: rgba(0.7, 0.3, 0.2, 0.8);
+	  }
+
+          #entry {
+	    padding: 0.25em;
+	  }
+	  #entry:selected {
+	    background-color: #bbccdd;
+	    background: linear-gradient(90deg, #bbffdd, #cca5dd);
+	  }
+	  #text:selected {
+	    color: #333;
+	  }
+	  image {
+	    margin: 0 0.3em;
+	    padding: 0 0.3em;
+          }
+	'';
       };
       waybar = {
         enable = true;
@@ -49,12 +89,16 @@ let username = "ryota";
         # NOTE: All taken from the below for now:
         # https://github.com/georgewhewell/nixos-host/blob/master/home/waybar.nix
         style = ''
-      ${builtins.readFile "${pkgs.waybar}/etc/xdg/waybar/style.css"}
+          ${builtins.readFile "${pkgs.waybar}/etc/xdg/waybar/style.css"}
 
-      window#waybar {
-        background: transparent;
-        border-bottom: none;
-      }
+          window#waybar {
+	    background: transparent;
+            border-bottom: none;
+	    padding: 10px 10px;
+	  }
+	  #language {
+	    margin: 5px 0;
+	  }
         '';
         settings = [{
           height = 30;
@@ -75,6 +119,7 @@ let username = "ryota";
             "memory"
             "temperature"
             "battery"
+	    "hyprland/language"
             "clock"
             "tray"
           ];
@@ -128,7 +173,10 @@ let username = "ryota";
             icon = true;
             format = "";
           };
-          "sway/mode" = { format = ''<span style="italic">{}</span>''; };
+	  "hyprland/submap" = {
+	    # format = "✌️ {}";
+            max-length = 8;
+	  };
           temperature = {
             critical-threshold = 80;
             format = "{temperatureC}°C {icon}";
@@ -143,6 +191,12 @@ let username = "ryota";
         "ghostty/config".source = ../../../common-config/ghostty/config-for-nixos;
         "hypr/hyprland-custom.conf".source = ../../../common-config/hyprland/hyprland-custom.conf;
       };
+    };
+
+    # TODO: Fix this up, this is for pin entry for GPG
+    services.gpg-agent = {
+      enable = true;
+      pinentryPackage = pkgs.pinentry-gnome3;
     };
 
     wayland = {

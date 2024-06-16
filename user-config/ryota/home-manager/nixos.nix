@@ -26,9 +26,9 @@ in {
         pkgs.signal-desktop
 
         # For WiFi and network manager "nm-applet"
-	pkgs.networkmanagerapplet
+	    pkgs.networkmanagerapplet
 	
-	pkgs.gnome.seahorse
+	    pkgs.gnome.seahorse
 
         ###------------------------------
         ##   Ghostty
@@ -57,17 +57,17 @@ in {
 	  window {
 	    font-size: 14px;
 	    font-family: "FiraCode Nerd Font";
-            background-color: rgba(0.4, 0.4, 0.4, 0.7);
-            margin: 30px;
+        background-color: rgba(0.4, 0.4, 0.4, 0.7);
+        margin: 30px;
 	    border-radius: 7px;
 	  }
 
-          #input {
+      #input {
 	    margin: 0.5em;
-            background-color: rgba(0.7, 0.3, 0.2, 0.8);
+        background-color: rgba(0.7, 0.3, 0.2, 0.8);
 	  }
 
-          #entry {
+      #entry {
 	    padding: 0.25em;
 	  }
 	  #entry:selected {
@@ -80,7 +80,7 @@ in {
 	  image {
 	    margin: 0 0.3em;
 	    padding: 0 0.3em;
-          }
+      }
 	'';
       };
       waybar = {
@@ -92,13 +92,13 @@ in {
           ${builtins.readFile "${pkgs.waybar}/etc/xdg/waybar/style.css"}
 
           window#waybar {
-	    background: transparent;
+            background: transparent;
             border-bottom: none;
-	    padding: 10px 10px;
-	  }
-	  #language {
-	    margin: 5px 0;
-	  }
+            padding: 10px 10px;
+          }
+          #language {
+            margin: 5px 0;
+          }
         '';
         settings = [{
           height = 30;

@@ -208,6 +208,9 @@ in {
           extraConfig = ''
             source=./hyprland-custom.conf
           '';
+          # TODO: Add extra handling so that extra files can be added based on
+          # the machine requirements (Asus will need specific resolution
+          # handling, whereas UTM won't need it.)
         };
       };
     };

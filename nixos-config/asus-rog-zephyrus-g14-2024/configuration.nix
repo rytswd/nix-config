@@ -14,17 +14,31 @@ let linuxGnome = true; in {
 
     # Be careful updating this.
     kernelPackages = pkgs.linuxPackages_latest;
-
-    # TODO: Check if this is necessary for UTM.
-    # VMware, Parallels both only support this being 0 otherwise you see
-    # "error switching console mode" on boot.
-    loader.systemd-boot.consoleMode = "0";
   };
 
   hardware.opengl = {
     enable = true;
-    # driSupport32Bit = true;
+    driSupport = true;
+    driSupport32Bit = true;
     # extraPackages = [ pkgs.virglrenderer ];
+  };
+
+  # Ref https://nixos.wiki/wiki/Nvidia
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    open = false;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+      amdgpuBusId = "PCI:101:0:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
   };
 
   networking = {
@@ -66,6 +80,7 @@ let linuxGnome = true; in {
   services.xserver = {
     enable = true;
     exportConfiguration = true;
+    videoDrivers = ["nvidia"];
     # System wide configuration, which would be overridden by user specified
     # configuration. In order to persist with the relevant keyboard layouts,
     # separate home-manager setup needs to be in place.

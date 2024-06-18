@@ -47,41 +47,41 @@ in {
       wofi = {
         enable = true;
         # More config to be placed here.
-	settings = {
+        settings = {
           gtk_dark = true;
           insensitive = true;
-	  allow_images = true;
-	  image_size = 12;
-	};
-	style = ''
-	  window {
-	    font-size: 14px;
-	    font-family: "FiraCode Nerd Font";
-        background-color: rgba(0.4, 0.4, 0.4, 0.7);
-        margin: 30px;
-	    border-radius: 7px;
-	  }
+          allow_images = true;
+          image_size = 12;
+        };
+        style = ''
+          window {
+            font-size: 14px;
+            font-family: "FiraCode Nerd Font";
+            background-color: rgba(0.4, 0.4, 0.4, 0.7);
+            margin: 30px;
+            border-radius: 7px;
+          }
 
-      #input {
-	    margin: 0.5em;
-        background-color: rgba(0.7, 0.3, 0.2, 0.8);
-	  }
+          #input {
+            margin: 0.5em;
+            background-color: rgba(0.7, 0.3, 0.2, 0.8);
+	      }
 
-      #entry {
-	    padding: 0.25em;
-	  }
-	  #entry:selected {
-	    background-color: #bbccdd;
-	    background: linear-gradient(90deg, #bbffdd, #cca5dd);
-	  }
-	  #text:selected {
-	    color: #333;
-	  }
-	  image {
-	    margin: 0 0.3em;
-	    padding: 0 0.3em;
-      }
-	'';
+          #entry {
+            padding: 0.25em;
+          }
+          #entry:selected {
+            background-color: #bbccdd;
+            background: linear-gradient(90deg, #bbffdd, #cca5dd);
+          }
+          #text:selected {
+            color: #333;
+          }
+          image {
+            margin: 0 0.3em;
+            padding: 0 0.3em;
+          }
+        '';
       };
       waybar = {
         enable = true;

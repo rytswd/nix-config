@@ -118,12 +118,11 @@ let linuxGnome = true; in {
       # NOTE: I don't seem to need this.
       # gtkmm3
 
-      # NOTE: Copied from UTM setup, which shouldn't be necessary.
-      # # For hypervisors that support auto-resizing, this script forces it.
-      # # I've noticed not everyone listens to the udev events so this is a hack.
-      # (writeShellScriptBin "xrandr-auto" ''
-      #   xrandr --output Virtual-1 --auto
-      # '')
+      # For display control
+      brightnessctl
+
+      # For debugging input
+      wev
     ];
 
     # NOTE: Commenting out as this came from UTM setup originally.

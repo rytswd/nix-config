@@ -31,6 +31,9 @@ nixosSystem rec {
 
     # Set up home-manager and users.
     home-manager.nixosModules.home-manager {
+      # NOTE: Without this, I get an error applying home-manager updates (following the addition of GTK config).
+      home-manager.backupFileExtension = "backup";
+
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.extraSpecialArgs = { inherit system ghostty; }; #Temp

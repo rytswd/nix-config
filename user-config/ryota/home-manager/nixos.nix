@@ -26,9 +26,9 @@ in {
         pkgs.signal-desktop
 
         # For WiFi and network manager "nm-applet"
-	    pkgs.networkmanagerapplet
+        pkgs.networkmanagerapplet
 	
-	    pkgs.gnome.seahorse
+        pkgs.gnome.seahorse
 
         pkgs.wl-clipboard # testing clipboard history
 

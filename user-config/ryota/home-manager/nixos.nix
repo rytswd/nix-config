@@ -30,6 +30,8 @@ in {
 	
 	    pkgs.gnome.seahorse
 
+        pkgs.wl-clipboard # testing clipboard history
+
         ###------------------------------
         ##   Ghostty
         #--------------------------------

@@ -51,6 +51,25 @@ in {
       };
     };
 
+    gtk = {
+      enable = true;
+      theme = {
+        package = pkgs.adw-gtk3;
+        name = "Adwaita:dark";
+      };
+      cursorTheme = {
+        package = pkgs.bibata-cursors;
+        name = "Bibata-Modern-Ice";
+      };
+
+      gtk3.extraConfig = {
+        gtk-application-prefer-dark-theme = true;
+        # NOTE: This sets the Emacs based key bindings such as C-a to go to the
+        # beginning of line.
+        gtk-key-theme-name = "Emacs";
+      };
+    };
+
     programs = {
       wofi = {
         enable = true;

@@ -45,6 +45,12 @@ in {
       stateVersion = "23.11";
     };
 
+    services = {
+      dunst = {
+        enable = true;
+      };
+    };
+
     programs = {
       wofi = {
         enable = true;

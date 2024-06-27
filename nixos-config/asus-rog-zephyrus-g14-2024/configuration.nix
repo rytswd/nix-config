@@ -95,7 +95,7 @@ let linuxGnome = true; in {
     #   [org.gnome.desktop.input-sources]
     #   sources=[('xkb', 'us+dvorak'), ('xkb', 'us'), ('xkb', 'jp')]
     # '';
-    displayManager.gdm.enable = true;
+    # displayManager.gdm.enable = true;
   };
 
   # Disable the touchpad while typing.
@@ -104,6 +104,8 @@ let linuxGnome = true; in {
 
   # For bluetooth manager GUI
   services.blueman.enable = true;
+
+  services.displayManager.sddm.enable = true;
 
   environment = {
     systemPackages = with pkgs; [

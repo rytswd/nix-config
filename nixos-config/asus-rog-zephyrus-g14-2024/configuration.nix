@@ -16,10 +16,9 @@ let linuxGnome = true; in {
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
     # extraPackages = [ pkgs.virglrenderer ];
   };
 

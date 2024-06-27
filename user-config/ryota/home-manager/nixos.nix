@@ -146,7 +146,7 @@ in {
             "memory"
             "temperature"
             "battery"
-	    "hyprland/language"
+            "hyprland/language"
             "clock"
             "tray"
           ];

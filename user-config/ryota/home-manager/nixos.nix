@@ -27,6 +27,7 @@ in {
 
         # Utility
         pkgs.wl-clipboard
+        pkgs.cliphist
         pkgs.glxinfo # For OpenGL etc.
 
         # GUI tools

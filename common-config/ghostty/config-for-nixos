@@ -37,6 +37,11 @@ macos-option-as-alt     = true
 window-decoration       = true
 
 ###----------------------------------------
+##   NixOS Specific
+#------------------------------------------
+gtk-titlebar            = false
+
+###----------------------------------------
 ##   Key Bindings
 #------------------------------------------
 # NOTE: Config can be reloaded with Shift + Cmd + , (comma)

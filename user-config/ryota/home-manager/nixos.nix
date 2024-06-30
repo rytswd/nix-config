@@ -20,8 +20,10 @@ in {
       homeDirectory = "/home/${username}";
 
       packages = [
+        # Browsers
         pkgs.vivaldi
         pkgs.brave # Not supported for aarch64-linux
+        # TODO: Add chromium
 
         pkgs.glxinfo # For OpenGL etc.
 

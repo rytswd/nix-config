@@ -65,3 +65,6 @@ keybind = super+shift+e=new_split:down
 keybind = super+comma=close_surface
 keybind = super+apostrophe=quit
 keybind = super+shift+w=reload_config
+keybind = super+right_bracket=increase_font_size:1
+keybind = super+left_bracket=decrease_font_size:1
+keybind = super+0=reset_font_size

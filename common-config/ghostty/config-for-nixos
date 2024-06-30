@@ -52,6 +52,10 @@ keybind = cmd+ctrl+right=resize_split:right,20
 keybind = cmd+ctrl+up=resize_split:up,20
 keybind = cmd+ctrl+down=resize_split:down,20
 
+# NOTE: This doesn't seem to work on Linux as of writing
+keybind = super+enter=toggle_split_zoom
+
+
 # Dvorak specific override to mimic Dvorak + QWERTY Cmd
 keybind = super+y=new_tab
 keybind = super+j=copy_to_clipboard

@@ -87,6 +87,7 @@ in {
           insensitive = true;
           allow_images = true;
           image_size = 12;
+          key_expand = "Tab";
         };
         style = ''
           window {

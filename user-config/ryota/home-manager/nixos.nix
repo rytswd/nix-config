@@ -107,15 +107,21 @@ in {
           height = 30;
           layer = "top";
           position = "top";
+          spacing = "10";
           tray = { spacing = 10; };
           modules-left = [
-            "hyprland/window"
+            "custom/padd"
             "hyprland/workspaces"
+            "custom/padd"
           ];
           modules-center = [
-            "hyprland/submap"
+            "custom/padd"
+            # "hyprland/submap"
+            "hyprland/window"
+            "custom/padd"
           ];
           modules-right = [
+            "custom/padd"
             "pulseaudio"
             "network"
             "cpu"
@@ -125,6 +131,7 @@ in {
             "hyprland/language"
             "clock"
             "tray"
+            "custom/padd"
           ];
           battery = {
             format = "{capacity}% {icon}";
@@ -174,17 +181,23 @@ in {
           };
           "hyprland/window" = {
             icon = true;
-            format = "";
+            # format = "";
           };
-	  "hyprland/submap" = {
-	    # format = "✌️ {}";
+	      "hyprland/submap" = {
+	        # format = "✌️ {}";
             max-length = 8;
-	  };
+	      };
           temperature = {
             critical-threshold = 80;
             format = "{temperatureC}°C {icon}";
             format-icons = [ "" "" "" ];
           };
+          "custom/padd" = {
+            format = "  ";
+            interval = "once";
+            tooltip = false;
+          };
+
         }];
       };
     };

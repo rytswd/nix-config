@@ -7,7 +7,10 @@
 , lib
 , ... }:
 
-let linuxGnome = true; in {
+let
+  linuxGnome = true;
+  tokyo-night-sddm = pkgs.libsForQt5.callPackage ../../common-config/sddm/tokyo-night-sddm/default.nix { };
+in {
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
@@ -124,7 +127,11 @@ let linuxGnome = true; in {
   # For bluetooth manager GUI
   services.blueman.enable = true;
 
-  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    # theme = "maldives";
+    theme = "tokyo-night-sddm";
+  };
 
   environment = {
     systemPackages = with pkgs; [
@@ -144,6 +151,9 @@ let linuxGnome = true; in {
 
       # For debugging input
       wev
+
+      # custom SDDM theme
+      tokyo-night-sddm
     ];
 
     # NOTE: Commenting out as this came from UTM setup originally.

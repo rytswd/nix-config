@@ -50,6 +50,7 @@
           ollama        # https://github.com/jmorganca/ollama
           imagemagick   # https://github.com/imagemagick/imagemagick
           librsvg       # https://wiki.gnome.org/Projects/LibRsvg
+          tailscale     # https://tailscale.com/
 
           ###------------------------------
           ##   Email

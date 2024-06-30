@@ -57,6 +57,9 @@ in {
       dunst = {
         enable = true;
       };
+      dropbox = {
+        enable = true;
+      };
     };
 
     gtk = {

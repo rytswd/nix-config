@@ -2,7 +2,10 @@
 
 { config
 , pkgs
+, system
 , ghostty
+, hyprland-plugins
+, hyprswitch
 , ... }:
 
 let username = "ryota";
@@ -39,7 +42,9 @@ in {
         # separate entry.
         # NOTE: Ghostty cannot be built using Nix only for macOS, and thus this is
         # only built in NixOS.
-        ghostty.packages.x86_64-linux.default
+        ghostty.packages.${system}.default
+
+        hyprswitch.packages.${system}.default
       ];
 
       stateVersion = "23.11";

@@ -51,6 +51,13 @@
     ghostty = {
       url = "git+ssh://git@github.com/mitchellh/ghostty";
     };
+
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+    hyprswitch.url = "github:h3rmt/hyprswitch/release";
   };
 
   outputs =
@@ -65,7 +72,6 @@
     , fenix
     , nixpkgs-zig-0-12
     , zig
-    , roc
     , ghostty
     , ... } @ inputs:
     let mbp-arch = "aarch64";
@@ -90,7 +96,7 @@
     fenixOverlay = fenix.overlays.default;
     zigOverlay = zig.overlays.default;
     rocOverlay = (final: prev: {
-      rocpkgs = roc.packages.${prev.system};
+      rocpkgs = inputs.roc.packages.${prev.system};
     });
 
     vscodeOverlay = (import ./overlays/vscode.nix);
@@ -161,6 +167,8 @@
             inherit (nixpkgs) lib;
             inherit (nixpkgs-unstable.lib) nixosSystem;
             inherit nixpkgs nixpkgs-unstable home-manager ghostty;
+            inherit (inputs) hyprland-plugins;
+            inherit (inputs) hyprswitch;
             system = "x86_64-linux";
             overlays = overlays;
           });

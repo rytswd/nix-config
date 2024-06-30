@@ -5,6 +5,8 @@
 , home-manager
 , system
 , ghostty
+, hyprland-plugins
+, hyprswitch
 , overlays
 , ...}:
 
@@ -36,7 +38,7 @@ nixosSystem rec {
 
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = { inherit system ghostty; }; #Temp
+      home-manager.extraSpecialArgs = { inherit system ghostty hyprland-plugins hyprswitch; }; #Temp
 
       # Each user needs to be set up separately. Because home-manager needs to
       # know where the home directory is, I need to specify the username again.

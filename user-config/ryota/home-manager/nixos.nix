@@ -25,17 +25,18 @@ in {
         pkgs.brave # Not supported for aarch64-linux
         # TODO: Add chromium
 
+        # Utility
+        pkgs.wl-clipboard
         pkgs.glxinfo # For OpenGL etc.
 
+        # GUI tools
         pkgs.protonvpn-gui
         pkgs.signal-desktop
 
         # For WiFi and network manager "nm-applet"
         pkgs.networkmanagerapplet
-	
-        pkgs.gnome.seahorse
 
-        pkgs.wl-clipboard # testing clipboard history
+        pkgs.gnome.seahorse
 
         ###------------------------------
         ##   Ghostty

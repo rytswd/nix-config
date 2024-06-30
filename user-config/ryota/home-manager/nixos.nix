@@ -92,35 +92,7 @@ in {
           image_size = 12;
           key_expand = "Tab";
         };
-        style = ''
-          window {
-            font-size: 14px;
-            font-family: "FiraCode Nerd Font";
-            background-color: rgba(0.4, 0.4, 0.4, 0.7);
-            margin: 30px;
-            border-radius: 7px;
-          }
-
-          #input {
-            margin: 0.5em;
-            background-color: rgba(0.7, 0.3, 0.2, 0.8);
-	      }
-
-          #entry {
-            padding: 0.25em;
-          }
-          #entry:selected {
-            background-color: #bbccdd;
-            background: linear-gradient(90deg, #bbffdd, #cca5dd);
-          }
-          #text:selected {
-            color: #333;
-          }
-          image {
-            margin: 0 0.3em;
-            padding: 0 0.3em;
-          }
-        '';
+        style = (builtins.readFile ../../../common-config/wofi/styles.css);
       };
       waybar = {
         enable = true;
@@ -129,16 +101,7 @@ in {
         # https://github.com/georgewhewell/nixos-host/blob/master/home/waybar.nix
         style = ''
           ${builtins.readFile "${pkgs.waybar}/etc/xdg/waybar/style.css"}
-
-          window#waybar {
-            background: transparent;
-            border-bottom: none;
-            padding: 10px 10px;
-          }
-          #language {
-            margin: 5px 0;
-          }
-        '';
+        '' + (builtins.readFile ../../../common-config/waybar/style.css);
         settings = [{
           height = 30;
           layer = "top";

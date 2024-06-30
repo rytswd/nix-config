@@ -1,0 +1,9 @@
+window#waybar {
+  background: transparent;
+  border-bottom: none;
+  padding: 10px 10px;
+}
+
+#language {
+  margin: 5px 0;
+}

@@ -213,8 +213,8 @@ in {
     xdg = {
       configFile = {
         "ghostty/config".source = ../../../common-config/ghostty/config-for-nixos;
-        "hypr/hyprland-custom.conf".source = ../../../common-config/hyprland/hyprland-custom.conf;
-        "hypr/key-bindings.conf".source = ../../../common-config/hyprland/key-bindings.conf;
+        "hypr/".source = ../../../common-config/hyprland;
+        "hypr/".recursive = true;
       };
     };
 

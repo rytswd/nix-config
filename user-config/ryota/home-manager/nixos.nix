@@ -146,6 +146,7 @@ in {
             };
           };
           clock = {
+            format = "{:%Y-%m-%d %H:%M}";
             format-alt = "{:%Y-%m-%d}";
             tooltip-format = "{:%Y-%m-%d | %H:%M}";
           };

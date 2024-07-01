@@ -117,7 +117,6 @@ in {
           ];
           modules-center = [
             "custom/padd"
-            # "hyprland/submap"
             "hyprland/window"
             "custom/padd"
           ];

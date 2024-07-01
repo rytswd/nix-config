@@ -185,10 +185,17 @@ in {
             icon = true;
             # format = "";
           };
-	      "hyprland/submap" = {
-	        # format = "✌️ {}";
-            max-length = 8;
-	      };
+          "hyprland/workspaces" = {
+            all-outputs = true;
+            format = "{icon}: {windows}";
+            window-rewrite-default = "󰈔";
+            window-rewrite = {
+              "(.*)Emacs" = "";
+              "(.*)Ghostty" = "";
+              "(.*)Vivaldi" = "";
+            };
+            # format-icons = "active";
+          };
           temperature = {
             critical-threshold = 80;
             format = "{temperatureC}°C {icon}";

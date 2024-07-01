@@ -32,6 +32,7 @@ in {
 
         # GUI tools
         pkgs.protonvpn-gui
+        pkgs.proton-pass
         pkgs.signal-desktop
 
         # For WiFi and network manager "nm-applet"

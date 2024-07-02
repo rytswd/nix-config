@@ -29,6 +29,7 @@ in {
         pkgs.wl-clipboard
         pkgs.cliphist
         pkgs.glxinfo # For OpenGL etc.
+        pkgs.maestral # Dropbox client
 
         # GUI tools
         pkgs.protonvpn-gui

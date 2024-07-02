@@ -126,7 +126,6 @@ in {
             "pulseaudio"
             "network"
             "cpu"
-            "memory"
             "temperature"
             "battery"
             "hyprland/language"
@@ -135,10 +134,10 @@ in {
             "custom/padd"
           ];
           battery = {
-            format = "{capacity}% {icon}";
-            format-alt = "{time} {icon}";
-            format-charging = "{capacity}% ";
-            format-icons = [ "" "" "" "" "" ];
+            format = "{icon}";
+            format-alt = "{icon} {capacity}%";
+            format-charging = "󰂄 {capacity}%";
+            format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
             format-plugged = "{capacity}% ";
             states = {
               critical = 15;
@@ -151,35 +150,47 @@ in {
             tooltip-format = "{:%Y-%m-%d | %H:%M}";
           };
           cpu = {
-            format = "{usage}% ";
+            format = "";
+            format-alt = " {usage}%";
             tooltip = false;
           };
-          memory = { format = "{}% "; };
           network = {
             interval = 1;
-            format-alt = "{ifname}: {ipaddr}/{cidr}";
-            format-disconnected = "Disconnected ⚠";
+            format-alt = " {essid} ({signalStrength}%): {ifname} {ipaddr}/{cidr}";
+            format-disconnected = "⚠";
             format-ethernet = "{ifname}: {ipaddr}/{cidr}   up: {bandwidthUpBits} down: {bandwidthDownBits}";
             format-linked = "{ifname} (No IP) ";
-            format-wifi = "{essid} ({signalStrength}%) ";
+            format-wifi = "";
+            tooltip-format = "{ipaddr}/{cidr} {bandwidthUpBits} / {bandwidthDownBits}";
           };
           pulseaudio = {
-            format = "{volume}% {icon} {format_source}";
-            format-bluetooth = "{volume}% {icon} {format_source}";
-            format-bluetooth-muted = "󰖁 {icon} {format_source}";
+            format = "{icon} {volume}% {format_source}";
+            format-bluetooth = "{icon} {volume}% {format_source}";
+            format-bluetooth-muted = "{icon} 󰖁 {format_source}";
             format-icons = {
-              car = "";
+              car = "󰄋";
               default = [ "󰕿" "󰖀" "󰕾" ];
               handsfree = "";
               headphones = "󰋋";
               headset = "󰋎";
-              phone = "";
-              portable = "";
+              phone = "󰏲";
+              portable = "󰏲";
             };
             format-muted = "󰖁 {format_source}";
-            format-source = "{volume}% ";
-            format-source-muted = "";
+            format-source = "󰍬 {volume}%";
+            format-source-muted = "󰍭";
             on-click = "pavucontrol";
+          };
+          temperature = {
+            critical-threshold = 80;
+            format = "{icon}";
+            format-alt = "{icon} {temperatureC}°C";
+            format-icons = [ "" ];
+          };
+          "hyprland/language" = {
+            format-en = "🇺🇸";
+            format-en-dvorak = "󰌓";
+            format-ja = "🇯🇵";
           };
           "hyprland/window" = {
             icon = true;
@@ -190,16 +201,11 @@ in {
             format = "{icon}: {windows}";
             window-rewrite-default = "󰈔";
             window-rewrite = {
-              "(.*)Emacs" = "";
-              "(.*)Ghostty" = "";
-              "(.*)Vivaldi" = "";
+              "(.*)Emacs" = " ";
+              "(.*)Ghostty" = " ";
+              "(.*)Vivaldi" = " ";
             };
             # format-icons = "active";
-          };
-          temperature = {
-            critical-threshold = 80;
-            format = "{temperatureC}°C {icon}";
-            format-icons = [ "" ];
           };
           "custom/padd" = {
             format = "  ";

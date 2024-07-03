@@ -58,6 +58,8 @@
       inputs.hyprland.follows = "hyprland";
     };
     hyprswitch.url = "github:h3rmt/hyprswitch/release";
+
+    niri.url = "github:sodiboo/niri-flake";
   };
 
   outputs =
@@ -169,6 +171,7 @@
             inherit nixpkgs nixpkgs-unstable home-manager ghostty;
             inherit (inputs) hyprland-plugins;
             inherit (inputs) hyprswitch;
+            inherit (inputs) niri;
             system = "x86_64-linux";
             overlays = overlays;
           });

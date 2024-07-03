@@ -7,11 +7,10 @@
 
 * {
   border: none;
-  border-radius: 0px;
+  border-radius: 3px;
   font-family: "FiraCode Nerd Font";
-  font-weight: bold;
-  font-size: 10px;
-  min-height: 10px;
+  font-size: 14px;
+  min-height: 14px;
 }
 
 /*
@@ -120,33 +119,19 @@ tooltip {
   min-height: 10px
 }
 
-#backlight,
-#battery,
-#bluetooth,
-#custom-cliphist,
-#clock,
+#backlight, #battery, #bluetooth, #custom-cliphist, #clock,
+#cpu, #idle_inhibitor, #language, #memory, #mpris, #network,
+#pulseaudio, #taskbar, #temperature, #tray, #window, #workspaces,
 #custom-cpuinfo,
-#cpu,
 #custom-gpuinfo,
-#idle_inhibitor,
 #custom-keybindhint,
-#language,
-#memory,
-#mpris,
-#network,
 #custom-notifications,
 #custom-power,
-#pulseaudio,
 #custom-spotify,
-#taskbar,
-#temperature,
 #custom-theme,
-#tray,
 #custom-updates,
 #custom-wallchange,
 #custom-wbar,
-#window,
-#workspaces,
 #custom-l_end,
 #custom-r_end,
 #custom-sl_end,
@@ -169,10 +154,10 @@ tooltip {
   background: transparent;
 }
 
-#workspaces,
-#taskbar {
-  padding: 0px;
-}
+/* #workspaces, */
+/* #taskbar { */
+/*   padding: 0px; */
+/* } */
 
 #custom-r_end {
   border-radius: 0px 21px 21px 0px;

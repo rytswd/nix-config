@@ -68,7 +68,7 @@ in {
     # Per-interface useDHCP will be mandatory in the future, so this generated config
     # replicates the default behaviour.
     useDHCP = false;
-    hostName = "rytswd-nixos-asus-zephyrus-g14";
+    hostName = "asus-rog-zephyrus-g14-2024";
     # Disable the firewall since we're in a VM and we want to make it
     # easy to visit stuff in here. We only use NAT networking anyways.
     # firewall.enable = false;

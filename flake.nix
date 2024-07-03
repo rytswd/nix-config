@@ -90,7 +90,7 @@
 	#   });
 	# });
 
-    # Language specific overlays
+    # Language related overlays
     goOverlay = (final: prev: {
       go = nixpkgs-unstable.legacyPackages.${prev.system}.go_1_22;
     });
@@ -101,15 +101,19 @@
       rocpkgs = inputs.roc.packages.${prev.system};
     });
 
-    vscodeOverlay = (import ./overlays/vscode.nix);
+    # Editor related overlays
     emacs-overlay = (import ./overlays/emacs.nix );
+    vscodeOverlay = (import ./overlays/vscode.nix);
+
+    # Other utility related overlays
     tree-sitter-overlay = (import ./overlays/tree-sitter.nix );
     # erdtree-overlay = (import ./overlays/erdtree.nix );
     # yazi-overlay = (import ./overlays/yazi.nix );
     grip-overlay = (import ./overlays/grip.nix );
 
+    # NixOS related overlays
+    niriOverlay = inputs.niri.overlays.niri-unstable;
     overlays = [
-      vscodeOverlay
       goOverlay
       rustOverlay
       zigOverlay
@@ -117,10 +121,14 @@
       rocOverlay
 
       emacs-overlay
+      vscodeOverlay
+
       tree-sitter-overlay
       # erdtree-overlay
       # yazi-overlay
       grip-overlay
+
+      niriOverlay # TODO: Make this only for NixOS.
     ];
 
       in {

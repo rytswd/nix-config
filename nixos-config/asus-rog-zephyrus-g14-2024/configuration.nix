@@ -49,17 +49,6 @@ in {
   # Virtualization settings
   virtualisation.docker.enable = true;
 
-  # Select internationalisation properties.
-  i18n = {
-    inputMethod = {
-      enabled = "fcitx5";
-      fcitx5.addons = with pkgs; [
-        fcitx5-mozc
-        fcitx5-gtk
-        fcitx5-chinese-addons
-      ];
-    };
-  };
 
   services.xserver = {
     enable = true;

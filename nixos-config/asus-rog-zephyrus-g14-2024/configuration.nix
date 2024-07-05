@@ -13,37 +13,16 @@ let
 in {
   imports = [
     ../modules/flatpak
+    ../modules/gpu
   ];
+
+
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
 
     # Be careful updating this.
     kernelPackages = pkgs.linuxPackages_latest;
-  };
-
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-    # extraPackages = [ pkgs.virglrenderer ];
-  };
-
-  # Ref https://nixos.wiki/wiki/Nvidia
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
-    open = false;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-    prime = {
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
-      amdgpuBusId = "PCI:101:0:0";
-      nvidiaBusId = "PCI:1:0:0";
-    };
   };
 
   # Ref: https://github.com/NixOS/nixpkgs/issues/319809

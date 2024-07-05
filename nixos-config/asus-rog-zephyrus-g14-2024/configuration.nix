@@ -145,7 +145,6 @@ in {
         # ];
       }
     ];
-    hyprland.enable = true;
 
     # These shell settings are global configurations, meaning they would work on
     # files under /etc/ (and they would be stored in /etc/static/).

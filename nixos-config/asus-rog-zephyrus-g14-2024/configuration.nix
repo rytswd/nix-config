@@ -11,6 +11,9 @@ let
   linuxGnome = true;
   tokyo-night-sddm = pkgs.libsForQt5.callPackage ../../common-config/sddm/tokyo-night-sddm/default.nix { };
 in {
+  imports = [
+    ../modules/flatpak
+  ];
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;

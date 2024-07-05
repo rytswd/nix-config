@@ -5,7 +5,7 @@
 
 {
   options = {
-    flatpak.enable = lib.mkEnableOption "Enables flatpak";
+    flatpak.enable = lib.mkEnableOption "Enable flatpak.";
   };
 
   config = lib.mkIf config.flatpak.enable {

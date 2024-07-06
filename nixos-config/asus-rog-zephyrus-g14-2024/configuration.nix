@@ -32,42 +32,6 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  programs = {
-    # Ensure dconf is taken into account from NixOS startup.
-    dconf.enable = true;
-    dconf.profiles.user.databases = with lib.gvariant; [
-      {
-        settings = {
-          # "com/raggesilver/BlackBox" = {
-          #   opacity = mkUint32 100;
-          #   theme-dark = "Tommorow Night";
-          #   scrollback-lines = mkUint32 10000;
-          # };
-          "org/gnome/desktop/input-sources" = {
-            mru-sources = [
-              (mkTuple [ "xkb" "us+dvorak" ])
-              (mkTuple [ "xkb" "us" ])
-              (mkTuple [ "xkb" "jp" ])
-            ];
-            sources = [
-              (mkTuple [ "xkb" "us+dvorak" ])
-              # (mkTuple [ "xkb" "us" ])
-              (mkTuple [ "xkb" "jp" ])
-            ];
-            xkb-options = [ "terminate:ctrl_alt_bksp" ];
-          };
-          "org/gnome/desktop/interface" = {
-            color-scheme = "prefer-dark";
-          };
-        };
-        # locks = [
-        #   "/com/raggesilver/BlackBox/theme-dark"
-        # ];
-      }
-    ];
-
-  };
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

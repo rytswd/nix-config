@@ -81,7 +81,6 @@
     systemPackages = with pkgs; [
       gnumake
       killall
-      rxvt_unicode
       xclip
 
       git # NOTE: modified

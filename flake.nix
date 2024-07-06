@@ -70,10 +70,7 @@
     , darwin
     # , emacs-29-src
     # , emacs-overlay
-    , rust-overlay
-    , fenix
     , nixpkgs-zig-0-12
-    , zig
     , ghostty
     , ... } @ inputs:
     let mbp-arch = "aarch64";
@@ -94,9 +91,9 @@
     goOverlay = (final: prev: {
       go = nixpkgs-unstable.legacyPackages.${prev.system}.go_1_22;
     });
-    rustOverlay = rust-overlay.overlays.default;
-    fenixOverlay = fenix.overlays.default;
-    zigOverlay = zig.overlays.default;
+    rustOverlay = inputs.rust-overlay.overlays.default;
+    fenixOverlay = inputs.fenix.overlays.default;
+    zigOverlay = inputs.zig.overlays.default;
     rocOverlay = (final: prev: {
       rocpkgs = inputs.roc.packages.${prev.system};
     });
@@ -112,7 +109,7 @@
     grip-overlay = (import ./overlays/grip.nix );
 
     # NixOS related overlays
-    niriOverlay = inputs.niri.overlays.niri-unstable;
+    niriOverlay = inputs.niri.overlays.niri;
     overlays = [
       goOverlay
       rustOverlay

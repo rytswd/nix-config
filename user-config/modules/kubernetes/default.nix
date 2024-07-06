@@ -5,7 +5,8 @@
 
 {
   imports = [
-    ./basic.nix
+    ./kubernetes.nix
+    ./kubernetes-extra.nix
     ./cncf.nix
   ];
 

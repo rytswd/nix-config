@@ -66,11 +66,6 @@
       }
     ];
 
-    # TODO: Check if this is necessary.
-    # gnupg.agent = {
-    #   enable = true;
-    #   enableSSHSupport = true;
-    # };
   };
 
   # This value determines the NixOS release from which the default

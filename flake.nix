@@ -186,5 +186,28 @@
             overlays = overlays;
           });
         };
+
+        # ====
+        # Home Manager Configurations
+        #
+        # WIP -- not working too well at the moment.
+        #
+        # While I could add home-manager embedded within each system (NixOS /
+        # macOS), it just makes it clear to have user configuration separated
+        # from the machine configuration. For that reason, I'm making this setup
+        # available as well.
+
+        # homeConfigurations = let
+        #   user = "ryota";
+        #   system = "x86_64-linux";
+        # in {
+        #   "${user}" = home-manager.lib.homeManagerConfiguration {
+        #     pkgs = nixpkgs.legacyPackages.${system};
+        #     extraSpecialArgs = { inherit inputs system; };
+        #     modules = [
+        #       ./user-config/${user}/home-manager/nixos.nix
+        #     ];
+        #   };
+        # };
       };
 }

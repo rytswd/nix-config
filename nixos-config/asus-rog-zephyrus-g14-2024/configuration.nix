@@ -48,10 +48,6 @@
     # displayManager.gdm.enable = true;
   };
 
-  # Disable the touchpad while typing.
-  # TODO: Check if this is actually working, and move this somewhere more sensible
-  services.libinput.touchpad.disableWhileTyping = true;
-
   # For bluetooth manager GUI
   services.blueman.enable = true;
 

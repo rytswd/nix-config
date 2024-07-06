@@ -4,9 +4,6 @@
 , nixosSystem
 , home-manager
 , system
-, ghostty
-, hyprland-plugins
-, hyprswitch
 , overlays
 , inputs
 , ...}:

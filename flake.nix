@@ -173,10 +173,8 @@
           asus-rog-zephyrus-g14-2024 = (import ./nixos-config/asus-rog-zephyrus-g14-2024 {
             inherit (nixpkgs) lib;
             inherit (nixpkgs-unstable.lib) nixosSystem;
-            inherit nixpkgs nixpkgs-unstable home-manager ghostty;
-            inherit (inputs) hyprland-plugins;
-            inherit (inputs) hyprswitch;
-            inherit (inputs) niri;
+            inherit nixpkgs nixpkgs-unstable home-manager;
+            inherit inputs;
             system = "x86_64-linux";
             overlays = overlays;
           });

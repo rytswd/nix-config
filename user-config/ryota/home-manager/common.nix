@@ -292,6 +292,9 @@
       # kubectl
       KUBECTL_EXTERNAL_DIFF = "dyff between --omit-header --set-exit-code";
 
+      # man using bat
+      MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+      MANROFFOPT = "-c";
     };
   };
 

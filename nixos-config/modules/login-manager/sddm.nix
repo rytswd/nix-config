@@ -5,10 +5,10 @@
 
 {
   options = {
-    display-manager.sddm.enable = lib.mkEnableOption "Enable sddm.";
+    login-manager.sddm.enable = lib.mkEnableOption "Enable sddm.";
   };
 
-  config = lib.mkIf config.display-manager.sddm.enable {
+  config = lib.mkIf config.login-manager.sddm.enable {
     environment.systemPackages = let
       tokyo-night-sddm = pkgs.libsForQt5.callPackage
         ./tokyo-night-sddm.nix { };

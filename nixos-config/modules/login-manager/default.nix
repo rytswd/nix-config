@@ -5,8 +5,10 @@
 
 {
   imports = [
+    ./gdm.nix
     ./sddm.nix
   ];
 
-  display-manager.sddm.enable = lib.mkDefault true;
+  login-manager.gdm.enable = lib.mkDefault false; # Being explicit
+  login-manager.sddm.enable = lib.mkDefault true;
 }

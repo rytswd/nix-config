@@ -14,14 +14,10 @@
       extraGSettingsOverridePackages = [
         pkgs.gnome.mutter
       ];
-      extraGSettingsOverrides = ''
-        [org.gnome.desktop.input-sources]
-        sources=[
-          ('xkb', 'us+dvorak'),
-          ('xkb', 'us'),
-          ('xkb', 'jp')
-        ]
-      '';
+      # extraGSettingsOverrides = ''
+      #   [org.gnome.desktop.input-sources]
+      #   sources=[('xkb', 'us+dvorak'), ('xkb', 'us'), ('xkb', 'jp')]
+      # '';
     };
   };
 }

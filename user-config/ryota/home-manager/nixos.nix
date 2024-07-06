@@ -42,7 +42,7 @@ in {
         # For WiFi and network manager "nm-applet"
         pkgs.networkmanagerapplet
 
-        pkgs.gnome.seahorse
+        pkgs.gnome.seahorse # For password management
 
         ###------------------------------
         ##   Ghostty

@@ -12,6 +12,7 @@
     environment.systemPackages = [
       pkgs.gnumake
       pkgs.git
+      pkgs.cachix
     ];
   };
 }

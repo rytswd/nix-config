@@ -15,6 +15,8 @@
     ../modules/devices
     ../modules/window-manager
     ../modules/login-manager
+    ../modules/desktop-environment
+    ../modules/x11
     ../modules/flatpak
   ];
 
@@ -27,27 +29,6 @@
   };
 
   networking.hostName = "asus-rog-zephyrus-g14-2024";
-
-  services.xserver = {
-    enable = true;
-    exportConfiguration = true;
-    videoDrivers = ["nvidia"];
-    # System wide configuration, which would be overridden by user specified
-    # configuration. In order to persist with the relevant keyboard layouts,
-    # separate home-manager setup needs to be in place.
-    xkb = {
-      layout = "us,us,jp";
-      variant = "dvorak,,";
-      options = "ctrl:nocaps"; # Configure Caps Lock to be ctrl.
-    };
-    desktopManager.gnome.enable = true;
-    desktopManager.gnome.extraGSettingsOverridePackages = [ pkgs.gnome.mutter ];
-    # desktopManager.gnome.extraGSettingsOverrides = ''
-    #   [org.gnome.desktop.input-sources]
-    #   sources=[('xkb', 'us+dvorak'), ('xkb', 'us'), ('xkb', 'jp')]
-    # '';
-    # displayManager.gdm.enable = true;
-  };
 
   environment = {
     systemPackages = with pkgs; [

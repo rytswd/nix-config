@@ -25,20 +25,7 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  networking = {
-    # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-    # Per-interface useDHCP will be mandatory in the future, so this generated config
-    # replicates the default behaviour.
-    useDHCP = false;
-    hostName = "asus-rog-zephyrus-g14-2024";
-    # Disable the firewall since we're in a VM and we want to make it
-    # easy to visit stuff in here. We only use NAT networking anyways.
-    # firewall.enable = false;
-
-    # TODO: Probably not needed.
-    # Interface is this on M1
-    # interfaces.ens160.useDHCP = true;
-  };
+  networking.hostName = "asus-rog-zephyrus-g14-2024";
 
   # Ensure password can be changed with `passwd`.
   users.mutableUsers = false;

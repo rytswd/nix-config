@@ -43,6 +43,7 @@
       #   }
       # '';
 
+      # NOTE: GTK4 commented out for now.
       # gtk4.extraConfig = {
       #   gtk-application-prefer-dark-theme = true;
       # };

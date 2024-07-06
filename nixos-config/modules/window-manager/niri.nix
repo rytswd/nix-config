@@ -10,7 +10,7 @@
   };
 
   config = lib.mkIf config.window-manager.niri.enable {
-    environment.systemPackage = [
+    environment.systemPackages = [
       pkgs.niri-unstable
     ];
 

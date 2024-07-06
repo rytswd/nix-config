@@ -13,6 +13,8 @@ in {
     imports = [
       ./common.nix
       ./dconf.nix # For GNOME
+
+      ../../modules/launcher
     ];
 
     home = {
@@ -85,18 +87,6 @@ in {
     };
 
     programs = {
-      wofi = {
-        enable = true;
-        # More config to be placed here.
-        settings = {
-          gtk_dark = true;
-          insensitive = true;
-          allow_images = true;
-          image_size = 12;
-          key_expand = "Tab";
-        };
-        style = (builtins.readFile ../../../common-config/wofi/styles.css);
-      };
       waybar = {
         enable = true;
         systemd.enable = true;

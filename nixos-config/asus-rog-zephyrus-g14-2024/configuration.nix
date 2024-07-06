@@ -14,6 +14,7 @@ in {
   imports = [
     ../modules/gpu
     ../modules/media
+    ../modules/window-manager
     ../modules/flatpak
   ];
 

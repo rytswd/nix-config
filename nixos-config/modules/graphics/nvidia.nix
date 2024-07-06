@@ -28,5 +28,8 @@
         nvidiaBusId = "PCI:1:0:0";
       };
     };
+
+    # This adds nvidia offload
+    services.xserver.videoDrivers = ["nvidia"];
   };
 }

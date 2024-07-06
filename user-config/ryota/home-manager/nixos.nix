@@ -52,8 +52,7 @@ in {
         # separate entry.
         # NOTE: Ghostty cannot be built using Nix only for macOS, and thus this is
         # only built in NixOS.
-        ghostty.packages.${system}.default
-
+        inputs.ghostty.packages.${system}.default
       ];
 
       stateVersion = "23.11";

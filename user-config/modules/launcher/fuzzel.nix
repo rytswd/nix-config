@@ -1,7 +1,7 @@
 { pkgs
 , lib
 , config
-, ghostty
+, inputs
 , system
 , ...}:
 
@@ -17,7 +17,7 @@
         main = {
           font = "FiraCode Nerd Font:size=10";
           width = 80;
-          terminal = "${ghostty.packages.${system}.default}/bin/ghostty";
+          terminal = "${inputs.ghostty.packages.${system}.default}/bin/ghostty";
           layer = "overlay";
         };
         colors = {

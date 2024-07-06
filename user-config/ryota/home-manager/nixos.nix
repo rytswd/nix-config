@@ -3,7 +3,7 @@
 { config
 , pkgs
 , system
-, ghostty
+, inputs
 , ... }:
 
 let username = "ryota";
@@ -84,10 +84,6 @@ in {
         # beginning of line.
         gtk-key-theme-name = "Emacs";
       };
-    };
-
-    programs = {
-
     };
 
     xdg = {

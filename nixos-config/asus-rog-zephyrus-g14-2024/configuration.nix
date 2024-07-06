@@ -34,12 +34,7 @@
 
   environment = {
     systemPackages = with pkgs; [
-      # xclip # With wl-clipboard, I shouldn't need this.
-
       cachix # NOTE: added
-
-      # NOTE: I don't seem to need this.
-      # gtkmm3
     ];
 
     # NOTE: Commenting out as this came from UTM setup originally.

@@ -22,7 +22,6 @@
         variant = "dvorak,,";
         options = "ctrl:nocaps"; # Configure Caps Lock to be ctrl.
       };
-      # videoDrivers = ["nvidia"];
     };
   };
 }

@@ -1,6 +1,8 @@
 { pkgs
 , lib
 , config
+, ghostty
+, system
 , ...}:
 
 {

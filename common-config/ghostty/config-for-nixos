@@ -10,10 +10,12 @@ font-family             = "FiraCode Nerd Font"
 font-family-bold        = "FiraCode Nerd Font"
 font-style-bold         = "SemiBold"
 # Italic
-font-family-italic      = "Iosevka Nerd Font"
+# font-family-italic      = "Iosevka Nerd Font"
+font-family-italic      = "FiraCode Nerd Font"
 font-style-italic       = "Italic"
 # Bold and Italic
-font-family-bold-italic = "Iosevka Nerd Font"
+# font-family-bold-italic = "Iosevka Nerd Font"
+font-family-bold-italic = "FiraCode Nerd Font"
 font-style-bold-italic  = "Bold Italic"
 
 ###----------------------------------------

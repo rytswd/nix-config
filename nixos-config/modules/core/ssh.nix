@@ -19,4 +19,5 @@
         PermitRootLogin = "yes";
       };
     };
-  }
+  };
+}

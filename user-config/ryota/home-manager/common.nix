@@ -50,7 +50,6 @@
           ollama        # https://github.com/jmorganca/ollama
           imagemagick   # https://github.com/imagemagick/imagemagick
           librsvg       # https://wiki.gnome.org/Projects/LibRsvg
-          tailscale     # https://tailscale.com/
 
           ###------------------------------
           ##   Nix
@@ -65,26 +64,6 @@
           mu
           isync
           msmtp
-
-          ###------------------------------
-          ##   Kubernetes
-          #--------------------------------
-          docker
-          kubectl
-          kustomize
-          kubernetes-helm
-          kind
-          krew
-          k9s
-          kube3d
-          kubectx
-          kubeseal
-          pinniped
-          istioctl
-          cilium-cli
-          hubble
-          talosctl
-          vcluster
 
           ###------------------------------
           ##   Coding

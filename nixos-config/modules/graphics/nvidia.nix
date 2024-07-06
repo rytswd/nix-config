@@ -5,12 +5,12 @@
 
 {
   options = {
-    gpu.nvidia-offload.enable = lib.mkEnableOption "Set up NVIDIA GPU with offloading.";
+    graphics.nvidia-offload.enable = lib.mkEnableOption "Set up NVIDIA GPU with offloading.";
   };
 
   # NOTE: This setup is to use built-in GPU for most tasks, and NVIDIA GPU can
   # be used for offloading.
-  config = lib.mkIf config.gpu.nvidia-offload.enable {
+  config = lib.mkIf config.graphics.nvidia-offload.enable {
     # Ref https://nixos.wiki/wiki/Nvidia
     hardware.nvidia = {
       modesetting.enable = true;

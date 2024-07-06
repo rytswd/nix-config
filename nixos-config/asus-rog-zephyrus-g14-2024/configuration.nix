@@ -10,7 +10,7 @@
 {
   imports = [
     ../modules/core
-    ../modules/gpu
+    ../modules/graphics
     ../modules/media
     ../modules/window-manager
     ../modules/login-manager

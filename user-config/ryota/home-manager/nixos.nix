@@ -17,9 +17,12 @@ in {
       ../../modules/launcher
       ../../modules/bar
       ../../modules/browser
+      ../../modules/vpn
+      ../../modules/kubernetes
     ];
 
     bar.waybar.enable = true;
+    kubernetes.extra.enable = true;
 
     home = {
       username = "${username}";
@@ -33,7 +36,6 @@ in {
         pkgs.maestral # Dropbox client
 
         # GUI tools
-        pkgs.protonvpn-gui
         pkgs.proton-pass
         pkgs.signal-desktop
 

@@ -4,8 +4,6 @@
 , pkgs
 , system
 , ghostty
-, hyprland-plugins
-, hyprswitch
 , ... }:
 
 let username = "ryota";
@@ -14,6 +12,7 @@ in {
       ./common.nix
       ./dconf.nix # For GNOME
 
+      ../../modules/window-manager
       ../../modules/launcher
       ../../modules/bar
     ];
@@ -55,7 +54,6 @@ in {
         # only built in NixOS.
         ghostty.packages.${system}.default
 
-        hyprswitch.packages.${system}.default
       ];
 
       stateVersion = "23.11";
@@ -96,8 +94,6 @@ in {
     xdg = {
       configFile = {
         "ghostty/config".source = ../../../common-config/ghostty/config-for-nixos;
-        "hypr/".source = ../../../common-config/hyprland;
-        "hypr/".recursive = true;
       };
     };
 
@@ -105,21 +101,5 @@ in {
     services.gpg-agent = {
       enable = true;
       pinentryPackage = pkgs.pinentry-gnome3;
-    };
-
-    wayland = {
-      windowManager = {
-        hyprland = {
-          enable = true;
-          # This assumes that the above XDG config is mapped to provide extra conf
-          # file, which can refer to as a relative path.
-          extraConfig = ''
-            source=./hyprland-custom.conf
-          '';
-          # TODO: Add extra handling so that extra files can be added based on
-          # the machine requirements (Asus will need specific resolution
-          # handling, whereas UTM won't need it.)
-        };
-      };
     };
   }

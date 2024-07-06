@@ -58,9 +58,6 @@
       # NOTE: I don't seem to need this.
       # gtkmm3
 
-      # For display control
-      brightnessctl
-
       # For debugging input
       wev
     ];

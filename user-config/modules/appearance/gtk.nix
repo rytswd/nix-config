@@ -12,6 +12,8 @@
     gtk = {
       enable = true;
 
+      # NOTE: All of the below is using GTK3.
+
       # Use libadwaita, and specify dark theme.
       theme = {
         package = pkgs.adw-gtk3;

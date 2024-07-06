@@ -32,16 +32,6 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  environment = {
-    systemPackages = with pkgs; [
-      cachix # NOTE: added
-    ];
-
-    # NOTE: Commenting out as this came from UTM setup originally.
-    # # For now, we need this since hardware acceleration does not work.
-    # variables.LIBGL_ALWAYS_SOFTWARE = "1";
-  };
-
   programs = {
     # Ensure dconf is taken into account from NixOS startup.
     dconf.enable = true;

@@ -12,6 +12,7 @@
     ../modules/core
     ../modules/graphics
     ../modules/media
+    ../modules/devices
     ../modules/window-manager
     ../modules/login-manager
     ../modules/flatpak
@@ -51,7 +52,7 @@
   environment = {
     systemPackages = with pkgs; [
       killall
-      xclip
+      # xclip # With wl-clipboard, I shouldn't need this.
 
       cachix # NOTE: added
 

@@ -23,8 +23,5 @@
         ]
       '';
     };
-
-    # Strictly speaking this isn't GNOME, but
-    services.xserver.displayManager.gdm.enable = true;
   };
 }

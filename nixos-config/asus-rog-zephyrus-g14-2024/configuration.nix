@@ -20,6 +20,10 @@
     ../modules/flatpak
   ];
 
+  # NOTE: This should match the name used for nixosConfigurations, so that nh
+  # tool can automatically find the right target.
+  networking.hostName = "asus-rog-zephyrus-g14-2024";
+
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
@@ -27,8 +31,6 @@
     # Be careful updating this.
     kernelPackages = pkgs.linuxPackages_latest;
   };
-
-  networking.hostName = "asus-rog-zephyrus-g14-2024";
 
   environment = {
     systemPackages = with pkgs; [

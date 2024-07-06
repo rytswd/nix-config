@@ -7,14 +7,16 @@
 , ghostty
 , hyprland-plugins
 , hyprswitch
-, niri
 , overlays
+, inputs
 , ...}:
 
 nixosSystem rec {
   inherit system;
-  specialArgs = { inherit lib nixpkgs nixpkgs-unstable home-manager ghostty overlays niri; };
+  specialArgs = { inherit lib nixpkgs nixpkgs-unstable home-manager overlays; };
   modules = [
+    inputs.niri.nixosModules.niri
+
     # Adjust Nix and Nixpkgs related flags before proceeding.
     ./nix-flags.nix
 
@@ -39,7 +41,7 @@ nixosSystem rec {
 
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = { inherit system ghostty hyprland-plugins hyprswitch niri; }; # TODO: Fix, this is a bit naive how it's written at the moment
+      home-manager.extraSpecialArgs = { inherit system inputs; }; # TODO: System needed?
 
       # Each user needs to be set up separately. Because home-manager needs to
       # know where the home directory is, I need to specify the username again.

@@ -32,16 +32,12 @@
 
   environment = {
     systemPackages = with pkgs; [
-      killall
       # xclip # With wl-clipboard, I shouldn't need this.
 
       cachix # NOTE: added
 
       # NOTE: I don't seem to need this.
       # gtkmm3
-
-      # For debugging input
-      wev
     ];
 
     # NOTE: Commenting out as this came from UTM setup originally.

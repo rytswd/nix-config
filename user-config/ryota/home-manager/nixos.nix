@@ -15,6 +15,7 @@ in {
       ../../modules/window-manager
       ../../modules/launcher
       ../../modules/bar
+      ../../modules/browser
     ];
 
     bar.waybar.enable = true;
@@ -24,11 +25,6 @@ in {
       homeDirectory = "/home/${username}";
 
       packages = [
-        # Browsers
-        pkgs.vivaldi
-        pkgs.brave # Not supported for aarch64-linux
-        # TODO: Add chromium
-
         # Utility
         pkgs.wl-clipboard
         pkgs.cliphist

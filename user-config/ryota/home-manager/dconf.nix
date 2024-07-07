@@ -19,9 +19,9 @@ with lib.gvariant;
       sources = [
         (mkTuple [ "xkb" "us+dvorak" ])
         (mkTuple [ "xkb" "jp" ])
-        (mkTuple [ "xkb" "us" ])
+        # (mkTuple [ "xkb" "us" ])
       ];
-      xkb-options = [ "terminate:ctrl_alt_bksp" "caps:ctrl_modifier" ];
+      xkb-options = [ "ctrl:nocaps" "altwin:swap_alt_win" "grp:win_space_toggle" ];
     };
 
     "org/gnome/desktop/interface" = {

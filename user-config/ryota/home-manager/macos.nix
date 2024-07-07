@@ -8,6 +8,7 @@ let username = "ryota";
 in {
   imports = [
     ./common.nix
+    ../../modules/terminal
     ../../modules/kubernetes
   ];
 

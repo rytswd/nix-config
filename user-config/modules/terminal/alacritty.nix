@@ -13,12 +13,11 @@
       enable = true;
     };
     xdg = {
-      enable = true;
       configFile = {
         "alacritty/alacritty.toml".source =
           if pkgs.stdenv.isDarwin
-          then ./alacritty-for-macos.conf
-          else ./alacritty-for-nixos.conf;
+          then ./alacritty-for-macos.toml
+          else ./alacritty-for-nixos.toml;
       };
     };
   };

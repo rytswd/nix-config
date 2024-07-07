@@ -327,9 +327,6 @@
     # NOTE: As I'm using using Ghostty, I don't use neither Alacritty nor Kitty
     # these days. I'm just keeping them around for reference only when I need to
     # test against.
-    alacritty = {
-      enable = true;
-    };
     kitty = {
       enable = true;
     };
@@ -407,8 +404,6 @@
     configFile = {
       # Instead of using programs.starship.settings, copy the TOML file over.
       "starship.toml".source = ../../../common-config/starship.toml;
-
-      "alacritty/alacritty.toml".source = ../alacritty.toml;
 
       # TODO: Move this to common config
       "bat/config".source = ../bat-config.sh;

@@ -16,6 +16,7 @@ in {
       ../../modules/window-manager
       ../../modules/launcher
       ../../modules/bar
+      ../../modules/terminal
       ../../modules/browser
       ../../modules/vpn
       ../../modules/kubernetes
@@ -43,15 +44,6 @@ in {
         pkgs.networkmanagerapplet
 
         pkgs.gnome.seahorse # For password management
-
-        ###------------------------------
-        ##   Ghostty
-        #--------------------------------
-        # Because it's managed in a private repository for now, adding this as a
-        # separate entry.
-        # NOTE: Ghostty cannot be built using Nix only for macOS, and thus this is
-        # only built in NixOS.
-        inputs.ghostty.packages.${system}.default
       ];
 
       stateVersion = "23.11";
@@ -66,11 +58,6 @@ in {
       # };
     };
 
-    xdg = {
-      configFile = {
-        "ghostty/config".source = ../../../common-config/ghostty/config-for-nixos;
-      };
-    };
 
     # TODO: Fix this up, this is for pin entry for GPG
     services.gpg-agent = {

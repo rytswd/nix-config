@@ -1,6 +1,8 @@
 { pkgs
 , lib
 , config
+, inputs
+, system
 , ...}:
 
 {
@@ -20,10 +22,11 @@
       inputs.ghostty.packages.${system}.default
     ];
 
-    configFile = {
-      "ghostty/config".source = if pkgs.stdenv.isDarwin
-                                then ./ghostty-for-macos.conf
-                                else ./ghostty-for-nixos.conf;
+    xdg.configFile = {
+      "ghostty/config".source =
+        if pkgs.stdenv.isDarwin
+        then ./ghostty-for-macos.conf
+        else ./ghostty-for-nixos.conf;
     };
   };
 }

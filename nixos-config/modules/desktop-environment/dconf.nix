@@ -12,7 +12,7 @@
     # Ensure dconf is taken into account from NixOS startup.
     programs.dconf = {
       enable = true;
-      profiles.user.databases = with lib.gvariant; [
+      profiles.ryota.databases = with lib.gvariant; [
         {
           settings = {
             # "com/raggesilver/BlackBox" = {
@@ -25,13 +25,15 @@
                 (mkTuple [ "xkb" "us+dvorak" ])
                 (mkTuple [ "xkb" "us" ])
                 (mkTuple [ "xkb" "jp" ])
+                (mkTuple [ "xkb" "de" ])
               ];
               sources = [
                 (mkTuple [ "xkb" "us+dvorak" ])
                 (mkTuple [ "xkb" "us" ])
                 (mkTuple [ "xkb" "jp" ])
+                (mkTuple [ "xkb" "de" ])
               ];
-              xkb-options = [ "terminate:ctrl_alt_bksp" ];
+              xkb-options = [ "terminate:ctrl_alt_bksp,ctrl:nocaps,altwin:swap_alt_win,grp:win_space_toggle" ];
             };
             "org/gnome/desktop/interface" = {
               color-scheme = "prefer-dark";

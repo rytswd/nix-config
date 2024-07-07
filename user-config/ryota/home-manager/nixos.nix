@@ -21,6 +21,7 @@ in {
       ../../modules/browser
       ../../modules/vpn
       ../../modules/kubernetes
+      ../../modules/file-management
     ];
 
     bar.waybar.enable = true;
@@ -33,7 +34,6 @@ in {
       packages = [
         # Utility
         pkgs.glxinfo # For OpenGL etc.
-        pkgs.maestral # Dropbox client
 
         # GUI tools
         pkgs.proton-pass

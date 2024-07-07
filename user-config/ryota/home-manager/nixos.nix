@@ -58,7 +58,6 @@ in {
       # };
     };
 
-
     # TODO: Fix this up, this is for pin entry for GPG
     services.gpg-agent = {
       enable = true;

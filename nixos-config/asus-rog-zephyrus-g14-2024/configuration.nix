@@ -20,6 +20,8 @@
     ../modules/flatpak
   ];
 
+  desktop-environment.gnome.dconf.enable = true;
+
   # NOTE: This should match the name used for nixosConfigurations, so that nh
   # tool can automatically find the right target.
   networking.hostName = "asus-rog-zephyrus-g14-2024";

@@ -16,5 +16,7 @@
       # does what I need.
       else [ pkgs.maestral ]
     ;
+
+    # TODO: Configure systemd to start maestral daemon.
   };
 }

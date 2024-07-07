@@ -18,6 +18,7 @@ in {
       ../../modules/bar
       ../../modules/clipboard
       ../../modules/terminal
+      ../../modules/wallpaper
       ../../modules/browser
       ../../modules/vpn
       ../../modules/kubernetes

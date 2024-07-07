@@ -59,6 +59,8 @@
     };
     hyprswitch.url = "github:h3rmt/hyprswitch/release";
 
+    swww.url = "github:LGFae/swww";
+
     niri.url = "github:sodiboo/niri-flake";
   };
 

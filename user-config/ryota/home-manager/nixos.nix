@@ -16,6 +16,7 @@ in {
       ../../modules/window-manager
       ../../modules/launcher
       ../../modules/bar
+      ../../modules/clipboard
       ../../modules/terminal
       ../../modules/browser
       ../../modules/vpn
@@ -31,8 +32,6 @@ in {
 
       packages = [
         # Utility
-        pkgs.wl-clipboard
-        pkgs.cliphist
         pkgs.glxinfo # For OpenGL etc.
         pkgs.maestral # Dropbox client
 

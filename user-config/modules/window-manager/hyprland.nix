@@ -15,16 +15,17 @@
       windowManager = {
         hyprland = {
           enable = true;
-          # This assumes that the above XDG config is mapped to provide extra conf
+          # This assumes that the below XDG config is mapped to provide extra conf
           # file, which can refer to as a relative path.
           extraConfig = ''
             source=./hyprland-custom.conf
           '';
+
           # TODO: Add extra handling so that extra files can be added based on
           # the machine requirements (Asus will need specific resolution
           # handling, whereas UTM won't need it.)
           plugins = [
-            # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprlock
+            # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprbars
           ];
         };
       };
@@ -40,6 +41,8 @@
     };
 
     home.packages = [
+      pkgs.hypridle
+      pkgs.hyprlock
       inputs.hyprswitch.packages.${system}.default
     ];
   };

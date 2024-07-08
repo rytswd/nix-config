@@ -16,6 +16,7 @@
     ../modules/window-manager
     ../modules/login-manager
     ../modules/desktop-environment
+    ../modules/vpn
     ../modules/x11
     ../modules/flatpak
   ];

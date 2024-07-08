@@ -423,11 +423,11 @@
         "nixpkgs-lib": "nixpkgs-lib"
       },
       "locked": {
-        "lastModified": 1717285511,
-        "narHash": "sha256-iKzJcpdXih14qYVcZ9QC9XuZYnPc6T8YImb6dX166kw=",
+        "lastModified": 1719994518,
+        "narHash": "sha256-pQMhCCHyQGRzdfAkdJ4cIWiw+JNuWsTX7f0ZYSyz0VY=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "2a55567fcf15b1b1c7ed712a2c6fadaec7412ea8",
+        "rev": "9227223f6d922fee3c7b190b2cc238a99527bbb7",
         "type": "github"
       },
       "original": {
@@ -711,11 +711,11 @@
         "zls": "zls"
       },
       "locked": {
-        "lastModified": 1719335614,
-        "narHash": "sha256-M6UonAB1uJEJ3AcVEDLi0rcA8P6VrAtUjjmNO8vBLCU=",
+        "lastModified": 1720386080,
+        "narHash": "sha256-Zin2FSc+wYt8i5DZkhOvld1wlGsXC0PBeBxKrskHklI=",
         "ref": "refs/heads/main",
-        "rev": "7741463f826a7277941781630b5efdb77b4b6a7e",
-        "revCount": 6383,
+        "rev": "31d53849204c7294eba5e973047d9fc6f6e915ff",
+        "revCount": 6513,
         "type": "git",
         "url": "ssh://git@github.com/mitchellh/ghostty"
       },
@@ -984,11 +984,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1715721679,
-        "narHash": "sha256-Qq6F9AFK3TkLU5UCMIvX1mIrPKU8lJ63DjLUUGoB87M=",
+        "lastModified": 1719780938,
+        "narHash": "sha256-YocumFkp3FCgN3UCXp95EV7IvAwhQdlSav8cCB0oHv0=",
         "owner": "h3rmt",
         "repo": "hyprswitch",
-        "rev": "a02a74c5cd073542c394567b1a9728f89743ade1",
+        "rev": "4dbba183fcbaa63de64e973d5dc9bba883765aa3",
         "type": "github"
       },
       "original": {
@@ -1208,14 +1208,14 @@
     },
     "nixpkgs-lib": {
       "locked": {
-        "lastModified": 1717284937,
-        "narHash": "sha256-lIbdfCsf8LMFloheeE6N31+BMIeixqyQWbSr2vk79EQ=",
+        "lastModified": 1719876945,
+        "narHash": "sha256-Fm2rDDs86sHy0/1jxTOKB1118Q0O3Uc7EC0iXvXKpbI=",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/eb9ceca17df2ea50a250b6b27f7bf6ab0186f198.tar.gz"
+        "url": "https://github.com/NixOS/nixpkgs/archive/5daf0514482af3f97abaefc78a6606365c9108e2.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/eb9ceca17df2ea50a250b6b27f7bf6ab0186f198.tar.gz"
+        "url": "https://github.com/NixOS/nixpkgs/archive/5daf0514482af3f97abaefc78a6606365c9108e2.tar.gz"
       }
     },
     "nixpkgs-lib_2": {

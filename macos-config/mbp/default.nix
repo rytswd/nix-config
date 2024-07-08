@@ -4,14 +4,14 @@
 , darwinSystem
 , home-manager
 , system
-, ghostty
 , overlays
+, inputs
 , ...}:
 
 darwinSystem {
   inherit system;
   # inputs = { inherit username; };
-  specialArgs = { inherit lib nixpkgs nixpkgs-unstable home-manager ghostty; };
+  specialArgs = { inherit lib nixpkgs nixpkgs-unstable home-manager overlays; };
   modules = [
     # Ensure to allow unfree packages first, such as VSCode, Zoom, etc.
     {
@@ -32,7 +32,7 @@ darwinSystem {
     home-manager.darwinModules.home-manager {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = { inherit ghostty; };  # Pass flake variable
+      home-manager.extraSpecialArgs = { inherit inputs; };  # Pass flake variable
 
       home-manager.users.ryota = import ../../user-config/ryota/home-manager/macos.nix;
       # home-manager.users.rytswd = import ../../user-config/rytswd/home-manager;

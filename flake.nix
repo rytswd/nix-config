@@ -73,7 +73,6 @@
     # , emacs-29-src
     # , emacs-overlay
     , nixpkgs-zig-0-12
-    , ghostty
     , ... } @ inputs:
     let mbp-arch = "aarch64";
 
@@ -149,7 +148,7 @@
           ryota-mbp = (import ./macos-config/mbp {
             inherit (nixpkgs) lib;
             inherit (darwin.lib) darwinSystem;
-            inherit nixpkgs nixpkgs-unstable home-manager ghostty;
+            inherit nixpkgs nixpkgs-unstable home-manager;
             system = "${mbp-arch}-darwin";
             # username = "ryota";
             overlays = overlays;
@@ -183,7 +182,7 @@
           mbp-2021-utm = (import ./nixos-config/mbp-utm {
             inherit (nixpkgs) lib;
             inherit (nixpkgs-unstable.lib) nixosSystem;
-            inherit nixpkgs nixpkgs-unstable home-manager ghostty;
+            inherit nixpkgs nixpkgs-unstable home-manager;
             system = "${mbp-arch}-linux";
             overlays = overlays;
           });

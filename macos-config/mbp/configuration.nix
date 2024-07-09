@@ -96,9 +96,8 @@ in {
   };
     
   fonts = {
-    fontDir.enable = true;
     # Ref: https://nixos.wiki/wiki/Fonts
-    fonts = [
+    packages = [
       (pkgs.nerdfonts.override {
         fonts = [
           "DroidSansMono"

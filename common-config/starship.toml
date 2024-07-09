@@ -29,8 +29,6 @@ $line_break\
 $character
 """
 
-# TODO: Add direnv handling https://github.com/direnv/direnv/issues/68#issuecomment-1368441542
-
 [os]
 disabled = false # Disabled by default
 style = "bg:#444444"

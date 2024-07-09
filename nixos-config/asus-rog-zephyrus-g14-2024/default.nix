@@ -33,7 +33,8 @@ nixosSystem rec {
 
     # Set up home-manager and users.
     home-manager.nixosModules.home-manager {
-      # NOTE: Without this, I get an error applying home-manager updates (following the addition of GTK config).
+      # NOTE: Without this, I get an error applying home-manager updates
+      # (following the addition of GTK config).
       home-manager.backupFileExtension = "backup";
 
       home-manager.useGlobalPkgs = true;
@@ -41,7 +42,7 @@ nixosSystem rec {
       home-manager.sharedModules = [
         inputs.wired.homeManagerModules.default
       ];
-      home-manager.extraSpecialArgs = { inherit system inputs; }; # TODO: System needed?
+      home-manager.extraSpecialArgs = { inherit inputs; };
 
       # Each user needs to be set up separately. Because home-manager needs to
       # know where the home directory is, I need to specify the username again.

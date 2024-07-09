@@ -2,7 +2,6 @@
 , lib
 , config
 , inputs
-, system
 , ...}:
 
 {
@@ -20,7 +19,7 @@
           lines = 20;
           horizonatal-pad = 20;
           inner-pad = 7;
-          terminal = "${inputs.ghostty.packages.${system}.default}/bin/ghostty";
+          terminal = "${inputs.ghostty.packages.${pkgs.system}.default}/bin/ghostty";
           layer = "overlay";
         };
         colors = {

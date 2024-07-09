@@ -2,7 +2,6 @@
 , lib
 , config
 , inputs
-, system
 , ...}:
 
 {
@@ -43,7 +42,7 @@
     home.packages = [
       pkgs.hypridle
       pkgs.hyprlock
-      inputs.hyprswitch.packages.${system}.default
+      inputs.hyprswitch.packages.${pkgs.system}.default
     ];
   };
 }

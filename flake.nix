@@ -21,6 +21,32 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    ###----------------------------------------
+    ##  Language related flakes
+    #------------------------------------------
+    # Rust -- TODO: check whether I should use fenix or rust-overlay
+    rust-overlay.url = "github:oxalica/rust-overlay";
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    # Roc
+    roc = {
+      url = "github:roc-lang/roc";
+    };
+
+    # Zig
+    nixpkgs-zig-0-12.url = "github:vancluever/nixpkgs/vancluever-zig-0-12";
+    zig.url = "github:mitchellh/zig-overlay";
+
+    ###----------------------------------------
+    ##  Tools
+    #------------------------------------------
+    ghostty = {
+      url = "git+ssh://git@github.com/mitchellh/ghostty";
+    };
+
     # emacs-29-src = {
     #   url = "github:emacs-mirror/emacs/emacs-29";
     #   flake = false;
@@ -29,37 +55,20 @@
     #   url = "github:Nix-Community/emacs-overlay";
     # };
 
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-    };
+    ###----------------------------------------
+    ##  NixOS Specific
+    #------------------------------------------
+    wired.url = "github:Toqozz/wired-notify";
 
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    swww.url = "github:LGFae/swww";
 
-    roc = {
-      url = "github:roc-lang/roc";
-    };
-
-    nixpkgs-zig-0-12.url = "github:vancluever/nixpkgs/vancluever-zig-0-12";
-
-    zig = {
-      url = "github:mitchellh/zig-overlay";
-    };
-
-    ghostty = {
-      url = "git+ssh://git@github.com/mitchellh/ghostty";
-    };
-
+    # Window Manager
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
     hyprswitch.url = "github:h3rmt/hyprswitch/release";
-
-    swww.url = "github:LGFae/swww";
 
     niri.url = "github:sodiboo/niri-flake";
   };
@@ -110,6 +119,7 @@
     grip-overlay = (import ./overlays/grip.nix );
 
     # NixOS related overlays
+    wiredOverlay = inputs.wired.overlays.default;
     niriOverlay = inputs.niri.overlays.niri;
     overlays = [
       goOverlay
@@ -126,6 +136,7 @@
       # yazi-overlay
       grip-overlay
 
+      wiredOverlay # TODO: Make this only for NixOS.
       niriOverlay # TODO: Make this only for NixOS.
     ];
 

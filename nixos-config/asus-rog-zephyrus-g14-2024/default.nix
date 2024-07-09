@@ -38,6 +38,9 @@ nixosSystem rec {
 
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
+      home-manager.sharedModules = [
+        inputs.wired.homeManagerModules.default
+      ];
       home-manager.extraSpecialArgs = { inherit system inputs; }; # TODO: System needed?
 
       # Each user needs to be set up separately. Because home-manager needs to

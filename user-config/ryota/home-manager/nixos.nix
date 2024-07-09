@@ -17,6 +17,7 @@ in {
       ../../modules/launcher
       ../../modules/bar
       ../../modules/clipboard
+      ../../modules/notification
       ../../modules/terminal
       ../../modules/wallpaper
       ../../modules/browser
@@ -50,15 +51,6 @@ in {
       ];
 
       stateVersion = "23.11";
-    };
-
-    services = {
-      dunst = {
-        enable = true;
-      };
-      # dropbox = {
-      #   enable = true;
-      # };
     };
 
     # TODO: Fix this up, this is for pin entry for GPG

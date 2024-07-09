@@ -36,6 +36,7 @@
         ];
         modules-right = [
           "custom/padd"
+          "custom/shortcuts"
           "pulseaudio"
           "network"
           "cpu"
@@ -108,7 +109,7 @@
         };
         "hyprland/window" = {
           icon = true;
-          # format = "";
+          format = "";
         };
         "hyprland/workspaces" = {
           all-outputs = true;
@@ -123,6 +124,10 @@
             "(.*)Signal" = "󰍩 ";
           };
           # format-icons = "active";
+        };
+        "custom/shortcuts" = {
+          format = "";
+          on-click = "fuzzel";
         };
         "custom/padd" = {
           format = "  ";

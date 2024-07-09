@@ -23,10 +23,13 @@ in {
       ../../modules/vpn
       ../../modules/kubernetes
       ../../modules/file-management
+      ../../modules/communication
     ];
 
     bar.waybar.enable = true;
     kubernetes.extra.enable = true;
+    communication.slack.enable = true;
+    communication.signal.enable = true;
 
     home = {
       username = "${username}";
@@ -38,12 +41,12 @@ in {
 
         # GUI tools
         pkgs.proton-pass
-        pkgs.signal-desktop
 
         # For WiFi and network manager "nm-applet"
         pkgs.networkmanagerapplet
 
-        pkgs.gnome.seahorse # For password management
+        # For password management
+        pkgs.gnome.seahorse
       ];
 
       stateVersion = "23.11";

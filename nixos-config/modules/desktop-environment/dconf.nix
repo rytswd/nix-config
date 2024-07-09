@@ -15,6 +15,12 @@
       profiles.ryota.databases = with lib.gvariant; [
         {
           settings = {
+            # "org/gnome/shell" = {
+            #   disable-user-extensions = false;
+            #   enabled-extensions = with pkgs.gnomeExtensions; [
+            #     paperwm.extensionUuid
+            #   ];
+            # };
             # "com/raggesilver/BlackBox" = {
             #   opacity = mkUint32 100;
             #   theme-dark = "Tommorow Night";
@@ -45,5 +51,6 @@
         }
       ];
     };
+    environment.systemPackages = [ pkgs.gnomeExtensions.paperwm ];
   };
 }

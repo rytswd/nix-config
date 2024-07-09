@@ -178,6 +178,7 @@ in {
       "orbstack"
       "keycastr"
       "protonvpn"
+      "tailscale"
 
       ###------------------------------
       ##   Other

@@ -17,7 +17,7 @@
           font = "FiraCode Nerd Font:size=10";
           width = 80;
           lines = 20;
-          horizonatal-pad = 20;
+          horizontal-pad = 20;
           inner-pad = 7;
           terminal = "${inputs.ghostty.packages.${pkgs.system}.default}/bin/ghostty";
           layer = "overlay";

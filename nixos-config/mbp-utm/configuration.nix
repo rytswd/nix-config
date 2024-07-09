@@ -101,6 +101,40 @@ let linuxGnome = true; in {
   };
 
   programs = {
+    # Ensure dconf is taken into account from NixOS startup.
+    dconf.enable = true;
+    dconf.profiles.user.databases = with lib.gvariant; [
+      {
+        settings = {
+          # "com/raggesilver/BlackBox" = {
+          #   opacity = mkUint32 100;
+          #   theme-dark = "Tommorow Night";
+          #   scrollback-lines = mkUint32 10000;
+          # };
+          "org/gnome/desktop/input-sources" = {
+            mru-sources = [
+              (mkTuple [ "xkb" "us+dvorak" ])
+              (mkTuple [ "xkb" "us" ])
+              (mkTuple [ "xkb" "jp" ])
+            ];
+            sources = [
+              (mkTuple [ "xkb" "us+dvorak" ])
+              # (mkTuple [ "xkb" "us" ])
+              (mkTuple [ "xkb" "jp" ])
+            ];
+            xkb-options = [ "terminate:ctrl_alt_bksp" ];
+          };
+          "org/gnome/desktop/interface" = {
+            color-scheme = "prefer-dark";
+          };
+        };
+        # locks = [
+        #   "/com/raggesilver/BlackBox/theme-dark"
+        # ];
+      }
+    ];
+    hyprland.enable = true;
+
     # These shell settings are global configurations, meaning they would work on
     # files under /etc/ (and they would be stored in /etc/static/).
     #

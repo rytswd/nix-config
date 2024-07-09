@@ -119,6 +119,8 @@
             "(.*)Ghostty" = " ";
             "(.*)Vivaldi" = " ";
             "(.*)Brave" = " ";
+            "(.*)Slack" = " ";
+            "(.*)Signal" = "󰍩 ";
           };
           # format-icons = "active";
         };

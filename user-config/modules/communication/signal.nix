@@ -9,6 +9,6 @@
   };
 
   config = lib.mkIf config.communication.signal.enable {
-    home.packages = [ pkgs.slack ];
+    home.packages = [ pkgs.signal-desktop ];
   };
 }

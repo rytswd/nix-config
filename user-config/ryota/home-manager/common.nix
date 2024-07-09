@@ -327,9 +327,12 @@
     # NOTE: As I'm using using Ghostty, I don't use neither Alacritty nor Kitty
     # these days. I'm just keeping them around for reference only when I need to
     # test against.
-    kitty = {
+    alacritty = {
       enable = true;
     };
+    # kitty = {
+    #   enable = true;
+    # };
 
     # + Shells
     # Because there are some nuances based on shell, and thus the actual

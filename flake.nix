@@ -160,6 +160,7 @@
             inherit (nixpkgs) lib;
             inherit (darwin.lib) darwinSystem;
             inherit nixpkgs nixpkgs-unstable home-manager;
+            inherit inputs;
             system = "${mbp-arch}-darwin";
             # username = "ryota";
             overlays = overlays;
@@ -194,6 +195,7 @@
             inherit (nixpkgs) lib;
             inherit (nixpkgs-unstable.lib) nixosSystem;
             inherit nixpkgs nixpkgs-unstable home-manager;
+            inherit inputs;
             system = "${mbp-arch}-linux";
             overlays = overlays;
           });

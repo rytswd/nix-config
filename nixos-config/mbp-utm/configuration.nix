@@ -173,13 +173,15 @@ let linuxGnome = true; in {
       # Clear code inspired by:
       # https://github.com/GaetanLepage/dotfiles/blob/7855d6e3f082cbdb1a20142a8299cb33729366ab/nixos/tuxedo/autofs.nix#L16
       autoMaster = let mapConf = pkgs.writeText "autofs.mnt" ''
-        mbp \
+        mbp-coding \
             -fstype=davfs,uid=1000,file_mode=666,dir_mode=777,rw \
-            :127.0.0.1:9843/Coding
+            :http\://localhost\:9843/Coding
+        mbp-documents \
+            -fstype=davfs,uid=1000,file_mode=666,dir_mode=777,rw \
+            :http\://localhost\:9843/Documents
         '';
       in ''
         /utm-host   ${mapConf}  --timeout 600
-        /utm-host   /tmp/davfs  --timeout 600
       '';
     };
   };

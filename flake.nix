@@ -58,6 +58,7 @@
     ###----------------------------------------
     ##  NixOS Specific
     #------------------------------------------
+    ags.url = "github:Aylur/ags";
     wired.url = "github:Toqozz/wired-notify";
 
     swww.url = "github:LGFae/swww";

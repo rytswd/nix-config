@@ -6,6 +6,7 @@
 {
   imports = [
     ./waybar.nix
+    ./ags.nix
     # TODO: Move sketchybar setup here
     # ./sketchybar.nix
   ];

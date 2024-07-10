@@ -10,5 +10,5 @@
   ];
 
   notification.dunst.enable = lib.mkDefault false; # Being explicit
-  notification.wired.enable = lib.mkDefault true;
+  notification.wired.enable = lib.mkDefault false; # Being explicit
 }

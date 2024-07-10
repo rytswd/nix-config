@@ -347,10 +347,12 @@ binds {
     Ctrl+Alt+Shift+F { fullscreen-window; }
     Ctrl+Alt+C { center-column; }
 
-    Ctrl+Alt+Minus { set-column-width "-10%"; }
-    Ctrl+Alt+Equal { set-column-width "+10%"; }
-    Ctrl+Alt+Left { set-column-width "-10%"; }
-    Ctrl+Alt+Right { set-column-width "+10%"; }
+    Ctrl+Alt+Minus  { set-column-width "-10%"; }
+    Ctrl+Alt+Equal  { set-column-width "+10%"; }
+    Ctrl+Alt+Left   { set-column-width "-10%"; }
+    Ctrl+Alt+Right  { set-column-width "+10%"; }
+    Ctrl+Alt+Down   { set-window-height "+10%"; }
+    Ctrl+Alt+Up     { set-window-height "-10%"; }
 
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }

@@ -316,9 +316,9 @@ binds {
     Ctrl+Up    { focus-workspace-up; }
 
     Ctrl+Super+Left  { move-column-left; }
+    Ctrl+Super+Right { move-column-right; }
     Ctrl+Super+Down  { move-window-down-or-to-workspace-down; }
     Ctrl+Super+Up    { move-window-up-or-to-workspace-up; }
-    Ctrl+Super+Right { move-column-right; }
     Ctrl+Super+H     { move-column-left; }
     Ctrl+Super+J     { move-window-down; }
     Ctrl+Super+K     { move-window-up; }

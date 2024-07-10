@@ -49,6 +49,9 @@ in {
 
         # For password management
         pkgs.gnome.seahorse
+
+        # TODO: Move this to a module
+        pkgs.terraform
       ];
 
       stateVersion = "23.11";

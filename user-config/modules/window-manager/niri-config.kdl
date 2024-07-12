@@ -315,14 +315,14 @@ binds {
     Ctrl+Down  { focus-workspace-down; }
     Ctrl+Up    { focus-workspace-up; }
 
-    Ctrl+Super+Left  { move-column-left; }
-    Ctrl+Super+Right { move-column-right; }
-    Ctrl+Super+Down  { move-window-down-or-to-workspace-down; }
-    Ctrl+Super+Up    { move-window-up-or-to-workspace-up; }
-    Ctrl+Super+H     { move-column-left; }
-    Ctrl+Super+J     { move-window-down; }
-    Ctrl+Super+K     { move-window-up; }
-    Ctrl+Super+L     { move-column-right; }
+    Ctrl+Shift+Left  { move-column-left; }
+    Ctrl+Shift+Right { move-column-right; }
+    Ctrl+Shift+Down  { move-window-down-or-to-workspace-down; }
+    Ctrl+Shift+Up    { move-window-up-or-to-workspace-up; }
+    Ctrl+Shift+H     { move-column-left; }
+    Ctrl+Shift+J     { move-window-down; }
+    Ctrl+Shift+K     { move-window-up; }
+    Ctrl+Shift+L     { move-column-right; }
 
     Ctrl+Alt+1 { focus-workspace 1; }
     Ctrl+Alt+2 { focus-workspace 2; }

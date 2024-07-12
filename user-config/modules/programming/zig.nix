@@ -5,10 +5,10 @@
 
 {
   options = {
-    programming-language.zig.enable = lib.mkEnableOption "Enable Zig development related tools.";
+    programming.zig.enable = lib.mkEnableOption "Enable Zig development related tools.";
   };
 
-  config = lib.mkIf config.programming-language.zig.enable {
+  config = lib.mkIf config.programming.zig.enable {
     home.packages = [
       # pkgs.zig
       pkgs.zigpkgs.master # NOTE: Based on https://github.com/mitchellh/zig-overlay

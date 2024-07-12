@@ -49,8 +49,6 @@
       pkgs.zellij       # https://github.com/zellij-org/zellij
       pkgs.atuin        # https://github.com/atuinsh/atuin
       pkgs.neofetch     # https://github.com/dylanaraps/neofetch
-
-      pkgs.tree-sitter # https://github.com/tree-sitter/tree-sitter
     ];
   };
 }

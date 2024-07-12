@@ -5,10 +5,10 @@
 
 {
   options = {
-    programming-language.javascript.enable = lib.mkEnableOption "Enable JavaScript development related tools.";
+    programming.javascript.enable = lib.mkEnableOption "Enable JavaScript development related tools.";
   };
 
-  config = lib.mkIf config.programming-language.javascript.enable {
+  config = lib.mkIf config.programming.javascript.enable {
     home.packages = [
       pkgs.bun
       pkgs.deno

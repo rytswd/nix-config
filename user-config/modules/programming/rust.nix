@@ -5,10 +5,10 @@
 
 {
   options = {
-    programming-language.rust.enable = lib.mkEnableOption "Enable Rust development related tools.";
+    programming.rust.enable = lib.mkEnableOption "Enable Rust development related tools.";
   };
 
-  config = lib.mkIf config.programming-language.rust.enable {
+  config = lib.mkIf config.programming.rust.enable {
     home.packages = [
       # NOTE: Rust setup is either to use Nix based build setup, or rely on
       # rustup. Because when I really need to get a version controlled Rust,

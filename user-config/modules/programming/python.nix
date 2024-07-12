@@ -5,10 +5,10 @@
 
 {
   options = {
-    programming-language.python.enable = lib.mkEnableOption "Enable Python development related tools.";
+    programming.python.enable = lib.mkEnableOption "Enable Python development related tools.";
   };
 
-  config = lib.mkIf config.programming-language.python.enable {
+  config = lib.mkIf config.programming.python.enable {
     home.packages = [
       pkgs.poetry   # https://python-poetry.org/
 

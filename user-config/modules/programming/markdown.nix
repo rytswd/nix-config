@@ -5,10 +5,10 @@
 
 {
   options = {
-    programming-language.markdown.enable = lib.mkEnableOption "Enable Markdown related tools.";
+    programming.markdown.enable = lib.mkEnableOption "Enable Markdown related tools.";
   };
 
-  config = lib.mkIf config.programming-language.markdown.enable {
+  config = lib.mkIf config.programming.markdown.enable {
     home.packages = [
       pkgs.pandoc
 

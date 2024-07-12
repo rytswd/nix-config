@@ -21,7 +21,7 @@ in {
       ../../modules/terminal
       ../../modules/wallpaper
       ../../modules/browser
-      ../../modules/programming-language
+      ../../modules/programming
       ../../modules/vpn
       ../../modules/kubernetes
       ../../modules/file-management

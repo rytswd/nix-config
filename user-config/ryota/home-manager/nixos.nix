@@ -22,15 +22,24 @@ in {
       ../../modules/clipboard
       ../../modules/notification
       ../../modules/terminal
+      ../../modules/vcs
       ../../modules/wallpaper
       ../../modules/browser
+      ../../modules/editor
       ../../modules/programming
       ../../modules/vpn
       ../../modules/kubernetes
+      ../../modules/service
       ../../modules/file-management
+      ../../modules/dictionary
       ../../modules/communication
+      ../../modules/image
+      ../../modules/linux-widget
     ];
 
+    ###----------------------------------------
+    ##   Module related options
+    #------------------------------------------
     bar.waybar.enable = true;
     bar.ags.enable = true;
     kubernetes.extra.enable = true;

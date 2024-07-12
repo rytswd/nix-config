@@ -18,10 +18,20 @@
       ###------------------------------
       ##   File related
       #--------------------------------
+      pkgs.eza          # https://github.com/eza-community/eza
+      pkgs.bat          # https://github.com/sharkdp/bat
+      pkgs.ripgrep      # https://github.com/BurntSushi/ripgrep
+      pkgs.fd           # https://github.com/sharkdp/fd
+      pkgs.zoxide       # https://github.com/ajeetdsouza/zoxide
       pkgs.du-dust      # https://github.com/bootandy/dust
       pkgs.erdtree      # https://github.com/solidiquis/erdtree
+      pkgs.delta        # https://github.com/dandavison/delta
       pkgs.cloc         # https://github.com/AlDanial/cloc
+
+      # TODO: Consider creating programming YAML
       pkgs.dyff         # https://github.com/homeport/dyff
+
+      # pkgs.rm-improved  # https://github.com/nivekuil/rip
 
       ###------------------------------
       ##   Security related
@@ -46,9 +56,12 @@
       ###------------------------------
       ##   Other
       #--------------------------------
+      pkgs.shellcheck   # https://github.com/koalaman/shellcheck
       pkgs.zellij       # https://github.com/zellij-org/zellij
       pkgs.atuin        # https://github.com/atuinsh/atuin
       pkgs.neofetch     # https://github.com/dylanaraps/neofetch
+
+      # pkgs.sd           # https://github.com/chmln/sd
     ];
   };
 }

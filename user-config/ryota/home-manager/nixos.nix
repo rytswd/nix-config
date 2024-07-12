@@ -22,6 +22,7 @@ in {
       ../../modules/wallpaper
       ../../modules/browser
       ../../modules/programming
+      ../../modules/shell
       ../../modules/vpn
       ../../modules/kubernetes
       ../../modules/file-management

@@ -8,7 +8,6 @@
     ./nix.nix
     ./go.nix
     ./rust.nix
-    ./shell.nix
     ./html.nix
     ./css.nix
     ./javascript.nix
@@ -28,7 +27,6 @@
   programming.nix.enable = lib.mkDefault true;
   programming.go.enable = lib.mkDefault true;
   programming.rust.enable = lib.mkDefault true;
-  programming.shell.enable = lib.mkDefault true;
   programming.html.enable = lib.mkDefault true;
   programming.css.enable = lib.mkDefault true;
   programming.javascript.enable = lib.mkDefault true;

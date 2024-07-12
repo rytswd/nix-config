@@ -97,5 +97,10 @@
         }
       ];
     };
+    xdg.configFile = {
+      # ZSH abbreviation with https://github.com/olets/zsh-abbr needs a
+      # dedicated configuration file.
+      "zsh-abbr/user-abbreviations".source = ./zsh/zsh-abbr.txt;
+    };
   };
 }

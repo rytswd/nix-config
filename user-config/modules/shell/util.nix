@@ -63,5 +63,48 @@
 
       # pkgs.sd           # https://github.com/chmln/sd
     ];
+
+    programs = {
+      fzf = {
+        enable = true;
+        enableZshIntegration = true;
+        enableFishIntegration = true;
+      };
+
+      # I use Yazi for most of the file navigation (along with Zoxide).
+      yazi = {
+        enable = true;
+        enableBashIntegration = true;
+        enableZshIntegration = true;
+        enableFishIntegration = true;
+        enableNushellIntegration = true;
+      };
+
+      zoxide = {
+        enable = true;
+        # In order to call the builtin 'cd', I can use 'builtin cd'.
+        options = [ "--cmd cd"];
+
+        enableBashIntegration = true;
+        enableZshIntegration = true;
+        enableFishIntegration = true;
+        enableNushellIntegration = true;
+      };
+    };
+
+    xdg.configFile = {
+      "bat/config".source = ./bat/bat-config.sh;
+
+      # Temporarily commenting out as I'm still exploring this.
+      # "btop/btop.conf".source = ../../../common-config/btop/btop.conf;
+
+      "fd".source = ./fd;
+      "fd".recursive = true;
+
+      "ripgrep/config".source = ./ripgrep/ripgrep-conf.sh;
+
+      "yazi".source = ./yazi;
+      "yazi".recursive = true;
+    };
   };
 }

@@ -1,0 +1,101 @@
+# WIP - not everything is configured
+
+# Using a bulk of example setup:
+# Ref:
+# https://github.com/starship/starship/blob/4fa7395c9eabc0745c6eaa1e3dabd3feefeef5e9/docs/.vuepress/public/presets/toml/pastel-powerline.toml
+
+format = """
+$os\
+[](bg:#181D38 fg:#444444)\
+$shell\
+[](bg:#2A468C fg:#181D38)\
+$username\
+[](bg:#257F7F fg:#2A468C)\
+$directory\
+[](bg:#89BFD3 fg:#257F7F)\
+$git_branch\
+$git_status\
+[](bg:#EBEBEB fg:#89BFD3)\
+[](#EBEBEB)\
+$fill\
+[](#EBEBEB)\
+$cmd_duration\
+[](bg:#EBEBEB fg:#89BFD3)\
+$direnv\
+[](bg:#89BFD3 fg:#444444)\
+$jobs\
+$time\
+$line_break\
+$character
+"""
+
+[os]
+disabled = false # Disabled by default
+style = "bg:#444444"
+format = "[ $symbol ]($style)"
+[os.symbols]
+Macos = ""
+
+[shell]
+disabled = false # Disabled by default
+style = "bg:#181D38"
+format = '[ $indicator ]($style)'
+fish_indicator = ''
+bash_indicator = ''
+
+[username]
+show_always = true
+style_user = "bg:#2A468C"
+style_root = "bg:#2A468C"
+format = '[ $user ]($style)'
+disabled = false
+
+[directory]
+style = "bg:#257F7F"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+# Here is how you can shorten some long paths by text replacement
+# similar to mapped_locations in Oh My Posh:
+[directory.substitutions]
+"Documents" = " "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+# Keep in mind that the order matters. For example:
+# "Important Documents" = "  "
+# will not be replaced, because "Documents" was already substituted before.
+# So either put "Important Documents" before "Documents" or use the substituted version:
+# "Important  " = "  "
+
+[git_branch]
+symbol = ""
+style = "bg:#89BFD3 fg:#222222"
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+style = "bg:#89BFD3 fg:#222222"
+format = '[$all_status$ahead_behind ]($style)'
+
+[fill]
+symbol = "─"
+
+[cmd_duration]
+format = '[  $duration ]($style)'
+style = "bg:#EBEBEB fg:#222222"
+
+[direnv]
+disabled = false # Disabled by default
+format = '[ 󱄅 $allowed ]($style)'
+style = "bg:#89BFD3 fg:#222222"
+symbol = '󱄅'
+allowed_msg = ' '
+not_allowed_msg = ' '
+denied_msg = ' '
+
+[time]
+disabled = false # Disabled by default
+format = '[ $time ]($style)'
+time_format = '%T'
+style = 'bg:#444444'

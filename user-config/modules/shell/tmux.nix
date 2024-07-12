@@ -45,5 +45,12 @@
         ];
       extraConfig = builtins.readFile ./tmux/tmux.conf;
     };
+    xdg.configFile = {
+      # Providing the below config via programs.tmux instead.
+      # "tmux/tmux.conf".source           = ./tmux/tmux.conf;
+      "tmux/keybindings.conf".source    = ./tmux/keybindings.conf;
+      "tmux/options.conf".source        = ./tmux/options.conf;
+      # "tmux/tpm.conf".source            = ./tmux/tpm.conf;
+    };
   };
 }

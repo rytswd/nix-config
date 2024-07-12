@@ -9,9 +9,6 @@
 let username = "ryota";
 in {
     imports = [
-      ./common.nix
-      # ./dconf.nix # For GNOME
-
       # The shell setup defines some aliases, and in order to allow overriding,
       # calling this earlier than other modules.
       ../../modules/shell

@@ -32,6 +32,7 @@ in {
     kubernetes.extra.enable = true;
     communication.slack.enable = true;
     communication.signal.enable = true;
+    notification.ags-notification.enable = true;
 
     home = {
       username = "${username}";

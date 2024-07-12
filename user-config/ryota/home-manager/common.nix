@@ -246,14 +246,6 @@
       enableNushellIntegration = true;
     };
 
-    # + Coding
-    go = {
-      enable = true;
-      goPath = "Coding/go";
-      goBin = "Coding/go/bin";
-      goPrivate = [ "github.com/rytswd" "github.com/upsidr" ];
-    };
-
     # + Utilities
     gpg = {
       enable = true;

@@ -12,10 +12,8 @@
   config = lib.mkIf config.window-manager.niri.enable {
     # Because the config is quite lengthy, I'm simply mapping a file into the
     # XDG directory.
-    xdg = {
-      configFile = {
-        "niri/config.kdl".source = ./niri-config.kdl;
-      };
+    xdg.configFile = {
+      "niri/config.kdl".source = ./niri-config.kdl;
     };
   };
 }

@@ -49,13 +49,6 @@
           librsvg       # https://wiki.gnome.org/Projects/LibRsvg
 
           ###------------------------------
-          ##   Email
-          #--------------------------------
-          mu
-          isync
-          msmtp
-
-          ###------------------------------
           ##   Coding
           #--------------------------------
           # Many coding dependencies are better handled per project / directory,

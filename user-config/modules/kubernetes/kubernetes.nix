@@ -19,5 +19,12 @@
       pkgs.kube3d
       pkgs.kubectx
     ];
+    home.shellAliases = {
+      k = "kubectl";
+      kgpa = "kubectl get pods -A";
+    };
+    home.sessionVariables = {
+      KUBECTL_EXTERNAL_DIFF = "dyff between --omit-header --set-exit-code";
+    };
   };
 }

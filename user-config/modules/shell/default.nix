@@ -6,6 +6,11 @@
 {
   imports = [
     ./standard.nix
+    # NOTE: Any alias defined here should be overridable from other modules
+    # (though it is unlikely to need to), and thus having this aliases defined
+    # earlier.
+    ./aliases.nix
+    ./env.nix
     ./util.nix
     ./bash.nix
     ./fish.nix
@@ -17,6 +22,8 @@
   ];
 
   shell.standard.enable = lib.mkDefault true;
+  shell.aliases.enable = lib.mkDefault true;
+  shell.env.enable = lib.mkDefault true;
   shell.util.enable = lib.mkDefault true;
   shell.bash.enable = lib.mkDefault true;
   shell.fish.enable = lib.mkDefault true;
@@ -24,3 +31,4 @@
   shell.zsh.enable = lib.mkDefault true;
 
   shell.tmux.enable = lib.mkDefault false; # Being explicit
+}

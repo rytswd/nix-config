@@ -10,10 +10,7 @@
 {
   home = {
     packages =
-      # Some common packages I use for any envs + users are bundled in a
-      # separate file.
-      import(../../../common-config/home-manager/packages.nix) { inherit pkgs; }
-      ++ pkgs.lib.attrValues {
+      pkgs.lib.attrValues {
         inherit (pkgs)
           ###------------------------------
           ##   More Utilities

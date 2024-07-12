@@ -12,6 +12,9 @@ in {
       ./common.nix
       # ./dconf.nix # For GNOME
 
+      # The shell setup defines some aliases, and in order to allow overriding,
+      # calling this earlier than other modules.
+      ../../modules/shell
       ../../modules/appearance
       ../../modules/window-manager
       ../../modules/launcher
@@ -22,7 +25,6 @@ in {
       ../../modules/wallpaper
       ../../modules/browser
       ../../modules/programming
-      ../../modules/shell
       ../../modules/vpn
       ../../modules/kubernetes
       ../../modules/file-management

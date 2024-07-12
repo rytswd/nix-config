@@ -11,7 +11,6 @@ in {
     ../../modules/programming
     ../../modules/kubernetes
   ];
-  terminal.ghostty.enable = false; # macos not supported
 
   home = {
     username = "${username}";

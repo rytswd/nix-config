@@ -47,6 +47,15 @@ in {
     communication.signal.enable = true;
     notification.ags-notification.enable = true;
 
+    ###----------------------------------------
+    ##   Other Home Manager Setup
+    #------------------------------------------
+    programs.home-manager.enable = true;
+    xdg.enable = true;
+
+    # TODO: Move this somewhere.
+    programs.gpg.enable = true;
+
     home = {
       username = "${username}";
       homeDirectory = "/home/${username}";

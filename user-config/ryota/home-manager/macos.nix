@@ -9,6 +9,7 @@ in {
   imports = [
     ./common.nix
     ../../modules/terminal
+    ../../modules/programming-languages
     ../../modules/kubernetes
   ];
   terminal.ghostty.enable = false; # macos not supported

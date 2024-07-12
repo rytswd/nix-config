@@ -52,13 +52,6 @@
           librsvg       # https://wiki.gnome.org/Projects/LibRsvg
 
           ###------------------------------
-          ##   Nix
-          #--------------------------------
-          nix-output-monitor
-          nvd
-          nh
-
-          ###------------------------------
           ##   Email
           #--------------------------------
           mu
@@ -72,52 +65,6 @@
           # but here are some common ones I would always want to keep in my PATH
           # for convenience, or I need to have in PATH due to existing setup
           # expect such tools to be available.
-
-          # Go
-          go            # Needed because Vim plugin govim requires this.
-          ko
-          gopls
-          templ
-
-          # Rust
-          # NOTE: Rust setup is either to use Nix based build setup, or rely on
-          # rustup. Because when I really need to get a version controlled Rust,
-          # it would be based on direnv setup, I'm using rustup as the default
-          # instead. Nix setup here only handles the installation on rustup CLI
-          # itself, and the rest is managed outside of Nix for simplicity.
-          # For rust-analyzer, I needed to run the following:
-          #   `rustup component add rust-analyzer`
-          # Not sure if this is a hard requirement, but this seems to work.
-          rustup
-          # rustc
-          # cargo
-          # rust-analyzer
-
-          # JS
-          bun
-          deno
-          yarn
-
-          # Sass
-          dart-sass
-
-          # HTML
-          emmet-language-server
-
-          # Shell
-          shellcheck    # I want this for any code base
-
-          # Markdown
-          pandoc        # Markdown support
-
-          # C
-          clang-tools
-
-          # Protobuf
-          buf
-
-          # Java
-          jdk
 
           ###------------------------------
           ##   Editors
@@ -136,57 +83,6 @@
           flyctl
         ;
       }
-      ###------------------------------
-      ##   Python
-      #--------------------------------
-      ++ [
-        (pkgs.python311.withPackages (ps: with ps; [
-          pyyaml
-          pandas
-        ]))
-        pkgs.poetry    # https://python-poetry.org/
-        pkgs.python311.pkgs.pip
-        # pkgs.python311.pkgs.grip # https://github.com/joeyespo/grip
-        pkgs.python-grip # Overlay in place for the above to get the latest master.
-        pkgs.python311.pkgs.diagrams
-      ]
-      ###------------------------------
-      ##   Zig
-      #--------------------------------
-      ++ [
-        # pkgs.zig
-        pkgs.zigpkgs.master # NOTE: Based on https://github.com/mitchellh/zig-overlay
-        pkgs.zls
-      ]
-      ###------------------------------
-      ##   Roc
-      #--------------------------------
-      ++ [
-        pkgs.rocpkgs.cli
-      ]
-      ###------------------------------
-      ##   Node Packages
-      #--------------------------------
-      ++ [
-        # Because of @ symbol being a part of the package name for some node
-        # packages, I have to use the full path and cannot use "with pkgs;"
-        # setup
-        pkgs.nodePackages.pnpm        # https://pnpm.io/
-        pkgs.nodePackages.prettier    # https://prettier.io/
-        pkgs.nodePackages.typescript # Needed for the language server
-
-        # Language Servers
-        pkgs.nodePackages.typescript-language-server
-        pkgs.nodePackages.vscode-langservers-extracted
-        pkgs.nodePackages.svelte-language-server
-        pkgs.nodePackages."@astrojs/language-server"
-
-        # NOTE: mermaid-cli has a runtime dependency against puppeteer, which in
-        # turn requires chromium binary to be made available. As I couldn't sort
-        # out Chromium installation via Nix, I'm currently using Homebrew Cask
-        # to install Chromium.
-        pkgs.nodePackages.mermaid-cli # https://mermaid.js.org/ -- also known as mmdc
-      ]
       ###------------------------------
       ##   Dictionaries
       #--------------------------------
@@ -222,12 +118,6 @@
         (with pkgs.google-cloud-sdk;
           withExtraComponents ([ components.gke-gcloud-auth-plugin ])
         )
-      ]
-      ###------------------------------
-      ##   Other
-      #--------------------------------
-      ++ [
-        # (import ../../../overlays/mirrord.nix { inherit pkgs; }) # mirrord isn't available in nixpkgs
       ]
     ;
 

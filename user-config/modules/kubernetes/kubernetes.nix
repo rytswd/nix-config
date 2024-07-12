@@ -26,5 +26,9 @@
     home.sessionVariables = {
       KUBECTL_EXTERNAL_DIFF = "dyff between --omit-header --set-exit-code";
     };
+    xdg.configFile = {
+      "kind".source = ./kind-config;
+      "kind".recursive = true;
+    };
   };
 }

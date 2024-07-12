@@ -10,7 +10,7 @@ let username = "ryota";
 in {
     imports = [
       ./common.nix
-      ./dconf.nix # For GNOME
+      # ./dconf.nix # For GNOME
 
       ../../modules/appearance
       ../../modules/window-manager

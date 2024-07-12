@@ -24,14 +24,11 @@
           bottom        # https://github.com/ClementTsang/bottom
           htop          # https://github.com/htop-dev/htop
           pass          # https://www.passwordstore.org/
-          git-lfs       # https://github.com/git-lfs/git-lfs
           zellij        # https://github.com/zellij-org/zellij
           tree-sitter   # https://github.com/tree-sitter/tree-sitter
           atuin         # https://github.com/atuinsh/atuin
           procs         # https://github.com/dalance/procs
           erdtree       # https://github.com/solidiquis/erdtree
-          git-codereview # https://golang.org/x/review/git-codereview
-          git-crypt     # https://github.com/AGWA/git-crypt
           neofetch      # https://github.com/dylanaraps/neofetch
           cloc          # https://github.com/AlDanial/cloc
           dyff          # https://github.com/homeport/dyff
@@ -318,9 +315,6 @@
 
       "fd".source = ../../../common-config/fd;
       "fd".recursive = true;
-
-      "git".source = ../../../common-config/git;
-      "git".recursive = true;
 
       # TODO: Move this to common config
       "kind".source = ../kind-config;

@@ -16,27 +16,6 @@
       ++ pkgs.lib.attrValues {
         inherit (pkgs)
           ###------------------------------
-          ##   Additional Utilities
-          #--------------------------------
-          du-dust       # https://github.com/bootandy/dust
-          bandwhich     # https://github.com/imsnif/bandwhich
-          mkcert        # https://github.com/FiloSottile/mkcert
-          bottom        # https://github.com/ClementTsang/bottom
-          htop          # https://github.com/htop-dev/htop
-          pass          # https://www.passwordstore.org/
-          zellij        # https://github.com/zellij-org/zellij
-          tree-sitter   # https://github.com/tree-sitter/tree-sitter
-          atuin         # https://github.com/atuinsh/atuin
-          procs         # https://github.com/dalance/procs
-          erdtree       # https://github.com/solidiquis/erdtree
-          neofetch      # https://github.com/dylanaraps/neofetch
-          cloc          # https://github.com/AlDanial/cloc
-          dyff          # https://github.com/homeport/dyff
-          hyperfine     # https://github.com/sharkdp/hyperfine
-          pueue         # https://github.com/Nukesor/pueue
-          btop          # https://github.com/aristocratos/btop
-
-          ###------------------------------
           ##   More Utilities
           #--------------------------------
           # These can be somewhat env specific.

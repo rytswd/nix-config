@@ -63,18 +63,6 @@ in {
       packages = [
         # Utility
         pkgs.glxinfo # For OpenGL etc.
-
-        # GUI tools
-        pkgs.proton-pass
-
-        # For WiFi and network manager "nm-applet"
-        pkgs.networkmanagerapplet
-
-        # For password management
-        pkgs.gnome.seahorse
-
-        # TODO: Move this to a module
-        pkgs.terraform
       ];
 
       stateVersion = "23.11";

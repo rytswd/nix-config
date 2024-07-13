@@ -46,10 +46,8 @@ in {
         ##   UI Tools
         #--------------------------------
         pkgs.discord
-        pkgs.slack
         pkgs.zoom-us
-      ]
-      ++ [
+
         ###------------------------------
         ##   macOS Specific
         #--------------------------------
@@ -63,8 +61,7 @@ in {
 
         # I don't use this anymore.
         # pkgs.stats      # https://github.com/exelban/stats
-      ]
-      ++ [
+
         ###------------------------------
         ##   Extra Setup
         #--------------------------------

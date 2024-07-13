@@ -59,7 +59,6 @@
     ##  NixOS Specific
     #------------------------------------------
     ags.url = "github:Aylur/ags";
-    wired.url = "github:Toqozz/wired-notify";
 
     swww.url = "github:LGFae/swww";
 
@@ -72,6 +71,7 @@
     hyprswitch.url = "github:h3rmt/hyprswitch/release";
 
     niri.url = "github:sodiboo/niri-flake";
+
   };
 
   outputs =
@@ -117,7 +117,6 @@
     grip-overlay = (import ./overlays/grip.nix );
 
     # NixOS related overlays
-    wiredOverlay = inputs.wired.overlays.default;
     niriOverlay = inputs.niri.overlays.niri;
     overlays = [
       goOverlay
@@ -134,7 +133,6 @@
       # yazi-overlay
       grip-overlay
 
-      wiredOverlay # TODO: Make this only for NixOS.
       niriOverlay # TODO: Make this only for NixOS.
     ];
 

@@ -9,11 +9,9 @@
   # each module as a separate entry for now.
   imports = [
     ./dunst.nix
-    ./wired.nix
     ./ags-notification.nix
   ];
 
   notification.dunst.enable = lib.mkDefault false; # Being explicit
-  notification.wired.enable = lib.mkDefault false; # Being explicit
   notification.ags-notification.enable = lib.mkDefault false; # Being explicit
 }

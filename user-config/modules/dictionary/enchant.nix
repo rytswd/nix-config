@@ -14,7 +14,7 @@
     ];
     xdg.configFile = {
       # Enchant config
-      "enchant/enchant.ordering".source = ../../../common-config/enchant/enchant.ordering;
+      "enchant/enchant.ordering".source = ./enchant/enchant.ordering;
       "enchant/hunspell/en_US.aff".source = "${pkgs.hunspellDicts.en_US-large}/share/hunspell/en_US.aff";
       "enchant/hunspell/en_US.dic".source = "${pkgs.hunspellDicts.en_US-large}/share/hunspell/en_US.dic";
       "enchant/hunspell/en_GB.aff".source = "${pkgs.hunspellDicts.en_GB-large}/share/hunspell/en_GB.aff";

@@ -229,7 +229,7 @@ layout {
 // See the binds section below for more spawn examples.
 // spawn-at-startup "alacritty" "-e" "fish"
 spawn-at-startup "swww-daemon"
-spawn-at-startup "ags -c ~/.config/ags-notification/config.js"
+spawn-at-startup "sh" "-c" "ags -c ~/.config/ags-notification/config.js -b notification"
 spawn-at-startup "maestral" "start" // Hack
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.

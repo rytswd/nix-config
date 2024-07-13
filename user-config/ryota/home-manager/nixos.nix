@@ -12,6 +12,7 @@ in {
       # The shell setup defines some aliases, and in order to allow overriding,
       # calling this earlier than other modules.
       ../../modules/shell
+      ../../modules/key-remap
       ../../modules/appearance
       ../../modules/window-manager
       ../../modules/launcher

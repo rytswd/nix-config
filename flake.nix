@@ -58,6 +58,7 @@
     ###----------------------------------------
     ##  NixOS Specific
     #------------------------------------------
+    xremap.url = "github:xremap/nix-flake";
     ags.url = "github:Aylur/ags";
 
     swww.url = "github:LGFae/swww";
@@ -71,7 +72,6 @@
     hyprswitch.url = "github:h3rmt/hyprswitch/release";
 
     niri.url = "github:sodiboo/niri-flake";
-
   };
 
   outputs =

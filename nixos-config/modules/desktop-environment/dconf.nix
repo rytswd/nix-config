@@ -42,6 +42,7 @@
               xkb-options = [ "terminate:ctrl_alt_bksp,ctrl:nocaps,altwin:swap_alt_win,grp:win_space_toggle" ];
             };
             "org/gnome/desktop/interface" = {
+              gtk-theme = "adw-gtk3-dark";
               color-scheme = "prefer-dark";
             };
           };

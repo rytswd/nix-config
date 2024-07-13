@@ -7,10 +7,34 @@
 let username = "ryota";
 in {
   imports = [
+    # The shell setup defines some aliases, and in order to allow overriding,
+    # calling this earlier than other modules.
+    ../../modules/shell
+
     ../../modules/terminal
+    ../../modules/vcs
+    ../../modules/editor
     ../../modules/programming
     ../../modules/kubernetes
+    ../../modules/service
+    ../../modules/dictionary
+    ../../modules/communication
+    ../../modules/image
   ];
+  ###----------------------------------------
+  ##   Module related options
+  #------------------------------------------
+  kubernetes.extra.enable = true;
+  communication.slack.enable = true;
+
+  ###----------------------------------------
+  ##   Other Home Manager Setup
+  #------------------------------------------
+  programs.home-manager.enable = true;
+  xdg.enable = true;
+
+  # TODO: Move this somewhere.
+  programs.gpg.enable = true;
 
   home = {
     username = "${username}";

@@ -15,7 +15,7 @@
       pkgs.nuspellWithDicts [
         pkgs.hunspellDicts.en_GB-large
         pkgs.hunspellDicts.en_US-large
-      ];
+      ]
     ];
   };
 }

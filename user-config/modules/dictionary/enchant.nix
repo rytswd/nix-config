@@ -5,10 +5,10 @@
 
 {
   options = {
-    dictionary.enchant2.enable = lib.mkEnableOption "Enable Enchant.";
+    dictionary.enchant.enable = lib.mkEnableOption "Enable Enchant.";
   };
 
-  config = lib.mkIf config.dictionary.enchant2.enable {
+  config = lib.mkIf config.dictionary.enchant.enable {
     home.packages = [
       pkgs.enchant  # https://github.com/AbiWord/enchant
     ];

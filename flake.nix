@@ -80,9 +80,6 @@
     , nixpkgs-unstable
     , home-manager
     , darwin
-    # , emacs-29-src
-    # , emacs-overlay
-    , nixpkgs-zig-0-12
     , ... } @ inputs:
     let mbp-arch = "aarch64";
 

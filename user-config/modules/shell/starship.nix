@@ -24,7 +24,7 @@
     xdg.configFile = {
       # Instead of using programs.starship.settings, copying the TOML file over,
       # as it is easier to parse as is.
-      "starship.toml".source = ./starship.toml;
+      "starship.toml".source = ./starship/starship.toml;
     };
   };
 }

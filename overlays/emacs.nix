@@ -141,6 +141,7 @@ let
     jinx
     pdf-tools
     mu4e
+    all-the-icons # TODO: This still requires a manual "install".
     treesit-grammars.with-all-grammars
   ]);
   emacs-macport-rytswd-with-packages = emacs-macport-rytswd.pkgs.withPackages (packages);

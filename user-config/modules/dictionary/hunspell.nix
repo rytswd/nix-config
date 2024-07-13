@@ -12,9 +12,9 @@
     home.packages = [
       # https://github.com/hunspell/hunspell
       # NOTE: Hunspell setup takes a list argument.
-      (with pkgs; hunspellWithDicts [
-        hunspellDicts.en_GB-large
-        hunspellDicts.en_US-large
+      (pkgs.hunspellWithDicts [
+        pkgs.hunspellDicts.en_GB-large
+        pkgs.hunspellDicts.en_US-large
       ])
     ];
     # xdg.dataFile = {

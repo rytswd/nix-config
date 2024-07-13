@@ -12,10 +12,10 @@
     home.packages = [
       # http://aspell.net/
       # NOTE: GNU Aspell setup takes a function argument.
-      (with pkgs; aspellWithDicts (dicts: with dicts; [
-        aspellDicts.en
-        aspellDicts.en-computers
-        aspellDicts.en-science
+      (pkgs.aspellWithDicts (dicts: with dicts; [
+        pkgs.aspellDicts.en
+        pkgs.aspellDicts.en-computers
+        pkgs.aspellDicts.en-science
       ]))
     ];
   };

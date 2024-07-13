@@ -13,9 +13,9 @@
   config = lib.mkIf config.key-remap.xremap.enable {
     services.xremap = {
       enable = true;
-      userName = "ryota"; # Temporary
       withWlroots = true;
       watch = true;
+      yamlConfig = ./xremap.yaml;
     };
   };
 }

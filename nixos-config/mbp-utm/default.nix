@@ -18,10 +18,6 @@ nixosSystem rec {
     # Start with the hardware configuration around M1 VM first.
     ./hardware.nix
 
-    # Pull in some common configs for any NixOS environment I work in.
-    ../common-config/font.nix
-    ../common-config/locale.nix
-
     # Manage system wide configurations here.
     ./configuration.nix
 

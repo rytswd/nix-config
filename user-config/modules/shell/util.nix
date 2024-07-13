@@ -96,7 +96,7 @@
       "bat/config".source = ./bat/bat-config.sh;
 
       # Temporarily commenting out as I'm still exploring this.
-      # "btop/btop.conf".source = ../../../common-config/btop/btop.conf;
+      # "btop/btop.conf".source = ./btop/btop.conf;
 
       "fd".source = ./fd;
       "fd".recursive = true;

@@ -18,6 +18,7 @@
     ../modules/desktop-environment
     ../modules/vpn
     ../modules/x11
+    ../modules/appearance
     ../modules/flatpak
   ];
 

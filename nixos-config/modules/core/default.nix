@@ -13,6 +13,7 @@
     ./tools.nix
     ./user-management.nix
     ./virtualisation.nix
+    ./locale.nix
   ];
 
   core.network.enable = lib.mkDefault true;
@@ -23,4 +24,5 @@
   core.tools.enable = lib.mkDefault true;
   core.virtualisation.docker.enable = lib.mkDefault true;
   core.user-management.enable = lib.mkDefault true;
+  core.locale.enable = lib.mkDefault true;
 }

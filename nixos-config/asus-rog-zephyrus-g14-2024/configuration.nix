@@ -13,6 +13,7 @@
     ../modules/graphics
     ../modules/media
     ../modules/devices
+    ../modules/key-remap
     ../modules/window-manager
     ../modules/login-manager
     ../modules/desktop-environment

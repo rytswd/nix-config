@@ -44,6 +44,7 @@ in {
     communication.slack.enable = true;
     communication.signal.enable = true;
     notification.ags-notification.enable = true;
+    key-remap.xremap.enable = true;
 
     ###----------------------------------------
     ##   Other Home Manager Setup

@@ -12,7 +12,7 @@ in {
       # The shell setup defines some aliases, and in order to allow overriding,
       # calling this earlier than other modules.
       ../../modules/shell
-      ../../modules/key-remap
+      ../../modules/key-remap/xremap
       ../../modules/appearance
       ../../modules/window-manager
       ../../modules/launcher
@@ -44,7 +44,6 @@ in {
     communication.slack.enable = true;
     communication.signal.enable = true;
     notification.ags-notification.enable = true;
-    key-remap.xremap.enable = true;
 
     ###----------------------------------------
     ##   Other Home Manager Setup

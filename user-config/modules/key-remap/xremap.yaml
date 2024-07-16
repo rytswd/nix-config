@@ -1,6 +1,77 @@
 modmap:
   - name: Global
     remap:
-      # CapsLock/Ctrl_L -> Esc
-      CapsLock: Esc
-      Ctrl_L: Esc
+      # Make CapsLock as Ctrl when held, Esc when pressed
+      CapsLock:
+        held: leftctrl
+        alone: esc
+        alone_timeout_millis: 150
+      # Swap Super and Alt
+      Super_L: Alt_L
+      Alt_L: Super_L
+
+# NOTE:
+# xremap works by intercepting the input event at evdev / uinput level. This
+# means that it captures before the Dvorak translation happens at the software
+# level. All the key bindings need to be defined based on the hardware used,
+# (e.g. how you see the keys on laptop keyboard -- with potential BIOS config
+# that may change the layout) and thus could be confusing how it would actually
+# map.
+keymap:
+  # - name: General key binding
+  #   remap:
+  #     super-d:
+  #       remap:
+  #         t:
+  #           launch: ["ghostty"]
+
+  []
+
+  # - name: Emacs like key bindings
+  #   # Credit: https://github.com/mooz/xkeysnail/blob/bf3c93b4fe6efd42893db4e6588e5ef1c4909cfb/example/config.py#L62-L125
+  #   # NOTE: The config is very much tweaked from the above reference due to the
+  #   # use of Dvorak keyboard.
+  #   application:
+  #     not:
+  #       - Emacs
+  #       - /ghostty/
+  #   remap:
+  #     # Forward/Backward word
+  #     # NOTE: This won't work as the C-arrows are mapped to workspace switch
+  #     # M-n: { with_mark: C-left }                    # Alt + b in Dvorak
+  #     # M-y: { with_mark: C-right }                   # Alt + f in Dvorak
+  #     # Beginning/End of line
+  #     C-a: { with_mark: home }
+  #     C-d: { with_mark: end }                       # Ctrl + e in Dvorak
+  #     # Kill line
+  #     C-v: [Shift-end, C-x, { set_mark: false }]    # Ctrl + k in Dvorak
+  #     # Delete
+  #     C-h: [delete, { set_mark: false }]            # Ctrl + h in Dvorak
+  #     M-h: [C-delete, { set_mark: false }]          # Alt + h in Dvorak
+  #     # Kill word backward
+  #     Alt-backspace: [C-backspace, { set_mark: false }]
+  #     # Cancel
+  #     C-u: [esc, { set_mark: false }]               # Ctrl + g in Dvorak
+
+  # NOTE: Because the wlroots isn't used on Niri (?), I cannot get the
+  # application context. For now, I'm commenting these out.
+  # - name: macOS like key bindings
+  #   application:
+  #     not:
+  #       - Emacs
+  #       - Ghostty
+  #   remap:
+  #     # NOTE: All the bindings below assume Dvorak keyboard.
+  #     Super-a: C-a
+  #     Super-z: C-Slash      # Ctrl + / ==> / translates to z in Dvorak
+  #     Super-x: C-b          # Ctrl + b ==> b translates to x in Dvorak
+  #     Super-c: C-i          # Ctrl + i ==> i translates to c in Dvorak
+  #     Super-v: C-dot        # Ctrl + . ==> . translates to v in Dvorak
+  #     Super-q: .i        # Ctrl + . ==> . translates to v in Dvorak
+
+  # - name: Slack specific
+  #   application:
+  #     only: Slack
+  #   remap:
+  #     Super-Shift-a: C-Shift-a
+  #     Super-Shift-t: C-Shift-k # Ctrl + Shift + k ==> k trasnlates to t in Dvorak

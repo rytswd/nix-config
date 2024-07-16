@@ -14,6 +14,7 @@
     ./user-management.nix
     ./virtualisation.nix
     ./locale.nix
+    ./sudo.nix
   ];
 
   core.network.enable = lib.mkDefault true;
@@ -25,4 +26,5 @@
   core.virtualisation.docker.enable = lib.mkDefault true;
   core.user-management.enable = lib.mkDefault true;
   core.locale.enable = lib.mkDefault true;
+  core.sudo.enable = lib.mkDefault true;
 }

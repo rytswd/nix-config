@@ -15,6 +15,7 @@
     ./virtualisation.nix
     ./locale.nix
     ./sudo.nix
+    ./udev.nix
   ];
 
   core.network.enable = lib.mkDefault true;
@@ -27,4 +28,5 @@
   core.user-management.enable = lib.mkDefault true;
   core.locale.enable = lib.mkDefault true;
   core.sudo.enable = lib.mkDefault true;
+  core.udev.enable = lib.mkDefault true;
 }

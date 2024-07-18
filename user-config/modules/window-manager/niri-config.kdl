@@ -15,7 +15,11 @@ input {
             // For example:
             layout "us,jp"
             variant "dvorak,"
-            options "grp:win_space_toggle,altwin:swap_alt_win,compose:ralt,ctrl:nocaps"
+            // NOTE: Because a lot of input tweaks are made by Xremap, these GTK
+            // flags are not used.
+            // options "grp:win_space_toggle,altwin:swap_alt_win,compose:ralt,ctrl:nocaps"
+            // Except that Super + Space is used for language switch.
+            options "grp:win_space_toggle"
         }
         repeat-rate 75
         repeat-delay 195
@@ -27,7 +31,8 @@ input {
     touchpad {
         // off
         tap
-        dwt // Disable while typing
+        // Disable while typing
+        dwt
         // dwtp
         natural-scroll
         // accel-speed 0.2

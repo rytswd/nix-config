@@ -366,7 +366,6 @@ binds {
     Ctrl+Alt+8 { focus-workspace 8; }
     Ctrl+Alt+9 { focus-workspace 9; }
 
-
     ////----------------------------------------
     ///   Size Related
     //------------------------------------------
@@ -381,9 +380,11 @@ binds {
     Ctrl+Alt+Minus        { set-window-height "-5%"; }
     Ctrl+Alt+Equal        { set-window-height "+5%"; }
 
-    Ctrl+Alt+Return { maximize-column; }
-    Ctrl+Alt+Shift+F { fullscreen-window; }
-    Ctrl+Alt+C { center-column; }
+    Ctrl+Alt+Return     { maximize-column; }
+    Ctrl+Alt+Shift+F    { fullscreen-window; }
+    Ctrl+Alt+C          { center-column; }
+    Ctrl+Alt+Space      { switch-preset-column-width; }
+    // Mod+Shift+R { reset-window-height; }
 
     ////----------------------------------------
     ///   Move Related
@@ -402,10 +403,9 @@ binds {
     ////----------------------------------------
     ///   Other
     //------------------------------------------
-    // Mod+R { switch-preset-column-width; }
-    // Mod+Shift+R { reset-window-height; }
-
     Print { screenshot; }
+    Super+Shift+3 { screenshot; }
+    Super+Shift+4 { screenshot-window; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
 

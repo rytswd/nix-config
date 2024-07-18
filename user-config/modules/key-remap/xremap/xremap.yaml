@@ -10,6 +10,7 @@ modmap:
       Super_L: Alt_L
       Alt_L: Super_L
 
+
 # NOTE:
 # xremap works by intercepting the input event at evdev / uinput level. This
 # means that it captures before the Dvorak translation happens at the software
@@ -18,60 +19,154 @@ modmap:
 # that may change the layout) and thus could be confusing how it would actually
 # map.
 keymap:
-  # - name: General key binding
-  #   remap:
-  #     super-d:
-  #       remap:
-  #         t:
-  #           launch: ["ghostty"]
+  - name: Niri Transitions
+    # NOTE: This is for workspace transition. I should use something similar
+    # for all Window Manager / Desktop Environmment, somewhat mimicking what
+    # macOS does.
+    # This is rather hacky but necessary as C-left etc. are used for document
+    # navigation (i.e. move by word). In order to keep the C-left and other
+    # navigation related bindings intact, I'm creating a special sequence that
+    # does not conflict with anything else.
+    remap:
+      Ctrl_L-Shift_L-left:  C-Shift-Super-left
+      Ctrl_L-Shift_L-right: C-Shift-Super-right
+      Ctrl_L-Shift_L-down:  C-Shift-Super-down
+      Ctrl_L-Shift_L-up:    C-Shift-Super-up
+      Ctrl_L-Alt_L-left:    C-Shift-Alt-left
+      Ctrl_L-Alt_L-right:   C-Shift-Alt-right
+      Ctrl_L-left:          C-Shift-Super-Alt-left
+      Ctrl_L-right:         C-Shift-Super-Alt-right
+      Ctrl_L-down:          C-Shift-Super-Alt-down
+      Ctrl_L-up:            C-Shift-Super-Alt-up
+      # NOTE: The below mappings make sure they don't get affected by above.
+      Ctrl_L-Alt_L-down:    C-Alt-down
+      Ctrl_L-Alt_L-up:      C-Alt-up
+      Ctrl_L-Super-left:    C-Super-left
+      Ctrl_L-Super-right:   C-Super-right
+      Ctrl_L-Super-down:    C-Super-down
+      Ctrl_L-Super-up:      C-Super-up
 
-  []
+  - name: Emacs like key bindings
+    # Credit: https://github.com/mooz/xkeysnail/blob/bf3c93b4fe6efd42893db4e6588e5ef1c4909cfb/example/config.py#L62-L125
+    # NOTE: The config is very much tweaked from the above reference due to the
+    # use of Dvorak keyboard.
+    application:
+      not:
+        - emacs
+        - ghostty
+    remap:
+      # Forward/Backward word
+      # NOTE: This won't work as the C-arrows are mapped to workspace switch
+      M-n: { with_mark: C-left }                    # Alt + b in Dvorak
+      M-y: { with_mark: C-right }                   # Alt + f in Dvorak
+      # Beginning/End of line
+      C-a: { with_mark: home }
+      C-d: { with_mark: end }                       # Ctrl + e in Dvorak
+      # Kill line
+      C-v: [Shift-end, C-x, { set_mark: false }]    # Ctrl + k in Dvorak
+      # Delete
+      C-h: [delete, { set_mark: false }]            # Ctrl + h in Dvorak
+      M-h: [C-delete, { set_mark: false }]          # Alt + h in Dvorak
+      # Kill word backward
+      Alt-backspace: [C-backspace, { set_mark: false }]
+      # Cancel
+      C-u: [esc, { set_mark: false }]               # Ctrl + g in Dvorak
 
-  # - name: Emacs like key bindings
-  #   # Credit: https://github.com/mooz/xkeysnail/blob/bf3c93b4fe6efd42893db4e6588e5ef1c4909cfb/example/config.py#L62-L125
-  #   # NOTE: The config is very much tweaked from the above reference due to the
-  #   # use of Dvorak keyboard.
-  #   application:
-  #     not:
-  #       - Emacs
-  #       - /ghostty/
-  #   remap:
-  #     # Forward/Backward word
-  #     # NOTE: This won't work as the C-arrows are mapped to workspace switch
-  #     # M-n: { with_mark: C-left }                    # Alt + b in Dvorak
-  #     # M-y: { with_mark: C-right }                   # Alt + f in Dvorak
-  #     # Beginning/End of line
-  #     C-a: { with_mark: home }
-  #     C-d: { with_mark: end }                       # Ctrl + e in Dvorak
-  #     # Kill line
-  #     C-v: [Shift-end, C-x, { set_mark: false }]    # Ctrl + k in Dvorak
-  #     # Delete
-  #     C-h: [delete, { set_mark: false }]            # Ctrl + h in Dvorak
-  #     M-h: [C-delete, { set_mark: false }]          # Alt + h in Dvorak
-  #     # Kill word backward
-  #     Alt-backspace: [C-backspace, { set_mark: false }]
-  #     # Cancel
-  #     C-u: [esc, { set_mark: false }]               # Ctrl + g in Dvorak
+  - name: macOS like key bindings
+    application:
+      not:
+        - emacs
+        - ghostty
+    remap:
+      # NOTE: Because Xremap intercepts before Dvorak key binding comes into
+      # action, the left hand side is based on the QWERTY binding. However, for
+      # the remap target, Dvorak key binding takes place, and thus I neeed to
+      # provide the key based on QWERTY keyboard, which would be then translated
+      # using Dvorak keyboard.
+      #
+      # Example:
+      #     When I want to use QWERTY Super + S as Control S, I need to:
+      #     1. Provide Super-s on the left hand side
+      #     2. Find where the "s" key is on Dvorak (it is where "o" is)
+      #     3. Considering the "o" --> "s" translation, I need to set up
+      #        C-o as the target binding
+      #     4. I end up with the key binding of:
+      #        Super-s: C-o
+      Super-a: C-a
+      Super-z: C-Slash          # OWERTY / == Dvorak z
+      Super-x: C-b              # OWERTY b == Dvorak x
+      Super-c: C-i              # OWERTY i == Dvorak c
+      Super-v: C-dot            # OWERTY . == Dvorak v
 
-  # NOTE: Because the wlroots isn't used on Niri (?), I cannot get the
-  # application context. For now, I'm commenting these out.
-  # - name: macOS like key bindings
-  #   application:
-  #     not:
-  #       - Emacs
-  #       - Ghostty
-  #   remap:
-  #     # NOTE: All the bindings below assume Dvorak keyboard.
-  #     Super-a: C-a
-  #     Super-z: C-Slash      # Ctrl + / ==> / translates to z in Dvorak
-  #     Super-x: C-b          # Ctrl + b ==> b translates to x in Dvorak
-  #     Super-c: C-i          # Ctrl + i ==> i translates to c in Dvorak
-  #     Super-v: C-dot        # Ctrl + . ==> . translates to v in Dvorak
-  #     Super-q: .i        # Ctrl + . ==> . translates to v in Dvorak
+  - name: Slack specific
+    application:
+      only: Slack
+    remap:
+      # NOTE: Because Xremap intercepts before Dvorak key binding comes into
+      # action, the left hand side is based on the QWERTY binding. However, for
+      # the remap target, Dvorak key binding takes place, and thus I neeed to
+      # provide the key based on QWERTY keyboard, which would be then translated
+      # using Dvorak keyboard.
+      #
+      # Example:
+      #     When I want to use QWERTY Super + S as Control S, I need to:
+      #     1. Provide Super-s on the left hand side
+      #     2. Find where the "s" key is on Dvorak (it is where "o" is)
+      #     3. Considering the "o" --> "s" translation, I need to set up
+      #        C-o as the target binding
+      #     4. I end up with the key binding of:
+      #        Super-s: C-o
+      Super-Shift-a: C-Shift-a
+      Super-Shift-t: C-Shift-k  # OWERTY k == Dvorak t
 
-  # - name: Slack specific
-  #   application:
-  #     only: Slack
-  #   remap:
-  #     Super-Shift-a: C-Shift-a
-  #     Super-Shift-t: C-Shift-k # Ctrl + Shift + k ==> k trasnlates to t in Dvorak
+  - name: Browsers
+    application:
+      only:
+        # NOTE: Nyxt isn't included, as all the configuration updatse are
+        # handled within Nyxt config directly.
+        - /vivaldi/
+        - /brave/
+        - /chromium/
+        - /firefox/
+    remap:
+      # NOTE: Because Xremap intercepts before Dvorak key binding comes into
+      # action, the left hand side is based on the QWERTY binding. However, for
+      # the remap target, Dvorak key binding takes place, and thus I neeed to
+      # provide the key based on QWERTY keyboard, which would be then translated
+      # using Dvorak keyboard.
+      #
+      # Example:
+      #     When I want to use QWERTY Super + S as Control S, I need to:
+      #     1. Provide Super-s on the left hand side
+      #     2. Find where the "s" key is on Dvorak (it is where ";" is)
+      #     3. Considering the ";" --> "s" translation, I need to set up
+      #        "C-semicolon" as the target binding
+      #     4. I end up with the key binding of:
+      #        Super-s: C-semicolon
+      Super-w: C-comma          # OWERTY , == Dvorak w
+      Super-Shift-w: C-Shift-comma # OWERTY , == Dvorak w
+      Super-t: C-k              # OWERTY k == Dvorak t
+      Super-Shift-t: C-Shift-k  # OWERTY k == Dvorak t
+      Super-r: C-o              # OWERTY o == Dvorak r
+      Super-Shift-r: C-Shift-r  # OWERTY o == Dvorak r
+      Super-a: C-a
+      Super-Shift-a: C-Shift-a
+      Super-s: C-semicolon      # OWERTY ; == Dvorak s
+      Super-f: C-y              # OWERTY y == Dvorak f
+      Super-l: C-p              # OWERTY p == Dvorak l
+      Super-equal: C-rightbrace # OWERTY ] == Dvorak =
+      Super-minus: C-apostrophe # OWERTY ' == Dvorak -
+      Super-comma: C-w          # OWERTY w == Dvorak ,
+      Super-left: Alt-left
+      Super-right: Alt-right
+      Super-1: C-1
+      Super-2: C-2
+      Super-3: C-3
+      Super-4: C-4
+      Super-5: C-5
+      Super-6: C-6
+      Super-7: C-7
+      Super-8: C-8
+      Super-9: C-9
+      Super-0: C-0
+      

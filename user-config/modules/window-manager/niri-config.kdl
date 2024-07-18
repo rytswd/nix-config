@@ -292,11 +292,15 @@ window-rule {
     // block-out-from "screencast"
 }
 
+// Help menu, suppress at startup.
 hotkey-overlay {
     skip-at-startup
 }
 
 binds {
+    ////----------------------------------------
+    ///   Focus Related
+    //------------------------------------------
     Alt+Space { spawn "fuzzel"; }
     Super+Alt+N { spawn "swaylock"; } // Dvorak L
 
@@ -308,22 +312,25 @@ binds {
     // Super + Q on Dvorak
     Super+Apostrophe { close-window; }
 
+    ////----------------------------------------
+    ///   Focus Related
+    //------------------------------------------
     Super+Tab { focus-column-right-or-first; }
     Super+Shift+Tab { focus-column-left-or-last; }
 
-    Ctrl+Left  { focus-column-left; }
-    Ctrl+Right { focus-column-right; }
-    Ctrl+Down  { focus-workspace-down; }
-    Ctrl+Up    { focus-workspace-up; }
-
-    Ctrl+Shift+Left  { move-column-left; }
-    Ctrl+Shift+Right { move-column-right; }
-    Ctrl+Shift+Down  { move-window-down-or-to-workspace-down; }
-    Ctrl+Shift+Up    { move-window-up-or-to-workspace-up; }
-    Ctrl+Shift+H     { move-column-left; }
-    Ctrl+Shift+J     { move-window-down; }
-    Ctrl+Shift+K     { move-window-up; }
-    Ctrl+Shift+L     { move-column-right; }
+    // NOTE: These key bindings are designed so that they are difficult to use,
+    // and should not conflict with other key bindings. In order to use this
+    // in real scenario, I would need key remapping solutions like Xremap.
+    Ctrl+Shift+Alt+Super+Left  { focus-column-left; }
+    Ctrl+Shift+Alt+Super+Right { focus-column-right; }
+    Ctrl+Shift+Alt+Super+Down  { focus-workspace-down; }
+    Ctrl+Shift+Alt+Super+Up    { focus-workspace-up; }
+    // These are somewhat easy alternative when remap is not working for any
+    // reason.
+    Ctrl+Home  { focus-column-left; }
+    Ctrl+End   { focus-column-right; }
+    Ctrl+Next  { focus-workspace-down; }
+    Ctrl+Prior { focus-workspace-up; }
 
     Ctrl+Alt+1 { focus-workspace 1; }
     Ctrl+Alt+2 { focus-workspace 2; }
@@ -335,29 +342,49 @@ binds {
     Ctrl+Alt+8 { focus-workspace 8; }
     Ctrl+Alt+9 { focus-workspace 9; }
 
-    Ctrl+Super+Comma  { consume-window-into-column; }
-    Ctrl+Super+Period { expel-window-from-column; }
 
-    // There are also commands that consume or expel a single window to the side.
-    // Mod+BracketLeft  { consume-or-expel-window-left; }
-    // Mod+BracketRight { consume-or-expel-window-right; }
+    ////----------------------------------------
+    ///   Size Related
+    //------------------------------------------
+    // NOTE: These key bindings are designed so that they are difficult to use,
+    // and should not conflict with other key bindings. In order to use this
+    // in real scenario, I would need key remapping solutions like Xremap.
+    Ctrl+Shift+Alt+Left   { set-column-width "-5%"; }
+    Ctrl+Shift+Alt+Right  { set-column-width "+5%"; }
+    // Currently not used
+    // Ctrl+Shift+Alt+Down   { set-window-height "+5%"; }
+    // Ctrl+Shift+Alt+Up     { set-window-height "-5%"; }
+    Ctrl+Alt+Minus        { set-window-height "-5%"; }
+    Ctrl+Alt+Equal        { set-window-height "+5%"; }
 
-    // Mod+R { switch-preset-column-width; }
-    // Mod+Shift+R { reset-window-height; }
     Ctrl+Alt+Return { maximize-column; }
     Ctrl+Alt+Shift+F { fullscreen-window; }
     Ctrl+Alt+C { center-column; }
 
-    Ctrl+Alt+Minus  { set-column-width "-10%"; }
-    Ctrl+Alt+Equal  { set-column-width "+10%"; }
-    Ctrl+Alt+Left   { set-column-width "-10%"; }
-    Ctrl+Alt+Right  { set-column-width "+10%"; }
-    Ctrl+Alt+Down   { set-window-height "+10%"; }
-    Ctrl+Alt+Up     { set-window-height "-10%"; }
+    ////----------------------------------------
+    ///   Move Related
+    //------------------------------------------
+    // NOTE: These key bindings are designed so that they are difficult to use,
+    // and should not conflict with other key bindings. In order to use this
+    // in real scenario, I would need key remapping solutions like Xremap.
+    Ctrl+Shift+Super+Left  { move-column-left; }
+    Ctrl+Shift+Super+Right { move-column-right; }
+    Ctrl+Shift+Super+Down  { move-window-down-or-to-workspace-down; }
+    Ctrl+Shift+Super+Up    { move-window-up-or-to-workspace-up; }
+
+    Ctrl+Super+Comma  { consume-window-into-column; }
+    Ctrl+Super+Period { expel-window-from-column; }
+
+    ////----------------------------------------
+    ///   Other
+    //------------------------------------------
+    // Mod+R { switch-preset-column-width; }
+    // Mod+Shift+R { reset-window-height; }
 
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
 
+    // Quit Niri -- this prompts before exiting.
     Super+Shift+M { quit; }
 }

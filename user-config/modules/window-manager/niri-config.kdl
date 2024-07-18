@@ -274,6 +274,7 @@ window-rule {
     opacity 0.9
     clip-to-geometry true
     geometry-corner-radius 7
+    draw-border-with-background false
 }
 
 // Work around WezTerm s initial configure bug

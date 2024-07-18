@@ -118,6 +118,8 @@ keymap:
       #        Super-s: C-o
       Super-Shift-a: C-Shift-a
       Super-Shift-t: C-Shift-k  # OWERTY k == Dvorak t
+      Super-f: C-y              # OWERTY y == Dvorak f
+      Super-k: C-v              # OWERTY v == Dvorak k
 
   - name: Browsers
     application:
@@ -154,6 +156,8 @@ keymap:
       Super-s: C-semicolon      # OWERTY ; == Dvorak s
       Super-f: C-y              # OWERTY y == Dvorak f
       Super-l: C-p              # OWERTY p == Dvorak l
+      Super-n: C-l              # OWERTY l == Dvorak n
+      Super-Shift-n: C-Shift-l  # OWERTY l == Dvorak n
       Super-equal: C-rightbrace # OWERTY ] == Dvorak =
       Super-minus: C-apostrophe # OWERTY ' == Dvorak -
       Super-comma: C-w          # OWERTY w == Dvorak ,

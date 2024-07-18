@@ -805,11 +805,11 @@
         "zls": "zls"
       },
       "locked": {
-        "lastModified": 1720386080,
-        "narHash": "sha256-Zin2FSc+wYt8i5DZkhOvld1wlGsXC0PBeBxKrskHklI=",
+        "lastModified": 1721186988,
+        "narHash": "sha256-hr6NObLWYaFuyDujUgUExnmY2aF7IES1z5AQzl6V5gA=",
         "ref": "refs/heads/main",
-        "rev": "31d53849204c7294eba5e973047d9fc6f6e915ff",
-        "revCount": 6513,
+        "rev": "11571a86daa468eab06ee373db5d555941226149",
+        "revCount": 6603,
         "type": "git",
         "url": "ssh://git@github.com/mitchellh/ghostty"
       },

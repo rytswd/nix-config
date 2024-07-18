@@ -287,6 +287,23 @@ window-rule {
     default-column-width {}
 }
 
+window-rule {
+    match app-id="emacs"
+    // border {
+    //     on
+    //     width 1
+    //     active-gradient from="#80c8ff" to="#bbddff" angle=45
+    //     inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+    // }
+    default-column-width { proportion 0.9; }
+}
+
+window-rule {
+    match app-id="slack"
+    default-column-width { proportion 0.9; }
+}
+
+
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
 /-window-rule {

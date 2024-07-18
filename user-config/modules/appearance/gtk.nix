@@ -17,7 +17,7 @@
       # Use libadwaita, and specify dark theme.
       theme = {
         package = pkgs.adw-gtk3;
-        name = "Adwaita:dark";
+        name = "adw-gtk3-dark";
       };
 
       # NOTE: I took this from somewhere, I don't really care too much.

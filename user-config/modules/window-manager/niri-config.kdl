@@ -12,7 +12,6 @@ input {
             // You can set rules, model, layout, variant and options.
             // For more information, see xkeyboard-config(7).
 
-            // For example:
             layout "us,jp"
             variant "dvorak,"
             // NOTE: Because a lot of input tweaks are made by Xremap, these GTK
@@ -26,18 +25,15 @@ input {
         track-layout "global"
     }
 
-    // Next sections include libinput settings.
-    // Omitting settings disables them, or leaves them at their default values.
     touchpad {
         // off
         tap
-        // Disable while typing
-        dwt
+        // dwt
         // dwtp
         natural-scroll
-        // accel-speed 0.2
-        // accel-profile "flat"
-        // scroll-method "two-finger"
+        accel-speed 0.2
+        accel-profile "flat"
+        scroll-method "two-finger"
         // disabled-on-external-mouse
     }
 
@@ -61,7 +57,6 @@ input {
 // The built-in laptop monitor is usually called "eDP-1".
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
-// Remember to uncomment the node by removing "/-"!
 output "eDP-1" {
     // Uncomment this line to disable this output.
     // off
@@ -90,7 +85,7 @@ output "eDP-1" {
     // so to put another output directly adjacent to it on the right, set its x to 1920.
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
-    position x=1280 y=0
+    position x=1920 y=0
 }
 output "eDP-2" {
     // Uncomment this line to disable this output.
@@ -120,7 +115,7 @@ output "eDP-2" {
     // so to put another output directly adjacent to it on the right, set its x to 1920.
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
-    position x=1280 y=0
+    position x=1920 y=0
 }
 
 // Settings that influence how windows are positioned and sized.
@@ -138,11 +133,7 @@ layout {
     //   together with the previously focused column.
     center-focused-column "on-overflow"
 
-    // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
     preset-column-widths {
-        // Proportion sets the width as a fraction of the output width, taking gaps into account.
-        // For example, you can perfectly fit four windows sized "proportion 0.25" on an output.
-        // The default preset widths are 1/3, 1/2 and 2/3 of the output.
         proportion 0.33333
         proportion 0.5
         proportion 0.66667
@@ -151,10 +142,9 @@ layout {
         // fixed 1920
     }
 
-    // You can change the default width of the new windows.
-    default-column-width { proportion 0.5; }
+    // default-column-width { proportion 0.5; }
     // If you leave the brackets empty, the windows themselves will decide their initial width.
-    // default-column-width {}
+    default-column-width {}
 
     // By default focus ring and border are rendered as a solid background rectangle
     // behind windows. That is, they will show up through semitransparent windows.
@@ -167,9 +157,9 @@ layout {
     // Alternatively, you can override it with a window rule called
     // `draw-border-with-background`.
 
-    // You can change how the focus ring looks.
     focus-ring {
-        // Uncomment this line to disable the focus ring.
+        // Focus ring is disabled as border is used instead (border is always
+        // shown, whereas focus ring is only applied to the focused window).
         off
 
         // How many logical pixels the ring extends out from the windows.
@@ -184,7 +174,7 @@ layout {
         // active-color "#7fc8ff22"
 
         // Color of the ring on inactive monitors.
-        inactive-color "#000000"
+        // inactive-color "#000000"
 
         // You can also use gradients. They take precedence over solid colors.
         // Gradients are rendered the same as CSS linear-gradient(angle, from, to).
@@ -198,21 +188,15 @@ layout {
         // of the workspace, rather than relative to just the window itself.
         // To do that, set relative-to="workspace-view".
         //
-        // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+        inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
     }
 
-    // You can also add a border. It is similar to the focus ring, but always visible.
     border {
-        // The settings are the same as for the focus ring.
-        // If you enable the border, you probably want to disable the focus ring.
         // off
 
         width 1
-        // active-color "#ffc87f"
-        // inactive-color "#505050"
 
         active-gradient to="#0081AF" from="#344966" angle=75 relative-to="workspace-view"
-        // active-gradient from="#ffbb66" to="#ffc880" angle=45 relative-to="workspace-view"
         inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
     }
 
@@ -229,15 +213,6 @@ layout {
     }
 }
 
-// Add lines like this to spawn processes at startup.
-// Note that running niri as a session supports xdg-desktop-autostart,
-// which may be more convenient to use.
-// See the binds section below for more spawn examples.
-// spawn-at-startup "alacritty" "-e" "fish"
-spawn-at-startup "swww-daemon"
-spawn-at-startup "sh" "-c" "ags -c ~/.config/ags-notification/config.js -b notification"
-spawn-at-startup "maestral" "start" // Hack
-
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
 // Additionally, clients will be informed that they are tiled, removing some rounded corners.
@@ -251,10 +226,6 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 // You can also set this to null to disable saving screenshots to disk.
 // screenshot-path null
 
-environment {
-    NIXOS_OZONE_WL "1"
-}
-
 // Animation settings.
 // The wiki explains how to configure individual animations:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Animations
@@ -266,10 +237,33 @@ animations {
     // slowdown 3.0
 }
 
+
+////============================================================
+///   Start-up and Environment
+//==============================================================
+
+// Add lines like this to spawn processes at startup.
+// Note that running niri as a session supports xdg-desktop-autostart,
+// which may be more convenient to use.
+// See the binds section below for more spawn examples.
+// spawn-at-startup "alacritty" "-e" "fish"
+spawn-at-startup "swww-daemon"
+spawn-at-startup "sh" "-c" "ags -c ~/.config/ags-notification/config.js -b notification"
+spawn-at-startup "maestral" "start" // Hack
+
+environment {
+    NIXOS_OZONE_WL "1"
+}
+
+
+////============================================================
+///   Window Rules
+//==============================================================
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
 
+// Default window rule
 window-rule {
     opacity 0.95
     clip-to-geometry true
@@ -289,12 +283,6 @@ window-rule {
 
 window-rule {
     match app-id="emacs"
-    // border {
-    //     on
-    //     width 1
-    //     active-gradient from="#80c8ff" to="#bbddff" angle=45
-    //     inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
-    // }
     default-column-width { proportion 0.9; }
 }
 
@@ -321,6 +309,9 @@ hotkey-overlay {
     skip-at-startup
 }
 
+////============================================================
+///   Key Bindings
+//==============================================================
 binds {
     ////----------------------------------------
     ///   Focus Related

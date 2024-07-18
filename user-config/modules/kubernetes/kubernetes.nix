@@ -29,6 +29,8 @@
     xdg.configFile = {
       "kind".source = ./kind-config;
       "kind".recursive = true;
+      "k9s/config.yaml".source = ./k9s/config.yaml;
+      "k9s/aliases.yaml".source = ./k9s/aliases.yaml;
     };
   };
 }

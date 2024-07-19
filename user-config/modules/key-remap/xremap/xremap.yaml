@@ -54,6 +54,7 @@ keymap:
       not:
         - emacs
         - ghostty
+        - nyxt
     remap:
       # Forward/Backward word
       # NOTE: This won't work as the C-arrows are mapped to workspace switch
@@ -63,12 +64,14 @@ keymap:
       C-a: { with_mark: home }
       C-d: { with_mark: end }                       # Ctrl + e in Dvorak
       # Kill line
-      C-v: [Shift-end, C-x, { set_mark: false }]    # Ctrl + k in Dvorak
+      C-v: [Shift-end, C-b, { set_mark: false }]    # Ctrl + k in Dvorak
       # Delete
       C-h: [delete, { set_mark: false }]            # Ctrl + h in Dvorak
       M-h: [C-delete, { set_mark: false }]          # Alt + h in Dvorak
       # Kill word backward
       Alt-backspace: [C-backspace, { set_mark: false }]
+      # Kill line backward
+      Super-backspace: [Shift-home, C-b, { set_mark: false }]
       # Cancel
       C-u: [esc, { set_mark: false }]               # Ctrl + g in Dvorak
 
@@ -77,6 +80,7 @@ keymap:
       not:
         - emacs
         - ghostty
+        - nyxt
     remap:
       # NOTE: Because Xremap intercepts before Dvorak key binding comes into
       # action, the left hand side is based on the QWERTY binding. However, for

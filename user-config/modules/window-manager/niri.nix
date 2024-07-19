@@ -15,5 +15,8 @@
     xdg.configFile = {
       "niri/config.kdl".source = ./niri-config.kdl;
     };
+    home.shellAliases = {
+      "nirimvw" = "niri msg action move-window-to-workspace";
+    };
   };
 }

@@ -13,6 +13,7 @@ let ryota =
     extraGroups = [
       "wheel" # For sudo
       "input" # For Xremap and input handling without sudo
+      "uinput" # For Xremap and input handling without sudo
     ];
     initialHashedPassword = "$6$hGTdy9p9p203$8oeOAgXLzkKdo5HUkydZkEYQbWxzXgtjMsmSB76PkO6p/JWbJuJ9FhMXmhibm.XqZD58pR8hlc5EocdncS72s/"; # root
   };

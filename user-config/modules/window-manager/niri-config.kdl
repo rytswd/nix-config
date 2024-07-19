@@ -250,6 +250,7 @@ animations {
 // spawn-at-startup "alacritty" "-e" "fish"
 spawn-at-startup "swww-daemon"
 spawn-at-startup "sh" "-c" "ags -c ~/.config/ags-notification/config.js -b notification"
+spawn-at-startup "sh" "-c" "wl-paste --watch cliphist store" // Hack
 spawn-at-startup "maestral" "start" // Hack
 
 environment {
@@ -319,6 +320,9 @@ binds {
     //------------------------------------------
     Alt+Space       { spawn "fuzzel"; }
     Super+Alt+N     { spawn "swaylock"; } // Dvorak L
+    Super+Alt+K         { spawn "sh" "-c" \
+                                "cliphist list | fuzzel -d | cliphist decode | wl-copy" \
+                                ; } // Dvorak V
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-"; }

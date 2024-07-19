@@ -28,7 +28,7 @@ input {
     touchpad {
         // off
         tap
-        // dwt
+        dwt
         // dwtp
         natural-scroll
         accel-speed 0.2
@@ -317,8 +317,8 @@ binds {
     ////----------------------------------------
     ///   Focus Related
     //------------------------------------------
-    Alt+Space { spawn "fuzzel"; }
-    Super+Alt+N { spawn "swaylock"; } // Dvorak L
+    Alt+Space       { spawn "fuzzel"; }
+    Super+Alt+N     { spawn "swaylock"; } // Dvorak L
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-"; }
@@ -331,32 +331,32 @@ binds {
     ////----------------------------------------
     ///   Focus Related
     //------------------------------------------
-    Super+Tab { focus-column-right-or-first; }
-    Super+Shift+Tab { focus-column-left-or-last; }
+    Super+Tab                   { focus-column-right-or-first; }
+    Super+Shift+Tab             { focus-column-left-or-last; }
 
     // NOTE: These key bindings are designed so that they are difficult to use,
     // and should not conflict with other key bindings. In order to use this
     // in real scenario, I would need key remapping solutions like Xremap.
-    Ctrl+Shift+Alt+Super+Left  { focus-column-left; }
-    Ctrl+Shift+Alt+Super+Right { focus-column-right; }
-    Ctrl+Shift+Alt+Super+Down  { focus-workspace-down; }
-    Ctrl+Shift+Alt+Super+Up    { focus-workspace-up; }
+    Ctrl+Shift+Alt+Super+Left   { focus-column-left; }
+    Ctrl+Shift+Alt+Super+Right  { focus-column-right; }
+    Ctrl+Shift+Alt+Super+Down   { focus-workspace-down; }
+    Ctrl+Shift+Alt+Super+Up     { focus-workspace-up; }
     // These are somewhat easy alternative when remap is not working for any
     // reason.
-    Ctrl+Home  { focus-column-left; }
-    Ctrl+End   { focus-column-right; }
-    Ctrl+Next  { focus-workspace-down; }
-    Ctrl+Prior { focus-workspace-up; }
+    Ctrl+Home                   { focus-column-left; }
+    Ctrl+End                    { focus-column-right; }
+    Ctrl+Next                   { focus-workspace-down; }
+    Ctrl+Prior                  { focus-workspace-up; }
 
-    Ctrl+Alt+1 { focus-workspace 1; }
-    Ctrl+Alt+2 { focus-workspace 2; }
-    Ctrl+Alt+3 { focus-workspace 3; }
-    Ctrl+Alt+4 { focus-workspace 4; }
-    Ctrl+Alt+5 { focus-workspace 5; }
-    Ctrl+Alt+6 { focus-workspace 6; }
-    Ctrl+Alt+7 { focus-workspace 7; }
-    Ctrl+Alt+8 { focus-workspace 8; }
-    Ctrl+Alt+9 { focus-workspace 9; }
+    Ctrl+Alt+1                  { focus-workspace 1; }
+    Ctrl+Alt+2                  { focus-workspace 2; }
+    Ctrl+Alt+3                  { focus-workspace 3; }
+    Ctrl+Alt+4                  { focus-workspace 4; }
+    Ctrl+Alt+5                  { focus-workspace 5; }
+    Ctrl+Alt+6                  { focus-workspace 6; }
+    Ctrl+Alt+7                  { focus-workspace 7; }
+    Ctrl+Alt+8                  { focus-workspace 8; }
+    Ctrl+Alt+9                  { focus-workspace 9; }
 
     ////----------------------------------------
     ///   Size Related
@@ -364,18 +364,18 @@ binds {
     // NOTE: These key bindings are designed so that they are difficult to use,
     // and should not conflict with other key bindings. In order to use this
     // in real scenario, I would need key remapping solutions like Xremap.
-    Ctrl+Shift+Alt+Left   { set-column-width "-5%"; }
-    Ctrl+Shift+Alt+Right  { set-column-width "+5%"; }
+    Ctrl+Shift+Alt+Left     { set-column-width "-5%"; }
+    Ctrl+Shift+Alt+Right    { set-column-width "+5%"; }
     // Currently not used
     // Ctrl+Shift+Alt+Down   { set-window-height "+5%"; }
     // Ctrl+Shift+Alt+Up     { set-window-height "-5%"; }
-    Ctrl+Alt+Minus        { set-window-height "-5%"; }
-    Ctrl+Alt+Equal        { set-window-height "+5%"; }
+    Ctrl+Alt+Minus          { set-window-height "-5%"; }
+    Ctrl+Alt+Equal          { set-window-height "+5%"; }
 
-    Ctrl+Alt+Return     { maximize-column; }
-    Ctrl+Alt+Shift+F    { fullscreen-window; }
-    Ctrl+Alt+C          { center-column; }
-    Ctrl+Alt+Space      { switch-preset-column-width; }
+    Ctrl+Alt+Return         { maximize-column; }
+    Ctrl+Alt+Shift+F        { fullscreen-window; }
+    Ctrl+Alt+C              { center-column; }
+    Ctrl+Alt+Space          { switch-preset-column-width; }
     // Mod+Shift+R { reset-window-height; }
 
     ////----------------------------------------
@@ -384,23 +384,24 @@ binds {
     // NOTE: These key bindings are designed so that they are difficult to use,
     // and should not conflict with other key bindings. In order to use this
     // in real scenario, I would need key remapping solutions like Xremap.
-    Ctrl+Shift+Super+Left  { move-column-left; }
-    Ctrl+Shift+Super+Right { move-column-right; }
-    Ctrl+Shift+Super+Down  { move-window-down-or-to-workspace-down; }
-    Ctrl+Shift+Super+Up    { move-window-up-or-to-workspace-up; }
+    Ctrl+Shift+Super+Left   { move-column-left; }
+    Ctrl+Shift+Super+Right  { move-column-right; }
+    Ctrl+Shift+Super+Down   { move-window-down-or-to-workspace-down; }
+    Ctrl+Shift+Super+Up     { move-window-up-or-to-workspace-up; }
 
-    Ctrl+Super+Comma  { consume-window-into-column; }
-    Ctrl+Super+Period { expel-window-from-column; }
+    Ctrl+Super+Comma        { consume-window-into-column; }
+    Ctrl+Super+Period       { expel-window-from-column; }
 
     ////----------------------------------------
     ///   Other
     //------------------------------------------
-    Print { screenshot; }
-    Super+Shift+3 { screenshot; }
-    Super+Shift+4 { screenshot-window; }
-    Ctrl+Print { screenshot-screen; }
-    Alt+Print { screenshot-window; }
+    Super+Shift+2           { screenshot; }
+    Super+Shift+3           { screenshot-screen; }
+    Super+Shift+4           { screenshot-window; }
+    Print                   { screenshot; }
+    Ctrl+Print              { screenshot-screen; }
+    Alt+Print               { screenshot-window; }
 
     // Quit Niri -- this prompts before exiting.
-    Super+Shift+M { quit; }
+    Super+Shift+M           { quit; }
 }

@@ -306,11 +306,6 @@ window-rule {
     // block-out-from "screencast"
 }
 
-// Help menu, suppress at startup.
-hotkey-overlay {
-    skip-at-startup
-}
-
 ////============================================================
 ///   Key Bindings
 //==============================================================
@@ -408,4 +403,13 @@ binds {
 
     // Quit Niri -- this prompts before exiting.
     Super+Shift+M           { quit; }
+}
+
+////============================================================
+///   Other
+//==============================================================
+
+// Help menu, suppress at startup.
+hotkey-overlay {
+    skip-at-startup
 }

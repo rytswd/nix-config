@@ -56,24 +56,38 @@ keymap:
         - ghostty
         - nyxt
     remap:
+      ###----------------------------------------
+      ##   Navigation
+      #------------------------------------------
       # Forward/Backward word
-      # NOTE: This won't work as the C-arrows are mapped to workspace switch
-      M-n: { with_mark: C-left }                    # Alt + b in Dvorak
-      M-y: { with_mark: C-right }                   # Alt + f in Dvorak
+      M-n:              { with_mark: C-left }                   # Alt + b in Dvorak
+      M-left:           { with_mark: C-left }                   # Alt + b in Dvorak
+      M-y:              { with_mark: C-right }                  # Alt + f in Dvorak
+      M-right:          { with_mark: C-right }                  # Alt + f in Dvorak
       # Beginning/End of line
-      C-a: { with_mark: home }
-      C-d: { with_mark: end }                       # Ctrl + e in Dvorak
+      C-a:              { with_mark: home }
+      Super-left:       { with_mark: home }
+      C-d:              { with_mark: end }                      # Ctrl + e in Dvorak
+      Super-right:      { with_mark: end }                      # Ctrl + e in Dvorak
+
+      ###----------------------------------------
+      ##   Edit
+      #------------------------------------------
       # Kill line
-      C-v: [Shift-end, C-b, { set_mark: false }]    # Ctrl + k in Dvorak
+      C-v:              [Shift-end, C-b, { set_mark: false }]   # Ctrl + k in Dvorak
       # Delete
-      C-h: [delete, { set_mark: false }]            # Ctrl + h in Dvorak
-      M-h: [C-delete, { set_mark: false }]          # Alt + h in Dvorak
+      C-h:              [delete, { set_mark: false }]           # Ctrl + h in Dvorak
+      M-h:              [C-delete, { set_mark: false }]         # Alt + h in Dvorak
       # Kill word backward
-      Alt-backspace: [C-backspace, { set_mark: false }]
+      Alt-backspace:    [C-backspace, { set_mark: false }]
       # Kill line backward
-      Super-backspace: [Shift-home, C-b, { set_mark: false }]
+      Super-backspace:  [Shift-home, C-b, { set_mark: false }]
+
+      ###----------------------------------------
+      ##   Other
+      #------------------------------------------
       # Cancel
-      C-u: [esc, { set_mark: false }]               # Ctrl + g in Dvorak
+      C-u:              [esc, { set_mark: false }]              # Ctrl + g in Dvorak
 
   - name: macOS like key bindings
     application:

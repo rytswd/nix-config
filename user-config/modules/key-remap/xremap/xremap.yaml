@@ -10,7 +10,6 @@ modmap:
       Super_L: Alt_L
       Alt_L: Super_L
 
-
 # NOTE:
 # xremap works by intercepting the input event at evdev / uinput level. This
 # means that it captures before the Dvorak translation happens at the software
@@ -28,28 +27,25 @@ keymap:
     # navigation related bindings intact, I'm creating a special sequence that
     # does not conflict with anything else.
     remap:
-      Ctrl_L-Shift_L-left:  C-Shift-Super-left
+      Ctrl_L-Shift_L-left: C-Shift-Super-left
       Ctrl_L-Shift_L-right: C-Shift-Super-right
-      Ctrl_L-Shift_L-down:  C-Shift-Super-down
-      Ctrl_L-Shift_L-up:    C-Shift-Super-up
-      Ctrl_L-Alt_L-left:    C-Shift-Alt-left
-      Ctrl_L-Alt_L-right:   C-Shift-Alt-right
-      Ctrl_L-left:          C-Shift-Super-Alt-left
-      Ctrl_L-right:         C-Shift-Super-Alt-right
-      Ctrl_L-down:          C-Shift-Super-Alt-down
-      Ctrl_L-up:            C-Shift-Super-Alt-up
+      Ctrl_L-Shift_L-down: C-Shift-Super-down
+      Ctrl_L-Shift_L-up: C-Shift-Super-up
+      Ctrl_L-Alt_L-left: C-Shift-Alt-left
+      Ctrl_L-Alt_L-right: C-Shift-Alt-right
+      Ctrl_L-left: C-Shift-Super-Alt-left
+      Ctrl_L-right: C-Shift-Super-Alt-right
+      Ctrl_L-down: C-Shift-Super-Alt-down
+      Ctrl_L-up: C-Shift-Super-Alt-up
       # NOTE: The below mappings make sure they don't get affected by above.
-      Ctrl_L-Alt_L-down:    C-Alt-down
-      Ctrl_L-Alt_L-up:      C-Alt-up
-      Ctrl_L-Super-left:    C-Super-left
-      Ctrl_L-Super-right:   C-Super-right
-      Ctrl_L-Super-down:    C-Super-down
-      Ctrl_L-Super-up:      C-Super-up
+      Ctrl_L-Alt_L-down: C-Alt-down
+      Ctrl_L-Alt_L-up: C-Alt-up
+      Ctrl_L-Super-left: C-Super-left
+      Ctrl_L-Super-right: C-Super-right
+      Ctrl_L-Super-down: C-Super-down
+      Ctrl_L-Super-up: C-Super-up
 
-  - name: Emacs like key bindings
-    # Credit: https://github.com/mooz/xkeysnail/blob/bf3c93b4fe6efd42893db4e6588e5ef1c4909cfb/example/config.py#L62-L125
-    # NOTE: The config is very much tweaked from the above reference due to the
-    # use of Dvorak keyboard.
+  - name: Emacs / macOS like key bindings
     application:
       not:
         - emacs
@@ -60,34 +56,39 @@ keymap:
       ##   Navigation
       #------------------------------------------
       # Forward/Backward word
-      M-n:              { with_mark: C-left }                   # Alt + b in Dvorak
-      M-left:           { with_mark: C-left }                   # Alt + b in Dvorak
-      M-y:              { with_mark: C-right }                  # Alt + f in Dvorak
-      M-right:          { with_mark: C-right }                  # Alt + f in Dvorak
+      # TODO: Mark update doesn't work correctly
+      M-n:          { with_mark: C-left } # Alt + b in Dvorak
+      M-y:          { with_mark: C-right } # Alt + f in Dvorak
+      M-left:       { with_mark: C-left }
+      M-right:      { with_mark: C-right }
       # Beginning/End of line
-      C-a:              { with_mark: home }
-      Super-left:       { with_mark: home }
-      C-d:              { with_mark: end }                      # Ctrl + e in Dvorak
-      Super-right:      { with_mark: end }                      # Ctrl + e in Dvorak
+      C-a:          { with_mark: home }
+      C-d:          { with_mark: end } # Ctrl + e in Dvorak
+      Super-left:   { with_mark: home }
+      Super-right:  { with_mark: end }
+      # Beginning/End of document
+      # TODO: Mark update doesn't work correctly
+      Super-down:   { with_mark: C-end }
+      Super-up:     { with_mark: C-home }
 
       ###----------------------------------------
       ##   Edit
       #------------------------------------------
       # Kill line
-      C-v:              [Shift-end, C-b, { set_mark: false }]   # Ctrl + k in Dvorak
+      C-v: [Shift-end, C-b, { set_mark: false }] # Ctrl + k in Dvorak
       # Delete
-      C-h:              [delete, { set_mark: false }]           # Ctrl + h in Dvorak
-      M-h:              [C-delete, { set_mark: false }]         # Alt + h in Dvorak
+      C-h: [delete, { set_mark: false }] # Ctrl + h in Dvorak
+      M-h: [C-delete, { set_mark: false }] # Alt + h in Dvorak
       # Kill word backward
-      Alt-backspace:    [C-backspace, { set_mark: false }]
+      Alt-backspace: [C-backspace, { set_mark: false }]
       # Kill line backward
-      Super-backspace:  [Shift-home, C-b, { set_mark: false }]
+      Super-backspace: [Shift-home, C-b, { set_mark: false }]
 
       ###----------------------------------------
       ##   Other
       #------------------------------------------
       # Cancel
-      C-u:              [esc, { set_mark: false }]              # Ctrl + g in Dvorak
+      C-u: [esc, { set_mark: false }] # Ctrl + g in Dvorak
 
   - name: macOS like key bindings
     application:
@@ -111,10 +112,10 @@ keymap:
       #     4. I end up with the key binding of:
       #        Super-s: C-o
       Super-a: C-a
-      Super-z: C-Slash          # OWERTY / == Dvorak z
-      Super-x: C-b              # OWERTY b == Dvorak x
-      Super-c: C-i              # OWERTY i == Dvorak c
-      Super-v: C-dot            # OWERTY . == Dvorak v
+      Super-z: C-Slash # OWERTY / == Dvorak z
+      Super-x: C-b # OWERTY b == Dvorak x
+      Super-c: C-i # OWERTY i == Dvorak c
+      Super-v: C-dot # OWERTY . == Dvorak v
 
   - name: Slack specific
     application:
@@ -135,9 +136,9 @@ keymap:
       #     4. I end up with the key binding of:
       #        Super-s: C-o
       Super-Shift-a: C-Shift-a
-      Super-Shift-t: C-Shift-k  # OWERTY k == Dvorak t
-      Super-f: C-y              # OWERTY y == Dvorak f
-      Super-k: C-v              # OWERTY v == Dvorak k
+      Super-Shift-t: C-Shift-k # OWERTY k == Dvorak t
+      Super-f: C-y # OWERTY y == Dvorak f
+      Super-k: C-v # OWERTY v == Dvorak k
 
   - name: Browsers
     application:
@@ -163,22 +164,24 @@ keymap:
       #        "C-semicolon" as the target binding
       #     4. I end up with the key binding of:
       #        Super-s: C-semicolon
-      Super-w: C-comma          # OWERTY , == Dvorak w
+      Super-w: C-comma # OWERTY , == Dvorak w
       Super-Shift-w: C-Shift-comma # OWERTY , == Dvorak w
-      Super-t: C-k              # OWERTY k == Dvorak t
-      Super-Shift-t: C-Shift-k  # OWERTY k == Dvorak t
-      Super-r: C-o              # OWERTY o == Dvorak r
-      Super-Shift-r: C-Shift-r  # OWERTY o == Dvorak r
+      Super-t: C-k # OWERTY k == Dvorak t
+      Super-Shift-t: C-Shift-k # OWERTY k == Dvorak t
+      Super-r: C-o # OWERTY o == Dvorak r
+      Super-Shift-r: C-Shift-r # OWERTY o == Dvorak r
       Super-a: C-a
       Super-Shift-a: C-Shift-a
-      Super-s: C-semicolon      # OWERTY ; == Dvorak s
-      Super-f: C-y              # OWERTY y == Dvorak f
-      Super-l: C-p              # OWERTY p == Dvorak l
-      Super-n: C-l              # OWERTY l == Dvorak n
-      Super-Shift-n: C-Shift-l  # OWERTY l == Dvorak n
+      Super-s: C-semicolon # OWERTY ; == Dvorak s
+      Super-f: C-y # OWERTY y == Dvorak f
+      Super-l: C-p # OWERTY p == Dvorak l
+      Super-n: C-l # OWERTY l == Dvorak n
+      Super-Shift-n: C-Shift-l # OWERTY l == Dvorak n
       Super-equal: C-rightbrace # OWERTY ] == Dvorak =
       Super-minus: C-apostrophe # OWERTY ' == Dvorak -
-      Super-comma: C-w          # OWERTY w == Dvorak ,
+      Super-comma: C-w # OWERTY w == Dvorak ,
+      # NOTE: These are not working due to the key bindings above. Xremap is not
+      # aware of the document edit, so this may be OK to leave out.
       Super-left: Alt-left
       Super-right: Alt-right
       Super-1: C-1
@@ -191,4 +194,3 @@ keymap:
       Super-8: C-8
       Super-9: C-9
       Super-0: C-0
-      

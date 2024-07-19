@@ -311,21 +311,19 @@ window-rule {
 //==============================================================
 binds {
     ////----------------------------------------
-    ///   Focus Related
+    ///   Universal Command
     //------------------------------------------
-    Alt+Space       { spawn "fuzzel"; }
-    Super+Alt+N     { spawn "swaylock"; } // Dvorak L
+    Alt+Space           { spawn "fuzzel"; }
+    Super+Alt+N         { spawn "swaylock"; } // Dvorak L
     Super+Alt+K         { spawn "sh" "-c" \
                                 "cliphist list | fuzzel -d | cliphist decode | wl-copy" \
                                 ; } // Dvorak V
 
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-"; }
-    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+    // Quit Niri -- this prompts before exiting.
+    Super+Shift+M       { quit; }
 
     // Super + Q on Dvorak
-    Super+Apostrophe { close-window; }
+    Super+Apostrophe    { close-window; }
 
     ////----------------------------------------
     ///   Focus Related
@@ -394,15 +392,21 @@ binds {
     ////----------------------------------------
     ///   Other
     //------------------------------------------
+    XF86AudioRaiseVolume allow-when-locked=true \
+                         { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+"; }
+    XF86AudioLowerVolume allow-when-locked=true \
+                         { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-"; }
+    XF86AudioMute        allow-when-locked=true \
+                         { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    XF86AudioMicMute     allow-when-locked=true \
+                         { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+
     Super+Shift+2           { screenshot; }
     Super+Shift+3           { screenshot-screen; }
     Super+Shift+4           { screenshot-window; }
     Print                   { screenshot; }
     Ctrl+Print              { screenshot-screen; }
     Alt+Print               { screenshot-window; }
-
-    // Quit Niri -- this prompts before exiting.
-    Super+Shift+M           { quit; }
 }
 
 ////============================================================

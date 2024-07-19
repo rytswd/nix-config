@@ -43,6 +43,7 @@ in {
     kubernetes.extra.enable = true;
     communication.slack.enable = true;
     communication.signal.enable = true;
+    communication.discord.enable = true;
     notification.ags-notification.enable = true;
 
     ###----------------------------------------

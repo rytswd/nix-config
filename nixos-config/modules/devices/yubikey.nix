@@ -9,6 +9,11 @@
   };
 
   config = lib.mkIf config.devices.yubikey.enable {
+    environment.systemPackages = [
+      pkgs.yubikey-manager
+      pkgs.yubikey-personalization
+    ];
+
     services.udev.packages = [ pkgs.yubikey-personalization ];
     services.yubikey-agent.enable = true;
 

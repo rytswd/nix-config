@@ -238,6 +238,10 @@ animations {
     // slowdown 3.0
 }
 
+cursor {
+    xcursor-theme "breeze_cursor"
+    xcursor-size  48
+}
 
 ////============================================================
 ///   Start-up and Environment

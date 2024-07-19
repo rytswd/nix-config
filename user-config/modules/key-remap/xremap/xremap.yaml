@@ -27,23 +27,23 @@ keymap:
     # navigation related bindings intact, I'm creating a special sequence that
     # does not conflict with anything else.
     remap:
-      Ctrl_L-Shift_L-left: C-Shift-Super-left
-      Ctrl_L-Shift_L-right: C-Shift-Super-right
-      Ctrl_L-Shift_L-down: C-Shift-Super-down
-      Ctrl_L-Shift_L-up: C-Shift-Super-up
-      Ctrl_L-Alt_L-left: C-Shift-Alt-left
-      Ctrl_L-Alt_L-right: C-Shift-Alt-right
-      Ctrl_L-left: C-Shift-Super-Alt-left
-      Ctrl_L-right: C-Shift-Super-Alt-right
-      Ctrl_L-down: C-Shift-Super-Alt-down
-      Ctrl_L-up: C-Shift-Super-Alt-up
+      Ctrl-Shift_L-left: C-Shift-Super-left
+      Ctrl-Shift_L-right: C-Shift-Super-right
+      Ctrl-Shift_L-down: C-Shift-Super-down
+      Ctrl-Shift_L-up: C-Shift-Super-up
+      Ctrl-Alt_L-left: C-Shift-Alt-left
+      Ctrl-Alt_L-right: C-Shift-Alt-right
+      Ctrl-left: C-Shift-Super-Alt-left
+      Ctrl-right: C-Shift-Super-Alt-right
+      Ctrl-down: C-Shift-Super-Alt-down
+      Ctrl-up: C-Shift-Super-Alt-up
       # NOTE: The below mappings make sure they don't get affected by above.
-      Ctrl_L-Alt_L-down: C-Alt-down
-      Ctrl_L-Alt_L-up: C-Alt-up
-      Ctrl_L-Super-left: C-Super-left
-      Ctrl_L-Super-right: C-Super-right
-      Ctrl_L-Super-down: C-Super-down
-      Ctrl_L-Super-up: C-Super-up
+      Ctrl-Alt_L-down: C-Alt-down
+      Ctrl-Alt_L-up: C-Alt-up
+      Ctrl-Super-left: C-Super-left
+      Ctrl-Super-right: C-Super-right
+      Ctrl-Super-down: C-Super-down
+      Ctrl-Super-up: C-Super-up
 
   - name: Emacs / macOS like key bindings
     application:

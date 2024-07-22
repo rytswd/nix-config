@@ -12,6 +12,7 @@
     environment.systemPackages = [
       pkgs.yubikey-manager
       pkgs.yubikey-personalization
+      pkgs.yubioath-flutter
     ];
 
     services.udev.packages = [ pkgs.yubikey-personalization ];

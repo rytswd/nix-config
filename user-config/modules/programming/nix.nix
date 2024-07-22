@@ -14,5 +14,8 @@
       pkgs.nvd
       pkgs.nh
     ];
+    home.shellAliases = {
+      flakeinit = "nix flake init -t \"github:rytswd/nix-direnv-template\" --refresh";
+    };
   };
 }

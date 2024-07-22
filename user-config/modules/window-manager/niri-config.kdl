@@ -346,8 +346,8 @@ binds {
     // reason.
     Ctrl+Shift+Home             { focus-column-left; }
     Ctrl+Shift+End              { focus-column-right; }
-    Ctrl+Shift+Next             { focus-workspace-down; }
-    Ctrl+Shift+Prior            { focus-workspace-up; }
+    // Ctrl+Shift+Next             { focus-workspace-down; }
+    // Ctrl+Shift+Prior            { focus-workspace-up; }
 
     Ctrl+Alt+1                  { focus-workspace 1; }
     Ctrl+Alt+2                  { focus-workspace 2; }

@@ -10,6 +10,7 @@
 
   config = lib.mkIf config.vcs.git.enable {
     home.packages = [
+      pkgs.gitFull          # Includes git-with-svn, libsecret, etc.
       pkgs.git-lfs          # https://github.com/git-lfs/git-lfs
       pkgs.git-codereview   # https://golang.org/x/review/git-codereview
       pkgs.git-crypt        # https://github.com/AGWA/git-crypt

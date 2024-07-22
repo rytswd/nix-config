@@ -13,6 +13,10 @@
 [gitlab]
 	user = rytswd
 
+# NOTE: This is something I'd need to adjust for macOS probably.
+# [credential]
+#     helper = store
+
 [color]
 	branch = true
 	ui = true

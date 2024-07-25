@@ -34,7 +34,7 @@
     # XDG directory.
     xdg = {
       configFile = {
-        "hypr/".source = ./hyprland-config;
+        "hypr/".source = ./config;
         "hypr/".recursive = true;
       };
     };

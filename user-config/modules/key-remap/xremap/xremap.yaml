@@ -137,9 +137,10 @@ keymap:
       #        Super-s: C-o
       Super-Shift-a: C-Shift-a
       Super-Shift-t: C-Shift-k # OWERTY k == Dvorak t
+      Super-Shift-m: C-Shift-m
       Super-f: C-y # OWERTY y == Dvorak f
       Super-k: C-v # OWERTY v == Dvorak k
-      Super-period: C-e # QWERTY e == Dvorak .
+      Super-dot: C-e # QWERTY e == Dvorak .
 
   - name: Browsers
     application:

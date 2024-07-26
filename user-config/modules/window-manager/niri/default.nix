@@ -13,7 +13,7 @@
     # Because the config is quite lengthy, I'm simply mapping a file into the
     # XDG directory.
     xdg.configFile = {
-      "niri/config.kdl".source = ./niri-config.kdl;
+      "niri/config.kdl".source = ./config.kdl;
     };
     home.shellAliases = {
       "nirimvw" = "niri msg action move-window-to-workspace";

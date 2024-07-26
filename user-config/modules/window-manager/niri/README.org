@@ -1,0 +1,598 @@
+#+title: Niri
+
+https://github.com/YaLTeR/niri
+
+* About Niri
+Niri's my daily driver as of writing (July 2024), and its support for infinite scrolling support helps managing multiple contexts at once.
+
+* Config
+Niri config uses ~.kdl~ (https://kdl.dev), and a single file input. For a better config management, I'm using the Org Mode tangle here instead.
+
+#+begin_src kdl :tangle config.kdl :noweb yes
+  // All the configs are pulled in from Org Mode file. Check out README.org.
+#+end_src
+
+** Look and Feel
+*** Input
+https://github.com/YaLTeR/niri/wiki/Configuration:-Input
+Input configures a few tihngs
+
+#+begin_src kdl :tangle config.kdl :noweb yes
+  input {
+      keyboard {
+          <<input-keyboard>>
+      }
+      touchpad {
+          <<input-touchpad>>
+      }
+      mouse {
+          <<input-mouse>>
+      }
+  }
+#+end_src
+
+**** Keyboard
+:PROPERTIES:
+:header-args: :tangle no :noweb-ref input-keyboard
+:END:
+There are some xkb settings I can set. For more information, see ~man 7 xkeyboard-config~.
+
+NOTE: Because a lot of input tweaks are made by Xremap these GTK flags are not used.
+- ~altwin:swap_alt_win~: Swap Alt and Super keys -- this makes it similar to Apple keyboards
+- ~ctrl:nocaps~: Do not use CapsLock, and make it behave as Control
+I am still using the following.
+- ~grp:win_space_toggle~: Super + Space is still used for language switch.
+
+#+begin_src kdl
+        xkb {
+            layout "us,jp"
+            variant "dvorak,"
+            options "grp:win_space_toggle"
+        }
+#+end_src
+
+Repeat rate is for how quickly the keys repeat.
+Repeat delay is how long it waits befoer key press starts repeating the sequence.
+#+begin_src kdl
+        repeat-rate 75
+        repeat-delay 195
+#+end_src
+
+Track layout of "global" allows the same keyboard layout to be used throughout the applications. This is how it is with macOS, and Windows does per application instead (which can be enabled by using "window").
+#+begin_src kdl
+        track-layout "global"
+#+end_src
+
+**** Touchpad
+:PROPERTIES:
+:header-args: :tangle no :noweb-ref input-touchpad
+:END:
+For some touchpad configuration.
+
+Touchpad could be turned off entirely with ~off~ keyword -- I certainly keep it around as I use the embedded keyboard and trackpad.
+#+begin_src kdl :noweb-ref input-touchpad-exc
+        // off
+#+end_src
+
+Enable tap to click
+#+begin_src kdl
+        tap
+#+end_src
+
+~dwt~ stands for "Disable When Typing", and ~dwtp~ for "Disable When Trackpointing".
+As I don't have a trackpoint with my device, I just use ~dwt~.
+#+begin_src kdl
+        dwt
+#+end_src
+
+Natural scroll means the iPhone like scroll. This is enabled only for the trackpad, and not for mouse (which makes a lot of sense).
+#+begin_src kdl
+        natural-scroll
+        scroll-method "two-finger"
+#+end_src
+
+Scroll speed control -- accel-profile could be "flat" or "adaptive".
+#+begin_src kdl
+        accel-speed 0.2
+        accel-profile "adaptive"
+#+end_src
+
+I could consider disabling the trackpad entirely when a mouse is connected. There is a config for it, but I'm not using it for now.
+#+begin_src kdl :noweb-ref input-touchpad-exc
+        // disabled-on-external-mouse
+#+end_src
+
+**** Mouse
+:PROPERTIES:
+:header-args: :tangle no :noweb-ref input-mouse
+:END:
+While mouse configuration allows a few additional adjustments, I'm not using any of that. This is just for referenece.
+#+begin_src kdl :noweb-ref input-mouse-exc
+        // off
+        // natural-scroll
+        // accel-speed 0.2
+        // accel-profile "flat"
+        // scroll-method "no-scroll"
+#+end_src
+
+**** Other Input Related Flags
+There are a few other flags, such as ~warp-mouse-to-focus~, ~focus-follows-mouse~, but I'm not using them.
+
+*** Output
+https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
+Output configures the display settings.
+
+TODO: This assumes the use of Asus machine for the configuration. If I need to adjust based on the machine used, I will need to come up with another way to manage different display configuration per machine.
+
+NOTE: eDP-1 and eDP-2 are duplicated. Sometimes the display is registered with eDP-1 during bootup sequence, and sometimes some error pushes it to eDP-2. I haven't got to the bottom of this behaviour, and for the time being, duplicating it for simplicity.
+#+begin_src kdl :tangle config.kdl :noweb yes
+  output "eDP-1" {
+      <<output-embedded>>
+  }
+  output "eDP-2" {
+      <<output-embedded>>
+  }
+#+end_src
+
+**** Embedded Display
+:PROPERTIES:
+:header-args: :tangle no :noweb-ref output-embedded
+:END:
+
+Resolution is set by "mode" keyword.
+#+begin_quote
+    Resolution and, optionally, refresh rate of the output.
+    The format is "<width>x<height>" or "<width>x<height>@<refresh rate>".
+    If the refresh rate is omitted, niri will pick the highest refresh rate
+    for the resolution.
+    If the mode is omitted altogether or is invalid, niri will pick one automatically.
+    Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
+#+end_quote
+
+I set it to the maximum resolution.  
+#+begin_src kdl
+    mode "2880x1800@120.000"
+#+end_src
+
+But with the high resolution, everything gets rendered too small, and thus change the scale to make it similar to macOS.
+#+begin_src kdl
+    scale 1.666667
+#+end_src
+
+I don't need any transformation for the embedded screen.
+#+begin_src kdl
+    transform "normal"
+#+end_src
+
+When I want to extend to external monitor, I can do that to both left and right side. I'm just pushing the embedded display a bit to the right.
+The position of =1920= is calculated based on the display resolution x scale (~2880 x 1.666667 = 1920~).
+#+begin_src kdl
+    position x=1920 y=0
+#+end_src
+
+*** Layout
+https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
+Layout handles some additional appearance adjustments.
+
+#+begin_src kdl :tangle config.kdl :noweb yes
+  layout {
+      focus-ring {
+          <<layout-focus-ring>>
+      }
+      border {
+          <<layout-border>>
+      }
+      struts {
+          <<layout-struts>>
+      }
+      preset-column-widths {
+          <<layout-preset-column-widths>>
+      }
+      <<layout-other>>
+  }
+#+end_src
+
+**** Focus Ring
+:PROPERTIES:
+:header-args: :tangle no :noweb-ref layout-focus-ring
+:END:
+Focus ring is the ring that appears only when the window has focus. When there are multiple monitors used, there could be multiple windows to have focus rings, with the main one having "active" focus, and other monitors having "inactive" focus.
+
+Because focus ring doesn't apply to those windows that do not have a focus on, I'm disabling this because I want all windows to have somewhat uniform look, which is done by "border" instead.
+#+begin_src kdl
+        off
+#+end_src
+
+The below is a reference only options I tested with.
+#+begin_src :tangle no :noweb-ref layout-focus-ring-exc
+        // How many logical pixels the ring extends out from the windows.
+        width 1
+
+        // Colors can be set in a variety of ways:
+        // - CSS named colors: "red"
+        // - RGB hex: "#rgb", "#rgba", "#rrggbb", "#rrggbbaa"
+        // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
+
+        // Color of the ring on the active monitor.
+        // active-color "#7fc8ff22"
+
+        // Color of the ring on inactive monitors.
+        // inactive-color "#000000"
+
+        // You can also use gradients. They take precedence over solid colors.
+        // Gradients are rendered the same as CSS linear-gradient(angle, from, to).
+        // The angle is the same as in linear-gradient, and is optional,
+        // defaulting to 180 (top-to-bottom gradient).
+        // You can use any CSS linear-gradient tool on the web to set these up.
+        //
+        active-gradient to="#45CB85" from="#344966" angle=75
+
+        // You can also color the gradient relative to the entire view
+        // of the workspace, rather than relative to just the window itself.
+        // To do that, set relative-to="workspace-view".
+        //
+        inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+#+end_src
+
+**** Border
+:PROPERTIES:
+:header-args: :tangle no :noweb-ref layout-border
+:END:
+Border is shown on all windows. One with the focus will have the "active" one. I use the gradiant look, as I like its look better than boring single colour 😆
+#+begin_src kdl
+          width 1
+
+          active-gradient \
+              to="#0081AF" \
+              from="#344966" \
+              angle=75 \
+              relative-to="workspace-view"
+          inactive-gradient \
+              to="#808080" \
+              from="#505050" \
+              angle=45 \
+              relative-to="workspace-view"
+#+end_src
+
+**** Struts
+:PROPERTIES:
+:header-args: :tangle no :noweb-ref layout-struts
+:END:
+Additional control for outer gap. I don't use it for now, but just keeping it around.
+#+begin_src kdl
+        // left 64
+        // right 64
+        // top 64
+        // bottom 64
+#+end_src
+
+**** Preset Column Widths
+:PROPERTIES:
+:header-args: :tangle no :noweb-ref layout-preset-column-widths
+:END:
+For a quick resize of windows, I have some preset column widths that I can use. The values are cycled thorugh.
+
+The values can be a proportional value (with ~proportion~), or fixed logical pixels (with ~fixed~).
+#+begin_src kdl
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.75
+        proportion 0.95
+#+end_src
+
+**** Other Layout Related Flags
+:PROPERTIES:
+:header-args: :tangle no :noweb-ref layout-other
+:END:
+
+Add gap between each window.
+#+begin_src kdl
+      gaps 16
+#+end_src
+
+When I use ~focus-~ commands, this flag makes the window to be in the centre. When I do a three finger swipe, that won't be the case (which is how I like).
+#+begin_src kdl
+      center-focused-column "on-overflow"
+#+end_src
+
+I set the default window (or more precisely, column, in Niri term) to be figured out by the application. I could set some proportional or fixed value similar to the preset column width.
+#+begin_src kdl
+      default-column-width {}
+#+end_src
+
+*** Animations
+https://github.com/YaLTeR/niri/wiki/Configuration:-Animations
+Some animation related adjustment. I could adjust from the default, but the default looks nice already, and not changing at all.
+#+begin_src kdl :tangle config.kdl :noweb yes
+  animations {
+      // Slow down all animations by this factor.
+      // Values below 1 speed them up instead.
+      // slowdown 3.0
+  }
+#+end_src
+
+*** Misc Flags
+:PROPERTIES:
+:header-args: :tangle config.kdl :noweb yes
+:END:
+There are some flags that do not fall under any categories, but play a significant role.
+
+Unless a client application specifically asks for CSD (Client-Side Decoration), use none so that the look would fit the tiling manager look.
+#+begin_src kdl
+    prefer-no-csd
+#+end_src
+
+Save the screenshot in pictures directory.
+#+begin_src kdl
+    screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+#+end_src
+
+Define a cursor look.
+#+begin_src kdl
+  cursor {
+      xcursor-theme "breeze_cursors"
+      xcursor-size  48
+  }
+#+end_src
+
+Disable help menu.
+#+begin_src kdl
+  hotkey-overlay {
+      skip-at-startup
+  }
+#+end_src
+
+*** Window Rules
+:PROPERTIES:
+:header-args: :tangle config.kdl :noweb yes
+:END:
+Each window on Niri can be configured to have a different look and feel.
+
+This is the default setting, where each window has a slight opacity set, and corner radius (or border-radius in CSS world) set to some comfortable size.
+It is important to set the ~draw-border-with-background~ flag to ~false~, otherwise the border colour affects the window colour (which may look OK, but it's too much as default).
+#+begin_src kdl
+  window-rule {
+      opacity 0.95
+      clip-to-geometry true
+      geometry-corner-radius 7
+      draw-border-with-background false
+  }
+#+end_src
+
+For Emacs, I'm setting the default column to be bigger
+#+begin_src kdl
+  window-rule {
+      match app-id="emacs"
+      default-column-width { proportion 0.9; }
+  }
+#+end_src
+
+Also, for Slack, I'm making it as big.
+#+begin_src kdl
+  window-rule {
+      match app-id="slack"
+      default-column-width { proportion 0.9; }
+  }
+#+end_src
+
+TODO: I should configure the key handling items to be outside of screencapture / screencast.
+#+begin_src kdl :tangle no
+  // Example: block out two password managers from screen capture.
+  // (This example rule is commented out with a "/-" in front.)
+  /-window-rule {
+      match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+      match app-id=r#"^org\.gnome\.World\.Secrets$"#
+  
+      block-out-from "screen-capture"
+  
+      // Use this instead if you want them visible on third-party screenshot tools.
+      // block-out-from "screencast"
+  }
+#+end_src
+
+
+** Programs
+*** Startup Processes
+:PROPERTIES:
+:header-args: :tangle config.kdl :noweb yes
+:END:
+While it is better to control the startup processes using systemd and other solutions, there are some specific ones I would only need when using Niri (or some specific Window Manager).
+It is also far easier to configure here than setting up systemd, so I sometimes abuse this for a quick setup 😛
+
+For wallpaper setup using ~swww~, I need the daemon to be running.
+#+begin_src kdl
+  spawn-at-startup "swww-daemon"
+#+end_src
+
+For notification setup, I use AGS widget for now.
+#+begin_src kdl
+  spawn-at-startup "sh" "-c" "ags -c ~/.config/ags-notification/config.js -b notification"
+#+end_src
+
+For clipboard history, I'm using ~cliphist~ mapped with ~wl-paste~. While this may be better handled at systemd and other levels, I'm just keeping it as is.
+#+begin_src kdl
+  spawn-at-startup "sh" "-c" "wl-paste --watch cliphist store"
+#+end_src
+
+This is purely for a quick-and-dirty solution, but I'm using Maestral deamon startup using this startup setup. I should really have systemd configured, so that regardless of which environment I'm on, I get Maestral running.
+#+begin_src kdl
+  spawn-at-startup "maestral" "start" // Hack
+#+end_src
+
+*** Environment Variables
+:PROPERTIES:
+:header-args: :tangle config.kdl :noweb yes
+:END:
+Some environment variables should be set for applications to startup cleanly. Namely some apps that require a few adjustments around Wayland.
+#+begin_src kdl
+  environment {
+      <<env-var>>
+  }
+#+end_src
+
+**** Wayland
+:PROPERTIES:
+:header-args: :tangle no :noweb-ref env-var
+:END:
+Some apps do not launch with Wayland (and when there is no XWayland to fall back to). Because Niri doesn't provide XWayland at all, I need to ensure apps open up using Wayland.
+#+begin_src kdl
+  NIXOS_OZONE_WL "1"
+#+end_src
+
+
+** Key Bindings
+:PROPERTIES:
+:header-args: :tangle config.kdl :noweb yes
+:END:
+Some global key bindings for Niri interaction.
+
+NOTE: I got a lot of configurations in Xremap, and without it, many of the bindings won't make too much sense. You can reference how I do it, but it probably won't be useful unless you have Xremap with Dvorak keyboard layout.
+#+begin_src kdl
+  binds {
+      <<key-bindings-commands>>
+
+      <<key-bindings-focus>>
+      <<key-bindings-size>>
+      <<key-bindings-move>>
+
+      <<key-bindings-other>>
+  }
+#+end_src
+
+*** Commands
+:PROPERTIES:
+:header-args: :tangle no :noweb-ref key-bindings-commands
+:END:
+Some commands I use often. 
+#+begin_src kdl
+  Alt+Space     { spawn "fuzzel"; }
+  Super+Alt+N   { spawn "swaylock"; } // Dvorak L
+  Super+Alt+K   { spawn "sh" "-c" \
+                  "cliphist list | fuzzel -d | cliphist decode | wl-copy" \
+                  ; } // Dvorak V
+#+end_src
+
+Quit Niri, which prompts before exiting.
+#+begin_src kdl  
+  Super+Shift+M { quit; }
+#+end_src
+  
+Close window is the most similar to Cmd+Q on macOS, but probably more intuitive.
+#+begin_src kdl
+  Super+Apostrophe { close-window; } // Super + Q on Dvorak
+#+end_src
+
+*** Focus
+:PROPERTIES:
+:header-args: :tangle no :noweb-ref key-bindings-focus
+:END:
+
+#+begin_src kdl
+    Super+Tab                   { focus-column-right-or-first; }
+    Super+Shift+Tab             { focus-column-left-or-last; }
+
+    // NOTE: These key bindings are designed so that they are difficult to use,
+    // and should not conflict with other key bindings. In order to use this
+    // in real scenario, I would need key remapping solutions like Xremap.
+    Ctrl+Shift+Alt+Super+Left   { focus-column-left; }
+    Ctrl+Shift+Alt+Super+Right  { focus-column-right; }
+    Ctrl+Shift+Alt+Super+Down   { focus-workspace-down; }
+    Ctrl+Shift+Alt+Super+Up     { focus-workspace-up; }
+    // These are somewhat easy alternative when remap is not working for any
+    // reason.
+    Ctrl+Shift+Home             { focus-column-left; }
+    Ctrl+Shift+End              { focus-column-right; }
+    // Ctrl+Shift+Next             { focus-workspace-down; }
+    // Ctrl+Shift+Prior            { focus-workspace-up; }
+
+    Ctrl+Alt+1                  { focus-workspace 1; }
+    Ctrl+Alt+2                  { focus-workspace 2; }
+    Ctrl+Alt+3                  { focus-workspace 3; }
+    Ctrl+Alt+4                  { focus-workspace 4; }
+    Ctrl+Alt+5                  { focus-workspace 5; }
+    Ctrl+Alt+6                  { focus-workspace 6; }
+    Ctrl+Alt+7                  { focus-workspace 7; }
+    Ctrl+Alt+8                  { focus-workspace 8; }
+    Ctrl+Alt+9                  { focus-workspace 9; }
+#+end_src
+
+*** Size
+:PROPERTIES:
+:header-args: :tangle no :noweb-ref key-bindings-size
+:END:
+
+#+begin_src kdl
+    // NOTE: These key bindings are designed so that they are difficult to use,
+    // and should not conflict with other key bindings. In order to use this
+    // in real scenario, I would need key remapping solutions like Xremap.
+    Ctrl+Shift+Alt+Left     { set-column-width "-5%"; }
+    Ctrl+Shift+Alt+Right    { set-column-width "+5%"; }
+    // Currently not used
+    // Ctrl+Shift+Alt+Down   { set-window-height "+5%"; }
+    // Ctrl+Shift+Alt+Up     { set-window-height "-5%"; }
+    Ctrl+Alt+Minus          { set-window-height "-5%"; }
+    Ctrl+Alt+Equal          { set-window-height "+5%"; }
+
+    Ctrl+Alt+Return         { maximize-column; }
+    Ctrl+Alt+Shift+F        { fullscreen-window; }
+    Ctrl+Alt+C              { center-column; }
+    Ctrl+Alt+Space          { switch-preset-column-width; }
+    // Mod+Shift+R { reset-window-height; }
+#+end_src
+
+*** Move
+:PROPERTIES:
+:header-args: :tangle no :noweb-ref key-bindings-move
+:END:
+
+#+begin_src kdl
+    // NOTE: These key bindings are designed so that they are difficult to use,
+    // and should not conflict with other key bindings. In order to use this
+    // in real scenario, I would need key remapping solutions like Xremap.
+    Ctrl+Shift+Super+Left   { move-column-left; }
+    Ctrl+Shift+Super+Right  { move-column-right; }
+    Ctrl+Shift+Super+Down   { move-window-down-or-to-workspace-down; }
+    Ctrl+Shift+Super+Up     { move-window-up-or-to-workspace-up; }
+
+    Ctrl+Super+Comma        { consume-window-into-column; }
+    Ctrl+Super+Period       { expel-window-from-column; }
+#+end_src
+
+*** Other
+:PROPERTIES:
+:header-args: :tangle no :noweb-ref key-bindings-other
+:END:
+
+#+begin_src kdl
+    XF86AudioRaiseVolume allow-when-locked=true \
+                         { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+"; }
+    XF86AudioLowerVolume allow-when-locked=true \
+                         { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-"; }
+    XF86AudioMute        allow-when-locked=true \
+                         { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    XF86AudioMicMute     allow-when-locked=true \
+                         { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+
+    XF86MonBrightnessUp  { spawn "brightnessctl" "-d" "\"amdgpu_bl*\"" "set 5%+" ; }
+    XF86MonBrightnessDown { spawn "brightnessctl" "-d" "\"amdgpu_bl*\"" "set 5%-" ; }
+  
+    Super+Shift+2           { screenshot; }
+    Super+Shift+3           { screenshot-screen; }
+    Super+Shift+4           { screenshot-window; }
+    Print                   { screenshot; }
+    Ctrl+Print              { screenshot-screen; }
+    Alt+Print               { screenshot-window; }
+#+end_src
+
+
+** Named Workspaces
+:PROPERTIES:
+:header-args: :tangle config.kdl :noweb yes
+:END:
+Niri can be configured to have named workspaces, along with all the dynamic workspaces that are associated with number IDs.
+#+begin_src kdl
+  workspace "coding"
+
+  workspace "civo"
+#+end_src
+

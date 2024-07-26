@@ -1,0 +1,207 @@
+// All the configs are pulled in from Org Mode file. Check out README.org.
+
+input {
+    keyboard {
+        xkb {
+            layout "us,jp"
+            variant "dvorak,"
+            options "grp:win_space_toggle"
+        }
+        repeat-rate 75
+        repeat-delay 195
+        track-layout "global"
+    }
+    touchpad {
+        tap
+        dwt
+        natural-scroll
+        scroll-method "two-finger"
+        accel-speed 0.2
+        accel-profile "adaptive"
+    }
+    mouse {
+        
+    }
+}
+
+output "eDP-1" {
+    mode "2880x1800@120.000"
+    scale 1.666667
+    transform "normal"
+    position x=1920 y=0
+}
+output "eDP-2" {
+    mode "2880x1800@120.000"
+    scale 1.666667
+    transform "normal"
+    position x=1920 y=0
+}
+
+layout {
+    focus-ring {
+        off
+    }
+    border {
+        width 1
+        
+        active-gradient \
+            to="#0081AF" \
+            from="#344966" \
+            angle=75 \
+            relative-to="workspace-view"
+        inactive-gradient \
+            to="#808080" \
+            from="#505050" \
+            angle=45 \
+            relative-to="workspace-view"
+    }
+    struts {
+        // left 64
+        // right 64
+        // top 64
+        // bottom 64
+    }
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.75
+        proportion 0.95
+    }
+    gaps 16
+    center-focused-column "on-overflow"
+    default-column-width {}
+}
+
+animations {
+    // Slow down all animations by this factor.
+    // Values below 1 speed them up instead.
+    // slowdown 3.0
+}
+
+prefer-no-csd
+
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+cursor {
+    xcursor-theme "breeze_cursors"
+    xcursor-size  48
+}
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+window-rule {
+    opacity 0.95
+    clip-to-geometry true
+    geometry-corner-radius 7
+    draw-border-with-background false
+}
+
+window-rule {
+    match app-id="emacs"
+    default-column-width { proportion 0.9; }
+}
+
+window-rule {
+    match app-id="slack"
+    default-column-width { proportion 0.9; }
+}
+
+spawn-at-startup "swww-daemon"
+
+spawn-at-startup "sh" "-c" "ags -c ~/.config/ags-notification/config.js -b notification"
+
+spawn-at-startup "sh" "-c" "wl-paste --watch cliphist store"
+
+spawn-at-startup "maestral" "start" // Hack
+
+environment {
+    NIXOS_OZONE_WL "1"
+}
+
+binds {
+    Alt+Space     { spawn "fuzzel"; }
+    Super+Alt+N   { spawn "swaylock"; } // Dvorak L
+    Super+Alt+K   { spawn "sh" "-c" \
+                    "cliphist list | fuzzel -d | cliphist decode | wl-copy" \
+                    ; } // Dvorak V
+    Super+Shift+M { quit; }
+    Super+Apostrophe { close-window; } // Super + Q on Dvorak
+
+    Super+Tab                   { focus-column-right-or-first; }
+    Super+Shift+Tab             { focus-column-left-or-last; }
+    
+    // NOTE: These key bindings are designed so that they are difficult to use,
+    // and should not conflict with other key bindings. In order to use this
+    // in real scenario, I would need key remapping solutions like Xremap.
+    Ctrl+Shift+Alt+Super+Left   { focus-column-left; }
+    Ctrl+Shift+Alt+Super+Right  { focus-column-right; }
+    Ctrl+Shift+Alt+Super+Down   { focus-workspace-down; }
+    Ctrl+Shift+Alt+Super+Up     { focus-workspace-up; }
+    // These are somewhat easy alternative when remap is not working for any
+    // reason.
+    Ctrl+Shift+Home             { focus-column-left; }
+    Ctrl+Shift+End              { focus-column-right; }
+    // Ctrl+Shift+Next             { focus-workspace-down; }
+    // Ctrl+Shift+Prior            { focus-workspace-up; }
+    
+    Ctrl+Alt+1                  { focus-workspace 1; }
+    Ctrl+Alt+2                  { focus-workspace 2; }
+    Ctrl+Alt+3                  { focus-workspace 3; }
+    Ctrl+Alt+4                  { focus-workspace 4; }
+    Ctrl+Alt+5                  { focus-workspace 5; }
+    Ctrl+Alt+6                  { focus-workspace 6; }
+    Ctrl+Alt+7                  { focus-workspace 7; }
+    Ctrl+Alt+8                  { focus-workspace 8; }
+    Ctrl+Alt+9                  { focus-workspace 9; }
+    // NOTE: These key bindings are designed so that they are difficult to use,
+    // and should not conflict with other key bindings. In order to use this
+    // in real scenario, I would need key remapping solutions like Xremap.
+    Ctrl+Shift+Alt+Left     { set-column-width "-5%"; }
+    Ctrl+Shift+Alt+Right    { set-column-width "+5%"; }
+    // Currently not used
+    // Ctrl+Shift+Alt+Down   { set-window-height "+5%"; }
+    // Ctrl+Shift+Alt+Up     { set-window-height "-5%"; }
+    Ctrl+Alt+Minus          { set-window-height "-5%"; }
+    Ctrl+Alt+Equal          { set-window-height "+5%"; }
+    
+    Ctrl+Alt+Return         { maximize-column; }
+    Ctrl+Alt+Shift+F        { fullscreen-window; }
+    Ctrl+Alt+C              { center-column; }
+    Ctrl+Alt+Space          { switch-preset-column-width; }
+    // Mod+Shift+R { reset-window-height; }
+    // NOTE: These key bindings are designed so that they are difficult to use,
+    // and should not conflict with other key bindings. In order to use this
+    // in real scenario, I would need key remapping solutions like Xremap.
+    Ctrl+Shift+Super+Left   { move-column-left; }
+    Ctrl+Shift+Super+Right  { move-column-right; }
+    Ctrl+Shift+Super+Down   { move-window-down-or-to-workspace-down; }
+    Ctrl+Shift+Super+Up     { move-window-up-or-to-workspace-up; }
+    
+    Ctrl+Super+Comma        { consume-window-into-column; }
+    Ctrl+Super+Period       { expel-window-from-column; }
+
+    XF86AudioRaiseVolume allow-when-locked=true \
+                         { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+"; }
+    XF86AudioLowerVolume allow-when-locked=true \
+                         { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-"; }
+    XF86AudioMute        allow-when-locked=true \
+                         { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    XF86AudioMicMute     allow-when-locked=true \
+                         { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+    
+    XF86MonBrightnessUp  { spawn "brightnessctl" "-d" r"amdgpu_bl*" "set 5%+" ; }
+    XF86MonBrightnessDown { spawn "brightnessctl" "-d" r"amdgpu_bl*" "set 5%-" ; }
+    
+    Super+Shift+2           { screenshot; }
+    Super+Shift+3           { screenshot-screen; }
+    Super+Shift+4           { screenshot-window; }
+    Print                   { screenshot; }
+    Ctrl+Print              { screenshot-screen; }
+    Alt+Print               { screenshot-window; }
+}
+
+workspace "coding"
+
+workspace "civo"

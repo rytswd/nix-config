@@ -5,8 +5,8 @@
 
 {
   imports = [
-    ./hyprland.nix
-    ./niri.nix
+    ./hyprland
+    ./niri
   ];
 
   window-manager.hyprland.enable = lib.mkDefault true;

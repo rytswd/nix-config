@@ -20,6 +20,10 @@
     ../modules/x11
     ../modules/appearance
     ../modules/flatpak
+
+    # NOTE: This may be an overkill to have a module, but using this approach
+    # just for the uniformity.
+    ../modules/machine-specific/asus.nix
   ];
 
   desktop-environment.gnome.dconf.enable = true;

@@ -8,5 +8,5 @@
     ./swaylock-effects.nix
   ];
 
-  lock-session.swaylock-effects.enable = lib.mkDefault true;
+  session-lock.swaylock-effects.enable = lib.mkDefault true;
 }

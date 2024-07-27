@@ -11,6 +11,8 @@ in {
     imports = [
       # The shell setup defines some aliases, and in order to allow overriding,
       # calling this earlier than other modules.
+      # The rest of the module call order is rather arbitrary, just in order of
+      # importance for my own use case.
       ../../modules/shell
       ../../modules/key-remap/xremap
       ../../modules/appearance
@@ -22,6 +24,7 @@ in {
       ../../modules/terminal
       ../../modules/vcs
       ../../modules/wallpaper
+      ../../modules/session-lock
       ../../modules/browser
       ../../modules/editor
       ../../modules/programming

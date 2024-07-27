@@ -29,6 +29,7 @@ in {
       ../../modules/editor
       ../../modules/programming
       ../../modules/vpn
+      ../../modules/security
       ../../modules/kubernetes
       ../../modules/service
       ../../modules/file-management
@@ -55,9 +56,6 @@ in {
     programs.home-manager.enable = true;
     xdg.enable = true;
 
-    # TODO: Move this somewhere.
-    programs.gpg.enable = true;
-
     home = {
       username = "${username}";
       homeDirectory = "/home/${username}";
@@ -68,11 +66,5 @@ in {
       ];
 
       stateVersion = "23.11";
-    };
-
-    # TODO: Fix this up, this is for pin entry for GPG
-    services.gpg-agent = {
-      enable = true;
-      pinentryPackage = pkgs.pinentry-gnome3;
     };
   }

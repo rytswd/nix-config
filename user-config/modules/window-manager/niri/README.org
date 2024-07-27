@@ -240,11 +240,11 @@ The below is a reference only options I tested with.
 :END:
 Border is shown on all windows. One with the focus will have the "active" one. I use the gradiant look, as I like its look better than boring single colour 😆
 #+begin_src kdl
-          width 1
+          width 2
 
           active-gradient \
               to="#0081AF" \
-              from="#344966" \
+              from="#F29940" \
               angle=75 \
               relative-to="workspace-view"
           inactive-gradient \
@@ -463,13 +463,23 @@ NOTE: I got a lot of configurations in Xremap, and without it, many of the bindi
 :PROPERTIES:
 :header-args: :tangle no :noweb-ref key-bindings-commands
 :END:
-Some commands I use often. 
+I use ~fuzzel~ for my launcher.
 #+begin_src kdl
   Alt+Space     { spawn "fuzzel"; }
-  Super+Alt+N   { spawn "swaylock"; } // Dvorak L
+#+end_src
+
+Use fuzzel for the clipboard history, as well as emoji picker.
+TODO: For emoji, I would want to just type it out, but cannot make it work for some reason. I'm using the ~-c~ flag with ~bemoji~ to copy to clipboard for now.
+#+begin_src kdl
   Super+Alt+K   { spawn "sh" "-c" \
                   "cliphist list | fuzzel -d | cliphist decode | wl-copy" \
                   ; } // Dvorak V
+  Super+Alt+Backslash { spawn "bemoji" "-c" ; }
+#+end_src
+
+Lock screen.
+#+begin_src kdl
+  Super+Alt+N   { spawn "swaylock-effects"; } // Dvorak L
 #+end_src
 
 Quit Niri, which prompts before exiting.
@@ -488,14 +498,14 @@ Close window is the most similar to Cmd+Q on macOS, but probably more intuitive.
 :END:
 
 #+begin_src kdl
-    Super+Tab                   { focus-column-right-or-first; }
-    Super+Shift+Tab             { focus-column-left-or-last; }
+    Super+Tab                   { focus-window-down-or-column-right; }
+    Super+Shift+Tab             { focus-window-up-or-column-left; }
 
     // NOTE: These key bindings are designed so that they are difficult to use,
     // and should not conflict with other key bindings. In order to use this
     // in real scenario, I would need key remapping solutions like Xremap.
-    Ctrl+Shift+Alt+Super+Left   { focus-column-left; }
-    Ctrl+Shift+Alt+Super+Right  { focus-column-right; }
+    Ctrl+Shift+Alt+Super+Left   { focus-column-left-or-last; }
+    Ctrl+Shift+Alt+Super+Right  { focus-column-right-or-first; }
     Ctrl+Shift+Alt+Super+Down   { focus-workspace-down; }
     Ctrl+Shift+Alt+Super+Up     { focus-workspace-up; }
     // These are somewhat easy alternative when remap is not working for any
@@ -573,8 +583,8 @@ Close window is the most similar to Cmd+Q on macOS, but probably more intuitive.
     XF86AudioMicMute     allow-when-locked=true \
                          { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
-    XF86MonBrightnessUp  { spawn "brightnessctl" "-d" "\"amdgpu_bl*\"" "set 5%+" ; }
-    XF86MonBrightnessDown { spawn "brightnessctl" "-d" "\"amdgpu_bl*\"" "set 5%-" ; }
+    XF86MonBrightnessUp  { spawn "brightnessctl" "-d" r#""amdgpu_bl*""# "set 5%+" ; }
+    XF86MonBrightnessDown { spawn "brightnessctl" "-d" r#""amdgpu_bl*""# "set 5%-" ; }
   
     Super+Shift+2           { screenshot; }
     Super+Shift+3           { screenshot-screen; }

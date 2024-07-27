@@ -42,11 +42,11 @@ layout {
         off
     }
     border {
-        width 1
+        width 2
         
         active-gradient \
             to="#0081AF" \
-            from="#344966" \
+            from="#F29940" \
             angle=75 \
             relative-to="workspace-view"
         inactive-gradient \
@@ -122,21 +122,22 @@ environment {
 
 binds {
     Alt+Space     { spawn "fuzzel"; }
-    Super+Alt+N   { spawn "swaylock"; } // Dvorak L
     Super+Alt+K   { spawn "sh" "-c" \
                     "cliphist list | fuzzel -d | cliphist decode | wl-copy" \
                     ; } // Dvorak V
+    Super+Alt+Backslash { spawn "bemoji" "-c" ; }
+    Super+Alt+N   { spawn "swaylock-effects"; } // Dvorak L
     Super+Shift+M { quit; }
     Super+Apostrophe { close-window; } // Super + Q on Dvorak
 
-    Super+Tab                   { focus-column-right-or-first; }
-    Super+Shift+Tab             { focus-column-left-or-last; }
+    Super+Tab                   { focus-window-down-or-column-right; }
+    Super+Shift+Tab             { focus-window-up-or-column-left; }
     
     // NOTE: These key bindings are designed so that they are difficult to use,
     // and should not conflict with other key bindings. In order to use this
     // in real scenario, I would need key remapping solutions like Xremap.
-    Ctrl+Shift+Alt+Super+Left   { focus-column-left; }
-    Ctrl+Shift+Alt+Super+Right  { focus-column-right; }
+    Ctrl+Shift+Alt+Super+Left   { focus-column-left-or-last; }
+    Ctrl+Shift+Alt+Super+Right  { focus-column-right-or-first; }
     Ctrl+Shift+Alt+Super+Down   { focus-workspace-down; }
     Ctrl+Shift+Alt+Super+Up     { focus-workspace-up; }
     // These are somewhat easy alternative when remap is not working for any
@@ -191,8 +192,8 @@ binds {
     XF86AudioMicMute     allow-when-locked=true \
                          { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
     
-    XF86MonBrightnessUp  { spawn "brightnessctl" "-d" r"amdgpu_bl*" "set 5%+" ; }
-    XF86MonBrightnessDown { spawn "brightnessctl" "-d" r"amdgpu_bl*" "set 5%-" ; }
+    XF86MonBrightnessUp  { spawn "brightnessctl" "-d" r#""amdgpu_bl*""# "set 5%+" ; }
+    XF86MonBrightnessDown { spawn "brightnessctl" "-d" r#""amdgpu_bl*""# "set 5%-" ; }
     
     Super+Shift+2           { screenshot; }
     Super+Shift+3           { screenshot-screen; }

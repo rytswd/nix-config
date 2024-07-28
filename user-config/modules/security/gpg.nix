@@ -12,6 +12,11 @@
     programs.gpg = {
       enable = true;
       package = pkgs.gnupg;
+      scdaemonSettings = {
+        # Because YubiKey setup is handled by pcscd (PC/SC Smart Card Daemon),
+        # disabling the built-in ccid handling from scdaemon.
+        disable-ccid = true;
+      };
     };
     services.gpg-agent = {
       enable = true;

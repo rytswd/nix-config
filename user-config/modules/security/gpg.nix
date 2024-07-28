@@ -20,8 +20,13 @@
     };
     services.gpg-agent = {
       enable = true;
-      enableSshSupport = true;
       pinentryPackage = pkgs.pinentry-gnome3;
+
+      enableSshSupport = true;
+      sshKeys = [
+        # Provide the keygrip
+        "0D289B68FD943DE2E94B37FF33D03DEB5275FB51"
+      ];
     };
   };
 }

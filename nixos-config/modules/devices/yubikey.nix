@@ -16,6 +16,7 @@
     ];
 
     services.udev.packages = [ pkgs.yubikey-personalization ];
+    services.pcscd.enable = true;
 
     # https://github.com/FiloSottile/yubikey-agent?tab=readme-ov-file
     # Because I am using GPG agent at the moment, I'm taking this out. There

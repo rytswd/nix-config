@@ -26,6 +26,8 @@
     # and thus disabling it.
     # services.yubikey-agent.enable = true;
 
+    # TODO: Check if this is necessary. Probably this is duplicating some other
+    # settings (and I rely more on home-manager config anyways).
     programs.gnupg.agent = {
       enable = true;
       enableSSHSupport = true;

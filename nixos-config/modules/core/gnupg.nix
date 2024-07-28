@@ -13,6 +13,5 @@
       enable = true;
       # enableSSHSupport = true;
     };
-    services.yubikey-agent.enable = true;
   };
 }

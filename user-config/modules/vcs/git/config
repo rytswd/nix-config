@@ -5,7 +5,10 @@
 [user]
 	name = Ryota
 	useConfigOnly = true
-	signingkey = 678FE5498813DE6A
+    # Key with YubiKey
+	signingkey = 24F699F8056E6082
+    # Old key used on macOS
+	#signingkey = 678FE5498813DE6A
 
 [github]
 	user = rytswd

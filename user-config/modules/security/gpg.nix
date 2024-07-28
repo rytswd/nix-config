@@ -22,6 +22,7 @@
       enable = true;
       pinentryPackage = pkgs.pinentry-gnome3;
 
+      # Allow use of GPG keys for SSH.
       enableSshSupport = true;
       sshKeys = [
         # Provide the keygrip

@@ -24,6 +24,7 @@
             "Noto"
           ]; })
       ] ++ [
+        pkgs.dejavu_fonts
         pkgs.raleway
         pkgs.monaspace
         pkgs.noto-fonts

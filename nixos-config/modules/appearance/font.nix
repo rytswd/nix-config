@@ -30,6 +30,17 @@
         pkgs.noto-fonts-cjk
         pkgs.noto-fonts-emoji
         pkgs.emacs-all-the-icons-fonts
+
+        # Fonts from Sora Sagano, clean and sophisticated look
+        # Ref: https://dotcolon.net
+        pkgs.tenderness
+        pkgs.medio
+        pkgs.melete
+        pkgs.seshat
+        pkgs.penna
+        pkgs.fa_1
+        pkgs.nacelle
+        pkgs.route159
       ];
     };
   };

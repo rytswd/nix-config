@@ -23,6 +23,25 @@
       enable = true;
       pinentryPackage = pkgs.pinentry-gnome3;
 
+      # GPG agent keeps the cache of the key, and set TTL (time-to-live) of
+      # 600sec by default. Whenever the cache is accessed, the timer is reset.
+      #
+      # There are two separate fields: "default cache ttl" and "max cache ttl".
+      # The "default cache ttl" is about the ttl set to the cache every time the
+      # cache is accessed. On the other hand, the "max cache ttl" is the time
+      # limit when the cache will be invalidated regardless of how recently the
+      # cache was accessed. So, for that reason, it does not make sense to have
+      # a longer "default cache ttl" value than "max cache ttl".
+      #
+      # Ref: https://www.gnupg.org/documentation/manuals/gnupg/Agent-Options.html
+      #
+      # I'm setting this to be a practically one time operation at the beginning
+      # of the day, and the cache to expire at least after a week.
+      defaultCacheTtl = (3600 * 24);
+      defaultCacheTtlSsh = (3600 * 24);
+      maxCacheTtl = (3600 * 24 * 7);
+      maxCacheTtlSsh = (3600 * 24 * 7);
+
       # Allow use of GPG keys for SSH.
       enableSshSupport = true;
       sshKeys = [

@@ -23,7 +23,8 @@
 
     # NOTE: This may be an overkill to have a module, but using this approach
     # just for the uniformity.
-    ../modules/machine-specific/asus.nix
+    # Commenting this out for now as asusctl isn't working correctly.
+    # ../modules/machine-specific/asus.nix
   ];
 
   desktop-environment.gnome.dconf.enable = true;

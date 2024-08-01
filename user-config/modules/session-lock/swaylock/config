@@ -12,6 +12,7 @@ datestr=%a, %e %B
 # Set font.
 font=Melete
 
+# Set fade-in duration.
 fade-in=0.2
 
 # Blur effect

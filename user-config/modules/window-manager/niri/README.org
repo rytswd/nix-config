@@ -240,7 +240,7 @@ The below is a reference only options I tested with.
 :END:
 Border is shown on all windows. One with the focus will have the "active" one. I use the gradiant look, as I like its look better than boring single colour 😆
 #+begin_src kdl
-          width 2
+          width 3
 
           active-gradient \
               to="#0081AF" \
@@ -578,13 +578,17 @@ Close window is the most similar to Cmd+Q on macOS, but probably more intuitive.
                          { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+"; }
     XF86AudioLowerVolume allow-when-locked=true \
                          { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-"; }
+    Shift+XF86AudioRaiseVolume allow-when-locked=true \
+                         { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SOURCE@" "0.05+"; }
+    Shift+XF86AudioLowerVolume allow-when-locked=true \
+                         { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SOURCE@" "0.05-"; }
     XF86AudioMute        allow-when-locked=true \
                          { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     XF86AudioMicMute     allow-when-locked=true \
                          { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
-    XF86MonBrightnessUp  { spawn "brightnessctl" "-d" r#""amdgpu_bl*""# "set 5%+" ; }
-    XF86MonBrightnessDown { spawn "brightnessctl" "-d" r#""amdgpu_bl*""# "set 5%-" ; }
+    XF86MonBrightnessUp  { spawn "brightnessctl" "-d" r#""amdgpu_bl*""# "set" "5%+" ; }
+    XF86MonBrightnessDown { spawn "brightnessctl" "-d" r#""amdgpu_bl*""# "set" "5%-" ; }
   
     Super+Shift+2           { screenshot; }
     Super+Shift+3           { screenshot-screen; }

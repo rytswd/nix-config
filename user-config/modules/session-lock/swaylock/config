@@ -1,0 +1,59 @@
+# Do not trigger error when pressing enter without typing anything.
+ignore-empty-password
+
+# Take screenshot at the time of lock.
+screenshots
+
+# Show clock.
+clock
+timestr=%R
+datestr=%a, %e %B
+
+# Set font.
+font=Melete
+
+fade-in=0.2
+
+# Blur effect
+effect-blur=7x5
+effect-vignette=0.5:0.5
+
+# Show typing indicator
+indicator
+indicator-radius=100
+indicator-thickness=4
+
+# Do not show which keyboard is being used
+hide-keyboard-layout
+
+key-hl-color=0496FF
+
+separator-color=00000000
+
+inside-color=000000BB
+# inside-clear-color=ffd20400
+# inside-caps-lock-color=009ddc00
+# inside-ver-color=d9d8d800
+# inside-wrong-color=ee2e2400
+
+ring-color=006BA6D9
+ring-clear-color=006BA6D9
+ring-caps-lock-color=006BA6D9
+ring-ver-color=006BA6D9
+ring-wrong-color=006BA6D9
+
+line-color=00000000
+# line-clear-color=ffd204FF
+# line-caps-lock-color=009ddcFF
+# line-ver-color=d9d8d8FF
+# line-wrong-color=ee2e24FF
+
+# text-clear-color=ffd20400
+# text-ver-color=d9d8d800
+# text-wrong-color=ee2e2400
+
+# bs-hl-color=ee2e24FF
+# caps-lock-key-hl-color=ffd204FF
+# caps-lock-bs-hl-color=ee2e24FF
+# disable-caps-lock-text
+# text-caps-lock-color=009ddc

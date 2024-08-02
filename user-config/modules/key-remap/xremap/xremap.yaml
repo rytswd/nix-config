@@ -18,105 +18,10 @@ modmap:
 # that may change the layout) and thus could be confusing how it would actually
 # map.
 keymap:
-  - name: Niri Transitions
-    # NOTE: This is for workspace transition. I should use something similar
-    # for all Window Manager / Desktop Environmment, somewhat mimicking what
-    # macOS does.
-    # This is rather hacky but necessary as C-left etc. are used for document
-    # navigation (i.e. move by word). In order to keep the C-left and other
-    # navigation related bindings intact, I'm creating a special sequence that
-    # does not conflict with anything else.
-    remap:
-      Ctrl-Shift_L-left: C-Shift-Super-left
-      Ctrl-Shift_L-right: C-Shift-Super-right
-      Ctrl-Shift_L-down: C-Shift-Super-down
-      Ctrl-Shift_L-up: C-Shift-Super-up
-      Ctrl-Alt_L-left: C-Shift-Alt-left
-      Ctrl-Alt_L-right: C-Shift-Alt-right
-      Ctrl-left: C-Shift-Super-Alt-left
-      Ctrl-right: C-Shift-Super-Alt-right
-      Ctrl-down: C-Shift-Super-Alt-down
-      Ctrl-up: C-Shift-Super-Alt-up
-      # NOTE: The below mappings make sure they don't get affected by above.
-      Ctrl-Alt_L-down: C-Alt-down
-      Ctrl-Alt_L-up: C-Alt-up
-      Ctrl-Super-left: C-Super-left
-      Ctrl-Super-right: C-Super-right
-      Ctrl-Super-down: C-Super-down
-      Ctrl-Super-up: C-Super-up
-
-  - name: Emacs / macOS like key bindings
-    application:
-      not:
-        - emacs
-        - ghostty
-        - nyxt
-    remap:
-      ###----------------------------------------
-      ##   Navigation
-      #------------------------------------------
-      # Forward/Backward word
-      # TODO: Mark update doesn't work correctly
-      M-n:          { with_mark: C-left } # Alt + b in Dvorak
-      M-y:          { with_mark: C-right } # Alt + f in Dvorak
-      M-left:       { with_mark: C-left }
-      M-right:      { with_mark: C-right }
-      # Beginning/End of line
-      C-a:          { with_mark: home }
-      C-d:          { with_mark: end } # Ctrl + e in Dvorak
-      Super-left:   { with_mark: home }
-      Super-right:  { with_mark: end }
-      # Beginning/End of document
-      # TODO: Mark update doesn't work correctly
-      Super-down:   { with_mark: C-end }
-      Super-up:     { with_mark: C-home }
-
-      ###----------------------------------------
-      ##   Edit
-      #------------------------------------------
-      # Kill line
-      C-v: [Shift-end, C-b, { set_mark: false }] # Ctrl + k in Dvorak
-      # Delete
-      C-h: [delete, { set_mark: false }] # Ctrl + h in Dvorak
-      M-h: [C-delete, { set_mark: false }] # Alt + h in Dvorak
-      # Kill word backward
-      Alt-backspace: [C-backspace, { set_mark: false }]
-      # Kill line backward
-      Super-backspace: [Shift-home, C-b, { set_mark: false }]
-
-      ###----------------------------------------
-      ##   Other
-      #------------------------------------------
-      # Cancel
-      C-u: [esc, { set_mark: false }] # Ctrl + g in Dvorak
-
-  - name: macOS like key bindings
-    application:
-      not:
-        - emacs
-        - ghostty
-        - nyxt
-    remap:
-      # NOTE: Because Xremap intercepts before Dvorak key binding comes into
-      # action, the left hand side is based on the QWERTY binding. However, for
-      # the remap target, Dvorak key binding takes place, and thus I neeed to
-      # provide the key based on QWERTY keyboard, which would be then translated
-      # using Dvorak keyboard.
-      #
-      # Example:
-      #     When I want to use QWERTY Super + S as Control S, I need to:
-      #     1. Provide Super-s on the left hand side
-      #     2. Find where the "s" key is on Dvorak (it is where "o" is)
-      #     3. Considering the "o" --> "s" translation, I need to set up
-      #        C-o as the target binding
-      #     4. I end up with the key binding of:
-      #        Super-s: C-o
-      Super-a: C-a
-      Super-z: C-Slash # OWERTY / == Dvorak z
-      Super-x: C-b # OWERTY b == Dvorak x
-      Super-c: C-i # OWERTY i == Dvorak c
-      Super-v: C-dot # OWERTY . == Dvorak v
-
+  # NOTE: Xremap is order sensitive. The first definition may be overridden by
+  # another binding that appears later in the file.
+  # For that reason, the first items on this list is the low priority items,
+  # which could be overridden by other key bindings later on.
   - name: Slack specific
     application:
       only: Slack
@@ -196,3 +101,103 @@ keymap:
       Super-8: C-8
       Super-9: C-9
       Super-0: C-0
+
+  - name: Emacs / macOS like key bindings
+    application:
+      not:
+        - emacs
+        - ghostty
+        - nyxt
+    remap:
+      ###----------------------------------------
+      ##   Navigation
+      #------------------------------------------
+      # Forward/Backward word
+      # TODO: Mark update doesn't work correctly
+      M-n:          { with_mark: C-left } # Alt + b in Dvorak
+      M-y:          { with_mark: C-right } # Alt + f in Dvorak
+      M-left:       { with_mark: C-left }
+      M-right:      { with_mark: C-right }
+      # Beginning/End of line
+      C-a:          { with_mark: home }
+      C-d:          { with_mark: end } # Ctrl + e in Dvorak
+      Super-left:   { with_mark: home }
+      Super-right:  { with_mark: end }
+      # Beginning/End of document
+      # TODO: Mark update doesn't work correctly
+      Super-down:   { with_mark: C-end }
+      Super-up:     { with_mark: C-home }
+
+      ###----------------------------------------
+      ##   Edit
+      #------------------------------------------
+      # Kill line
+      C-v: [Shift-end, C-b, { set_mark: false }] # Ctrl + k in Dvorak
+      # Delete
+      C-h: [delete, { set_mark: false }] # Ctrl + h in Dvorak
+      M-h: [C-delete, { set_mark: false }] # Alt + h in Dvorak
+      # Kill word backward
+      Alt-backspace: [C-backspace, { set_mark: false }]
+      # Kill line backward
+      Super-backspace: [Shift-home, C-b, { set_mark: false }]
+
+      ###----------------------------------------
+      ##   Other
+      #------------------------------------------
+      # Cancel
+      C-u: [esc, { set_mark: false }] # Ctrl + g in Dvorak
+
+  - name: macOS like key bindings
+    application:
+      not:
+        - emacs
+        - ghostty
+        - nyxt
+    remap:
+      # NOTE: Because Xremap intercepts before Dvorak key binding comes into
+      # action, the left hand side is based on the QWERTY binding. However, for
+      # the remap target, Dvorak key binding takes place, and thus I neeed to
+      # provide the key based on QWERTY keyboard, which would be then translated
+      # using Dvorak keyboard.
+      #
+      # Example:
+      #     When I want to use QWERTY Super + S as Control S, I need to:
+      #     1. Provide Super-s on the left hand side
+      #     2. Find where the "s" key is on Dvorak (it is where "o" is)
+      #     3. Considering the "o" --> "s" translation, I need to set up
+      #        C-o as the target binding
+      #     4. I end up with the key binding of:
+      #        Super-s: C-o
+      Super-a: C-a
+      Super-z: C-Slash # OWERTY / == Dvorak z
+      Super-x: C-b # OWERTY b == Dvorak x
+      Super-c: C-i # OWERTY i == Dvorak c
+      Super-v: C-dot # OWERTY . == Dvorak v
+
+  - name: Niri Transitions
+    # NOTE: This is for workspace transition. I should use something similar
+    # for all Window Manager / Desktop Environmment, somewhat mimicking what
+    # macOS does.
+    # This is rather hacky but necessary as C-left etc. are used for document
+    # navigation (i.e. move by word). In order to keep the C-left and other
+    # navigation related bindings intact, I'm creating a special sequence that
+    # does not conflict with anything else.
+    remap:
+      Ctrl-Shift_L-left: C-Shift-Super-left
+      Ctrl-Shift_L-right: C-Shift-Super-right
+      Ctrl-Shift_L-down: C-Shift-Super-down
+      Ctrl-Shift_L-up: C-Shift-Super-up
+      Ctrl-Alt_L-left: C-Shift-Alt-left
+      Ctrl-Alt_L-right: C-Shift-Alt-right
+      Ctrl-left: C-Shift-Super-Alt-left
+      Ctrl-right: C-Shift-Super-Alt-right
+      Ctrl-down: C-Shift-Super-Alt-down
+      Ctrl-up: C-Shift-Super-Alt-up
+      # NOTE: The below mappings make sure they don't get affected by above.
+      Ctrl-Alt_L-down: C-Alt-down
+      Ctrl-Alt_L-up: C-Alt-up
+      Ctrl-Super-left: C-Super-left
+      Ctrl-Super-right: C-Super-right
+      Ctrl-Super-down: C-Super-down
+      Ctrl-Super-up: C-Super-up
+

@@ -92,44 +92,6 @@ let
   });
 
   ###----------------------------------------
-  ##   Emacs Pure GTK
-  #------------------------------------------
-  emacs-pgtk-base = prev.emacs29-pgtk.override {
-    withNativeCompilation = true;
-    withSQLite3 = true;
-    withTreeSitter = true;
-    withWebP = true;
-    withImageMagick = true;
-    withXwidgets = true;
-  };
-  emacs-pgtk-rytswd = emacs-pgtk-base.overrideAttrs (oldAttrs: {
-    # pname = "emacs-rytswd";
-  });
-
-  ###----------------------------------------
-  ##   Emacs GTK3
-  #------------------------------------------
-  emacs-gtk3-base = prev.emacs29-gtk3.override {
-    withNativeCompilation = true;
-    withSQLite3 = true;
-    withTreeSitter = true;
-    withWebP = true;
-    withImageMagick = true;
-    withXwidgets = true;
-  };
-  emacs-gtk3-rytswd = emacs-gtk3-base.overrideAttrs (oldAttrs: {
-    # pname = "emacs-rytswd";
-  });
-
-  ###----------------------------------------
-  ##   Main Setup
-  #------------------------------------------
-  # I could replace "emacs" but keeping it explicitly separate for now.
-  emacs-rytswd = if prev.stdenv.isDarwin
-                 then emacs-plus-rytswd
-                 else emacs-pgtk-rytswd;
-
-  ###----------------------------------------
   ##   Packages
   #------------------------------------------
   # When building with extra packages, this makes double wrapping and causes
@@ -146,14 +108,9 @@ let
   ]);
   emacs-macport-rytswd-with-packages = emacs-macport-rytswd.pkgs.withPackages (packages);
   emacs-plus-rytswd-with-packages = emacs-plus-rytswd.pkgs.withPackages (packages);
-  emacs-pgtk-rytswd-with-packages = emacs-pgtk-rytswd.pkgs.withPackages (packages);
-  emacs-gtk3-rytswd-with-packages = emacs-gtk3-rytswd.pkgs.withPackages (packages);
-
 in {
-  emacs-rytswd = emacs-rytswd;
+  emacs-29-macos-plus = emacs-plus-rytswd;
 
   emacs-macport-rytswd = emacs-macport-rytswd;
   emacs-plus-rytswd = emacs-plus-rytswd;
-  emacs-pgtk-rytswd = emacs-pgtk-rytswd;
-  emacs-gtk3-rytswd = emacs-gtk3-rytswd;
 }

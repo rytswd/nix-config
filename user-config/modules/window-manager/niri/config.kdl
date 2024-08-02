@@ -169,6 +169,7 @@ binds {
     
     Ctrl+Alt+Return         { maximize-column; }
     Ctrl+Alt+Shift+F        { fullscreen-window; }
+    F11                     { fullscreen-window; }
     Ctrl+Alt+C              { center-column; }
     Ctrl+Alt+Space          { switch-preset-column-width; }
     // Mod+Shift+R { reset-window-height; }

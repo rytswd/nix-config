@@ -17,7 +17,7 @@
         };
       shellAbbrs = {
         tm = "tmux new-session -A -D -s main";
-        ec = "emacsclient";
+        ec = "emacsclient -n";
         flake = "nix flake";
       };
     };

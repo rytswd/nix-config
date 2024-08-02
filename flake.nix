@@ -47,14 +47,14 @@
       url = "git+ssh://git@github.com/mitchellh/ghostty";
     };
 
-    # emacs-29-src = {
-    #   url = "github:emacs-mirror/emacs/emacs-29";
-    #   flake = false;
-    # };
-    # emacs-overaly = {
-    #   url = "github:Nix-Community/emacs-overlay";
-    # };
-
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    emacs-30-src = {
+      url = "github:emacs-mirror/emacs/emacs-30";
+      flake = false;
+    };
     ###----------------------------------------
     ##  NixOS Specific
     #------------------------------------------
@@ -85,16 +85,6 @@
 
     # + Overlays
 
-    # emacsOverlay = emacs-overlay.overlays.default;
-    # emacsOverlay = emacs-overlay.overlays.default (final : prev: {
-	#   emacs29 = final.emacsGit.overrideAttrs (old : {
-	#     name = "emacs29";
-    #     version = "29.0-${emacs-29-src.shortRev}";
-    #     src = emacs-29-src;
-    #     withPgtk = true;
-	#   });
-	# });
-
     # Language related overlays
     goOverlay = (final: prev: {
       go = nixpkgs-unstable.legacyPackages.${prev.system}.go_1_22;
@@ -107,14 +97,15 @@
     });
 
     # Editor related overlays
-    emacs-overlay = (import ./overlays/emacs.nix );
+    emacsOverlay = inputs.emacs-overlay.overlays.default;
+    emacsOverlayPersonal = (import ./overlays/emacs.nix ); # FIXME: Move to module
     vscodeOverlay = (import ./overlays/vscode.nix);
 
     # Other utility related overlays
-    tree-sitter-overlay = (import ./overlays/tree-sitter.nix );
-    # erdtree-overlay = (import ./overlays/erdtree.nix );
-    # yazi-overlay = (import ./overlays/yazi.nix );
-    grip-overlay = (import ./overlays/grip.nix );
+    treeSitterOverlay = (import ./overlays/tree-sitter.nix );
+    # erdtreeOverlay = (import ./overlays/erdtree.nix );
+    # yaziOverlay = (import ./overlays/yazi.nix );
+    gripOverlay = (import ./overlays/grip.nix );
 
     # NixOS related overlays
     niriOverlay = inputs.niri.overlays.niri;
@@ -125,13 +116,14 @@
       # fenixOverlay
       rocOverlay
 
-      emacs-overlay
+      emacsOverlay
+      emacsOverlayPersonal
       vscodeOverlay
 
-      tree-sitter-overlay
-      # erdtree-overlay
-      # yazi-overlay
-      grip-overlay
+      treeSitterOverlay
+      # erdtreeOverlay
+      # yaziOverlay
+      gripOverlay
 
       niriOverlay # TODO: Make this only for NixOS.
     ];

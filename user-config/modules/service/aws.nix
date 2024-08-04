@@ -10,7 +10,7 @@
 
   config = lib.mkIf config.service.aws.enable {
     home.packages = [
-      pkgs.awscli
+      pkgs.awscli2
     ];
   };
 }

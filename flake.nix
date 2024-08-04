@@ -20,6 +20,7 @@
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    nh-darwin.url = "github:ToyVo/nh_darwin";
 
     ###----------------------------------------
     ##  Language related flakes

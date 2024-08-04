@@ -49,6 +49,7 @@ in {
     communication.signal.enable = true;
     communication.discord.enable = true;
     notification.ags-notification.enable = true;
+    service.surrealdb.enable = true;
 
     ###----------------------------------------
     ##   Other Home Manager Setup

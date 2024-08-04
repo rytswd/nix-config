@@ -15,5 +15,9 @@
         withExtraComponents ([ components.gke-gcloud-auth-plugin ])
       )
     ];
+    home.shellAliases = {
+      gccact = "gcloud config configurations activate";
+      gccls = "gcloud config configurations list";
+    };
   };
 }

@@ -10,7 +10,8 @@
 
   config = lib.mkIf config.input.trackpad.enable {
     # Disable the touchpad while typing.
-    # TODO: Check if this is actually working, and move this somewhere more sensible
+    # NOTE: This works by itself, but other key remapping solutions like xremap
+    # would change the behaviour and may not have any effect because of that.
     services.libinput.touchpad.disableWhileTyping = true;
   };
 }

@@ -10,6 +10,6 @@
 
   config = lib.mkIf config.vpn.tailscale.enable {
     services.tailscale.enable = true;
-    networking.firewall.allowedUDPPorts = [ ${services.tailscale.port} ];
+    networking.firewall.allowedUDPPorts = [ config.services.tailscale.port ];
   };
 }

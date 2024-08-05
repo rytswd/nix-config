@@ -20,7 +20,7 @@
     # Ensures I do not have to restart the service when definition changes
     watch = true;
     deviceNames = [
-      "Asus\ Keyboard"
+      "Asus Keyboard"
     ];
     yamlConfig = (builtins.readFile ./xremap.yaml);
   };

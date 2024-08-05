@@ -10,6 +10,7 @@
     ./proton-pass.nix
     ./civo.nix
     ./aws.nix
+    ./azure.nix
     ./gcp.nix
     ./fly.nix
     ./terraform.nix
@@ -21,6 +22,7 @@
   service.proton-pass.enable = lib.mkDefault true;
   service.civo.enable = lib.mkDefault true;
   service.aws.enable = lib.mkDefault true;
+  service.azure.enable = lib.mkDefault true;
   service.gcp.enable = lib.mkDefault true;
   service.fly.enable = lib.mkDefault true;
   service.terraform.enable = lib.mkDefault true;

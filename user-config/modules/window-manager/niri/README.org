@@ -468,6 +468,11 @@ I use ~fuzzel~ for my launcher.
   Alt+Space     { spawn "fuzzel"; }
 #+end_src
 
+There are times some commands stop working. I'm making sure at least I get a terminla I can run stuff from.
+#+begin_src kdl
+  Shift+XF86Launch1 { spawn "ghostty"; }
+#+end_src
+
 Use fuzzel for the clipboard history, as well as emoji picker.
 TODO: For emoji, I would want to just type it out, but cannot make it work for some reason. I'm using the ~-c~ flag with ~bemoji~ to copy to clipboard for now.
 #+begin_src kdl

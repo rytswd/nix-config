@@ -46,6 +46,8 @@
     #------------------------------------------
     ghostty = {
       url = "git+ssh://git@github.com/mitchellh/ghostty";
+      inputs.nixpkgs-stable.follows = "nixpkgs-unstable";
+      inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
     };
 
     emacs-overlay = {

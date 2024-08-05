@@ -10,10 +10,9 @@
 
   config = lib.mkIf config.linux-widget.password.enable {
     home.packages = [
-      # NOTE: When GNOME is enabled for the NixOS as a whole, I can make use of
-      # the system wide installation. But I'm just making sure that the user
-      # config can make use of Seahorse (aka Passwords and Keys).
-      pkgs.gnome.seahorse
+      # NOTE: Seahorse is "Passwords and Keys" app from GNOME. It used to be a
+      # part of pkgs.gnome, but now it's a top-level application.
+      pkgs.seahorse
     ];
   };
 }

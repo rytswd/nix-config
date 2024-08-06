@@ -30,6 +30,8 @@
         # NOTE: This approach of having custom plugins work perfectly fine, but this
         # would also pollute the PATH with the plugins' directories. There may be a
         # better way to do this.
+        # There is a ticket questioning this, without any activities really.
+        # https://github.com/nix-community/home-manager/issues/2340
         {
           # This is needed to be loaded before other plugins.
           name = "early-options";

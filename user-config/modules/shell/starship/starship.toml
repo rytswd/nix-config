@@ -35,12 +35,13 @@ style = "bg:#444444"
 format = "[ $symbol ]($style)"
 [os.symbols]
 Macos = ""
+NixOS = "󱄅"
 
 [shell]
 disabled = false # Disabled by default
 style = "bg:#181D38"
 format = '[ $indicator ]($style)'
-fish_indicator = ''
+fish_indicator = '󰈺'
 bash_indicator = ''
 
 [username]
@@ -52,22 +53,37 @@ disabled = false
 
 [directory]
 style = "bg:#257F7F"
-format = "[ $path ]($style)"
+format = "[ $path ]($style)[$read_only]($read_only_style)"
+truncate_to_repo = true
 truncation_length = 3
 truncation_symbol = "…/"
+repo_root_style = "bg:#257F7F bold fg:#9DD1F1"
+before_repo_root_style = "bg:#257F7F fg:#031927"
+read_only_style = "bg:#257F7F fg:red"
+repo_root_format = "[ $before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path ]($style)[$read_only]($read_only_style)"
+# TODO: Check out https://github.com/starship/starship/issues/6166 for repo visibility support
+
+# Use fish style notation of a single character for truncated path.
+fish_style_pwd_dir_length = 1
+
+# NOTE: The above fish style requires there is no substitutions defined. For
+# now, I prefer the fish style (and that's what I use with Powerline10k), I'm
+# disabling the below.
 
 # Here is how you can shorten some long paths by text replacement
 # similar to mapped_locations in Oh My Posh:
-[directory.substitutions]
-"Documents" = " "
-"Downloads" = " "
-"Music" = " "
-"Pictures" = " "
+# [directory.substitutions]
+# "Documents" = " "
+# "Downloads" = " "
+# "Music" = " "
+# "Pictures" = " "
+
 # Keep in mind that the order matters. For example:
 # "Important Documents" = "  "
 # will not be replaced, because "Documents" was already substituted before.
 # So either put "Important Documents" before "Documents" or use the substituted version:
 # "Important  " = "  "
+
 
 [git_branch]
 symbol = ""

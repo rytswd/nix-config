@@ -7,6 +7,7 @@
   imports = [
     ./gdm.nix
     ./sddm.nix
+    ./cosmic-greeter.nix
   ];
 
   login-manager.gdm.enable = lib.mkDefault false; # Being explicit

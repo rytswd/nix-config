@@ -75,6 +75,12 @@
     hyprswitch.url = "github:h3rmt/hyprswitch/release";
 
     niri.url = "github:sodiboo/niri-flake";
+
+    # Desktop Environment
+    cosmic = {
+      url = "github:lilyinstarlight/nixos-cosmic";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =

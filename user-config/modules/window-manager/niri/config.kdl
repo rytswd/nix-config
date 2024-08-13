@@ -146,8 +146,8 @@ binds {
     // NOTE: These key bindings are designed so that they are difficult to use,
     // and should not conflict with other key bindings. In order to use this
     // in real scenario, I would need key remapping solutions like Xremap.
-    Ctrl+Shift+Alt+Super+Left   { focus-column-left-or-last; }
-    Ctrl+Shift+Alt+Super+Right  { focus-column-right-or-first; }
+    Ctrl+Shift+Alt+Super+Left   { focus-column-left; }
+    Ctrl+Shift+Alt+Super+Right  { focus-column-right; }
     Ctrl+Shift+Alt+Super+Down   { focus-workspace-down; }
     Ctrl+Shift+Alt+Super+Up     { focus-workspace-up; }
     // These are somewhat easy alternative when remap is not working for any

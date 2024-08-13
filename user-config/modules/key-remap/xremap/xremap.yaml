@@ -101,6 +101,10 @@ keymap:
       Super-8: C-8
       Super-9: C-9
       Super-0: C-0
+      # Ensure screenshot keys are not overridden
+      Super-Shift-2: Super-Shift-2
+      Super-Shift-3: Super-Shift-3
+      Super-Shift-4: Super-Shift-4
 
   - name: Emacs / macOS like key bindings
     application:

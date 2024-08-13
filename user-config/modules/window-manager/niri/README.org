@@ -359,6 +359,18 @@ It is important to set the ~draw-border-with-background~ flag to ~false~, otherw
   }
 #+end_src
 
+Browsers should not be transparent
+#+begin_src kdl
+  window-rule {
+      match app-id="vivaldi"
+      match app-id="brave"
+      match app-id="firefox"
+      match app-id="chromium"
+      match app-id="nyxt"
+      opacity 1.0
+  }
+#+end_src
+
 For Emacs, I'm setting the default column to be bigger
 #+begin_src kdl
   window-rule {

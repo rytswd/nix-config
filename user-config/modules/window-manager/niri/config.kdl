@@ -99,6 +99,15 @@ window-rule {
 }
 
 window-rule {
+    match app-id="vivaldi"
+    match app-id="brave"
+    match app-id="firefox"
+    match app-id="chromium"
+    match app-id="nyxt"
+    opacity 1.0
+}
+
+window-rule {
     match app-id="emacs"
     default-column-width { proportion 0.9; }
 }

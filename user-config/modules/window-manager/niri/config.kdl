@@ -203,7 +203,8 @@ binds {
     
     Super+Shift+2           { screenshot; }
     Super+Shift+3           { screenshot-screen; }
-    Super+Shift+4           { screenshot-window; }
+    // Super+Shift+4           { screenshot-window; }
+    Super+Shift+4           { spawn "sh" "-c" "grim -g \"$(slurp)\" - 2>/dev/null | swappy -f - 2>/dev/null"; }
     Print                   { screenshot; }
     Ctrl+Print              { screenshot-screen; }
     Alt+Print               { screenshot-window; }

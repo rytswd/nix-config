@@ -10,10 +10,10 @@
 
   config = lib.mkIf config.screenshot.swappy.enable {
     home.packages = [
-      pkgs.grim
+      pkgs.swappy
     ];
     xdg.configFile = {
-      "swappy".text = ''
+      "swappy/config".text = ''
         [Default]
         save_dir=$HOME/Pictures/Screenshots/
         save_filename_format=ss-%Y%m%d-%H%M%S.png

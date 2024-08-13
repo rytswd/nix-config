@@ -198,8 +198,8 @@ binds {
     XF86AudioMicMute     allow-when-locked=true \
                          { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
     
-    XF86MonBrightnessUp  { spawn "brightnessctl" "-d" r#""amdgpu_bl*""# "set" "5%+" ; }
-    XF86MonBrightnessDown { spawn "brightnessctl" "-d" r#""amdgpu_bl*""# "set" "5%-" ; }
+    XF86MonBrightnessUp  { spawn "sh" "-c" "brightnessctl -d \"amdgpu_bl*\" set 5%+" ; }
+    XF86MonBrightnessDown { spawn "sh" "-c" "brightnessctl -d \"amdgpu_bl*\" set 5%-" ; }
     
     Super+Shift+2           { screenshot; }
     Super+Shift+3           { screenshot-screen; }

@@ -36,6 +36,7 @@ in {
       ../../modules/dictionary
       ../../modules/communication
       ../../modules/image
+      ../../modules/screenshot
       ../../modules/video
       ../../modules/linux-widget
     ];

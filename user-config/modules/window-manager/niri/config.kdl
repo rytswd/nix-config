@@ -47,13 +47,13 @@ layout {
         active-gradient \
             to="#0081AF" \
             from="#F29940" \
-            angle=75 \
-            relative-to="workspace-view"
+            angle=75
+            // relative-to="workspace-view"
         inactive-gradient \
             to="#808080" \
             from="#505050" \
-            angle=45 \
-            relative-to="workspace-view"
+            angle=45
+            // relative-to="workspace-view"
     }
     struts {
         // left 64

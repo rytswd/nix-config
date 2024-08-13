@@ -1596,6 +1596,26 @@
         "type": "github"
       }
     },
+    "hyprscroller": {
+      "inputs": {
+        "hyprland": [
+          "hyprland"
+        ]
+      },
+      "locked": {
+        "lastModified": 1721406291,
+        "narHash": "sha256-5aitqh9U/bgfrlLEMjfT3d6GR0IWbhaeEB7KNCIH6YE=",
+        "owner": "dawsers",
+        "repo": "hyprscroller",
+        "rev": "978c1ce8f64781826a0c0e1d7dea7448da0cc017",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dawsers",
+        "repo": "hyprscroller",
+        "type": "github"
+      }
+    },
     "hyprswitch": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -2566,6 +2586,7 @@
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "hyprland-plugins": "hyprland-plugins",
+        "hyprscroller": "hyprscroller",
         "hyprswitch": "hyprswitch",
         "nh-darwin": "nh-darwin",
         "niri": "niri",

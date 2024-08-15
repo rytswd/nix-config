@@ -8,21 +8,21 @@ format = """
 $os\
 [](bg:#181D38 fg:#444444)\
 $shell\
-[](bg:#2A468C fg:#181D38)\
+[](bg:#0A2239 fg:#181D38)\
 $username\
-[](bg:#257F7F fg:#2A468C)\
+[](bg:#123F68 fg:#0A2239)\
 $directory\
-[](bg:#89BFD3 fg:#257F7F)\
+[](bg:#18548B fg:#123F68)\
 $git_branch\
 $git_status\
-[](bg:#EBEBEB fg:#89BFD3)\
+[](bg:#EBEBEB fg:#18548B)\
 [](#EBEBEB)\
 $fill\
 [](#EBEBEB)\
 $cmd_duration\
-[](bg:#EBEBEB fg:#89BFD3)\
+[](bg:#EBEBEB fg:#18548B)\
 $direnv\
-[](bg:#89BFD3 fg:#444444)\
+[](bg:#18548B fg:#444444)\
 $jobs\
 $time\
 $line_break\
@@ -46,20 +46,20 @@ bash_indicator = ''
 
 [username]
 show_always = true
-style_user = "bg:#2A468C"
-style_root = "bg:#2A468C"
+style_user = "bg:#0A2239"
+style_root = "bg:#0A2239"
 format = '[ $user ]($style)'
 disabled = false
 
 [directory]
-style = "bg:#257F7F"
+style = "bg:#123F68"
 format = "[ $path ]($style)[$read_only]($read_only_style)"
 truncate_to_repo = true
 truncation_length = 3
 truncation_symbol = "…/"
-repo_root_style = "bg:#257F7F bold fg:#9DD1F1"
-before_repo_root_style = "bg:#257F7F fg:#031927"
-read_only_style = "bg:#257F7F fg:red"
+repo_root_style = "bg:#123F68 bold fg:#9DD1F1"
+before_repo_root_style = "bg:#123F68 fg:#031927"
+read_only_style = "bg:#123F68 fg:red"
 repo_root_format = "[ $before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path ]($style)[$read_only]($read_only_style)"
 # TODO: Check out https://github.com/starship/starship/issues/6166 for repo visibility support
 
@@ -87,15 +87,16 @@ fish_style_pwd_dir_length = 1
 
 [git_branch]
 symbol = ""
-style = "bg:#89BFD3 fg:#222222"
+style = "bg:#18548B fg:#222222"
 format = '[ $symbol $branch ]($style)'
 
 [git_status]
-style = "bg:#89BFD3 fg:#222222"
+style = "bg:#18548B fg:#222222"
 format = '[$all_status$ahead_behind ]($style)'
 
 [fill]
 symbol = "─"
+style = "fg:#EBEBEB"
 
 [cmd_duration]
 format = '[  $duration ]($style)'
@@ -104,7 +105,7 @@ style = "bg:#EBEBEB fg:#222222"
 [direnv]
 disabled = false # Disabled by default
 format = '[ 󱄅 $allowed ]($style)'
-style = "bg:#89BFD3 fg:#222222"
+style = "bg:#18548B fg:#222222"
 symbol = '󱄅'
 allowed_msg = ' '
 not_allowed_msg = ' '

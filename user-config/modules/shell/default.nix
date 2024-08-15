@@ -19,7 +19,7 @@
     ./nushell.nix
     ./zsh.nix
 
-    ./starship.nix
+    ./starship
     ./yazi
 
     # I don't use it much, but keeping it in.
@@ -36,6 +36,7 @@
   shell.nushell.enable = lib.mkDefault true;
   shell.zsh.enable = lib.mkDefault true;
   shell.starship.enable = lib.mkDefault true;
+  shell.yazi.enable = lib.mkDefault true;
 
   shell.tmux.enable = lib.mkDefault false; # Being explicit
 }

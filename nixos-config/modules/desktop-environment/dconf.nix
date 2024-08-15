@@ -52,6 +52,8 @@
         }
       ];
     };
-    environment.systemPackages = [ pkgs.gnomeExtensions.paperwm ];
+    environment.systemPackages = [
+      pkgs.gnomeExtensions.paperwm
+    ];
   };
 }

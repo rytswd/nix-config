@@ -8,9 +8,9 @@ format = """
 $os\
 [](bg:#181D38 fg:#444444)\
 $shell\
-[](bg:#0A2239 fg:#181D38)\
+[](bg:#0F3457 fg:#181D38)\
 $username\
-[](bg:#123F68 fg:#0A2239)\
+[](bg:#123F68 fg:#0F3457)\
 $directory\
 [](bg:#18548B fg:#123F68)\
 $git_branch\
@@ -46,8 +46,8 @@ bash_indicator = ''
 
 [username]
 show_always = true
-style_user = "bg:#0A2239"
-style_root = "bg:#0A2239"
+style_user = "bg:#0F3457"
+style_root = "bg:#0F3457"
 format = '[ $user ]($style)'
 disabled = false
 
@@ -58,7 +58,7 @@ truncate_to_repo = true
 truncation_length = 3
 truncation_symbol = "…/"
 repo_root_style = "bg:#123F68 bold fg:#9DD1F1"
-before_repo_root_style = "bg:#123F68 fg:#031927"
+before_repo_root_style = "bg:#123F68 fg:#AAAAAA"
 read_only_style = "bg:#123F68 fg:red"
 repo_root_format = "[ $before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path ]($style)[$read_only]($read_only_style)"
 # TODO: Check out https://github.com/starship/starship/issues/6166 for repo visibility support
@@ -87,11 +87,11 @@ fish_style_pwd_dir_length = 1
 
 [git_branch]
 symbol = ""
-style = "bg:#18548B fg:#222222"
+style = "bg:#18548B fg:#EBEBEB"
 format = '[ $symbol $branch ]($style)'
 
 [git_status]
-style = "bg:#18548B fg:#222222"
+style = "bg:#18548B fg:#EBEBEB"
 format = '[$all_status$ahead_behind ]($style)'
 
 [fill]
@@ -105,7 +105,7 @@ style = "bg:#EBEBEB fg:#222222"
 [direnv]
 disabled = false # Disabled by default
 format = '[ 󱄅 $allowed ]($style)'
-style = "bg:#18548B fg:#222222"
+style = "bg:#18548B fg:#EBEBEB"
 symbol = '󱄅'
 allowed_msg = ' '
 not_allowed_msg = ' '

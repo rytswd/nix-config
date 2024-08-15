@@ -10,6 +10,7 @@
     # (though it is unlikely to need to), and thus having this aliases defined
     # earlier.
     ./aliases.nix
+
     ./env.nix
     ./direnv.nix
     ./util.nix
@@ -17,7 +18,9 @@
     ./fish.nix
     ./nushell.nix
     ./zsh.nix
+
     ./starship.nix
+    ./yazi
 
     # I don't use it much, but keeping it in.
     ./tmux.nix

@@ -72,13 +72,7 @@
       };
 
       # I use Yazi for most of the file navigation (along with Zoxide).
-      yazi = {
-        enable = true;
-        enableBashIntegration = true;
-        enableZshIntegration = true;
-        enableFishIntegration = true;
-        enableNushellIntegration = true;
-      };
+      # Yazi definitions are in a separate file as it needs more tweaking.
 
       zoxide = {
         enable = true;
@@ -102,9 +96,6 @@
       "fd".recursive = true;
 
       "ripgrep/config".source = ./ripgrep/ripgrep-conf.sh;
-
-      "yazi".source = ./yazi;
-      "yazi".recursive = true;
     };
   };
 }

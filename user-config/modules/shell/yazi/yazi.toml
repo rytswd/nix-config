@@ -11,6 +11,8 @@ sort_dir_first  = true
 linemode        = "mtime"
 show_hidden     = true
 show_symlink    = true
+scrolloff       = 5
+mouse_events    = [ "click", "scroll" ]
 
 [preview]
 tab_size        = 2
@@ -28,7 +30,7 @@ edit = [
 	{ run = 'code-insiders "$@"',  desc = "VSCode Insiders",   for = "macos" },
 ]
 open = [
-	# { run = 'xdg-open "$@"',             desc = "Open", for = "linux" },
+    { run = 'xdg-open "$@"',       desc = "Open",              for = "linux" },
 	{ run = 'open "$@"',           desc = "Open",              for = "macos" },
 	# { run = 'start "%1"', orphan = true, desc = "Open", for = "windows" }
 ]

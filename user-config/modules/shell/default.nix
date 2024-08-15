@@ -21,9 +21,8 @@
 
     ./starship
     ./yazi
-
     # I don't use it much, but keeping it in.
-    ./tmux.nix
+    ./tmux
   ];
 
   shell.standard.enable = lib.mkDefault true;

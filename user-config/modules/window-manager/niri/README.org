@@ -467,6 +467,8 @@ NOTE: I got a lot of configurations in Xremap, and without it, many of the bindi
       <<key-bindings-size>>
       <<key-bindings-move>>
 
+      <<key-bindings-mouse-wheel>>
+
       <<key-bindings-other>>
   }
 #+end_src
@@ -584,6 +586,18 @@ Close window is the most similar to Cmd+Q on macOS, but probably more intuitive.
 
     Ctrl+Super+Comma        { consume-window-into-column; }
     Ctrl+Super+Period       { expel-window-from-column; }
+#+end_src
+
+*** Mouse Wheel Based
+:PROPERTIES:
+:header-args: :tangle no :noweb-ref key-bindings-mouse-wheel
+:END:
+
+#+begin_src kdl
+    Ctrl+Super+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
+    Ctrl+Super+WheelScrollUp   cooldown-ms=150 { focus-workspace-up; }
+    Ctrl+Super+WheelScrollRight                { focus-column-right; }
+    Ctrl+Super+WheelScrollLeft                 { focus-column-left; }
 #+end_src
 
 *** Other

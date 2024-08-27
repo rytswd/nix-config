@@ -194,6 +194,11 @@ binds {
     Ctrl+Super+Comma        { consume-window-into-column; }
     Ctrl+Super+Period       { expel-window-from-column; }
 
+    Ctrl+Super+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
+    Ctrl+Super+WheelScrollUp   cooldown-ms=150 { focus-workspace-up; }
+    Ctrl+Super+WheelScrollRight                { focus-column-right; }
+    Ctrl+Super+WheelScrollLeft                 { focus-column-left; }
+
     XF86AudioRaiseVolume allow-when-locked=true \
                          { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+"; }
     XF86AudioLowerVolume allow-when-locked=true \

@@ -12,6 +12,7 @@
     home.packages = [
       pkgs.talosctl
       pkgs.vcluster
+      pkgs.kubevirt
     ];
   };
 }

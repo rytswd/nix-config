@@ -15,19 +15,23 @@ $directory\
 [](bg:#18548B fg:#123F68)\
 $git_branch\
 $git_status\
-[](bg:#EBEBEB fg:#18548B)\
-[](#EBEBEB)\
+[](bg:#85B9EA fg:#18548B)\
+[](#85B9EA)\
 $fill\
-[](#EBEBEB)\
+[](#85B9EA)\
 $cmd_duration\
-[](bg:#EBEBEB fg:#18548B)\
+[](bg:#85B9EA fg:#18548B)\
 $direnv\
 [](bg:#18548B fg:#444444)\
 $jobs\
 $time\
 $line_break\
+$shlvl\
 $character
 """
+
+# Disabling the right format for now
+# right_format = """$all"""
 
 [os]
 disabled = false # Disabled by default
@@ -96,11 +100,11 @@ format = '[$all_status$ahead_behind ]($style)'
 
 [fill]
 symbol = "─"
-style = "fg:#EBEBEB"
+style = "fg:#85B9EA"
 
 [cmd_duration]
 format = '[  $duration ]($style)'
-style = "bg:#EBEBEB fg:#222222"
+style = "bg:#85B9EA fg:#222222"
 
 [direnv]
 disabled = false # Disabled by default
@@ -116,3 +120,11 @@ disabled = false # Disabled by default
 format = '[ $time ]($style)'
 time_format = '%T'
 style = 'bg:#444444'
+
+[shlvl]
+disabled = false
+format = '[$symbol]($style)'
+repeat = true
+symbol = '❯'
+repeat_offset = 3
+threshold = 3

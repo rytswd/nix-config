@@ -64,7 +64,8 @@ setopt INTERACTIVE_COMMENTS
 # lookup to function with Ctrl-s.
 setopt NO_FLOW_CONTROL
 
-
+# Ensure Emacs based key bindings work correctly (such as M-d for delete).
+setopt EMACS
 
 # ====================
 #   Extra

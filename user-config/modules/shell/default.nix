@@ -21,8 +21,7 @@
     ./direnv
     ./starship
     ./yazi
-    # I don't use it much, but keeping it in.
-    ./tmux
+    ./tmux # I don't use it much, but keeping it in.
   ];
 
   shell.standard.enable = lib.mkDefault true;

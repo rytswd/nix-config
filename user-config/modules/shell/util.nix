@@ -74,6 +74,8 @@
       # I use Yazi for most of the file navigation (along with Zoxide).
       # Yazi definitions are in a separate file as it needs more tweaking.
 
+      # Atuin is also enabled, but handled separately in a module.
+
       zoxide = {
         enable = true;
         # In order to call the builtin 'cd', I can use 'builtin cd'.

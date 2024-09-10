@@ -105,6 +105,8 @@ keymap:
       # aware of the document edit, so this may be OK to leave out.
       Super-left: Alt-left
       Super-right: Alt-right
+      Super-Shift-left: Shift-home
+      Super-Shift-right: Shift-end
       Super-1: C-1
       Super-2: C-2
       Super-3: C-3

@@ -205,6 +205,10 @@ keymap:
       Ctrl-Shift_L-right: C-Shift-Super-right
       Ctrl-Shift_L-down: C-Shift-Super-down
       Ctrl-Shift_L-up: C-Shift-Super-up
+      # NOTE: niri takes these inputs as they are, rather than doing Dvorak
+      # conversion.
+      Ctrl-Shift_L-j: C-Shift-Super-j
+      Ctrl-Shift_L-p: C-Shift-Super-p
       Ctrl-Alt_L-left: C-Shift-Alt-left
       Ctrl-Alt_L-right: C-Shift-Alt-right
       Ctrl-left: C-Shift-Super-Alt-left

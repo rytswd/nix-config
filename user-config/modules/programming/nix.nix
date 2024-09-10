@@ -13,6 +13,7 @@
       pkgs.nix-output-monitor
       pkgs.nvd
       pkgs.nh
+      pkgs.nix-prefetch-github
     ];
     home.shellAliases = {
       flakeinit = "nix flake init -t \"github:rytswd/nix-direnv-template\" --refresh";

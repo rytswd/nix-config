@@ -23,9 +23,8 @@
     };
 
     settings = {
-      trusted-users = [ "@admin" ];
-
       auto-optimise-store = true;
+
       # Recommended when using `direnv` etc.
       keep-derivations = true;
       keep-outputs = true;
@@ -35,6 +34,8 @@
         "flakes"
       ];
 
+      # Cache / Cachix
+      trusted-users = [ "@admin" "ryota" ];
       substituters = [
         "https://cache.nixos.org/"
         "https://nix-community.cachix.org"

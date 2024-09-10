@@ -58,6 +58,7 @@
       url = "github:emacs-mirror/emacs/emacs-30";
       flake = false;
     };
+
     ###----------------------------------------
     ##  NixOS Specific
     #------------------------------------------

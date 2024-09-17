@@ -583,8 +583,8 @@ Close window is the most similar to Cmd+Q on macOS, but probably more intuitive.
     Ctrl+Shift+Super+Right  { move-column-right; }
     Ctrl+Shift+Super+Down   { move-window-down-or-to-workspace-down; }
     Ctrl+Shift+Super+Up     { move-window-up-or-to-workspace-up; }
-    Ctrl+Shift+Super+D      { consume-or-expel-window-left; }  // H on Dvorak
-    Ctrl+Shift+Super+N      { consume-or-expel-window-right; } // L on Dvorak
+    Ctrl+Shift+Super+H      { consume-or-expel-window-left; }
+    Ctrl+Shift+Super+L      { consume-or-expel-window-right; }
 #+end_src
 
 *** Mouse Wheel Based

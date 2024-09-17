@@ -10,7 +10,7 @@
 
   config = lib.mkIf config.core.user-management.enable {
     # Ensure password can be changed with `passwd`.
-    users.mutableUsers = false;
+    users.mutableUsers = true;
 
     # Don't require password for sudo
     security.sudo.wheelNeedsPassword = false;

@@ -29,66 +29,69 @@
     };
 
     # Git config equivalent
-    programs.git.extraConfig = {
-      user = {
-        name = "Ryota";
-        useConfigOnly = true;
-        # Key with YubiKey
-        signingkey = "24F699F8056E6082";
-        # Old key used on macOS
-        # signingkey = 678FE5498813DE6A
-      };
-      github.user = "rytswd";
-      gitlab.user = "rytswd";
-      credential.helper =  "${pkgs.gitFull}/bin/git-credential-libsecret";
+    programs.git = {
+      extraConfig = {
+        user = {
+          name = "Ryota";
+          # NOTE: email is set below with includes.
+          useConfigOnly = true;
+          # Key with YubiKey
+          signingkey = "24F699F8056E6082";
+          # Old key used on macOS
+          # signingkey = 678FE5498813DE6A
+        };
+        github.user = "rytswd";
+        gitlab.user = "rytswd";
+        credential.helper =  "${pkgs.gitFull}/bin/git-credential-libsecret";
 
-      core = {
-        autocrlf = "input";
-        editor = "nvim";
-      };
-      color = {
-        branch = true;
-        ui = true;
-        diff = true;
-        status = true;
-      };
+        core = {
+          autocrlf = "input";
+          editor = "nvim";
+        };
+        color = {
+          branch = true;
+          ui = true;
+          diff = true;
+          status = true;
+        };
 
-      help.autocorrect = 1;
-      commit.gpgsign = true;
+        help.autocorrect = 1;
+        commit.gpgsign = true;
 
-      # NOTE: A lot of the settings here aren't really used as I use Emacs's
-      # magit for most of git interactions.
-      push.default = "current";
-      fetch.prune = true;
-      pull.rebase = true;
-      rebase.autoStash = true;
+        # NOTE: A lot of the settings here aren't really used as I use Emacs's
+        # magit for most of git interactions.
+        push.default = "current";
+        fetch.prune = true;
+        pull.rebase = true;
+        rebase.autoStash = true;
 
-      filter.lfs = {
-        required = true;
-	    clean = "git-lfs clean -- %f";
-	    smudge = "git-lfs smudge --skip -- %f";
-	    process = "git-lfs filter-process --skip";
-      };
+        filter.lfs = {
+          required = true;
+	      clean = "git-lfs clean -- %f";
+	      smudge = "git-lfs smudge --skip -- %f";
+	      process = "git-lfs filter-process --skip";
+        };
 
-      alias = {
-	    s = "status";
-	    c = "commit -am";
-	    ci = "commit";
-	    amend = "commit --amend";
-	    co = "checkout";
-	    ls = "branch -a";
-	    lg = "log --oneline --decorate --graph";
-	    lga = "log --oneline --all --decorate --graph";
-	    rbi = "rebase --interactive";
-	    rba = "rebase --abort";
-	    forget = "update-index --assume-unchanged";
-	    unforget = "update-index --no-assume-unchanged";
-	    fp = "fetch --prune";
-	    hide = "update-index --assume-unchanged";
-	    unhide = "update-index --no-assume-unchanged";
-	    unhide-all = "update-index --really-refresh";
-	    hidden = "!git ls-files -v | grep \\\"^[a-z]\\\"";
-	    ignored = "!git status -s --ignored | grep \\\"^!!\\\"";
+        alias = {
+	      s = "status";
+	      c = "commit -am";
+	      ci = "commit";
+	      amend = "commit --amend";
+	      co = "checkout";
+	      ls = "branch -a";
+	      lg = "log --oneline --decorate --graph";
+	      lga = "log --oneline --all --decorate --graph";
+	      rbi = "rebase --interactive";
+	      rba = "rebase --abort";
+	      forget = "update-index --assume-unchanged";
+	      unforget = "update-index --no-assume-unchanged";
+	      fp = "fetch --prune";
+	      hide = "update-index --assume-unchanged";
+	      unhide = "update-index --no-assume-unchanged";
+	      unhide-all = "update-index --really-refresh";
+	      hidden = "!git ls-files -v | grep \\\"^[a-z]\\\"";
+	      ignored = "!git status -s --ignored | grep \\\"^!!\\\"";
+        };
       };
     };
   };

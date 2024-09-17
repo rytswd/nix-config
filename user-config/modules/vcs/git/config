@@ -1,5 +1,3 @@
-# NOTE: This file is no longer used as all the config is handled by Nix.
-
 [core]
 	autocrlf = input
 	editor = nvim

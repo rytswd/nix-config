@@ -8,6 +8,9 @@
     dictionary.enchant.enable = lib.mkEnableOption "Enable Enchant.";
   };
 
+  # Some note for Enchant setup for Emacs Jinx
+  # Ref: https://www.reddit.com/r/emacs/comments/1eg9hdg/multilingual_spellchecking_omg_what_a_rabbit_hole/
+
   config = lib.mkIf config.dictionary.enchant.enable {
     home.packages = [
       pkgs.enchant  # https://github.com/AbiWord/enchant

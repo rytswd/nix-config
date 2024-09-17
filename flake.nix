@@ -101,7 +101,7 @@
 
     # Language related overlays
     goOverlay = (final: prev: {
-      go = nixpkgs-unstable.legacyPackages.${prev.system}.go_1_22;
+      go = nixpkgs-unstable.legacyPackages.${prev.system}.go_1_23;
     });
     rustOverlay = inputs.rust-overlay.overlays.default;
     fenixOverlay = inputs.fenix.overlays.default;
@@ -112,7 +112,7 @@
 
     # Editor related overlays
     emacsOverlay = inputs.emacs-overlay.overlays.default;
-    emacsOverlayPersonal = (import ./overlays/emacs.nix ); # FIXME: Move to module
+    # emacsOverlayPersonal = (import ./overlays/emacs.nix ); # FIXME: Move to module
     vscodeOverlay = (import ./overlays/vscode.nix);
 
     # Other utility related overlays
@@ -131,7 +131,7 @@
       rocOverlay
 
       emacsOverlay
-      emacsOverlayPersonal
+      # emacsOverlayPersonal
       vscodeOverlay
 
       treeSitterOverlay

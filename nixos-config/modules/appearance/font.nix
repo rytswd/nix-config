@@ -22,6 +22,7 @@
             "Iosevka"
             "NerdFontsSymbolsOnly"
             "Noto"
+            "VictorMono"
           ]; })
       ] ++ [
         pkgs.dejavu_fonts
@@ -30,6 +31,7 @@
         pkgs.noto-fonts
         pkgs.noto-fonts-cjk
         pkgs.noto-fonts-emoji
+        pkgs.victor-mono
         pkgs.emacs-all-the-icons-fonts
 
         # Fonts from Sora Sagano, clean and sophisticated look

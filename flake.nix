@@ -22,6 +22,11 @@
     };
     nh-darwin.url = "github:ToyVo/nh_darwin";
 
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ###----------------------------------------
     ##  Language related flakes
     #------------------------------------------
@@ -49,6 +54,7 @@
       inputs.nixpkgs-stable.follows = "nixpkgs-unstable";
       inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
     };
+    jujutsu.url = "github:martinvonz/jj";
 
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";
@@ -116,6 +122,7 @@
     vscodeOverlay = (import ./overlays/vscode.nix);
 
     # Other utility related overlays
+    jujutsuOverlay = inputs.jujutsu.overlays.default;
     treeSitterOverlay = (import ./overlays/tree-sitter.nix );
     # erdtreeOverlay = (import ./overlays/erdtree.nix );
     # yaziOverlay = (import ./overlays/yazi.nix );
@@ -134,6 +141,7 @@
       # emacsOverlayPersonal
       vscodeOverlay
 
+      jujutsuOverlay
       treeSitterOverlay
       # erdtreeOverlay
       # yaziOverlay

@@ -15,9 +15,10 @@
       pkgs.yubioath-flutter
     ];
 
-    services.udev.packages = [ pkgs.yubikey-personalization ];
     # For PC and SC smart card reader daemon.
     services.pcscd.enable = true;
+    # Ref: https://www.reddit.com/r/NixOS/comments/170tbbj/comment/k3okj79/
+    services.udev.packages = [ pkgs.yubikey-personalization pkgs.libu2f-host ];
 
     # Lock when the YubiKey is unplugged.
     # This works with YubiKey 5C NFC. It may need to be adjusted for other

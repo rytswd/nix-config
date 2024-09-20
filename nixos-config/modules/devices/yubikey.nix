@@ -16,6 +16,7 @@
     ];
 
     services.udev.packages = [ pkgs.yubikey-personalization ];
+    # For PC and SC smart card reader daemon.
     services.pcscd.enable = true;
 
     # Lock when the YubiKey is unplugged.

@@ -52,6 +52,7 @@
     security.pam.services = {
       login.u2fAuth = true;
       sudo.u2fAuth = true;
+      swaylock.u2fAuth = true;
     };
 
     # https://github.com/FiloSottile/yubikey-agent?tab=readme-ov-file

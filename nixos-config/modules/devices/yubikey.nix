@@ -53,6 +53,7 @@
     # Ref: https://nixos.wiki/wiki/Yubikey#pam_u2f
     security.pam.services = {
       login.u2fAuth = true;
+      login.enableGnomeKeyring = true;
       sudo.u2fAuth = true;
       swaylock.u2fAuth = true;
     };

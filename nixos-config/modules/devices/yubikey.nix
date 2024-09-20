@@ -22,6 +22,8 @@
     # This works with YubiKey 5C NFC. It may need to be adjusted for other
     # models.
     #
+    #     udevadm monitor --udev --environment
+    #
     # Ref: https://nixos.wiki/wiki/Yubikey#Locking_the_screen_when_a_Yubikey_is_unplugged
     services.udev.extraRules = ''
       ACTION=="remove",\

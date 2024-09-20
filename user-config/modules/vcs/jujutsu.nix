@@ -12,6 +12,9 @@
     programs.jujutsu = {
       enable = true;
     };
+    home.packages = [
+      # pkgs.lazyjj
+    ];
     xdg.configFile = {
       "jj".source = ./jujutsu;
       "jj".recursive = true;

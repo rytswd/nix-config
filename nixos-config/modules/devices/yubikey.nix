@@ -31,7 +31,7 @@
        ENV{ID_MODEL_ID}=="0407",\
        ENV{ID_VENDOR_ID}=="1050",\
        ENV{ID_VENDOR}=="Yubico",\
-       RUN+="${pkgs.swaylock-effects}/bin/swaylock"
+       RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
     '';
 
     # Enable U2F for login.

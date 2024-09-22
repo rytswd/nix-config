@@ -498,7 +498,7 @@ TODO: For emoji, I would want to just type it out, but cannot make it work for s
 
 Lock screen.
 #+begin_src kdl
-  Super+Alt+N   { spawn "swaylock-effects"; } // Dvorak L
+  Super+Alt+N   { spawn "swaylock"; } // Dvorak L
 #+end_src
 
 Quit Niri, which prompts before exiting.

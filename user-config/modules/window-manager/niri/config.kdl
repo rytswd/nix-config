@@ -136,7 +136,7 @@ binds {
                     "cliphist list | fuzzel -d | cliphist decode | wl-copy" \
                     ; } // Dvorak V
     Super+Alt+Backslash { spawn "bemoji" "-c" ; }
-    Super+Alt+N   { spawn "swaylock-effects"; } // Dvorak L
+    Super+Alt+N   { spawn "swaylock"; } // Dvorak L
     Super+Shift+M { quit; }
     Super+Apostrophe { close-window; } // Super + Q on Dvorak
 

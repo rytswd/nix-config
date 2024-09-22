@@ -1,3 +1,12 @@
+# NOTE: When I have an error message such as:
+#
+#     error: failed to open archive: Failed to open '/nix/store/1fry2dwlb5mdq6gy51bs2axd6ipgvr0d-source'
+#
+# This is likely caused by corrupted or missing store path. I can get this
+# sorted with the following command:
+#
+#     nix-store --verify --repair
+#
 {
   description = "NixOS and other Nix configurations for rytswd";
 

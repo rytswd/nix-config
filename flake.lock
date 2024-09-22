@@ -1797,11 +1797,11 @@
         "rust-overlay": "rust-overlay_4"
       },
       "locked": {
-        "lastModified": 1722856566,
-        "narHash": "sha256-Yr9P/TyxgVVwgXIiu96up2hgWjMR0zWPbaihyNXp+r0=",
+        "lastModified": 1727016338,
+        "narHash": "sha256-vpE21akC5Ha6AasuSlb1t1jiU1RcB6afD7u/T4DkJKA=",
         "owner": "roc-lang",
         "repo": "roc",
-        "rev": "13f60cde09ef01c003fe362bf46e592a0f4ae7c6",
+        "rev": "5840d6f6eb8c63664e75e946ee77e79b3b50b061",
         "type": "github"
       },
       "original": {

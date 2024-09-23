@@ -19,7 +19,7 @@
       ];
       timeouts = [
         # 15 min
-        { timeout = (60 * 15); command = "${pkgs.swaylock-effects}/bin/swaylock"; }
+        { timeout = (60 * 15); command = "${pkgs.systemd}/bin/systemctl suspend"; }
         # { timeout = 1200; command = "${pkgs.sway}/bin/swaymsg \"output * toggle\""; }
       ];
     };

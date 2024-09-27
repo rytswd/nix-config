@@ -35,18 +35,20 @@ keymap:
       # Example:
       #     When I want to use QWERTY Super + S as Control S, I need to:
       #     1. Provide Super-s on the left hand side
-      #     2. Find where the "s" key is on Dvorak (it is where "o" is)
-      #     3. Considering the "o" --> "s" translation, I need to set up
-      #        C-o as the target binding
+      #     2. Find where the "s" key is on Dvorak (it is where ";" is)
+      #     3. Considering the ";" --> "s" translation, I need to set up
+      #        "C-semicolon" as the target binding
       #     4. I end up with the key binding of:
-      #        Super-s: C-o
+      #        Super-s: C-semicolon
       Super-Shift-a: C-Shift-a
       Super-Shift-t: C-Shift-k # OWERTY k == Dvorak t
       Super-Shift-u: C-Shift-f # OWERTY f == Dvorak u
       Super-Shift-m: C-Shift-m
+      Super-b: C-n # OWERTY n == Dvorak b
       Super-f: C-y # OWERTY y == Dvorak f
       Super-k: C-v # OWERTY v == Dvorak k
       Super-dot: C-e # QWERTY e == Dvorak .
+      Super-comma: C-w # QWERTY w == Dvorak ,
       Super-1: C-1
       Super-2: C-2
       Super-3: C-3

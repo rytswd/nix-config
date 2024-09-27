@@ -525,8 +525,8 @@ Close window is the most similar to Cmd+Q on macOS, but probably more intuitive.
     // in real scenario, I would need key remapping solutions like Xremap.
     Ctrl+Shift+Alt+Super+Left   { focus-column-left; }
     Ctrl+Shift+Alt+Super+Right  { focus-column-right; }
-    Ctrl+Shift+Alt+Super+Down   { focus-workspace-down; }
-    Ctrl+Shift+Alt+Super+Up     { focus-workspace-up; }
+    Ctrl+Shift+Alt+Super+Down   { focus-window-or-workspace-down; }
+    Ctrl+Shift+Alt+Super+Up     { focus-window-or-workspace-up; }
     // These are somewhat easy alternative when remap is not working for any
     // reason.
     Ctrl+Shift+Home             { focus-column-left; }

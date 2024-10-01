@@ -1,0 +1,123 @@
+{
+  // This is for the top bar
+  "position": "top",
+  "layer": "top",
+  // "hegiht": 16, // This has no impact.
+  "modules-left": [
+    // TBC
+    "custom/launcher",
+    "niri/workspaces",
+  ],
+  "modules-center": [
+    // TBC
+    "niri/window",
+  ],
+  "modules-right": [
+    "pulseaudio",
+    "network",
+    "cpu",
+    "temperature",
+    // "disk", // I don't really need to check this right now.
+    "battery",
+    "clock",
+  ],
+
+  ////----------------------------------------
+  ///   Standard modules
+  //------------------------------------------
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󰂄 {capacity}%",
+    "states": {
+      "critical": 10,
+      "warning": 20,
+    },
+  },
+  "clock": {
+    "interval": 1,
+    "format": "{:%Y-%m-%d %H:%M:%S}",
+    "format-alt": "{:%A, %B %d, %Y %H:%M:%S}",
+    "tooltip-format": "{:%Y-%m-%d | %H:%M}",
+    "on-click-right": "gnome-calendar",
+    "tooltip-format": "{tz_list}",
+    "timezones": ["Europe/London", "US/Eastern", "Asia/Tokyo", "Etc/UTC"],
+  },
+  "cpu": {
+    "format": "󰍛 {usage}%",
+    "format-alt": "󰍛 {avg_frequency} GHz",
+    "interval": 5,
+  },
+  "disk": {
+    "format": "󰋊 {}%",
+    "format-alt": "󰋊 {used}/{total} GiB",
+    "interval": 20,
+    "path": "/",
+  },
+  "network": {
+    "interval": 1,
+    "format-alt": "  {essid} ({signalStrength}%): {ifname} {ipaddr}/{cidr}",
+    "format-disconnected": "⚠",
+    "format-ethernet": "{ifname}: {ipaddr}/{cidr}   up: {bandwidthUpBits} down: {bandwidthDownBits}",
+    "format-linked": "{ifname} (No IP) ",
+    "format-wifi": " ",
+    "tooltip-format": "{ipaddr}/{cidr} {bandwidthUpBits} / {bandwidthDownBits}",
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}% {format_source}",
+    "format-bluetooth": "{icon} {volume}% {format_source}",
+    "format-bluetooth-muted": "{icon} 󰖁 {format_source}",
+    "format-icons": {
+      "car": "󰄋",
+      "default": ["󰕿", "󰖀", "󰕾"],
+      "handsfree": "",
+      "headphones": "󰋋",
+      "headset": "󰋎",
+      "phone": "󰏲",
+      "portable": "󰏲",
+    },
+    "format-muted": "󰖁 {format_source}",
+    "format-source": "󰍬 {volume}%",
+    "format-source-muted": "󰍭",
+    "on-click": "pavucontrol",
+  },
+  "temperature": {
+    //"hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input",
+    //"hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon3/temp1_input",
+    // "hwmon-path-abs": "/sys/devices/platform/coretemp.0/hwmon",
+    "input-filename": "temp1_input",
+    "critical-threshold": 80,
+    "interval": 2,
+    "format": "{icon} {temperatureC}°C",
+    //"format": "{temperatureC}°C",
+    "format-icons": ["", "", "", "", ""],
+    "tooltip": true,
+  },
+
+  ////----------------------------------------
+  ///   Specific modules
+  //------------------------------------------
+  "niri/workspaces": {
+    "all-outputs": true,
+    "warp-on-scroll": false,
+    "format": "{name} {icon}",
+    "disable-tooltip": true,
+    "disable-markup": true,
+    "format": " {} ",
+    "format-icons": {
+      "active": "<U+F0AA5>",
+      "default": "<U+F0130>",
+    },
+  },
+
+  ////----------------------------------------
+  ///   Custom modules
+  //------------------------------------------
+  "custom/launcher": {
+    "format": "",
+    "on-click": "fuzzel",
+    "on-click-right": "wlogout",
+    "tooltip": "",
+  },
+}

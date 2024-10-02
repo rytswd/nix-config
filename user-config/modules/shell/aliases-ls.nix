@@ -3,7 +3,7 @@
 {
   # Use default ls.
   # -G should handle the colouring, but zsh seems to have trouble with it.
-  ls  = "ls -F --color=auto --group-directories-first";
+  # ls  = "ls -F --color=auto --group-directories-first";
   l   = "ls -lF --color=auto --group-directories-first";
   la  = "ls -laF --color=auto --group-directories-first";
   ll  = "ls -ltrF --color=auto --group-directories-first";

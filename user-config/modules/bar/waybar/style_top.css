@@ -38,14 +38,14 @@ window#waybar {
 #window,
 #workspaces,
 #custom-wlogout,
-#custom-wallchange,
 #custom-launcher,
-#custom-pacmanAlt {
+#custom-wallpaper {
   color: white;
   /* background-color: rgba(76,86,106,0.3); */
-  background-color: shade(alpha(#4C566A, 0.3), 99999.0);
+  background-color: alpha(#4C566A, 0.7);
 
   border-radius: 5px;
+  box-shadow: 0px 0px 0px 0px alpha(#9C566A, 0.7);
 
   /* By default, there will be no side margins. */
   margin-top: 7px;
@@ -58,8 +58,9 @@ window#waybar {
   padding-left: 15px;
   padding-right: 15px;
 
-  transition-property: background-color;
-  transition-duration: .2s;
+  transition:
+    background-color    .2s     linear,
+    border-color        1.2s    ease-in;
 }
 /* GTK CSS doesn't support the nested CSS, so listing them all here. */
 #battery:hover,
@@ -74,12 +75,10 @@ window#waybar {
 #temperature:hover,
 #window:hover,
 #workspaces:hover,
-#custom-wlogout:hover,
-#custom-wallchange:hover,
 #custom-launcher:hover,
-#custom-pacmanAlt:hover {
+#custom-wallpaper:hover {
   color: #ffffff;
-  background-color: shade(alpha(#4C566A, 0.8), 3.0);
+  background-color: alpha(#9CA6BA, 0.9);
 }
 
 /***----------------------------------------
@@ -92,20 +91,20 @@ window#waybar {
   margin-right: 3px;
 
   /* Subtle shadow with border */
-  border-right: solid 1px rgba(76,86,106,0.2);
-  border-bottom: solid 1px rgba(76,86,106,0.2);
+  border-right: solid 1px alpha(#4C566A, 0.2);
+  border-bottom: solid 1px alpha(#4C566A, 0.2);
   /* The additional left border makes the bottom border to render with
   consistent format given the right border has some width. */
   border-left: solid 1px transparent;
 }
 #battery.warning {
-  border-bottom: solid 2px rgba(206,126,6,0.8);
+  border-bottom: solid 2px alpha(#ce7e06, 0.8);
 }
 #battery.critical {
-  border-bottom: solid 2px rgba(146,6,46,0.8);
+  border-bottom: solid 2px alpha(#92062e, 0.8);
 }
 #battery.charging {
-  border-bottom: solid 2px rgba(6,146,46,0.8);
+  border-bottom: solid 2px alpha(#06922e, 0.8);
 }
 
 #bluetooth {
@@ -115,15 +114,15 @@ window#waybar {
   margin-right: 3px;
 
   /* Subtle shadow with border */
-  border-right: solid 1px rgba(76,86,106,0.2);
-  border-bottom: solid 1px rgba(76,86,106,0.2);
+  border-right: solid 1px alpha(#4C566A, 0.2);
+  border-bottom: solid 1px alpha(#4C566A, 0.2);
   /* The additional left border makes the bottom border to render with
   consistent format given the right border has some width. */
   border-left: solid 1px transparent;
 }
 #bluetooth.disabled {
-  color: rgba(108, 122, 137, 1);
-  border-bottom: solid 2px rgba(146,6,46,0.8);
+  color: alpha(#6c7a89, 1);
+  border-bottom: solid 2px alpha(#92062e, 0.8);
 }
 
 #clock {
@@ -134,7 +133,7 @@ window#waybar {
 
   /* Subtle shadow with border */
   /* border-right: solid 1px rgba(76,86,106,0.2); */
-  border-bottom: solid 1px rgba(76,86,106,0.2);
+  border-bottom: solid 1px alpha(#4C566A, 0.2);
 }
 
 #pulseaudio {
@@ -144,17 +143,11 @@ window#waybar {
   margin-right: 3px;
 
   /* Subtle shadow with border */
-  border-right: solid 1px rgba(76,86,106,0.2);
-  border-bottom: solid 1px rgba(76,86,106,0.2);
+  border-right: solid 1px alpha(#4C566A, 0.2);
+  border-bottom: solid 1px alpha(#4C566A, 0.2);
   /* The additional left border makes the bottom border to render with
   consistent format given the right border has some width. */
   border-left: solid 1px transparent;
-}
-#pulseaudio.muted {
-  border-bottom: solid 2px rgba(146,6,46,0.8);
-}
-#pulseaudio.source-muted {
-  border-bottom: solid 2px rgba(146,6,46,0.8);
 }
 
 #cpu {
@@ -168,8 +161,8 @@ window#waybar {
   margin-right: 3px;
 
   /* Subtle shadow with border */
-  border-right: solid 1px rgba(76,86,106,0.2);
-  border-bottom: solid 1px rgba(76,86,106,0.2);
+  border-right: solid 1px alpha(#4C566A, 0.2);
+  border-bottom: solid 1px alpha(#4C566A, 0.2);
 }
 
 #disk {
@@ -183,8 +176,8 @@ window#waybar {
   margin-right: 3px;
 
   /* Subtle shadow with border */
-  border-right: solid 1px rgba(76,86,106,0.2);
-  border-bottom: solid 1px rgba(76,86,106,0.2);
+  border-right: solid 1px alpha(#4C566A, 0.2);
+  border-bottom: solid 1px alpha(#4C566A, 0.2);
 }
 
 #memory {
@@ -198,8 +191,8 @@ window#waybar {
   margin-right: 3px;
 
   /* Subtle shadow with border */
-  border-right: solid 1px rgba(76,86,106,0.2);
-  border-bottom: solid 1px rgba(76,86,106,0.2);
+  border-right: solid 1px alpha(#4C566A, 0.2);
+  border-bottom: solid 1px alpha(#4C566A, 0.2);
 }
 
 #network {
@@ -209,8 +202,8 @@ window#waybar {
   margin-right: 3px;
 
   /* Subtle shadow with border */
-  border-right: solid 1px rgba(76,86,106,0.2);
-  border-bottom: solid 1px rgba(76,86,106,0.2);
+  border-right: solid 1px alpha(#4C566A, 0.2);
+  border-bottom: solid 1px alpha(#4C566A, 0.2);
 }
 
 #temperature {
@@ -224,74 +217,17 @@ window#waybar {
   margin-right: 3px;
 
   /* Subtle shadow with border */
-  border-right: solid 1px rgba(76,86,106,0.2);
-  border-bottom: solid 1px rgba(76,86,106,0.2);
+  border-right: solid 1px alpha(#4C566A, 0.2);
+  border-bottom: solid 1px alpha(#4C566A, 0.2);
   /* The additional left border makes the bottom border to render with
   consistent format given the right border has some width. */
   border-left: solid 1px transparent;
 }
 #temperature.critical {
-  border-bottom: solid 2px rgba(146,6,46,0.8);
+  border-bottom: solid 2px alpha(#92062e, 0.8);
 }
 
-/* NOTE: Probably not going to be used here */
-#tray {
-  /* Because the margin will be added from all adjacent modules, I'm only adding
-  on one side -- and in this case, only the right hand side. All the other
-  margins will be handled by cascading. */
-  margin-right: 3px;
-
-  /* Subtle shadow with border */
-  border-right: solid 1px rgba(76,86,106,0.2);
-  border-bottom: solid 1px rgba(76,86,106,0.2);
-}
-
-
-/***----------------------------------------
- **  Custom modules
- *------------------------------------------*/
-#custom-launcher {
-  font-size: 12px;
-  border-radius: 0px 10px 10px 0px;
-
-  padding-right: 20px;
-  padding-left: 10px;
-
-  /* Subtle shadow with border */
-  border-right: solid 2px rgba(76,86,106,0.2);
-  border-bottom: solid 2px rgba(76,86,106,0.2);
-}
-#custom-launcher:hover {
-  color: #ffffff;
-  background-color: rgba(76,86,106,0.8);
-}
-
-
-#custom-playerctl {
-	background: #2e3440;
-    padding: 0px 5px 0px 10px;
-	border-radius: 10px;
-    /*border-left: solid 1px #282738;*/
-    /*border-right: solid 1px #282738;*/
-    margin: 5px 7px;
-    font-weight: normal;
-    font-style: normal;
-    font-size: 16px;
-}
-
-#custom-playerlabel {
-    background: transparent;
-    padding-left: 10px;
-    padding-right: 5px;
-    border-radius: 10px;
-    /*border-left: solid 1px #282738;*/
-    /*border-right: solid 1px #282738;*/
-    margin-top: 5px;
-    margin-bottom: 5px;
-    font-weight: normal;
-    font-style: normal;
-}
-
+/* Below modules currently not used */
 #window {
     background: #2e3440;
     padding-left: 15px;
@@ -310,7 +246,6 @@ window#waybar {
     background-image: linear-gradient(45deg, #b48ead 0%, #5e81ac 52%, #b48ead 90%);
     border-radius: 8px;
 }
-
 #taskbar button {
     border-radius: 2px 2px 2px 2px;
     padding: 0 0 0 1px;
@@ -318,22 +253,8 @@ window#waybar {
     color: #ffffff;
     background-color: rgba(120,118,117,0.1);
 }
-
 #taskbar button.active {
     background-color: rgba(108, 122, 137, 1);
-}
-
-
-#custom-wlogout {
-  background-color: #2e3440;
-  color: #BF616A;
-  border-radius: 10px;
-}
-
-#custom-wallchange {
-  background-color: #2e3440;
-  color: #B48EAD;
-  border-radius: 10px;
 }
 
 /* For Niri Workspaces */
@@ -347,7 +268,6 @@ window#waybar {
     background-clip: padding-box, border-box;
     border: 3px solid transparent;
 }
-
 #workspaces button {
     margin-right: 4px;
     background: none;
@@ -362,4 +282,35 @@ window#waybar {
   border: none;
   color: #8ec07c;
   border-color: #8ec07c;
+}
+
+
+/***----------------------------------------
+ **  Custom modules
+ *------------------------------------------*/
+#custom-launcher {
+  font-size: 12px;
+  border-radius: 0px 10px 10px 0px;
+
+  padding-right: 20px;
+  padding-left: 10px;
+
+  /* Subtle shadow with border */
+  border-right: solid 2px alpha(#4C566A, 0.2);
+  border-bottom: solid 2px alpha(#4C566A, 0.2);
+}
+#custom-launcher:hover {
+  color: #ffffff;
+  background-color: alpha(#4C566A, 0.8);
+}
+
+#custom-wallpaper {
+  /* Because the margin will be added from all adjacent modules, I'm only adding
+  on one side -- and in this case, only the right hand side. All the other
+  margins will be handled by cascading. */
+  margin-right: 3px;
+
+  /* Subtle shadow with border */
+  border-right: solid 1px alpha(#4C566A, 0.2);
+  border-bottom: solid 1px alpha(#4C566A, 0.2);
 }

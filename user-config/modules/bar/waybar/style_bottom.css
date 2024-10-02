@@ -37,7 +37,7 @@ window#waybar {
 #custom-placeholder {
   color: white;
   /* background-color: rgba(76,86,106,0.3); */
-  background-color: shade(alpha(#2C364A, 0.7), 1.0);
+  background-color: alpha(#2C364A, 0.7);
 
   border-radius: 5px;
 
@@ -99,8 +99,8 @@ window#waybar {
   padding-top: 8px;
 
   /* Subtle shadow with border */
-  border-right: solid 1px rgba(76,86,106,0.2);
-  border-bottom: solid 2px rgba(76,86,106,0.2);
+  border-right: solid 1px alpha(#4C566A, 0.2);
+  border-bottom: solid 2px alpha(#4C566A, 0.2);
   /* The additional left border makes the bottom border to render with
   consistent format given the right border has some width. */
   border-left: solid 1px transparent;
@@ -117,8 +117,8 @@ window#waybar {
   padding-left: 10px;
 
   /* Subtle shadow with border */
-  border-right: solid 1px rgba(76,86,106,0.2);
-  border-bottom: solid 1px rgba(76,86,106,0.2);
+  border-right: solid 1px alpha(#4C566A, 0.2);
+  border-bottom: solid 1px alpha(#4C566A, 0.2);
 }
 #custom-launcher:hover {
   color: #ffffff;

@@ -1,0 +1,114 @@
+/***----------------------------------------
+ **  Default fonts, etc.
+ *------------------------------------------*/
+* {
+  border: none;
+  border-radius: 0px;
+  font-family: FiraCode Nerd Font;
+  font-size: 12px;
+  font-style: normal;
+  min-height: 0;
+}
+
+/***----------------------------------------
+ **  Bar
+ *------------------------------------------*/
+window#waybar {
+  background: rgba(76,86,106,0.0);
+  /* color: #cdd6f4 */
+}
+
+/***----------------------------------------
+ **  Default look and feel
+ *------------------------------------------*/
+/*
+ Thanks to the cascading nature of CSS, I don't have to repeat the same
+ settings over and over again. I'm doing a bulk setup for modules I care.
+*/
+#mpris,
+#tray,
+#custom-placeholder {
+  color: white;
+  /* background-color: rgba(76,86,106,0.3); */
+  background-color: shade(alpha(#2C364A, 0.7), 1.0);
+
+  border-radius: 5px;
+
+  /* By default, there will be no side margins. */
+  margin-top: 0px;
+  margin-bottom: 7px;
+  margin-left: 0px;
+  margin-right: 0px;
+
+  padding-top: 2px; /*Slight adjustment for the vertical alignment */
+  padding-bottom: 0px;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  transition-property: background-color;
+  transition-duration: .2s;
+}
+/* GTK CSS doesn't support the nested CSS, so listing them all here. */
+#mpris:hover,
+#tray:hover,
+#custom-placeholder:hover {
+  color: #ffffff;
+  background-color: shade(alpha(#4C566A, 0.8), 0.2);
+}
+
+/***----------------------------------------
+ **  Standard modules
+ *------------------------------------------*/
+#mpris {
+  /* MPRIS is for showing currently playing media based on libplayerctl. This
+  is stylised differently as it appears at the bottom centre. */
+  border-radius: 20px;
+  padding-left: 13px;
+  padding-right: 13px;
+
+  /* Subtle shadow with border */
+  /* border-right: solid 1px rgba(76,86,106,0.2); */
+  border-bottom: solid 1px rgba(76,86,106,0.2);
+  border-bottom: solid 2px alpha(#FBB151, 0.6);
+}
+#mpris.paused {
+  color: alpha(#ACDAE9, 0.8);
+  border-bottom: solid 2px alpha(#386FA4, 0.9);
+}
+
+#tray {
+  /* Tray holds various applications. This is stylised differently as it appears
+  at the most bottom-right. */
+  border-radius: 5px 0px 0px 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  /* Subtle shadow with border */
+  border-right: solid 1px rgba(76,86,106,0.2);
+  border-bottom: solid 1px rgba(76,86,106,0.2);
+  /* The additional left border makes the bottom border to render with
+  consistent format given the right border has some width. */
+  border-left: solid 1px transparent;
+}
+
+/***----------------------------------------
+ **  Custom modules
+ *------------------------------------------*/
+#custom-launcher {
+  font-size: 12px;
+  border-radius: 0px 10px 10px 0px;
+
+  padding-right: 20px;
+  padding-left: 10px;
+
+  /* Subtle shadow with border */
+  border-right: solid 1px rgba(76,86,106,0.2);
+  border-bottom: solid 1px rgba(76,86,106,0.2);
+}
+#custom-launcher:hover {
+  color: #ffffff;
+  background-color: rgba(76,86,106,0.8);
+}
+
+
+/* For Niri Workspaces */

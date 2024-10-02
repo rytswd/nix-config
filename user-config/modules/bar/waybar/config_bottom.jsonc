@@ -1,0 +1,54 @@
+{
+  // This is for the bottom bar
+  "position": "bottom",
+  "layer": "top",
+  // "hegiht": 16, // This has no impact.
+  "modules-center": ["mpris"],
+  "modules-right": ["tray"],
+
+  ////----------------------------------------
+  ///   Standard modules
+  //------------------------------------------
+  "mpris": {
+    "format": "{player_icon} {dynamic}",
+    "format-paused": "{status_icon} <i>{dynamic}</i>",
+    "player-icons": {
+      "default": "󰐊",
+      "mpv": "󰎇",
+    },
+    "status-icons": {
+      "paused": "󰏤",
+    },
+  },
+  "tray": {
+    "icon-size": 14,
+    "spacing": 10,
+    "show-passive-items": true,
+  },
+
+  ////----------------------------------------
+  ///   Specific modules
+  //------------------------------------------
+  // "niri/workspaces": {
+  //   "all-outputs": true,
+  //   "warp-on-scroll": false,
+  //   "format": "{name} {icon}",
+  //   "disable-tooltip": true,
+  //   "disable-markup": true,
+  //   "format": " {} ",
+  //   "format-icons": {
+  //     "active": "<U+F0AA5>",
+  //     "default": "<U+F0130>",
+  //   },
+  // },
+
+  ////----------------------------------------
+  ///   Custom modules
+  //------------------------------------------
+  // "custom/launcher": {
+  //   "format": "",
+  //   "on-click": "fuzzel",
+  //   "on-click-right": "wlogout",
+  //   "tooltip": "",
+  // },
+}

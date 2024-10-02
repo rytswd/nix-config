@@ -11,7 +11,7 @@
 # If eza is the preference, override the ls based commands. Otherwise, add
 # equivalent commands with an "x" prefix.
 // (if (withEza) then {
-  ls  = "eza --group-directories-first --classify";
+  # ls  = "eza --group-directories-first --classify";
   l   = "eza -l --group-directories-first --classify";
   la  = "eza -la --group-directories-first --classify";
   lt  = "eza -lT --group-directories-first --classify";

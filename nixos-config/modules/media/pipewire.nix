@@ -27,5 +27,10 @@
       pulse.enable = true;
     };
     # Ref: https://www.reddit.com/r/linuxquestions/comments/10chul6/what_the_hell_is_a_pipewire_alsa_pulseaudio_and/
+
+    # Making pavucontrol GUI available by default.
+    environment.systemPackages = [
+      pkgs.pavucontrol
+    ];
   };
 }

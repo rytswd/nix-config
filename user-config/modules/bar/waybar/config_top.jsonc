@@ -29,6 +29,7 @@
   //------------------------------------------
   "battery": {
     "format": "{icon} {capacity}%",
+    "format-alt": "{icon} {time}",
     "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
     "format-charging": "󰂄 {capacity}%",
     "format-plugged": "󰂄 {capacity}%",

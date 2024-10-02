@@ -14,6 +14,7 @@
   ],
   "modules-right": [
     "pulseaudio",
+    "bluetooth",
     "network",
     "cpu",
     "temperature",
@@ -21,7 +22,6 @@
     "battery",
     "clock",
   ],
-
   ////----------------------------------------
   ///   Standard modules
   //------------------------------------------
@@ -34,6 +34,16 @@
       "critical": 10,
       "warning": 20,
     },
+  },
+  "bluetooth": {
+    // "controller": "controller1", // specify the alias of the controller if there are more than 1 on the system
+    "format": "",
+    "format-disabled": "󰂲",
+    "format-connected": "",
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "- {device_alias}\t{device_address}",
+    "on-click": "blueman-manager",
   },
   "clock": {
     "interval": 1,
@@ -77,9 +87,9 @@
       "phone": "󰏲",
       "portable": "󰏲",
     },
-    "format-muted": "󰖁 {format_source}",
+    "format-muted": "<span color='#6C7A89'>󰖁</span> {format_source}",
     "format-source": "󰍬 {volume}%",
-    "format-source-muted": "󰍭",
+    "format-source-muted": "<span color='#6C7A89'>󰍭</span>",
     "on-click": "pavucontrol",
   },
   "temperature": {

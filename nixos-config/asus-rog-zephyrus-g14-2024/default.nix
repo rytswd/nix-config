@@ -25,6 +25,7 @@ nixosSystem rec {
     ./configuration.nix
 
     # Create users.
+    ../../user-config/admin/create.nix
     ../../user-config/ryota/create.nix
     # ../../user-config/rytswd/create.nix
 
@@ -43,7 +44,8 @@ nixosSystem rec {
 
       # Each user needs to be set up separately. Because home-manager needs to
       # know where the home directory is, I need to specify the username again.
-      home-manager.users.ryota = ../../user-config/ryota/home-manager/nixos.nix;
+      home-manager.users.admin = ../../user-config/admin/nixos.nix;
+      home-manager.users.ryota = ../../user-config/ryota/nixos.nix;
     }
   ];
 }

@@ -98,14 +98,18 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-    # Desktop Environment
-    cosmic = {
-      url = "github:lilyinstarlight/nixos-cosmic";
     niri= {
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.nixpkgs-stable.follows = "nixpkgs-unstable";
     };
+
+    # Desktop Environment
+    # cosmic = {
+    #   url = "github:lilyinstarlight/nixos-cosmic";
+    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
+    #   inputs.nixpkgs-stable.follows = "nixpkgs";
+    # };
   };
 
   outputs =

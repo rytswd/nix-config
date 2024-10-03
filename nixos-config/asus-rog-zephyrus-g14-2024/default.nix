@@ -13,7 +13,7 @@ nixosSystem rec {
   specialArgs = { inherit lib nixpkgs nixpkgs-unstable home-manager overlays; };
   modules = [
     inputs.niri.nixosModules.niri
-    inputs.cosmic.nixosModules.default
+    # inputs.cosmic.nixosModules.default
 
     # Adjust Nix and Nixpkgs related flags before proceeding.
     ./nix-flags.nix

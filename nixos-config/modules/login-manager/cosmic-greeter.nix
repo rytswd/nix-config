@@ -9,6 +9,6 @@
   };
 
   config = lib.mkIf config.login-manager.cosmic-greeter.enable {
-    services.displayManager.cosmic-greeter.enable = true;
+    # services.displayManager.cosmic-greeter.enable = true;
   };
 }

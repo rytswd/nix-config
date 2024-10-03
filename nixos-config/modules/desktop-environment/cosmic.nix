@@ -9,6 +9,6 @@
   };
 
   config = lib.mkIf config.desktop-environment.cosmic.enable {
-    services.desktopManager.cosmic.enable = true;
+    # services.desktopManager.cosmic.enable = true;
   };
 }

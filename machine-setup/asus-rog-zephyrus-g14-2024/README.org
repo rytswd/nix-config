@@ -11,7 +11,7 @@ Ensure that I have enough disk space for NixOS configuration. While I don't see 
 Because Windows 11 took up 90GB, I gave around 230GB for the entire disk space out of 1TB.
 
 ** Asus Specific Settings
-Asus has "Armoury Crate" application which can adjust some settings for the device.
+Asus has "Armoury Crate" application which can adjust some settings for the device. While that works for some parts of the settings, I had more luck with G Helper https://github.com/seerge/g-helper instead.
 
 *** "Slash Lighting"
 Asus ROG Zephyrus G14 (and G16) employs the LED "slash" light on the lid surface. This can be adjusted to show different lights. I want something subtle, and thus select a theme "Neoretro" and animation pattern of "Flux" with maximum interval, brightness set to 2%.

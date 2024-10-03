@@ -24,6 +24,11 @@ Then, install ~nix-darwin~:
   Ref: https://github.com/LnL7/nix-darwin/
 #+end_quote
 
+In order to get Homebrew based appliactions installed, I also need to install Homebrew out of Nix setup.
+
+#+begin_src sh
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#+end_src
 * Non-Nix Setup
 While a lot can be achieved with Nix, there are still a few items that are not managed by Nix on macOS. It may be because I have not figured out how to handle them using Nix, but here are the list of items I need to update.
 

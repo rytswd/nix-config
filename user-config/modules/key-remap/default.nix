@@ -12,5 +12,7 @@
   #   ./xremap.nix
   # ];
 
+  # NOTE: Also, skhdrc is not included.
+
   # key-remap.xremap.enable = lib.mkDefault false;
 }

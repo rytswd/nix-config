@@ -136,20 +136,6 @@ window#waybar {
   border-bottom: solid 1px alpha(#4C566A, 0.2);
 }
 
-#pulseaudio {
-  /* Because the margin will be added from all adjacent modules, I'm only adding
-  on one side -- and in this case, only the right hand side. All the other
-  margins will be handled by cascading. */
-  margin-right: 3px;
-
-  /* Subtle shadow with border */
-  border-right: solid 1px alpha(#4C566A, 0.2);
-  border-bottom: solid 1px alpha(#4C566A, 0.2);
-  /* The additional left border makes the bottom border to render with
-  consistent format given the right border has some width. */
-  border-left: solid 1px transparent;
-}
-
 #cpu {
   /* Icon + numeric module could shift the format, so setting some width by
   default. */
@@ -204,6 +190,20 @@ window#waybar {
   /* Subtle shadow with border */
   border-right: solid 1px alpha(#4C566A, 0.2);
   border-bottom: solid 1px alpha(#4C566A, 0.2);
+}
+
+#pulseaudio {
+  /* Because the margin will be added from all adjacent modules, I'm only adding
+  on one side -- and in this case, only the right hand side. All the other
+  margins will be handled by cascading. */
+  margin-right: 3px;
+
+  /* Subtle shadow with border */
+  border-right: solid 1px alpha(#4C566A, 0.2);
+  border-bottom: solid 1px alpha(#4C566A, 0.2);
+  /* The additional left border makes the bottom border to render with
+  consistent format given the right border has some width. */
+  border-left: solid 1px transparent;
 }
 
 #temperature {

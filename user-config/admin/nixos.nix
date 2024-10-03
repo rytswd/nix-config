@@ -41,7 +41,7 @@ in {
     #------------------------------------------
     bar.waybar.enable = true;
     editor.helix.enable = false;
-    editor.vscoode.enable = false;
+    editor.vscode.enable = false;
     notification.ags-notification.enable = true;
 
     ###----------------------------------------

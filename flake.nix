@@ -40,7 +40,10 @@
     ##  Language related flakes
     #------------------------------------------
     # Rust -- TODO: check whether I should use fenix or rust-overlay
-    rust-overlay.url = "github:oxalica/rust-overlay";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     fenix = {
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -94,13 +97,13 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-    niri.url = "github:sodiboo/niri-flake";
-
     # Desktop Environment
     cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
+    niri= {
+      url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
+      inputs.nixpkgs-stable.follows = "nixpkgs-unstable";
     };
   };
 

@@ -1,3 +1,5 @@
+# NOTE: This is old and no longer used / referenced.
+
 # Generated via dconf2nix: https://github.com/gvolpe/dconf2nix
 { lib, ... }:
 

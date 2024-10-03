@@ -10,23 +10,28 @@ in {
   imports = [
     # The shell setup defines some aliases, and in order to allow overriding,
     # calling this earlier than other modules.
-    ../../modules/shell
+    ../modules/shell
+    ../modules/key-remap/skhd
 
-    ../../modules/terminal
-    ../../modules/vcs
-    ../../modules/editor
-    ../../modules/programming
-    ../../modules/kubernetes
-    ../../modules/service
-    ../../modules/dictionary
-    ../../modules/communication
-    ../../modules/image
+    ../modules/terminal
+    ../modules/vcs
+    ../modules/editor
+    ../modules/programming
+    ../modules/kubernetes
+    ../modules/service
+    ../modules/dictionary
+    ../modules/communication
+    ../modules/image
   ];
   ###----------------------------------------
   ##   Module related options
   #------------------------------------------
   kubernetes.extra.enable = true;
   communication.slack.enable = true;
+
+  # macOS specific ones
+  bar.sketchybar.enable = true;
+  window-manager.yabai.enable = true;
 
   ###----------------------------------------
   ##   Other Home Manager Setup
@@ -185,18 +190,6 @@ in {
         StandardOutPath   = "/tmp/sketchybar.log";
         StandardErrorPath = "/tmp/sketchybar.log";
       };
-    };
-  };
-
-  xdg = {
-    # NOTE: This contains only macOS specific settings.
-    configFile = {
-      "sketchybar".source = ../sketchybar;
-      "sketchybar".recursive = true;
-
-      "skhd/skhdrc".source   = ../skhdrc;
-
-      "yabai/yabairc".source = ../yabairc;
     };
   };
 }

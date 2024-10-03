@@ -13,32 +13,32 @@ in {
       # calling this earlier than other modules.
       # The rest of the module call order is rather arbitrary, just in order of
       # importance for my own use case.
-      ../../modules/shell
-      ../../modules/key-remap/xremap
-      ../../modules/appearance
-      ../../modules/window-manager
-      ../../modules/launcher
-      ../../modules/bar
-      ../../modules/clipboard
-      ../../modules/notification
-      ../../modules/terminal
-      ../../modules/vcs
-      ../../modules/wallpaper
-      ../../modules/session-lock
-      ../../modules/browser
-      ../../modules/editor
-      ../../modules/programming
-      ../../modules/vpn
-      ../../modules/security
-      ../../modules/kubernetes
-      ../../modules/service
-      ../../modules/file-management
-      ../../modules/dictionary
-      ../../modules/communication
-      ../../modules/image
-      ../../modules/screenshot
-      ../../modules/video
-      ../../modules/linux-widget
+      ../modules/shell
+      ../modules/key-remap/xremap
+      ../modules/appearance
+      ../modules/window-manager
+      ../modules/launcher
+      ../modules/bar
+      ../modules/clipboard
+      ../modules/notification
+      ../modules/terminal
+      ../modules/vcs
+      ../modules/wallpaper
+      ../modules/session-lock
+      ../modules/browser
+      ../modules/editor
+      ../modules/programming
+      ../modules/vpn
+      ../modules/security
+      ../modules/kubernetes
+      ../modules/service
+      ../modules/file-management
+      ../modules/dictionary
+      ../modules/communication
+      ../modules/image
+      ../modules/screenshot
+      ../modules/video
+      ../modules/linux-widget
     ];
 
     ###----------------------------------------
@@ -53,6 +53,8 @@ in {
     communication.zoom.enable = true;
     notification.ags-notification.enable = true;
     service.surrealdb.enable = true;
+    window-manager.hyprland.enable = true;
+    window-manager.niri.enable = true;
 
     ###----------------------------------------
     ##   Other Home Manager Setup

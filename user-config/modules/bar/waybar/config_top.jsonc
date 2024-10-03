@@ -90,9 +90,9 @@
       "phone": "󰏲",
       "portable": "󰏲",
     },
-    "format-muted": "<span color='#6C7A89'>󰖁</span> {format_source}",
+    "format-muted": "<span color='#ACBAC9'>󰖁</span> {format_source}",
     "format-source": "󰍬 {volume}%",
-    "format-source-muted": "<span color='#6C7A89'>󰍭</span>",
+    "format-source-muted": "<span color='#ACBAC9'>󰍭</span>",
     "on-click": "pavucontrol",
   },
   "temperature": {

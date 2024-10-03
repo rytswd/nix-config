@@ -29,10 +29,15 @@ darwinSystem {
         overlays = overlays;
       };
     }
+
+    # Manage system wide configurations here.
     ./configuration.nix
 
+    # Create users.
     ../../user-config/ryota/create.nix
     # ../../user-config/rytswd/create.nix
+
+    # Set up home-manager and users.
     home-manager.darwinModules.home-manager {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;

@@ -43,8 +43,9 @@ darwinSystem {
       home-manager.useUserPackages = true;
       home-manager.extraSpecialArgs = { inherit inputs; };  # Pass flake variable
 
-      home-manager.users.ryota = import ../../user-config/ryota/home-manager/macos.nix;
-      # home-manager.users.rytswd = import ../../user-config/rytswd/home-manager;
+      # Each user needs to be set up separately. Because home-manager needs to
+      # know where the home directory is, I need to specify the username again.
+      home-manager.users.ryota = import ../../user-config/ryota/macos.nix;
     }
   ];
 }

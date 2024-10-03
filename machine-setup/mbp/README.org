@@ -29,6 +29,16 @@ In order to get Homebrew based appliactions installed, I also need to install Ho
 #+begin_src sh
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 #+end_src
+
+** Build with Config
+Once all of the above is in place, I can get my config from this repo, and run a rebuild.
+For the initial setup, I don't need to get the repository via ~git~, and simply use a ~curl~ instead.
+
+#+begin_src sh
+  darwin-rebuild switch --flake ~/Coding/github.com/rytswd/nix-config#ryota-mbp
+#+end_src
+
+
 * Non-Nix Setup
 While a lot can be achieved with Nix, there are still a few items that are not managed by Nix on macOS. It may be because I have not figured out how to handle them using Nix, but here are the list of items I need to update.
 

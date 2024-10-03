@@ -7,9 +7,8 @@
   imports = [
     ./waybar
     # ./waybar.nix # NOTE: This is the old one based on Nix config.
-    ./ags.nix
-    # TODO: Move sketchybar setup here
-    # ./sketchybar.nix
+    ./ags
+    ./sketchybar
   ];
 
   # NOTE: I'm setting no default here, so importing this bar module does not

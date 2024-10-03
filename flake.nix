@@ -29,6 +29,7 @@
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    # nh command support for macOS
     nh-darwin.url = "github:ToyVo/nh_darwin";
 
     sops-nix = {

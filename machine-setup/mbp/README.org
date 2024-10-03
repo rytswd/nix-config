@@ -6,22 +6,22 @@ This details how I configure my MBP with Nix.
 Firstly, install Nix.
 
 #+begin_src sh
-sh <(curl -L https://nixos.org/nix/install)
+  sh <(curl -L https://nixos.org/nix/install)
 #+end_src
 
 #+begin_quote
-Ref: https://nixos.org/download.html#nix-install-macos
+  Ref: https://nixos.org/download.html#nix-install-macos
 #+end_quote
 
-Then, install nix-darwin
+Then, install ~nix-darwin~:
 
 #+begin_src sh
-nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
-./result/bin/darwin-installer
+  nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
+  ./result/bin/darwin-installer
 #+end_src
 
 #+begin_quote
-Ref: https://github.com/LnL7/nix-darwin/
+  Ref: https://github.com/LnL7/nix-darwin/
 #+end_quote
 
 * Non-Nix Setup

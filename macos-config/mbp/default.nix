@@ -13,6 +13,10 @@ darwinSystem {
   # inputs = { inherit username; };
   specialArgs = { inherit lib nixpkgs nixpkgs-unstable home-manager overlays; };
   modules = [
+    # Adjust Nix and Nixpkgs related flags before proceeding.
+    # ./nix-flags.nix
+    # TODO: This is the setup used in NixOS. Ensure to do the same here for
+    # macOS rather than doing the manual setup below.
     # Ensure to allow unfree packages first, such as VSCode, Zoom, etc.
     {
       nixpkgs = {

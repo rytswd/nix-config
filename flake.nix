@@ -201,12 +201,10 @@
         # `./user-config/<username>/macos.nix`.
         darwinConfigurations = {
           ryota-mbp = (import ./macos-config/mbp {
-            inherit (nixpkgs-unstable) lib;
+            inherit (darwin) lib;
             inherit (darwin.lib) darwinSystem;
-            inherit nixpkgs nixpkgs-unstable home-manager;
-            inherit inputs;
+            inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
             system = "${mbp-arch}-darwin";
-            overlays = overlays;
           });
         };
 
@@ -227,20 +225,14 @@
         # `./user-config/<username>/macos.nix`.
         nixosConfigurations = {
           asus-rog-zephyrus-g14-2024 = (import ./nixos-config/asus-rog-zephyrus-g14-2024 {
-            inherit (nixpkgs-unstable) lib;
-            inherit (nixpkgs-unstable.lib) nixosSystem;
-            inherit nixpkgs nixpkgs-unstable home-manager;
-            inherit inputs;
+            inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
             system = "x86_64-linux";
-            overlays = overlays;
           });
           mbp-2021-utm = (import ./nixos-config/mbp-utm {
             inherit (nixpkgs-unstable) lib;
             inherit (nixpkgs-unstable.lib) nixosSystem;
-            inherit nixpkgs nixpkgs-unstable home-manager;
-            inherit inputs;
+            inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
             system = "${mbp-arch}-linux";
-            overlays = overlays;
           });
         };
 

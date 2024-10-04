@@ -1,16 +1,14 @@
-{ lib
-, nixpkgs
+{ nixpkgs
 , nixpkgs-unstable
-, nixosSystem
 , home-manager
 , system
 , overlays
 , inputs
 , ...}:
 
-nixosSystem rec {
+nixpkgs-unstable.lib.nixosSystem rec {
   inherit system;
-  specialArgs = { inherit lib nixpkgs nixpkgs-unstable home-manager overlays; };
+  specialArgs = { inherit nixpkgs nixpkgs-unstable home-manager overlays; };
   modules = [
     inputs.niri.nixosModules.niri
     # inputs.cosmic.nixosModules.default
@@ -35,6 +33,8 @@ nixosSystem rec {
       # (following the addition of GTK config).
       home-manager.backupFileExtension = "backup";
 
+      # NOTE: I'm depending on the NixOS packages, but I shouldn't need to for
+      # home-manager. This is something I need to sort out.
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       # home-manager.sharedModules = [

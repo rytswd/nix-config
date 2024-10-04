@@ -22,16 +22,19 @@
         withTreeSitter = true;
         withWebP = true;
         withImageMagick = true;
-        withXwidgets = true;
+        # Ref: https://github.com/NixOS/nixpkgs/pull/344631
+        # It looks like Emacs 30 is not compatible with the webkit2gtk.
+        # withXwidgets = true;
       };
 
       # Based on Nixpkgs
       emacs-29-nixos = pkgs.emacs29-pgtk.override emacs-nixos-override-attrs;
       # Based on emacs-overlay
       emacs-29-unstable-nixos = pkgs.emacs-unstable.override emacs-nixos-override-attrs;
+
       # Emacs 30 is not yet released, and thus pulled in using emacs-overlay and
       # emacs mirror source as a part of flake input.
-      emacs-30-nixos = (pkgs.emacs-git.overrideAttrs (old: {
+      emacs-30-nixos = (pkgs.emacs-pgtk.overrideAttrs (old: {
         version = "30.0-${inputs.emacs-30-src.shortRev}";
         src = inputs.emacs-30-src;
       })).override emacs-nixos-override-attrs;

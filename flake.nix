@@ -176,9 +176,9 @@
     ];
 
       in {
-        # ====
-        # macOS (Darwin) Configurations
-        #
+        ###----------------------------------------
+        ##   macOS (Darwin) Configurations
+        #------------------------------------------
         # The setup here will configure the macOS system for the given user.
         #
         # Firstly, it needs to adjust all the macOS specific settings, by
@@ -187,9 +187,9 @@
         # inheriting it specifically.
         #
         # After configuring the macOS general settings, it will also load up
-        # home-manager configurations of the given user (which is defined by
-        # `username`). The actual code to load up the home-manager configs
-        # is defined in `./user-config/<username>/home-manager.nix`.
+        # home-manager configurations of all the users referenced in the target
+        # darwinConfiguration setup. The actual user configs are defined in
+        # `./user-config/<username>/macos.nix`.
         darwinConfigurations = {
           ryota-mbp = (import ./macos-config/mbp {
             inherit (nixpkgs) lib;
@@ -197,15 +197,14 @@
             inherit nixpkgs nixpkgs-unstable home-manager;
             inherit inputs;
             system = "${mbp-arch}-darwin";
-            # username = "ryota";
             overlays = overlays;
           });
         };
 
-        # ====
-        # NixOS Configurations
-        #
-        # The setup here will configure the macOS system for the given user.
+        ###----------------------------------------
+        ##   NixOS Configurations
+        #------------------------------------------
+        # The setup here will configure the NixOS system for the given user.
         #
         # Firstly, it needs to adjust all the NixOS specific settings, by
         # using the dedicated nixosConfiguration defined for each machine
@@ -214,9 +213,9 @@
         # created for any special use cases.
         #
         # After configuring the NixOS general settings, it will also load up
-        # home-manager configurations of the given user (which is defined by
-        # `username`). The actual code to load up the home-manager configs
-        # is defined in `./user-config/<username>/home-manager.nix`.
+        # home-manager configurations of all the users referenced in the target
+        # nixosConfiguration setup. The actual user configs are defined in
+        # `./user-config/<username>/macos.nix`.
         nixosConfigurations = {
           asus-rog-zephyrus-g14-2024 = (import ./nixos-config/asus-rog-zephyrus-g14-2024 {
             inherit (nixpkgs) lib;
@@ -236,15 +235,15 @@
           });
         };
 
-        # ====
-        # Home Manager Configurations
-        #
+        ###----------------------------------------
+        ##   Home Manager Configuration
+        #------------------------------------------
         # WIP -- not working too well at the moment.
         #
         # While I could add home-manager embedded within each system (NixOS /
         # macOS), it just makes it clear to have user configuration separated
-        # from the machine configuration. For that reason, I'm making this setup
-        # available as well.
+        # from the machine configuration. It also means when I need to update
+        # user settings, I wouldn't have to run with sudo.
 
         # homeConfigurations = let
         #   user = "ryota";

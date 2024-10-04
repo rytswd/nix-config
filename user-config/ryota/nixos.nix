@@ -37,6 +37,7 @@ in {
       ../modules/communication
       ../modules/image
       ../modules/screenshot
+      ../modules/music
       ../modules/video
       ../modules/linux-widget
     ];

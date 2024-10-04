@@ -158,6 +158,7 @@
     # erdtreeOverlay = (import ./overlays/erdtree.nix );
     # yaziOverlay = (import ./overlays/yazi.nix );
     gripOverlay = (import ./overlays/grip.nix );
+    gnome-hyprland-overlay = (import ./overlays/fix-gnome-with-hyprland.nix );
 
     # NixOS related overlays
     niriOverlay = inputs.niri.overlays.niri;
@@ -177,6 +178,8 @@
       # erdtreeOverlay
       # yaziOverlay
       gripOverlay
+
+      gnome-hyprland-overlay
 
       niriOverlay # TODO: Make this only for NixOS.
     ];

@@ -239,24 +239,16 @@
         ###----------------------------------------
         ##   Home Manager Configuration
         #------------------------------------------
-        # WIP -- not working too well at the moment.
-        #
         # While I could add home-manager embedded within each system (NixOS /
         # macOS), it just makes it clear to have user configuration separated
         # from the machine configuration. It also means when I need to update
         # user settings, I wouldn't have to run with sudo.
-
-        # homeConfigurations = let
-        #   user = "ryota";
-        #   system = "x86_64-linux";
-        # in {
-        #   "${user}" = home-manager.lib.homeManagerConfiguration {
-        #     pkgs = nixpkgs.legacyPackages.${system};
-        #     extraSpecialArgs = { inherit inputs system; };
-        #     modules = [
-        #       ./user-config/${user}/home-manager/nixos.nix
-        #     ];
-        #   };
-        # };
+        homeConfigurations = {
+          "ryota@asus-rog-zephyrus-g14-2024" = (import ./user-config/home-manager {
+            inherit home-manager inputs overlays;
+            pkgs = nixpkgs-unstable.legacyPackages."x86_64-linux";
+            user-config = ./user-config/ryota/nixos.nix;
+          });
+        };
       };
 }

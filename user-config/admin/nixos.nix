@@ -59,6 +59,6 @@ in {
         pkgs.glxinfo # For OpenGL etc.
       ];
 
-      stateVersion = "23.11";
+      stateVersion = "24.05";
     };
   }

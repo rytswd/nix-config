@@ -1,16 +1,13 @@
-{ lib
-, nixpkgs
-, nixpkgs-unstable
-, homeManagerConfiguration
+{ home-manager
+, pkgs
 , inputs
 , overlays
-, system
 , user-config
 , ...}:
 
-homeManagerConfiguration rec {
-  inherit system;
-  specialArgs = { inherit inputs overlays; };
+home-manager.lib.homeManagerConfiguration rec {
+  inherit pkgs;
+  extraSpecialArgs = { inherit inputs overlays; };
   modules = [
     # Adjust Nix and Nixpkgs related flags before proceeding.
     ./nix-flags.nix

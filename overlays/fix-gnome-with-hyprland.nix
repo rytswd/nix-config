@@ -1,6 +1,6 @@
 # Fix GNOME with xdg-desktop-portal
 # Ref: https://github.com/NixOS/nixpkgs/pull/345979
-# Once this is merged, I shouldn't need this.
+# This has been merged, and no longer need this patch.
 
 final: prev:
 

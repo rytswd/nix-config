@@ -34,6 +34,9 @@ in {
       ../modules/vpn
       ../modules/security
       ../modules/linux-widget
+
+      # Add Nix related toolings only
+      ../modules/programming/nix.nix
     ];
 
     ###----------------------------------------
@@ -43,6 +46,8 @@ in {
     editor.helix.enable = false;
     editor.vscode.enable = false;
     notification.ags-notification.enable = true;
+
+    programming.nix.enable = true;
 
     ###----------------------------------------
     ##   Other Home Manager Setup

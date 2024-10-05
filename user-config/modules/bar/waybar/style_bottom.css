@@ -67,9 +67,13 @@ window#waybar {
  **  Standard modules
  *------------------------------------------*/
 #mpris {
+  font-size: 10px;
   /* MPRIS is for showing currently playing media based on libplayerctl. This
   is stylised differently as it appears at the bottom centre. */
-  border-radius: 20px;
+  border-radius: 10px;
+
+  padding-top: 2px;
+  padding-bottom: 1px;
   padding-left: 13px;
   padding-right: 13px;
 
@@ -90,13 +94,14 @@ window#waybar {
 #tray {
   /* Tray holds various applications. This is stylised differently as it appears
   at the most bottom-right. */
-  border-radius: 5px 0px 0px 5px;
-  padding-left: 10px;
+  border-radius: 10px 0px 0px 10px;
+  padding-left: 20px;
   padding-right: 10px;
   /* Also, because the icons come from other apps, it needs slight adjustment
   for the height. This also ensures that the bar height will not fluctuate when
   other modules come and go with larger setup (such as MPRIS). */
-  padding-top: 8px;
+  padding-top: 4px;
+  padding-bottom: 2px;
 
   /* Subtle shadow with border */
   border-right: solid 1px alpha(#4C566A, 0.2);
@@ -109,21 +114,3 @@ window#waybar {
 /***----------------------------------------
  **  Custom modules
  *------------------------------------------*/
-#custom-launcher {
-  font-size: 12px;
-  border-radius: 0px 10px 10px 0px;
-
-  padding-right: 20px;
-  padding-left: 10px;
-
-  /* Subtle shadow with border */
-  border-right: solid 1px alpha(#4C566A, 0.2);
-  border-bottom: solid 1px alpha(#4C566A, 0.2);
-}
-#custom-launcher:hover {
-  color: #ffffff;
-  background-color: rgba(76,86,106,0.8);
-}
-
-
-/* For Niri Workspaces */

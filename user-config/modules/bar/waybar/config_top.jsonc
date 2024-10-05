@@ -9,10 +9,9 @@
     "custom/launcher",
     "niri/workspaces",
   ],
-  "modules-center": [
-    // TBC
-    "niri/window",
-  ],
+  // "modules-center": [
+  //   // TBC
+  // ],
   "modules-right": [
     "custom/wallpaper",
     "pulseaudio",
@@ -112,16 +111,22 @@
   ///   Specific modules
   //------------------------------------------
   "niri/workspaces": {
-    "all-outputs": true,
-    "warp-on-scroll": false,
-    "format": "{name} {icon}",
-    "disable-tooltip": true,
-    "disable-markup": true,
-    "format": " {} ",
+    "all-outputs": false,
+    "format": "{icon}",
     "format-icons": {
-      "active": "<U+F0AA5>",
-      "default": "<U+F0130>",
+      // Named workspaces
+      "coding": "",
+      "civo": "󱃾",
+      // Special keywords
+      "default": "󰄷",
+      // "focused": "",
+      // "active": "󱄄",
     },
+  },
+  "wlr/taskbar": {
+    "active-only": true,
+    "sort-by-app-id": true,
+    "on-click": "activate",
   },
 
   ////----------------------------------------
@@ -136,6 +141,37 @@
   "custom/wallpaper": {
     "format": "󰸉",
     "on-click": "./modules/wallpaper.nu",
-    "tooltip": false,
+    "tooltip-format": "Change wallpaper",
   },
+
+  ////----------------------------------------
+  ///   Groups
+  //------------------------------------------
+  // "group/apps": {
+  //   "orientation": "orthogonal",
+  //   "drawer": {
+  //     "transition-duration": 300,
+  //     "children-class": "not-power",
+  //     // "transition-left-to-right": false,
+  //   },
+  //   "modules": ["niri/window", "wlr/taskbar", "clock"],
+  // },
+  // "group/most-top-left": {
+  //   "orientation": "horizontal",
+  //   "drawer": {
+  //     "transition-duration": 300,
+  //     "children-class": "not-power",
+  //     // "transition-left-to-right": false,
+  //   },
+  //   "modules": ["custom/launcher", "niri/workspaces"],
+  // },
+  // "group/top-left": {
+  //   "orientation": "horizontal",
+  //   "drawer": {
+  //     "transition-duration": 300,
+  //     "children-class": "not-power",
+  //     // "transition-left-to-right": false,
+  //   },
+  //   "modules": ["group/most-top-left", "wlr/taskbar"],
+  // },
 }

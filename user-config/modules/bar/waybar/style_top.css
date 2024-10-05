@@ -37,12 +37,11 @@ window#waybar {
 #temperature,
 #window,
 #workspaces,
-#custom-wlogout,
 #custom-launcher,
 #custom-wallpaper {
   color: white;
   /* background-color: rgba(76,86,106,0.3); */
-  background-color: alpha(#4C566A, 0.7);
+  background-color: alpha(#4C566A, 0.5);
 
   border-radius: 5px;
   box-shadow: 0px 0px 0px 0px alpha(#9C566A, 0.7);
@@ -59,7 +58,7 @@ window#waybar {
   padding-right: 15px;
 
   transition:
-    background-color    .2s     linear,
+    background-color    0.2s    linear,
     border-color        1.2s    ease-in;
 }
 /* GTK CSS doesn't support the nested CSS, so listing them all here. */
@@ -74,11 +73,10 @@ window#waybar {
 #taskbar:hover,
 #temperature:hover,
 #window:hover,
-#workspaces:hover,
 #custom-launcher:hover,
 #custom-wallpaper:hover {
   color: #ffffff;
-  background-color: alpha(#9CA6BA, 0.9);
+  background-color: alpha(#2C364A, 0.9);
 }
 
 /***----------------------------------------
@@ -126,9 +124,12 @@ window#waybar {
 }
 
 #clock {
+  /* Add slightly different colour for the edge module. */
+  background-color: alpha(#2C364A, 0.7);
+
   /* Clock is stylised differently as it appears at the top right. */
-  border-radius: 5px 0px 0px 5px;
-  padding-left: 10px;
+  border-radius: 10px 0px 0px 10px;
+  padding-left: 20px;
   padding-right: 10px;
 
   /* Subtle shadow with border */
@@ -227,61 +228,47 @@ window#waybar {
   border-bottom: solid 2px alpha(#92062e, 0.8);
 }
 
-/* Below modules currently not used */
-#window {
-    background: #2e3440;
-    padding-left: 15px;
-    padding-right: 15px;
-    border-radius: 10px;
-    /*border-left: solid 1px #282738;*/
-    /*border-right: solid 1px #282738;*/
-    margin-top: 5px;
-    margin-bottom: 5px;
-    font-weight: normal;
-    font-style: normal;
-}
-
-#taskbar {
-    background-color: #2BD2FF;
-    background-image: linear-gradient(45deg, #b48ead 0%, #5e81ac 52%, #b48ead 90%);
-    border-radius: 8px;
-}
-#taskbar button {
-    border-radius: 2px 2px 2px 2px;
-    padding: 0 0 0 1px;
-    margin: 4px 4px;
-    color: #ffffff;
-    background-color: rgba(120,118,117,0.1);
-}
-#taskbar button.active {
-    background-color: rgba(108, 122, 137, 1);
-}
-
+/***----------------------------------------
+ **   Modules on Right
+ *------------------------------------------*/
 /* For Niri Workspaces */
 #workspaces {
-    padding: 0;
-    color: #ffffff;
-    border-radius: 99px;
-    background:
-        linear-gradient(rgba(40, 40, 40, 1), rgba(40, 40, 40, 1)) padding-box,
-        linear-gradient(90deg, #8ec07c, #d5c4a1) border-box;
-    background-clip: padding-box, border-box;
-    border: 3px solid transparent;
+  /* Because the margin will be added from all adjacent modules, I'm only adding
+  on one side -- and in this case, only the left hand side. All the other
+  margins will be handled by cascading. */
+  margin-left: 7px;
+
+  padding-left: 10px;
+  padding-right: 10px;
+
+  border-radius: 5px 5px 5px 5px;
+  /* box-shadow: 0px 0px 0px 0px alpha(#9C566A, 0.7); */
+
+  /* Subtle shadow with border */
+  border-right: solid 1px alpha(#4C566A, 0.2);
+  border-bottom: solid 1px alpha(#4C566A, 0.2);
+  /* The additional left border makes the bottom border to render with
+  consistent format given the right border has some width. */
+  border-left: solid 1px transparent;
 }
 #workspaces button {
-    margin-right: 4px;
-    background: none;
-    border: none;
-    background-color: transparent; /* Make hover background fully transparent */
-    padding: 2px 4px;
-    color: #f0f0f0;
+  color: #f0f0f0;
+
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 5px;
+  padding-right: 5px;
+
+  border-radius: 4px;
+
+  background-color: transparent;
+}
+#workspaces button.active {
+  /* margin-right: 4px; */
+  color: alpha(#ce7e06, 1);
 }
 #workspaces button:hover {
-  background-color: transparent;
-  box-shadow: none;
-  border: none;
-  color: #8ec07c;
-  border-color: #8ec07c;
+  background-color: alpha(#2C364A, 0.7);
 }
 
 
@@ -289,6 +276,10 @@ window#waybar {
  **  Custom modules
  *------------------------------------------*/
 #custom-launcher {
+  /* Add slightly different colour for the edge module. */
+  background-color: alpha(#2C364A, 0.7);
+
+  /* The most left component in the top bar, styled slightly differently.*/
   font-size: 12px;
   border-radius: 0px 10px 10px 0px;
 

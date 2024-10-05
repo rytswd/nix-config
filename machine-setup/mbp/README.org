@@ -52,6 +52,7 @@ While a lot can be achieved with Nix, there are still a few items that are not m
 - Configure Raycast shortcuts
 - Update Dropbox and other cloud storage save location
 - Set calendar start date to Sunday
+- Show volume icon in the menu bar
 
 There are some that I know I can manage using the Nix configurations here, but not managed yet:
 

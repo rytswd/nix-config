@@ -27,6 +27,7 @@
       pkgs.erdtree      # https://github.com/solidiquis/erdtree
       pkgs.delta        # https://github.com/dandavison/delta
       pkgs.cloc         # https://github.com/AlDanial/cloc
+      pkgs.ripunzip     # https://github.com/google/ripunzip
 
       # TODO: Consider creating programming YAML
       pkgs.dyff         # https://github.com/homeport/dyff

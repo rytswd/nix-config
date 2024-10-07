@@ -921,11 +921,11 @@
         "zig": "zig"
       },
       "locked": {
-        "lastModified": 1728061344,
-        "narHash": "sha256-6c4UZVNM4c/fvIoEe0SeK9C8FMP5gIFrK85YSy78bmo=",
+        "lastModified": 1728265353,
+        "narHash": "sha256-htj/xhv0DhKSoCUoVtUDAqQU7a+2BK3mGHmVXjy/nkE=",
         "ref": "refs/heads/main",
-        "rev": "0dbf9796ef6e4423a758be7d9b5a63c78b74a0d2",
-        "revCount": 7608,
+        "rev": "481e24995833faf8f09137bbf0532c44d56203e0",
+        "revCount": 7636,
         "type": "git",
         "url": "ssh://git@github.com/mitchellh/ghostty"
       },

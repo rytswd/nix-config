@@ -6,12 +6,15 @@ let admin =
     home = "/Users/admin";
   } else {
     home = "/home/admin";
+    group = "wheel";
 
-    shell = pkgs.fish;
+    # For running scripts, zsh is easier as it works similarly to bash.
+    shell = pkgs.bash;
 
-    isNormalUser = true;
+    # IMPORTANT: The admin user is not a normal user.
+    isSystemUser = true;
+
     extraGroups = [
-      "wheel" # For sudo
       "input" # For Xremap and input handling without sudo
       "uinput" # For Xremap and input handling without sudo
     ];

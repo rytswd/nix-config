@@ -12,8 +12,6 @@ let pictures = (
 let num_of_pics = (($pictures | length) - 1) # Adjusting for idx use
 let new_idx = (random int 0..$num_of_pics)
 
-echo "{\"text\": \"a\"}"
-
 let new_picture = (
   $pictures
     | get $new_idx

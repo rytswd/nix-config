@@ -5,7 +5,7 @@
 
 {
   options = {
-    editor.zed.enable = lib.mkEnableOption "Enable Helix.";
+    editor.zed.enable = lib.mkEnableOption "Enable Zed.";
   };
 
   config = lib.mkIf config.editor.zed.enable {

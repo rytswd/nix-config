@@ -21,6 +21,7 @@ in {
       ../modules/bar
       ../modules/clipboard
       ../modules/notification
+      ../modules/process
       ../modules/terminal
       ../modules/vcs
       ../modules/wallpaper

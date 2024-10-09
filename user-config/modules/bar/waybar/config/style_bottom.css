@@ -67,13 +67,14 @@ window#waybar {
  **  Standard modules
  *------------------------------------------*/
 #mpris {
-  font-size: 10px;
+  font-size: 12px;
   /* MPRIS is for showing currently playing media based on libplayerctl. This
   is stylised differently as it appears at the bottom centre. */
   border-radius: 10px;
+  margin-top: 0px;
 
-  padding-top: 2px;
-  padding-bottom: 1px;
+  padding-top: 0px;
+  padding-bottom: 0px;
   padding-left: 13px;
   padding-right: 13px;
 
@@ -81,10 +82,39 @@ window#waybar {
   /* border-right: solid 1px rgba(76,86,106,0.2); */
   border-bottom: solid 1px alpha(#4C566A, 0.2);
   border-bottom: solid 2px alpha(#4C566A, 0.2);
+
+  /* Make animation by using background-position. */
+  transition-property: background-color, background-position;
+  transition-duration: 10.0s;
+}
+@keyframes glow-circulate {
+	0% {
+		background-position: 0% 00%;
+	}
+    25% {
+		background-position: 0% 100%;
+    }
+    50% {
+		background-position: 100% 100%;
+    }
+	75% {
+		background-position: 100% 0%;
+	}
+	100% {
+		background-position: 0% 0%;
+	}
 }
 #mpris.playing {
-  font-size: 10px;
-  border-bottom: solid 2px alpha(#FBB151, 0.6);
+  /* border-bottom: solid 2px alpha(#FBB151, 0.6); */
+  background:
+      linear-gradient(rgba(40, 40, 40, .9), rgba(40, 40, 40, .9)) padding-box,
+      linear-gradient(270deg, alpha( red, 0.8), alpha( orange, 0.5), alpha( aqua, 0.5), alpha( #06922e, 0.8)) border-box;
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  border-bottom: 2px solid transparent;
+
+  animation: glow-circulate 10s ease alternate infinite;
+  background-size: 150% 150%;
 }
 #mpris.paused {
   color: alpha(#ACDAE9, 0.8);

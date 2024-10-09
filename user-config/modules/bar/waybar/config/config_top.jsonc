@@ -7,12 +7,16 @@
   "modules-left": [
     // TBC
     "custom/launcher",
-    "niri/workspaces",
+    // "niri/workspaces",
+    "niri/window",
+    "custom/niri-windows",
   ],
   // "modules-center": [
   //   // TBC
+  //   "group/apps",
   // ],
   "modules-right": [
+    "group/top-right",
     "custom/wallpaper",
     "pulseaudio",
     "bluetooth",
@@ -67,10 +71,18 @@
     "interval": 20,
     "path": "/",
   },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "󰒲",
+      "deactivated": "󰒳",
+    },
+  },
   "network": {
     "interval": 1,
+    "format": " ",
     "format-alt": "  {essid} ({signalStrength}%): {ifname} {ipaddr}/{cidr}",
-    "format-disconnected": "⚠",
+    "format-disconnected": "󰖪",
     "format-ethernet": "{ifname}: {ipaddr}/{cidr}   up: {bandwidthUpBits} down: {bandwidthDownBits}",
     "format-linked": "{ifname} (No IP) ",
     "format-wifi": " ",
@@ -123,9 +135,24 @@
       // "active": "󱄄",
     },
   },
+  "niri/window": {
+    "format": "{app_id}",
+    "rewrite": {
+      ".*emacs.*": "Emacs",
+      ".*ghostty*": "Ghostty",
+      ".*vivaldi.*": "Vivaldi",
+      ".*signal.*": "Signal",
+      ".*blueman.*": "Bluetooth",
+      ".*vesktop.*": "Vesktop",
+      ".*brave.*": "Brave",
+    },
+    "icon": true,
+    "icon-size": 18,
+  },
   "wlr/taskbar": {
     "active-only": true,
     "sort-by-app-id": true,
+
     "on-click": "activate",
   },
 
@@ -143,19 +170,41 @@
     "on-click": "./modules/wallpaper.nu",
     "tooltip-format": "Change wallpaper",
   },
+  "custom/niri-windows": {
+    "return-type": "json",
+    "max-length": 40,
+    "escape": true,
+    "exec": "./modules/niri_windows.nu",
+  },
+  "custom/group-head": {
+    "format": "󰪴",
+    "tooltip-format": "More controls",
+  },
 
   ////----------------------------------------
   ///   Groups
   //------------------------------------------
-  // "group/apps": {
-  //   "orientation": "orthogonal",
-  //   "drawer": {
-  //     "transition-duration": 300,
-  //     "children-class": "not-power",
-  //     // "transition-left-to-right": false,
-  //   },
-  //   "modules": ["niri/window", "wlr/taskbar", "clock"],
-  // },
+  "group/apps": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "not-power",
+      // "transition-left-to-right": false,
+      "click-to-reveal": true,
+    },
+    "modules": ["niri/window", "wlr/taskbar", "clock"],
+  },
+  // WIP
+  "group/top-right": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "not-power",
+      "transition-left-to-right": false,
+      "click-to-reveal": true,
+    },
+    "modules": ["custom/group-head", "idle_inhibitor"],
+  },
   // "group/most-top-left": {
   //   "orientation": "horizontal",
   //   "drawer": {

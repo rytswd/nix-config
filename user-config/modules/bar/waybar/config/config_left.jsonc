@@ -1,0 +1,40 @@
+{
+  // This is for the left bar
+  "position": "left",
+  "layer": "top",
+  "spacing": 0,
+  // "hegiht": 16, // This has no impact.
+  "modules-center": ["niri/workspaces"],
+  ////----------------------------------------
+  ///   Standard modules
+  //------------------------------------------
+  // None as of now
+
+  ////----------------------------------------
+  ///   Specific modules
+  //------------------------------------------
+  "niri/workspaces": {
+    "all-outputs": false,
+    "format": "{icon}",
+    "format-icons": {
+      // Named workspaces
+      "coding": "",
+      "civo": "󱃾",
+      // Special keywords
+      "default": "󰄷",
+      // "focused": "",
+      // "active": "󱄄",
+    },
+    "tooltip": "",
+  },
+
+  ////----------------------------------------
+  ///   Custom modules
+  //------------------------------------------
+  // None as of now
+
+  ////----------------------------------------
+  ///   Groups
+  //------------------------------------------
+  // None as of now
+}

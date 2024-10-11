@@ -55,6 +55,11 @@
           status = true;
         };
 
+        init = {
+          defaultBranch = "main";
+          # templatedir = "${config.xdg.configHome}/git/templates";
+        };
+
         help.autocorrect = 1;
         commit.gpgsign = true;
 

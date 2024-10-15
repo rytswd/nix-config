@@ -56,6 +56,7 @@ While a lot can be achieved with Nix, there are still a few items that are not m
 - Hide the menu bar by default
 - Disable auto rearrange spaces
 - Switch to space when selecting app
+- Show battery percentage
 
 There are some that I know I can manage using the Nix configurations here, but not managed yet:
 

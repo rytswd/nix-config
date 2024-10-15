@@ -13,6 +13,7 @@
       pkgs.gnumake
       pkgs.git
       pkgs.cachix
+      pkgs.nh
     ];
   };
 }

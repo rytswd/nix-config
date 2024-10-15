@@ -12,6 +12,7 @@
     ./css.nix
     ./javascript.nix
     ./python.nix
+    ./haskell.nix
     ./zig.nix
     ./roc.nix
     ./markdown.nix
@@ -30,6 +31,7 @@
   programming.html.enable = lib.mkDefault true;
   programming.css.enable = lib.mkDefault true;
   programming.javascript.enable = lib.mkDefault true;
+  programming.haskell.enable = lib.mkDefault true;
   programming.python.enable = lib.mkDefault true;
   programming.zig.enable = lib.mkDefault true;
   programming.roc.enable = lib.mkDefault true;

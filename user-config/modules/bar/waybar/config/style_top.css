@@ -270,7 +270,38 @@ window#waybar {
 
 }
 
+/***----------------------------------------
+ **  Groups
+ *------------------------------------------*/
 #custom-group-head {
+  /* Add slightly different colour for group module. */
+  color: white;
+  background-color: alpha(#2C364A, 0.7);
+
+  /* border-radius: 5px; */
+  box-shadow: 0px 0px 0px 0px alpha(#9C566A, 0.7);
+
+  /* By default, there will be no side margins. */
+  margin-top: 7px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+
+  padding-top: 2px; /*Slight adjustment for the vertical alignment */
+  padding-bottom: 0px;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  transition:
+    color               0.2s    linear,
+    background-color    0.2s    linear,
+    border-color        1.2s    ease-in;
+}
+/* GTK CSS doesn't support the nested CSS, so listing them all here. */
+#custom-group-head:hover {
+  color: #ffffff;
+  background-color: alpha(#2C364A, 0.9);
+}
   /* Because the margin will be added from all adjacent modules, I'm only adding
   on one side -- and in this case, only the right hand side. All the other
   margins will be handled by cascading. */

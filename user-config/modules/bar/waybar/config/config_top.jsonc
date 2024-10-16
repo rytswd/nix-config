@@ -8,8 +8,8 @@
     // TBC
     "custom/launcher",
     // "niri/workspaces",
+    // "custom/niri-windows",
     "niri/window",
-    "custom/niri-windows",
   ],
   // "modules-center": [
   //   // TBC

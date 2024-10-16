@@ -165,16 +165,17 @@
     "on-click-right": "wlogout",
     "tooltip": false,
   },
-  "custom/wallpaper": {
-    "format": "󰸉",
-    "on-click": "./modules/wallpaper.nu",
-    "tooltip-format": "Change wallpaper",
-  },
   "custom/niri-windows": {
     "return-type": "json",
     "max-length": 40,
     "escape": true,
     "exec": "./modules/niri_windows.nu",
+  },
+  "custom/wallpaper": {
+    "format": "󰸉",
+    "return_type": "json",
+    "on-click": "$XDG_CONFIG_HOME/waybar/modules/wallpaper.nu",
+    "tooltip-format": "Change wallpaper",
   },
   "custom/group-head": {
     "format": "󰪴",

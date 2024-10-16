@@ -3,6 +3,7 @@
   "position": "bottom",
   "layer": "top",
   // "hegiht": 16, // This has no impact.
+  "modules-left": ["custom/org-clock"],
   "modules-center": ["mpris"],
   "modules-right": ["tray"],
 
@@ -46,10 +47,18 @@
   ////----------------------------------------
   ///   Custom modules
   //------------------------------------------
-  // "custom/launcher": {
-  //   "format": "",
-  //   "on-click": "fuzzel",
-  //   "on-click-right": "wlogout",
-  //   "tooltip": "",
-  // },
+  "custom/org-clock": {
+    "format": "{}",
+    "on-click": "$XDG_CONFIG_HOME/waybar/modules/org-clock.nu toggle",
+    "on-right-click": "$XDG_CONFIG_HOME/waybar/modules/org-clock.nu status",
+    "exec": "$XDG_CONFIG_HOME/waybar/modules/org-clock.nu status",
+    "interval": 60,
+    "signal": 7,
+    "return-type": "json",
+  },
+
+  ////----------------------------------------
+  ///   Groups
+  //------------------------------------------
+  // None as of now
 }

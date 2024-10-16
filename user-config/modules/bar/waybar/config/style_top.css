@@ -278,19 +278,29 @@ window#waybar {
   color: white;
   background-color: alpha(#2C364A, 0.7);
 
-  /* border-radius: 5px; */
+  border-radius: 5px;
+
   box-shadow: 0px 0px 0px 0px alpha(#9C566A, 0.7);
 
   /* By default, there will be no side margins. */
   margin-top: 7px;
   margin-bottom: 0px;
   margin-left: 0px;
-  margin-right: 0px;
+  /* margin-right: 0px; */
 
   padding-top: 2px; /*Slight adjustment for the vertical alignment */
   padding-bottom: 0px;
   padding-left: 15px;
   padding-right: 15px;
+
+  /* Because the margin will be added from all adjacent modules, I'm only adding
+  on one side -- and in this case, only the right hand side. All the other
+  margins will be handled by cascading. */
+  margin-right: 3px;
+
+  /* Subtle shadow with border */
+  border-right: solid 1px alpha(#4C566A, 0.2);
+  border-bottom: solid 1px alpha(#4C566A, 0.2);
 
   transition:
     color               0.2s    linear,
@@ -301,13 +311,4 @@ window#waybar {
 #custom-group-head:hover {
   color: #ffffff;
   background-color: alpha(#2C364A, 0.9);
-}
-  /* Because the margin will be added from all adjacent modules, I'm only adding
-  on one side -- and in this case, only the right hand side. All the other
-  margins will be handled by cascading. */
-  margin-right: 3px;
-
-  /* Subtle shadow with border */
-  border-right: solid 1px alpha(#4C566A, 0.2);
-  border-bottom: solid 1px alpha(#4C566A, 0.2);
 }

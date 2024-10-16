@@ -14,7 +14,7 @@
  **  Bar
  *------------------------------------------*/
 window#waybar {
-  background: rgba(76,86,106,0.0);
+  background-color: alpha(#ACB6CA, 0.0);
   /* color: #cdd6f4 */
 }
 

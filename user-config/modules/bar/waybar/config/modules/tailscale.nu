@@ -16,7 +16,7 @@ def main (input?: string) {
 # I need sudo in place.
 
 def get_status () {
-  (do -i { sudo tailscale status --json }
+  (do -i { tailscale status --json }
         | from json
         | get BackendState)
 }
@@ -35,15 +35,15 @@ def toggle_tailscale () {
   (get_status
     | match $in {
         "Running" => (
-          do -i { sudo tailscale down })
+          do -i { tailscale down })
         "Stopped" => (
-          do -i { (sudo tailscale up
+          do -i { (tailscale up
                     --accept-routes
                     --ssh
                     --operator=$env.USER) })
         # In case of unknown state, assume it's not connected, and retry.
         _ => (
-          do -i { (sudo tailscale up
+          do -i { (tailscale up
                     --accept-routes
                     --ssh
                     --operator=$env.USER) })

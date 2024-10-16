@@ -180,6 +180,17 @@
     "format": "󰪴",
     "tooltip-format": "More controls",
   },
+  "custom/tailscale": {
+    "format": "{}",
+    "tooltip": true,
+    // On-click event handling
+    "on-click": "$XDG_CONFIG_HOME/waybar/modules/tailscale.nu toggle",
+    // Executed when Waybar is loaded, and when signal is sent.
+    "exec": "$XDG_CONFIG_HOME/waybar/modules/tailscale.nu status",
+    "interval": "once",
+    "signal": 10,
+    "return-type": "json",
+  },
 
   ////----------------------------------------
   ///   Groups
@@ -203,7 +214,7 @@
       "transition-left-to-right": false,
       "click-to-reveal": true,
     },
-    "modules": ["custom/group-head", "idle_inhibitor"],
+    "modules": ["custom/group-head", "idle_inhibitor", "custom/tailscale"],
   },
   // "group/most-top-left": {
   //   "orientation": "horizontal",

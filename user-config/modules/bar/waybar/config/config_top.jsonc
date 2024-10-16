@@ -85,12 +85,17 @@
   },
   "network": {
     "interval": 1,
-    "format": " ",
-    "format-alt": "  {essid} ({signalStrength}%): {ifname} {ipaddr}/{cidr}",
-    "format-disconnected": "󰖪",
-    "format-ethernet": "{ifname}: {ipaddr}/{cidr}   up: {bandwidthUpBits} down: {bandwidthDownBits}",
-    "format-linked": "{ifname} (No IP) ",
-    "format-wifi": " ",
+    "format": "{icon}",
+    "format-alt": "{icon} {essid} ({signalStrength}%): {ifname} {ipaddr}/{cidr}",
+    "format-ethernet": "{icon} {ifname}: {ipaddr}/{cidr}   up: {bandwidthUpBits} down: {bandwidthDownBits}",
+    "format-linked": "{icon} {ifname} (No IP) ",
+    "format-icons": {
+      "default": "󰨹",
+      "wifi": "󰖩",
+      "disconnected": "󰖪",
+      "ethernet": "󰈁",
+      "linked": "󰌷",
+    },
     "tooltip-format": "{ipaddr}/{cidr} {bandwidthUpBits} / {bandwidthDownBits}",
   },
   "pulseaudio": {

@@ -39,7 +39,7 @@ window#waybar {
 #window,
 #workspaces,
 #custom-launcher,
-#custom-group-head,
+#custom-tailscale,
 #custom-wallpaper {
   color: black;
   background-color: alpha(#ACB6CA, 0.5);
@@ -77,7 +77,7 @@ window#waybar {
 #temperature:hover,
 #window:hover,
 #custom-launcher:hover,
-#custom-group-head:hover,
+#custom-tailscale:hover,
 #custom-wallpaper:hover {
   color: #ffffff;
   background-color: alpha(#2C364A, 0.9);
@@ -99,6 +99,7 @@ window#waybar {
   consistent format given the right border has some width. */
   border-left: solid 1px transparent;
 }
+
 #battery.warning {
   border-bottom: solid 2px alpha(#ce7e06, 0.8);
 }
@@ -114,19 +115,6 @@ window#waybar {
   /* border-bottom: 2px solid transparent; */
 }
 
-#bluetooth {
-  /* Because the margin will be added from all adjacent modules, I'm only adding
-  on one side -- and in this case, only the right hand side. All the other
-  margins will be handled by cascading. */
-  margin-right: 3px;
-
-  /* Subtle shadow with border */
-  border-right: solid 1px alpha(#4C566A, 0.2);
-  border-bottom: solid 1px alpha(#4C566A, 0.2);
-  /* The additional left border makes the bottom border to render with
-  consistent format given the right border has some width. */
-  border-left: solid 1px transparent;
-}
 #bluetooth.disabled {
   color: alpha(#6c7a89, 1);
   border-bottom: solid 2px alpha(#92062e, 0.8);
@@ -154,88 +142,28 @@ window#waybar {
   /* Icon + numeric module could shift the format, so setting some width by
   default. */
   min-width: 36px;
-
-  /* Because the margin will be added from all adjacent modules, I'm only adding
-  on one side -- and in this case, only the right hand side. All the other
-  margins will be handled by cascading. */
-  margin-right: 3px;
-
-  /* Subtle shadow with border */
-  border-right: solid 1px alpha(#4C566A, 0.2);
-  border-bottom: solid 1px alpha(#4C566A, 0.2);
 }
 
 #disk {
   /* Icon + numeric module could shift the format, so setting some width by
   default. */
   min-width: 36px;
-
-  /* Because the margin will be added from all adjacent modules, I'm only adding
-  on one side -- and in this case, only the right hand side. All the other
-  margins will be handled by cascading. */
-  margin-right: 3px;
-
-  /* Subtle shadow with border */
-  border-right: solid 1px alpha(#4C566A, 0.2);
-  border-bottom: solid 1px alpha(#4C566A, 0.2);
 }
 
 #memory {
   /* Icon + numeric module could shift the format, so setting some width by
   default. */
   min-width: 36px;
-
-  /* Because the margin will be added from all adjacent modules, I'm only adding
-  on one side -- and in this case, only the right hand side. All the other
-  margins will be handled by cascading. */
-  margin-right: 3px;
-
-  /* Subtle shadow with border */
-  border-right: solid 1px alpha(#4C566A, 0.2);
-  border-bottom: solid 1px alpha(#4C566A, 0.2);
 }
 
-#network {
-  /* Because the margin will be added from all adjacent modules, I'm only adding
-  on one side -- and in this case, only the right hand side. All the other
-  margins will be handled by cascading. */
-  margin-right: 3px;
-
-  /* Subtle shadow with border */
-  border-right: solid 1px alpha(#4C566A, 0.2);
-  border-bottom: solid 1px alpha(#4C566A, 0.2);
-}
-
-#pulseaudio {
-  /* Because the margin will be added from all adjacent modules, I'm only adding
-  on one side -- and in this case, only the right hand side. All the other
-  margins will be handled by cascading. */
-  margin-right: 3px;
-
-  /* Subtle shadow with border */
-  border-right: solid 1px alpha(#4C566A, 0.2);
-  border-bottom: solid 1px alpha(#4C566A, 0.2);
-  /* The additional left border makes the bottom border to render with
-  consistent format given the right border has some width. */
-  border-left: solid 1px transparent;
+#network.disconnected {
+  border-bottom: solid 2px alpha(#92062e, 0.8);
 }
 
 #temperature {
   /* Icon + numeric module could shift the format, so setting some width by
   default. */
   min-width: 36px;
-
-  /* Because the margin will be added from all adjacent modules, I'm only adding
-  on one side -- and in this case, only the right hand side. All the other
-  margins will be handled by cascading. */
-  margin-right: 3px;
-
-  /* Subtle shadow with border */
-  border-right: solid 1px alpha(#4C566A, 0.2);
-  border-bottom: solid 1px alpha(#4C566A, 0.2);
-  /* The additional left border makes the bottom border to render with
-  consistent format given the right border has some width. */
-  border-left: solid 1px transparent;
 }
 #temperature.critical {
   border-bottom: solid 2px alpha(#92062e, 0.8);
@@ -333,15 +261,13 @@ window#waybar {
   background-color: alpha(#4C566A, 0.8);
 }
 
-#custom-wallpaper {
-  /* Because the margin will be added from all adjacent modules, I'm only adding
-  on one side -- and in this case, only the right hand side. All the other
-  margins will be handled by cascading. */
-  margin-right: 3px;
+#custom-tailscale.disconnected {
+  border-bottom: solid 2px alpha(#92062e, 0.8);
+}
+#custom-tailscale.unknown {
+  /* animation: spin 2s ease normal infinite; */
+  border-bottom: solid 2px alpha(#F9B44D, 0.8);
 
-  /* Subtle shadow with border */
-  border-right: solid 1px alpha(#4C566A, 0.2);
-  border-bottom: solid 1px alpha(#4C566A, 0.2);
 }
 
 #custom-group-head {

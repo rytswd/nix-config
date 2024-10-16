@@ -9,7 +9,12 @@
   };
 
   config = lib.mkIf config.vpn.tailscale.enable {
-    services.tailscale.enable = true;
+    services.tailscale = {
+      enable = true;
+      extraSetFlags = [
+        "--operator=ryota"
+      ];
+    };
     networking.firewall.allowedUDPPorts = [ config.services.tailscale.port ];
   };
 }

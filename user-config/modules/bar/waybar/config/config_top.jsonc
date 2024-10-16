@@ -74,9 +74,14 @@
   "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {
-      "activated": "󰒲",
-      "deactivated": "󰒳",
+      // Because this is for "inhibitor", activated means that system
+      // will not go to sleep, and deactivated means the idle handling
+      // kicks in as normal.
+      "activated": "󰒳",
+      "deactivated": "󰒲",
     },
+    "tooltip-format-activated": "System will NOT go to sleep.",
+    "tooltip-format-deactivated": "System will go to sleep.",
   },
   "network": {
     "interval": 1,

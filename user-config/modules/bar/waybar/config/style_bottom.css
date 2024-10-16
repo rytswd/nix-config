@@ -34,6 +34,7 @@ window#waybar {
 */
 #mpris,
 #tray,
+#custom-org-clock,
 #custom-placeholder {
   color: white;
   /* background-color: rgba(76,86,106,0.3); */
@@ -52,12 +53,15 @@ window#waybar {
   padding-left: 15px;
   padding-right: 15px;
 
-  transition-property: background-color;
-  transition-duration: .2s;
+  transition:
+    color               0.2s    linear,
+    background-color    0.2s    linear,
+    border-color        1.2s    ease-in;
 }
 /* GTK CSS doesn't support the nested CSS, so listing them all here. */
 #mpris:hover,
 #tray:hover,
+#custom-org-clock:hover,
 #custom-placeholder:hover {
   color: #ffffff;
   background-color: shade(alpha(#4C566A, 0.8), 0.2);
@@ -88,21 +92,21 @@ window#waybar {
   transition-duration: 10.0s;
 }
 @keyframes glow-circulate {
-	0% {
-		background-position: 0% 00%;
-	}
-    25% {
-		background-position: 0% 100%;
-    }
-    50% {
-		background-position: 100% 100%;
-    }
-	75% {
-		background-position: 100% 0%;
-	}
-	100% {
-		background-position: 0% 0%;
-	}
+  0% {
+	background-position: 0% 00%;
+  }
+  25% {
+	background-position: 0% 100%;
+  }
+  50% {
+	background-position: 100% 100%;
+  }
+  75% {
+	background-position: 100% 0%;
+  }
+  100% {
+	background-position: 0% 0%;
+  }
 }
 #mpris.playing {
   /* border-bottom: solid 2px alpha(#FBB151, 0.6); */
@@ -144,3 +148,31 @@ window#waybar {
 /***----------------------------------------
  **  Custom modules
  *------------------------------------------*/
+#custom-org-clock {
+  /* Add slightly different colour for the edge module. */
+  color: white;
+  background-color: alpha(#2C364A, 0.7);
+
+  font-family: DejaVu Sans;
+  font-size: 10px;
+
+  /* The most right component in the top bar, styled slightly differently.*/
+  border-radius: 0px 10px 10px 0px;
+
+  margin-right: 5px;
+
+  padding-top: 0px; /*Slight adjustment for the vertical alignment */
+  padding-bottom: 0px;
+  padding-right: 20px;
+  padding-left: 10px;
+
+  /* Subtle shadow with border */
+  /* border-right: solid 1px rgba(76,86,106,0.2); */
+  border-bottom: solid 1px alpha(#4C566A, 0.2);
+}
+#custom-org-clock.none {
+  color: #ACBAC9;
+}
+#custom-org-clock.overrun {
+  border-bottom: solid 2px alpha(#92062e, 0.8);
+}

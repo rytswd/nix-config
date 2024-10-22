@@ -15,6 +15,7 @@ in {
 
     ../modules/terminal
     ../modules/bar
+    ../modules/window-manager
     ../modules/vcs
     ../modules/editor
     ../modules/programming

@@ -27,6 +27,7 @@ def write_status () {
         "Running" => '{"text": "󰢩"}'
         # In case of connection issue, add an extra class for styling.
         "Stopped" => '{"text": "󰱟", "class": "disconnected"}'
+        "NoState" => '{"text": "󰱟", "class": "disconnected"}'
         _ => '{"text": "", "class": "unknown"}' # Unknown state
     })
 }

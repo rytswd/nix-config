@@ -1,17 +1,15 @@
-{ lib
-, nixpkgs
+{ nixpkgs
 , nixpkgs-unstable
-, darwinSystem
+, darwin
 , home-manager
 , system
 , overlays
 , inputs
 , ...}:
 
-darwinSystem {
+darwin.lib.darwinSystem {
   inherit system;
-  # inputs = { inherit username; };
-  specialArgs = { inherit lib nixpkgs nixpkgs-unstable home-manager overlays; };
+  specialArgs = { inherit nixpkgs nixpkgs-unstable home-manager overlays; };
   modules = [
     # Adjust Nix and Nixpkgs related flags before proceeding.
     # ./nix-flags.nix
@@ -41,7 +39,7 @@ darwinSystem {
     home-manager.darwinModules.home-manager {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = { inherit inputs; };  # Pass flake variable
+      home-manager.extraSpecialArgs = { inherit inputs; };
 
       # Each user needs to be set up separately. Because home-manager needs to
       # know where the home directory is, I need to specify the username again.

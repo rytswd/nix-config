@@ -14,6 +14,7 @@ in {
     ../modules/key-remap/skhd
 
     ../modules/terminal
+    ../modules/bar
     ../modules/vcs
     ../modules/editor
     ../modules/programming

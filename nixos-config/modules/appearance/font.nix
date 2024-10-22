@@ -29,7 +29,7 @@
         pkgs.raleway
         pkgs.monaspace
         pkgs.noto-fonts
-        pkgs.noto-fonts-cjk
+        pkgs.noto-fonts-cjk-sans
         pkgs.noto-fonts-emoji
         pkgs.victor-mono
         pkgs.emacs-all-the-icons-fonts

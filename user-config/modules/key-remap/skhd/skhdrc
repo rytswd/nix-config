@@ -74,8 +74,8 @@ rshift + ralt - escape : sketchybar --bar hidden=toggle
 
 # Use sketchybar configuration directly without Nix (for development)
 rshift + ralt - f1 : sh -c "pkill -x sketchybar; \
-                            export CONFIG_DIR=$HOME/Coding/github.com/rytswd/nix-config/user-config/ryota/sketchybar && \
-                            sketchybar -c $HOME/Coding/github.com/rytswd/nix-config/user-config/ryota/sketchybar/sketchybarrc.nu"
+                            export CONFIG_DIR=$HOME/Coding/github.com/rytswd/nix-config/user-config/modules/bar/sketchybar/config && \
+                            sketchybar -c $HOME/Coding/github.com/rytswd/nix-config/user-config/modules/bar/sketchybar/config/sketchybarrc.nu"
 # Use sketchybar configuration directly from Nix (for stable)
 rshift + ralt - f2 : sh -c "pkill -x sketchybar; \
                             export CONFIG_DIR=$XDG_CONFIG_HOME/sketchybar && \

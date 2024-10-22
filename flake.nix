@@ -198,9 +198,7 @@
         # `./user-config/<username>/macos.nix`.
         darwinConfigurations = {
           ryota-mbp = (import ./macos-config/mbp {
-            inherit (darwin) lib;
-            inherit (darwin.lib) darwinSystem;
-            inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
+            inherit nixpkgs nixpkgs-unstable darwin home-manager inputs overlays;
             system = "${mbp-arch}-darwin";
           });
         };
@@ -225,12 +223,13 @@
             inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
             system = "x86_64-linux";
           });
-          mbp-2021-utm = (import ./nixos-config/mbp-utm {
-            inherit (nixpkgs-unstable) lib;
-            inherit (nixpkgs-unstable.lib) nixosSystem;
-            inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
-            system = "${mbp-arch}-linux";
-          });
+          # TODO: Fix this based on the new setup.
+          # mbp-2021-utm = (import ./nixos-config/mbp-utm {
+          #   inherit (nixpkgs-unstable) lib;
+          #   inherit (nixpkgs-unstable.lib) nixosSystem;
+          #   inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
+          #   system = "${mbp-arch}-linux";
+          # });
         };
 
         ###----------------------------------------

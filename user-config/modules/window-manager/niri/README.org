@@ -640,5 +640,9 @@ Niri can be configured to have named workspaces, along with all the dynamic work
   workspace "coding"
 
   workspace "civo"
+
+  workspace "slack"
+
+  workspace "perf"
 #+end_src
 

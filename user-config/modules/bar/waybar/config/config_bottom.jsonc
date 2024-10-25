@@ -31,18 +31,19 @@
   ////----------------------------------------
   ///   Specific modules
   //------------------------------------------
-  // "niri/workspaces": {
-  //   "all-outputs": true,
-  //   "warp-on-scroll": false,
-  //   "format": "{name} {icon}",
-  //   "disable-tooltip": true,
-  //   "disable-markup": true,
-  //   "format": " {} ",
-  //   "format-icons": {
-  //     "active": "<U+F0AA5>",
-  //     "default": "<U+F0130>",
-  //   },
-  // },
+  "niri/workspaces": {
+    "all-outputs": false,
+    "format": "{icon}",
+    "format-icons": {
+      // Named workspaces
+      "coding": "",
+      "civo": "󱃾",
+      // Special keywords
+      "default": "󰄷",
+      // "focused": "",
+      // "active": "󱄄",
+    },
+  },
 
   ////----------------------------------------
   ///   Custom modules

@@ -226,3 +226,7 @@ binds {
 workspace "coding"
 
 workspace "civo"
+
+workspace "slack"
+
+workspace "perf"

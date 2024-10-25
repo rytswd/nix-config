@@ -921,11 +921,11 @@
         "zig": "zig"
       },
       "locked": {
-        "lastModified": 1728265353,
-        "narHash": "sha256-htj/xhv0DhKSoCUoVtUDAqQU7a+2BK3mGHmVXjy/nkE=",
+        "lastModified": 1729515458,
+        "narHash": "sha256-AYLxdLukuWXJREYupBiAXRk9PGX1qA7w/5adKMlNpTo=",
         "ref": "refs/heads/main",
-        "rev": "481e24995833faf8f09137bbf0532c44d56203e0",
-        "revCount": 7636,
+        "rev": "c2cbc214d5f6d45cfa171b8ed6ea7a670a5cbdab",
+        "revCount": 7762,
         "type": "git",
         "url": "ssh://git@github.com/mitchellh/ghostty"
       },
@@ -1013,16 +1013,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1726989464,
-        "narHash": "sha256-Vl+WVTJwutXkimwGprnEtXc/s/s8sMuXzqXaspIGlwM=",
+        "lastModified": 1729551526,
+        "narHash": "sha256-7LAGY32Xl14OVQp3y6M43/0AtHYYvV6pdyBcp3eoz0s=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "2f23fa308a7c067e52dfcc30a0758f47043ec176",
+        "rev": "5ec753a1fc4454df9285d8b3ec0809234defb975",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "ref": "release-24.05",
+        "ref": "master",
         "repo": "home-manager",
         "type": "github"
       }
@@ -1717,11 +1717,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1728128640,
-        "narHash": "sha256-KgGGEotdUPJZuXBcwhmYDnB5rrFH8LUxdkcU/yQsCR0=",
+        "lastModified": 1729598185,
+        "narHash": "sha256-gErqFffby2yupR3nweq/oxUP/h/HJqNc9fv7wT63kVQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "42c8e2a966eb77241b7262c23234e61bf9d89088",
+        "rev": "8344fc9c5b25f982f9ac5f20e6bd5486098a4bba",
         "type": "github"
       },
       "original": {

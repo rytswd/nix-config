@@ -1,6 +1,6 @@
-/***----------------------------------------
+/***========================================
  **  Default fonts, etc.
- *------------------------------------------*/
+ *==========================================*/
 * {
   border: none;
   border-radius: 0px;
@@ -10,17 +10,17 @@
   min-height: 0;
 }
 
-/***----------------------------------------
+/***========================================
  **  Bar
- *------------------------------------------*/
+ *==========================================*/
 window#waybar {
   background: rgba(76,86,106,0.0);
   /* color: #cdd6f4 */
 }
 
-/***----------------------------------------
+/***========================================
  **  Default look and feel
- *------------------------------------------*/
+ *==========================================*/
 /*
  Thanks to the cascading nature of CSS, I don't have to repeat the same
  settings over and over again. I'm doing a bulk setup for modules I care.
@@ -40,6 +40,7 @@ window#waybar {
 #workspaces,
 #custom-launcher,
 #custom-tailscale,
+#custom-wf-recorder,
 #custom-wallpaper {
   color: black;
   background-color: alpha(#ACB6CA, 0.5);
@@ -78,15 +79,32 @@ window#waybar {
 #window:hover,
 #custom-launcher:hover,
 #custom-tailscale:hover,
+#custom-wf-recorder:hover,
 #custom-wallpaper:hover {
   color: #ffffff;
   background-color: alpha(#2C364A, 0.9);
 }
 
-/***----------------------------------------
+/***========================================
  **  Standard modules
+ *==========================================*/
+
+/***----------------------------------------
+ **  Right hand side
  *------------------------------------------*/
-#battery {
+
+#battery,
+#bluetooth,
+#cpu,
+#disk,
+#idle_inhibitor,
+#memory,
+#network,
+#pulseaudio,
+#temperature,
+#custom-wallpaper,
+#custom-tailscale,
+#custom-wf-recorder {
   /* Because the margin will be added from all adjacent modules, I'm only adding
   on one side -- and in this case, only the right hand side. All the other
   margins will be handled by cascading. */
@@ -267,7 +285,13 @@ window#waybar {
 #custom-tailscale.unknown {
   /* animation: spin 2s ease normal infinite; */
   border-bottom: solid 2px alpha(#F9B44D, 0.8);
-
+}
+#custom-wf-recorder.running {
+  border-bottom: solid 2px alpha(#92062e, 0.8);
+}
+#custom-wf-recorder.unknown {
+  /* animation: spin 2s ease normal infinite; */
+  border-bottom: solid 2px alpha(#F9B44D, 0.8);
 }
 
 /***----------------------------------------

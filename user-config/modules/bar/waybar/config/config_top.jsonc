@@ -26,6 +26,7 @@
     // "disk", // I don't really need to check this right now.
     "battery",
     "clock",
+    "custom/notifications",
   ],
   ////----------------------------------------
   ///   Standard modules
@@ -174,6 +175,12 @@
     "on-click": "fuzzel",
     "on-click-right": "wlogout",
     "tooltip": false,
+  },
+  "custom/notifications": {
+    "format": "󰍪",
+    "on-click": "swaync-client -t",
+    "on-click-right": "swaync-client -d",
+    "tooltip-format": "Notifications",
   },
   "custom/niri-windows": {
     "return-type": "json",

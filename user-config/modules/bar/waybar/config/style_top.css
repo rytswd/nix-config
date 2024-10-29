@@ -39,6 +39,7 @@ window#waybar {
 #window,
 #workspaces,
 #custom-launcher,
+#custom-notifications,
 #custom-tailscale,
 #custom-wf-recorder,
 #custom-wallpaper {
@@ -78,6 +79,7 @@ window#waybar {
 #temperature:hover,
 #window:hover,
 #custom-launcher:hover,
+#custom-notifications:hover,
 #custom-tailscale:hover,
 #custom-wf-recorder:hover,
 #custom-wallpaper:hover {
@@ -267,14 +269,38 @@ window#waybar {
 
   margin-right: 5px;
 
-  padding-right: 20px;
   padding-left: 10px;
+  padding-right: 20px;
 
   /* Subtle shadow with border */
   border-right: solid 2px alpha(#4C566A, 0.2);
   border-bottom: solid 2px alpha(#4C566A, 0.2);
 }
 #custom-launcher:hover {
+  color: #ffffff;
+  background-color: alpha(#4C566A, 0.8);
+}
+
+#custom-notifications {
+  /* Add slightly different colour for the edge module. */
+  /* This module also aims to be minimal and combined with another. */
+  color: white;
+  background-color: alpha(#2C364A, 0.7);
+
+  /* The most left component in the top bar, styled slightly differently.*/
+  font-size: 12px;
+  border-radius: 0px;
+
+  /* margin-right: 5px; */
+
+  padding-left: 10px;
+  padding-right: 10px;
+
+  /* Subtle shadow with border */
+  /* border-right: solid 1px rgba(76,86,106,0.2); */
+  border-bottom: solid 1px alpha(#4C566A, 0.2);
+}
+#custom-notifications:hover {
   color: #ffffff;
   background-color: alpha(#4C566A, 0.8);
 }

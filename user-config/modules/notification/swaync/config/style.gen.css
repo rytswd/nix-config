@@ -1,0 +1,178 @@
+* {
+  border: none;
+  border-radius: 0px;
+  font-family: FiraCode Nerd Font;
+  font-size: 12px;
+  font-style: normal;
+  min-height: 0;
+}
+
+.notification-content {
+  background: transparent;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+}
+
+.app-icon {
+  /* Notification app icon (only visible when the primary image is set) */
+  -gtk-icon-effect: none;
+  -gtk-icon-shadow: 0 1px 4px black;
+  margin: 6px;
+}
+
+.summary {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.time {
+  font-size: 10px;
+  font-weight: lighter;
+}
+
+.body {
+  font-size: 12px;
+  color: #ACB6CA;
+}
+
+.notification-row {
+  background: rgba(44, 54, 74, 0.7);
+  margin-top: 7px;
+  margin-bottom: 3px;
+  margin-left: 0;
+  margin-right: 10px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  border-radius: 7px;
+}
+.notification-row:hover, .notification-row:focus {
+  background: rgba(44, 54, 74, 0.9);
+}
+.notification-row .notification-background {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  border-radius: 7px;
+  transition: background 0.15s ease-in-out;
+}
+.notification-row .notification-background .notification {
+  border-radius: 5px;
+}
+.notification-row .notification-background .notification .critical {
+  border-bottom: solid 2px rgba(146, 6, 46, 0.8);
+}
+.notification-row .notification-background .notification .notification-default-action {
+  border-radius: 5px;
+}
+.notification-row .notification-background .notification .notification-action {
+  border-radius: 5px;
+}
+.notification-row .notification-background .close-button {
+  color: #000000;
+  text-shadow: none;
+  padding: 0;
+  border-radius: 100%;
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 5px;
+  box-shadow: none;
+  border: none;
+  min-width: 24px;
+  min-height: 24px;
+}
+
+.control-center {
+  border-radius: 20px 0 0 20px;
+  box-shadow: 1px 0px 2px 1px rgba(51, 51, 51, 0.3), 8px 1px 2px 1px rgba(51, 51, 51, 0.3), 1px 1px 3px 2px rgba(51, 51, 51, 0.3);
+}
+.control-center .notification-row {
+  background: transparent;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+.control-center .notification-row:hover, .control-center .notification-row:focus {
+  border-radius: 7px;
+  background: rgba(44, 54, 74, 0.9);
+}
+.control-center .notification-row .notification-background {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 2px;
+  padding-right: 2px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  border-radius: 7px;
+  transition: background 0.15s ease-in-out;
+}
+.control-center .notification-row .notification-background .notification {
+  border: 1px rgba(172, 182, 202, 0.2) solid;
+  box-shadow: 1px 1px 1px rgba(44, 54, 74, 0.7);
+  border-radius: 5px;
+}
+.control-center .notification-row .notification-background .notification .critical {
+  border-bottom: solid 2px rgba(146, 6, 46, 0.8);
+}
+.control-center .notification-row .notification-background .notification .notification-default-action {
+  border-radius: 5px;
+}
+.control-center .notification-row .notification-background .notification .notification-action {
+  border-radius: 5px;
+}
+.control-center .notification-row .notification-background .close-button {
+  color: #000000;
+  text-shadow: none;
+  padding: 0;
+  border-radius: 100%;
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 5px;
+  box-shadow: none;
+  border: none;
+  min-width: 24px;
+  min-height: 24px;
+}
+
+/* Window behind control center and on all other monitors. */
+.blank-window {
+  background: transparent;
+}
+
+/* Window behind notification popups. */
+.floating-notifications {
+  background: transparent;
+}
+
+.floating-notifications .notification {
+  box-shadow: none;
+}
+
+.widget-mpris {
+  padding: 8px;
+  padding: 16px;
+  margin: 16px 20px;
+  background-color: transparent;
+  border-radius: 12px;
+}
+.widget-mpris .widget-mpris-player {
+  border-radius: 12px;
+}
+
+/*# sourceMappingURL=style.gen.css.map */

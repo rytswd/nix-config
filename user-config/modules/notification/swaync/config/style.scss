@@ -1,0 +1,251 @@
+// Because the code requires a lot of duplicated selector, I'm using SCSS to
+// streamline the definition. Even with SCSS, there is some extreme nesting
+// necessary to make it work, though.
+//
+// Also, because the LSP won't understand the GTK specific functions, I'm using
+// SCSS variables instead.
+
+$text: #000000;
+$bg-100: rgba(#2C364A, 0.5);
+$bg-200: rgba(#2C364A, 0.7);
+$bg-500: rgba(#2C364A, 0.9);
+$bg-variant-200: rgba(#ACB6CA, 0.2);
+$bg-variant-500: rgba(#ACB6CA, 0.5);
+$critical: rgba(#92062e, 0.8);
+
+* {
+  border: none;
+  border-radius: 0px;
+  font-family: FiraCode Nerd Font;
+  font-size: 12px;
+  font-style: normal;
+  min-height: 0;
+}
+
+////----------------------------------------
+///   General Contents
+//------------------------------------------
+.notification-content {
+  background: transparent;
+
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  border-radius: 10px;
+}
+
+.app-icon {
+  /* Notification app icon (only visible when the primary image is set) */
+  -gtk-icon-effect: none;
+  -gtk-icon-shadow: 0 1px 4px black;
+  margin: 6px;
+}
+
+.summary {
+  font-size: 14px;
+  font-weight: normal;
+}
+.time {
+  font-size: 10px;
+  font-weight: lighter;
+}
+.body {
+  font-size: 12px;
+  color: #ACB6CA;
+}
+
+
+////----------------------------------------
+///   Popup
+//------------------------------------------
+// Because the classes are reused between the simple notification popup as well
+// as in the control centre, I need to set them up separately. Because of the
+// CSS specificity, the order of how the definitions appear should not matter.
+.notification-row {
+  // This background will be visible for a short while the notification closes
+  // with transition.
+  background: $bg-200;
+
+  margin-top: 7px;
+  margin-bottom: 3px;
+  margin-left: 0;
+  margin-right: 10px;
+
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+
+  border-radius: 7px;
+
+  &:hover, &:focus {
+    background: $bg-500;
+  }
+
+  .notification-background {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+
+    // border: 1px lightgoldenrodyellow solid;
+    border-radius: 7px;
+
+    transition: background 0.15s ease-in-out;
+
+    .notification {
+      // border: 1px lime solid;
+      border-radius: 5px;
+      .low {}
+      .normal {}
+      .critical {
+        border-bottom: solid 2px $critical;
+      }
+
+      .notification-default-action {
+        // border: 3px rebeccapurple solid;
+        border-radius: 5px;
+      }
+      .notification-action {
+        // border: 3px deeppink solid;
+        border-radius: 5px;
+      }
+    }
+
+    .close-button {
+      color: $text;
+      text-shadow: none;
+      padding: 0;
+      border-radius: 100%;
+      margin-top: 5px;
+      margin-left: 10px;
+      margin-right: 5px;
+      box-shadow: none;
+      border: none;
+      min-width: 24px;
+      min-height: 24px;
+      // transition: background 0.15s ease-in-out;
+    }
+  }
+}
+
+////----------------------------------------
+///   Control Center
+//------------------------------------------
+.control-center {
+  border-radius: 20px 0 0 20px;
+  box-shadow:
+    1px 0px 2px 1px rgba(#333333, 0.3),
+    8px 1px 2px 1px rgba(#333333, 0.3),
+    1px 1px 3px 2px rgba(#333333, 0.3);
+
+  .notification-row {
+    background: transparent;
+
+    // Adjust only the parts that need to be tweaked.
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+
+    &:hover, &:focus {
+      border-radius: 7px;
+      background: $bg-500;
+    }
+
+    .notification-background {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-left: 2px;
+      padding-right: 2px;
+
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: 0;
+      margin-right: 0;
+
+      // border: 1px lightgoldenrodyellow solid;
+      border-radius: 7px;
+
+      transition: background 0.15s ease-in-out;
+
+      .notification {
+        // border: transparent;
+        border: 1px $bg-variant-200 solid;
+        box-shadow: 1px 1px 1px $bg-200;
+        border-radius: 5px;
+        .low {}
+        .normal {}
+        .critical {
+          border-bottom: solid 2px $critical;
+        }
+
+        .notification-default-action {
+          // border: 3px rebeccapurple solid;
+          border-radius: 5px;
+        }
+        .notification-action {
+          // border: 3px deeppink solid;
+          border-radius: 5px;
+        }
+      }
+
+      .close-button {
+        color: $text;
+        text-shadow: none;
+        padding: 0;
+        border-radius: 100%;
+        margin-top: 5px;
+        margin-left: 10px;
+        margin-right: 5px;
+        box-shadow: none;
+        border: none;
+        min-width: 24px;
+        min-height: 24px;
+        // transition: background 0.15s ease-in-out;
+      }
+    }
+  }
+}
+
+/* Window behind control center and on all other monitors. */
+.blank-window {
+  background: transparent;
+}
+/* Window behind notification popups. */
+.floating-notifications {
+  background: transparent;
+}
+
+.floating-notifications .notification {
+  box-shadow: none;
+}
+
+
+////----------------------------------------
+///    Widget Related
+//------------------------------------------
+.widget-mpris  {
+  padding: 8px;
+  padding: 16px;
+  margin: 16px 20px;
+  background-color: transparent;
+  border-radius: 12px;
+  // box-shadow: 30px 3px 10px rgba(0, 0, 0, 0.35);
+
+  .widget-mpris-player {
+    border-radius: 12px;
+  }
+}

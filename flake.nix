@@ -16,8 +16,9 @@
     };
 
     nixpkgs-unstable = {
-      # url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-      url = "github:NixOS/nixpkgs/master";
+      url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+      # NOTE: Only used when I need to test the absolute latest.
+      # url = "github:NixOS/nixpkgs/master";
     };
 
     home-manager = {

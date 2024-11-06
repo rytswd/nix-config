@@ -11,6 +11,19 @@
 }
 
 /***----------------------------------------
+ **  Animation definitions
+ *------------------------------------------*/
+/* Make animation by using background-position. */
+@keyframes glow-circulate {
+  0% {
+	background-position: 0% 0%, 0% 0%;
+  }
+  100% {
+	background-position: 0% 0%, 300% 0%;
+  }
+}
+
+/***----------------------------------------
  **  Bar
  *------------------------------------------*/
 window#waybar {
@@ -85,15 +98,6 @@ window#waybar {
   /* border-right: solid 1px rgba(76,86,106,0.2); */
   border-bottom: solid 1px alpha(#4C566A, 0.2);
   border-bottom: solid 2px alpha(#4C566A, 0.2);
-}
-/* Make animation by using background-position. */
-@keyframes glow-circulate {
-  0% {
-	background-position: 0% 0%, 0% 0%;
-  }
-  100% {
-	background-position: 0% 0%, 300% 0%;
-  }
 }
 #mpris.playing {
   background:

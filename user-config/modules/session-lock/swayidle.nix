@@ -23,5 +23,10 @@
         # { timeout = 1200; command = "${pkgs.sway}/bin/swaymsg \"output * toggle\""; }
       ];
     };
+
+    # Force systemd to not care about the WAYLAND_DISPLAY env variable.
+    systemd.user.services.swayidle = {
+      Unit.ConditionEnvironment = lib.mkForce ""; # Updated.
+    };
   };
 }

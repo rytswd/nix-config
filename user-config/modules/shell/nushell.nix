@@ -23,6 +23,19 @@
           gccls = "gcloud config configurations list";
           tf = "terraform";
         };
-   };
+    };
+
+    xdg.configFile = {
+      # Plugin setup
+      # Not sure if this is the best way, but this works well enough.
+      # Upon creating these binary references, I need to instruct Nushell to
+      # use them:
+      #
+      #     plugin add nu_plugin_dbus
+      #     plugin use dbus
+      #
+      "nushell/plugins/nu_plugin_dbus".source = "${pkgs.nushellPlugins.dbus}/bin/nu_plugin_dbus";
+      "nushell/plugins/nu_plugin_polars".source = "${pkgs.nushellPlugins.polars}/bin/nu_plugin_polars";
+    };
   };
 }

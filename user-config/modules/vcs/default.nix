@@ -5,7 +5,7 @@
 
 {
   imports = [
-    ./git.nix
+    ./git
     ./jujutsu.nix
   ];
 

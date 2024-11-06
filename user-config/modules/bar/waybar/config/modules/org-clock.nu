@@ -27,19 +27,19 @@ def get_status () {
     return '{"text": "No active task.", "class": "none"}'
   }
 
-  let overrun = (do -i
+  let status = (do -i
     { (emacsclient --eval 'org-clock-task-overrun') }
     | complete
     | match ($in.stdout | str trim) {
         "t" => "overrun"
-        "nil" => ""
-        _ => ""
+        "nil" => "running"
+        _ => "unknown" # Catching other cases just to be safe.
     })
 
   $status_string
     | parse -r '"(?P<time>\[.+\]) \((?P<title>.+)\) "'
     | first # There is no way to have multiple items, but ensure to flatten
-    | $'{"text": "($in.time) -> ($in.title)", "class": "($overrun)"}'
+    | $'{"text": "($in.time) -> ($in.title)", "class": "($status)"}'
 }
 
 def toggle () {

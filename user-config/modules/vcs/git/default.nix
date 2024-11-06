@@ -4,6 +4,10 @@
 , ...}:
 
 {
+  imports = [
+    ./civo.nix
+  ];
+
   options = {
     vcs.git.enable = lib.mkEnableOption "Enable Git related items.";
   };
@@ -25,7 +29,7 @@
     ];
     xdg.configFile = {
       # "git/config".source = ./git/config;
-      "git/ignore".source = ./git/ignore;
+      "git/ignore".source = ./ignore;
     };
 
     # Git config equivalent

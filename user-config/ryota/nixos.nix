@@ -53,7 +53,7 @@ in {
     communication.signal.enable = true;
     communication.discord.enable = true;
     communication.zoom.enable = true;
-    notification.ags-notification.enable = true;
+    notification.swaync.enable = true;
     service.surrealdb.enable = true;
     window-manager.hyprland.enable = true;
     window-manager.niri.enable = true;

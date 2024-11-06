@@ -168,6 +168,25 @@ window#waybar {
 #custom-org-clock.none {
   color: #ACBAC9;
 }
+#custom-org-clock.unknown {
+  color: #ACBAC9;
+}
+#custom-org-clock.running {
+  background:
+    linear-gradient(rgba(40, 40, 40, .9), rgba(40, 40, 40, .9)) padding-box,
+    repeating-linear-gradient(270deg,
+      alpha( red, 0.6),
+      alpha( orange, 0.5),
+      alpha( aqua, 0.5),
+      alpha( #06922e, 0.8),
+      alpha( red, 0.6)
+    ) border-box;
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  background-size: 100% 100%, 150% 100%;
+  animation: glow-circulate 10s linear infinite;
+  border-bottom: 2px solid transparent;
+}
 #custom-org-clock.overrun {
   border-bottom: solid 2px alpha(#92062e, 0.8);
 }

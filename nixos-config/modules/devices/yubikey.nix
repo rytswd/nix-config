@@ -60,6 +60,13 @@
       swaylock.u2fAuth = true;
     };
 
+    security.pam = {
+      u2f = {
+        enable = true;
+        settings.cue = true;
+      };
+    };
+
     # https://github.com/FiloSottile/yubikey-agent?tab=readme-ov-file
     # Because I am using GPG agent at the moment, I'm taking this out. There
     # seems to be some benefits for using yubikey-agent over gpg-agent. While I

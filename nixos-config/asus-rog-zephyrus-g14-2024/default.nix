@@ -10,6 +10,7 @@ nixpkgs-unstable.lib.nixosSystem rec {
   inherit system;
   specialArgs = { inherit nixpkgs nixpkgs-unstable home-manager overlays; };
   modules = [
+    inputs.sops-nix.nixosModules.sops
     inputs.niri.nixosModules.niri
     # inputs.cosmic.nixosModules.default
 

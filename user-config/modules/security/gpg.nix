@@ -16,7 +16,9 @@
         # Because YubiKey setup is handled by pcscd (PC/SC Smart Card Daemon),
         # disabling the built-in ccid handling from scdaemon. This is a setting
         # for the host machine, and not for home-manager to handle.
-        disable-ccid = true;
+        # TODO: I had to remove this after upgrading nixpkgs; I need to check
+        # more on any logic change around this.
+        # disable-ccid = true;
       };
     };
     services.gpg-agent = {

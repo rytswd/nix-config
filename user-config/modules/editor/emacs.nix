@@ -2,6 +2,7 @@
 , lib
 , config
 , inputs
+, darwin
 , ...}:
 
 {
@@ -15,6 +16,9 @@
     # feedback loop using Elpaca, and the packages installed here are those that
     # need extra steps configuring using Elpaca.
     programs.emacs = let
+      ###----------------------------------------
+      ##   For NixOS
+      #------------------------------------------
       emacs-nixos-override-attrs = {
         withPgtk = true;
         withNativeCompilation = true;
@@ -39,6 +43,63 @@
         src = inputs.emacs-30-src;
       })).override emacs-nixos-override-attrs;
 
+      ###----------------------------------------
+      ##   For macOS
+      #------------------------------------------
+      inherited = {
+        inherit (darwin) sigtool;
+        inherit (darwin.apple_sdk_11_0) llvmPackages_14;
+        inherit (darwin.apple_sdk_11_0.frameworks)
+      Accelerate AppKit Carbon Cocoa GSS ImageCaptureCore ImageIO IOKit OSAKit
+      Quartz QuartzCore UniformTypeIdentifiers WebKit;
+      };
+      emacs-30-plus = (pkgs.emacs30.override {
+        withNativeCompilation = true;
+        withNS = true;
+        withSQLite3 = true;
+        withTreeSitter = true;
+        withWebP = true;
+        withImageMagick = true;
+      }).overrideAttrs (oldAttrs: {
+        pname = "emacs-plus";
+        configureFlags = (oldAttrs.configureFlags or []) ++ [
+          "--with-xwidgets" # withXwidgets flag is somehow disabled for darwin.
+        ];
+        buildInputs = (oldAttrs.buildInputs or []) ++ [
+          inherited.WebKit  # webkit is required for Emacs, and this adds Apple WebKit.
+        ];
+        patches = (oldAttrs.patches or []) ++ [
+          # Don't raise another frame when closing a frame
+          (pkgs.fetchpatch {
+            url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-28/no-frame-refocus-cocoa.patch";
+            sha256 = "QLGplGoRpM4qgrIAJIbVJJsa4xj34axwT3LiWt++j/c=";
+          })
+          # Fix OS window role so that yabai can pick up Emacs
+          (pkgs.fetchpatch {
+            # Emacs 29 uses the same patch as 28
+            url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-28/fix-window-role.patch";
+            sha256 = "+z/KfsBm1lvZTZNiMbxzXQGRTjkCFO4QPlEK35upjsE=";
+          })
+          # Use poll instead of select to get file descriptors
+          (pkgs.fetchpatch {
+            url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-29/poll.patch";
+            sha256 = "jN9MlD8/ZrnLuP2/HUXXEVVd6A+aRZNYFdZF8ReJGfY=";
+          })
+          # Add setting to enable rounded window with no decoration (still
+          # have to alter default-frame-alist)
+          (pkgs.fetchpatch {
+            url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-30/round-undecorated-frame.patch";
+            sha256 = "uYIxNTyfbprx5mCqMNFVrBcLeo+8e21qmBE3lpcnd+4=";
+          })
+          # Make Emacs aware of OS-level light/dark mode
+          # https://github.com/d12frosted/homebrew-emacs-plus#system-appearance-change
+          (pkgs.fetchpatch {
+            url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-28/system-appearance.patch";
+            sha256 = "oM6fXdXCWVcBnNrzXmF0ZMdp8j0pzkLE66WteeCutv8=";
+          })
+        ];
+      });
+
       packages = (epkgs: with epkgs; [
         vterm
         jinx
@@ -48,13 +109,13 @@
         # all-the-icons # TODO: This still requires a manual "install".
         treesit-grammars.with-all-grammars
       ]);
-      in {
-        enable = true;
-        package =
-          if pkgs.stdenv.isDarwin
-          then pkgs.emacs-29-macos-plus
-          else emacs-30-nixos;
-        extraPackages = packages;
-      };
+    in {
+      enable = true;
+      package =
+        if pkgs.stdenv.isDarwin
+        then emacs-30-plus
+        else emacs-30-nixos;
+      extraPackages = packages;
+    };
   };
 }

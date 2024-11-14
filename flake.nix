@@ -133,8 +133,7 @@
     , home-manager
     , darwin
     , ... } @ inputs:
-    let mbp-arch = "aarch64";
-
+  let
     # + Overlays
 
     # Language related overlays
@@ -178,74 +177,84 @@
       # erdtreeOverlay
       # yaziOverlay
       gripOverlay
+      # mirrordOverlay
 
       niriOverlay # TODO: Make this only for NixOS.
     ];
 
-      in {
-        ###----------------------------------------
-        ##   macOS (Darwin) Configurations
-        #------------------------------------------
-        # The setup here will configure the macOS system for the given user.
-        #
-        # Firstly, it needs to adjust all the macOS specific settings, by
-        # using the dedicated darwinConfigurations defined for each machine
-        # setup. We only need access to `darwin.lib.darwinSystem`, and thus
-        # inheriting it specifically.
-        #
-        # After configuring the macOS general settings, it will also load up
-        # home-manager configurations of all the users referenced in the target
-        # darwinConfiguration setup. The actual user configs are defined in
-        # `./user-config/<username>/macos.nix`.
-        darwinConfigurations = {
-          ryota-mbp = (import ./macos-config/mbp {
-            inherit nixpkgs nixpkgs-unstable darwin home-manager inputs overlays;
-            system = "${mbp-arch}-darwin";
-          });
-        };
+  in {
+    ###----------------------------------------
+    ##   macOS (Darwin) Configurations
+    #------------------------------------------
+    # The setup here will configure the macOS system for the given user.
+    #
+    # Firstly, it needs to adjust all the macOS specific settings, by
+    # using the dedicated darwinConfigurations defined for each machine
+    # setup. Most of the setup relies on `darwin.lib.darwinSystem`, but there
+    # are other moving parts, and inheritance takes care of the required
+    # params altogether.
+    #
+    # After configuring the macOS general settings, it will also load up
+    # home-manager configurations of all the users referenced in the target
+    # darwinConfiguration setup. The actual user configs are defined in
+    # `./user-config/<username>/macos.nix`. Note that the user configuration
+    # could be different from NixOS setup, and uses a separate file.
+    darwinConfigurations = {
+      ryota-mbp = (import ./macos-config/mbp {
+        inherit nixpkgs nixpkgs-unstable darwin home-manager inputs overlays;
+        system = "aarch64-darwin";
+      });
+    };
 
-        ###----------------------------------------
-        ##   NixOS Configurations
-        #------------------------------------------
-        # The setup here will configure the NixOS system for the given user.
-        #
-        # Firstly, it needs to adjust all the NixOS specific settings, by
-        # using the dedicated nixosConfiguration defined for each machine
-        # setup. This also relies on any virtualisation settings, and thus
-        # the directory structure allows additional directories to be
-        # created for any special use cases.
-        #
-        # After configuring the NixOS general settings, it will also load up
-        # home-manager configurations of all the users referenced in the target
-        # nixosConfiguration setup. The actual user configs are defined in
-        # `./user-config/<username>/macos.nix`.
-        nixosConfigurations = {
-          asus-rog-zephyrus-g14-2024 = (import ./nixos-config/asus-rog-zephyrus-g14-2024 {
-            inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
-            system = "x86_64-linux";
-          });
-          # TODO: Fix this based on the new setup.
-          # mbp-2021-utm = (import ./nixos-config/mbp-utm {
-          #   inherit (nixpkgs-unstable) lib;
-          #   inherit (nixpkgs-unstable.lib) nixosSystem;
-          #   inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
-          #   system = "${mbp-arch}-linux";
-          # });
-        };
+    ###----------------------------------------
+    ##   NixOS Configurations
+    #------------------------------------------
+    # The setup here will configure the NixOS system for the given user.
+    #
+    # Firstly, it needs to adjust all the NixOS specific settings, by
+    # using the dedicated nixosConfiguration defined for each machine
+    # setup.
+    #
+    # After configuring the NixOS general settings, it will also load up
+    # home-manager configurations of all the users referenced in the target
+    # nixosConfiguration setup. The actual user configs are defined in
+    # `./user-config/<username>/nixos.nix`. Note that the user configuration
+    # could be different from macOS setup, and uses a separate file.
+    #
+    # Also, the home-manager config can be applied in a standalone setup,
+    # allowing the day-to-day management to happen without requiring sudo.
+    # This would produce older configs to be loaded upon restart, though.
+    nixosConfigurations = {
+      asus-rog-zephyrus-g14-2024 = (import ./nixos-config/asus-rog-zephyrus-g14-2024 {
+        inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
+        system = "x86_64-linux";
+      });
+      # TODO: Fix this based on the new setup.
+      # mbp-2021-utm = (import ./nixos-config/mbp-utm {
+      #   inherit (nixpkgs-unstable) lib;
+      #   inherit (nixpkgs-unstable.lib) nixosSystem;
+      #   inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
+      #   system = "${mbp-arch}-linux";
+      # });
+    };
 
-        ###----------------------------------------
-        ##   Home Manager Configuration
-        #------------------------------------------
-        # While I could add home-manager embedded within each system (NixOS /
-        # macOS), it just makes it clear to have user configuration separated
-        # from the machine configuration. It also means when I need to update
-        # user settings, I wouldn't have to run with sudo.
-        homeConfigurations = {
-          "ryota@asus-rog-zephyrus-g14-2024" = (import ./user-config/home-manager {
-            inherit home-manager inputs overlays;
-            pkgs = nixpkgs-unstable.legacyPackages."x86_64-linux";
-            user-config = ./user-config/ryota/nixos.nix;
-          });
-        };
-      };
+    ###----------------------------------------
+    ##   Home Manager Configuration
+    #------------------------------------------
+    # While I could add home-manager embedded within each system (NixOS /
+    # macOS), it just makes it clear to have user configuration separated
+    # from the machine configuration. It also means when I need to update
+    # user settings, I wouldn't have to run with sudo.
+    #
+    # Note that, when using this standalone approach along with the above
+    # NixOS / macOS configuration, the home-manager setup could be reverted
+    # to the older version.
+    homeConfigurations = {
+      "ryota@asus-rog-zephyrus-g14-2024" = (import ./user-config/home-manager {
+        inherit home-manager inputs overlays;
+        pkgs = nixpkgs-unstable.legacyPackages."x86_64-linux";
+        user-config = ./user-config/ryota/nixos.nix;
+      });
+    };
+  };
 }

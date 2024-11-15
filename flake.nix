@@ -38,6 +38,12 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    nix-config-private = {
+      url = "git+ssh://git@github.com/rytswd/nix-config-private?ref=main&shallow=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
+    };
+
     ###----------------------------------------
     ##  Language related flakes
     #------------------------------------------

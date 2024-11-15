@@ -10,5 +10,7 @@
   home.packages = [
     pkgs.sops
   ];
-  sops.gnupg.home = "${config.xdg.configHome}/.gnupg";
+  sops = {
+    gnupg.home = "${config.xdg.configHome}/.gnupg";
+  };
 }

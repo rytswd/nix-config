@@ -26,6 +26,7 @@
       pkgs.git-codereview   # https://golang.org/x/review/git-codereview
       pkgs.git-crypt        # https://github.com/AGWA/git-crypt
       pkgs.libsecret
+      pkgs.pre-commit
     ];
     xdg.configFile = {
       # "git/config".source = ./git/config;

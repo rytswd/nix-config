@@ -4,10 +4,6 @@
 , ...}:
 
 {
-  imports = [
-    ./civo.nix
-  ];
-
   options = {
     vcs.git.enable = lib.mkEnableOption "Enable Git related items.";
   };

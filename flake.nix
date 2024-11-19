@@ -164,6 +164,14 @@
     # erdtreeOverlay = (import ./overlays/erdtree.nix );
     # yaziOverlay = (import ./overlays/yazi.nix );
     gripOverlay = (import ./overlays/grip.nix );
+    mirrordOverlay = (final: prev: {
+      mirrord = prev.callPackage ./overlays/mirrord {};
+    });
+
+    tmpOverlay = (final: prev: {
+      rofi-calc = prev.rofi-calc.override { rofi-unwrapped = prev.rofi-wayland-unwrapped; };
+      # rofi-emoji = prev.rofi-emoji.override { };
+    });
 
     # NixOS related overlays
     niriOverlay = inputs.niri.overlays.niri;
@@ -186,6 +194,7 @@
       # mirrordOverlay
 
       niriOverlay # TODO: Make this only for NixOS.
+      # tmpOverlay
     ];
 
   in {

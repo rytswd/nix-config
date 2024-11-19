@@ -11,6 +11,7 @@
   config = lib.mkIf config.linux-widget.bemoji.enable {
     home.packages = [
       pkgs.bemoji
+      pkgs.wtype # Necessary for ensuring bemoji input can be typed in.
     ];
   };
 }

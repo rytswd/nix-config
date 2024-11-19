@@ -43,7 +43,7 @@ window {
 /*****----- Main Box -----*****/
 mainbox {
     enabled:                     true;
-    spacing:                     0px;
+    spacing:                     7px;
     padding:                     7px;
     background-color:            transparent;
     orientation:                 vertical;

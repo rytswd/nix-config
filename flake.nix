@@ -104,6 +104,12 @@
     };
 
     # Window Manager
+    niri= {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs-stable.follows = "nixpkgs-unstable";
+    };
+
     hyprland = {
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -116,12 +122,6 @@
     hyprscroller = {
       url = "github:dawsers/hyprscroller";
       inputs.hyprland.follows = "hyprland";
-    };
-
-    niri= {
-      url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.nixpkgs-stable.follows = "nixpkgs-unstable";
     };
 
     # Desktop Environment

@@ -23,6 +23,13 @@
           gccls = "gcloud config configurations list";
           tf = "terraform";
         };
+      configFile = {
+        text = ''
+           $env.config = {
+            show_banner: false
+          }
+        '';
+        };
     };
 
     xdg.configFile = {

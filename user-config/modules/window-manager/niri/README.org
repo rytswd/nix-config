@@ -479,9 +479,10 @@ NOTE: I got a lot of configurations in Xremap, and without it, many of the bindi
 :PROPERTIES:
 :header-args: :tangle no :noweb-ref key-bindings-commands
 :END:
-I use ~fuzzel~ for my launcher.
++I use ~fuzzel~ for my launcher.+
+I moved to use Rofi (with Wayland support) so that I can show more items in one pane.
 #+begin_src kdl
-  Alt+Space     { spawn "fuzzel"; }
+  Alt+Space     { spawn "sh" "-c" "rofi -show drun"; }
 #+end_src
 
 There are times some commands stop working. I'm making sure at least I get a terminla I can run stuff from.
@@ -489,14 +490,18 @@ There are times some commands stop working. I'm making sure at least I get a ter
   Shift+XF86Launch1 { spawn "ghostty"; }
 #+end_src
 
-Use fuzzel for the clipboard history, as well as emoji picker.
-TODO: For emoji, I would want to just type it out, but cannot make it work for some reason. I'm using the ~-c~ flag with ~bemoji~ to copy to clipboard for now.
+Use ~fuzzel~ for the clipboard history. I do use ~rofi~ for the main launcher now, but for clipboard history, I do not need the column layout, and that is easier handled with a simple setup with ~fuzzel~.
+
+NOTE: For emoji, I could use rofi-emoji, but decided to use ~bemoji~ which keeps the history.
 #+begin_src kdl
   Super+Alt+K   { spawn "sh" "-c" \
                   "cliphist list | fuzzel -d | cliphist decode | wl-copy" \
                   ; } // Dvorak V
-  Super+Alt+Backslash { spawn "bemoji" "-c" ; }
+  Super+Alt+Backslash { spawn "sh" "-c" \
+                  "bemoji -t -c -n" ; }
+  Super+Shift+Backslash { spawn "swaync-client" "-t" "-sw" ; }
 #+end_src
+
 
 Lock screen.
 #+begin_src kdl

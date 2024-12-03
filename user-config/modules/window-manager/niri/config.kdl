@@ -132,12 +132,14 @@ environment {
 }
 
 binds {
-    Alt+Space     { spawn "fuzzel"; }
+    Alt+Space     { spawn "sh" "-c" "rofi -show drun"; }
     Shift+XF86Launch1 { spawn "ghostty"; }
     Super+Alt+K   { spawn "sh" "-c" \
                     "cliphist list | fuzzel -d | cliphist decode | wl-copy" \
                     ; } // Dvorak V
-    Super+Alt+Backslash { spawn "bemoji" "-c" ; }
+    Super+Alt+Backslash { spawn "sh" "-c" \
+                    "bemoji -t -c -n" ; }
+    Super+Shift+Backslash { spawn "swaync-client" "-t" "-sw" ; }
     Super+Alt+N   { spawn "swaylock"; } // Dvorak L
     Super+Shift+M { quit; }
     Super+Apostrophe { close-window; } // Super + Q on Dvorak

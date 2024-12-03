@@ -85,6 +85,7 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 cursor {
     xcursor-theme "breeze_cursors"
     xcursor-size  48
+    hide-when-typing
 }
 
 hotkey-overlay {

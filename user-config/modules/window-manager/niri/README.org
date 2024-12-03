@@ -332,6 +332,7 @@ Define a cursor look.
   cursor {
       xcursor-theme "breeze_cursors"
       xcursor-size  48
+      hide-when-typing
   }
 #+end_src
 

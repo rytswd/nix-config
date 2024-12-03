@@ -178,8 +178,8 @@
   },
   "custom/notifications": {
     "format": "󰍪",
-    "on-click": "swaync-client -t",
-    "on-click-right": "swaync-client -d",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
     "tooltip-format": "Notifications",
   },
   "custom/niri-windows": {

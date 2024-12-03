@@ -450,6 +450,7 @@ Some environment variables should be set for applications to startup cleanly. Na
 Some apps do not launch with Wayland (and when there is no XWayland to fall back to). Because Niri doesn't provide XWayland at all, I need to ensure apps open up using Wayland.
 #+begin_src kdl
   NIXOS_OZONE_WL "1"
+  BEMOJI_PICKER_CMD r#"rofi -dmenu -no-show-icons"#
 #+end_src
 
 

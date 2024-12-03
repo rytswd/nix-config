@@ -13,7 +13,7 @@
       enable = true;
     };
     home.packages = [
-      # pkgs.lazyjj
+      pkgs.lazyjj
     ];
     xdg.configFile = {
       "jj".source = ./jujutsu;

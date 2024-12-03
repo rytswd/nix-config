@@ -117,5 +117,8 @@
         else emacs-30-nixos;
       extraPackages = packages;
     };
+
+    # For performance update with LSP
+    home.packages = [ pkgs.emacs-lsp-booster ];
   };
 }

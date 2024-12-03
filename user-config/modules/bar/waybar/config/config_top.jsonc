@@ -246,7 +246,10 @@
       "click-to-reveal": true,
     },
     "modules": [
+      // Group head appears all the time.
       "custom/group-head",
+      // The rest is aligned from left, meaning the first one below this line
+      // is the most left item.
       "custom/wf-recorder",
       "idle_inhibitor",
       "custom/tailscale",

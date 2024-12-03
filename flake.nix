@@ -168,11 +168,6 @@
       mirrord = prev.callPackage ./overlays/mirrord {};
     });
 
-    tmpOverlay = (final: prev: {
-      rofi-calc = prev.rofi-calc.override { rofi-unwrapped = prev.rofi-wayland-unwrapped; };
-      # rofi-emoji = prev.rofi-emoji.override { };
-    });
-
     # NixOS related overlays
     niriOverlay = inputs.niri.overlays.niri;
     overlays = [
@@ -194,7 +189,6 @@
       # mirrordOverlay
 
       niriOverlay # TODO: Make this only for NixOS.
-      # tmpOverlay
     ];
 
   in {

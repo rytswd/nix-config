@@ -10,8 +10,8 @@
   "control-center-margin-right": 0,
   "control-center-margin-left": 0,
   "notification-window-width": 350,
-  "notification-icon-size": 48,
   "notification-body-image-height": 160,
+  "notification-icon-size": 24,
   "notification-body-image-width": 200,
   "timeout": 5,
   "timeout-low": 3,
@@ -37,27 +37,28 @@
     }
   },
   "widgets": [
-    "mpris",
-    "title",
     "dnd",
+    "mpris",
+    "volume",
+    "title",
     "notifications"
   ],
   "widget-config": {
-    "title": {
-      "text": "Notifications",
-      "clear-all-button": true,
-      "button-text": " 󰎟 "
-    },
     "dnd": {
       "text": "Do not disturb"
-    },
-    "label": {
-      "max-lines": 1,
-      "text": " ABC "
     },
     "mpris": {
       "image-size": 96,
       "image-radius": 12
+    },
+    "volume": {
+      "label": "󰕾",
+      "show-per-app": true
+    },
+    "title": {
+      "text": "Notifications",
+      "clear-all-button": true,
+      "button-text": ""
     }
   }
 }

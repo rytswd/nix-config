@@ -16,13 +16,6 @@
   border-radius: 10px;
 }
 
-.app-icon {
-  /* Notification app icon (only visible when the primary image is set) */
-  -gtk-icon-effect: none;
-  -gtk-icon-shadow: 0 1px 4px black;
-  margin: 6px;
-}
-
 .summary {
   font-size: 14px;
   font-weight: normal;
@@ -53,6 +46,10 @@
 .notification-row:hover, .notification-row:focus {
   background: rgba(44, 54, 74, 0.9);
 }
+.notification-row .image {
+  /* Notification app icon (only visible when the primary image is set) */
+  margin: 10px 10px 10px 0px;
+}
 .notification-row .notification-background {
   padding-top: 2px;
   padding-bottom: 2px;
@@ -77,6 +74,9 @@
 .notification-row .notification-background .notification .notification-action {
   border-radius: 5px;
 }
+.notification-row .notification-background .notification .time {
+  margin: 0px;
+}
 .notification-row .notification-background .close-button {
   color: #000000;
   text-shadow: none;
@@ -92,15 +92,18 @@
 }
 
 .control-center {
-  border-radius: 20px 0 0 20px;
+  border-left: 1px rgba(172, 182, 202, 0.5) solid;
+  border-top: 1px rgba(172, 182, 202, 0.5) solid;
+  border-bottom: 1px rgba(172, 182, 202, 0.5) solid;
+  border-radius: 10px 0 0 10px;
   box-shadow: 1px 0px 2px 1px rgba(51, 51, 51, 0.3), 8px 1px 2px 1px rgba(51, 51, 51, 0.3), 1px 1px 3px 2px rgba(51, 51, 51, 0.3);
 }
 .control-center .notification-row {
   background: transparent;
   padding-top: 3px;
   padding-bottom: 3px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 0px;
+  padding-right: 0px;
   margin-top: 0;
   margin-bottom: 0;
   margin-left: 0;
@@ -141,13 +144,13 @@
   text-shadow: none;
   padding: 0;
   border-radius: 100%;
-  margin-top: 5px;
-  margin-left: 10px;
+  margin-top: 2px;
+  margin-left: 6px;
   margin-right: 5px;
   box-shadow: none;
   border: none;
-  min-width: 24px;
-  min-height: 24px;
+  min-width: 12px;
+  min-height: 12px;
 }
 
 /* Window behind control center and on all other monitors. */
@@ -164,15 +167,106 @@
   box-shadow: none;
 }
 
+.widget-dnd {
+  background: transparent;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 10px;
+  margin-right: 5px;
+  border-radius: 5px;
+}
+.widget-dnd > label {
+  font-family: DejaVu Sans;
+  font-size: 1.25rem;
+}
+.widget-dnd > switch {
+  font-size: 0.75rem;
+  border-radius: 5px;
+  background: transparent;
+  border: 1px solid rgba(172, 182, 202, 0.5);
+}
+.widget-dnd > switch slider {
+  border-radius: 4px;
+}
+.widget-dnd > switch:checked {
+  background: green;
+}
+.widget-dnd > switch:checked slider {
+  background: greenyellow;
+}
+
 .widget-mpris {
-  padding: 8px;
-  padding: 16px;
-  margin: 16px 20px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 26px;
+  margin-right: 5px;
   background-color: transparent;
   border-radius: 12px;
 }
 .widget-mpris .widget-mpris-player {
   border-radius: 12px;
+}
+
+.widget-volume {
+  background: transparent;
+  color: white;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 26px;
+  margin-right: 5px;
+  border-radius: 5px;
+}
+.widget-volume > box slider {
+  background: white;
+  border-radius: 4px;
+  border: 2px rgba(172, 182, 202, 0.2) solid;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.widget-volume > box slider:hover, .widget-volume > box slider:focus {
+  border-color: white;
+}
+.widget-volume > box > button {
+  font-size: 0.75rem;
+  border-radius: 5px;
+  background: transparent;
+  border: 1px solid rgba(172, 182, 202, 0.5);
+}
+.widget-volume > box > button:hover, .widget-volume > box > button:focus {
+  background: rgba(44, 54, 74, 0.9);
+}
+
+.per-app-volume {
+  background-color: blue;
+  padding: 4px 8px 8px;
+  margin: 0 8px 8px;
+  border-radius: 10px;
+}
+
+.widget-title {
+  background: transparent;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 10px;
+  margin-right: 5px;
+  border-radius: 5px;
+}
+.widget-title > label {
+  font-family: DejaVu Sans;
+  font-size: 1.75rem;
+}
+.widget-title > button {
+  font-size: 0.75rem;
+  border-radius: 5px;
+  background: transparent;
+  border: 1px solid rgba(172, 182, 202, 0.5);
+}
+.widget-title > button:hover, .widget-title > button:focus {
+  background: rgba(44, 54, 74, 0.9);
 }
 
 /*# sourceMappingURL=style.gen.css.map */

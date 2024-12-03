@@ -5,18 +5,26 @@
 // Also, because the LSP won't understand the GTK specific functions, I'm using
 // SCSS variables instead.
 
+// Referenecs:
+// https://github.com/ErikReider/SwayNotificationCenter/blob/c5067e6557af3266ade2e23969e101cbccd04671/man/swaync.5.scd?plain=1#L233
+// https://github.com/ErikReider/SwayNotificationCenter/blob/c5067e6557af3266ade2e23969e101cbccd04671/data/style/style.scss
+// https://github.com/TobiWan54/dotfiles/blob/d80f9bcac56e7bad4fbad36cc55dcb858bfe0fa5/.config/swaync/style.css
+// https://github.com/ErikReider/SwayNotificationCenter/discussions/183?sort=new
+
 $text: #000000;
 $bg-100: rgba(#2C364A, 0.5);
 $bg-200: rgba(#2C364A, 0.7);
 $bg-500: rgba(#2C364A, 0.9);
 $bg-variant-200: rgba(#ACB6CA, 0.2);
 $bg-variant-500: rgba(#ACB6CA, 0.5);
+$bg-variant-800: rgba(#ACB6CA, 0.8);
 $critical: rgba(#92062e, 0.8);
 
 * {
   border: none;
   border-radius: 0px;
   font-family: FiraCode Nerd Font;
+  // font-family: DejaVu Sans;
   font-size: 12px;
   font-style: normal;
   min-height: 0;
@@ -36,13 +44,6 @@ $critical: rgba(#92062e, 0.8);
   border-radius: 10px;
 }
 
-.app-icon {
-  /* Notification app icon (only visible when the primary image is set) */
-  -gtk-icon-effect: none;
-  -gtk-icon-shadow: 0 1px 4px black;
-  margin: 6px;
-}
-
 .summary {
   font-size: 14px;
   font-weight: normal;
@@ -55,8 +56,6 @@ $critical: rgba(#92062e, 0.8);
   font-size: 12px;
   color: #ACB6CA;
 }
-
-
 ////----------------------------------------
 ///   Popup
 //------------------------------------------
@@ -82,6 +81,13 @@ $critical: rgba(#92062e, 0.8);
 
   &:hover, &:focus {
     background: $bg-500;
+  }
+
+  .image {
+    /* Notification app icon (only visible when the primary image is set) */
+    // -gtk-icon-effect: none;
+    // -gtk-icon-shadow: 0 1px 4px black;
+    margin: 10px 10px 10px 0px;
   }
 
   .notification-background {
@@ -117,8 +123,14 @@ $critical: rgba(#92062e, 0.8);
         // border: 3px deeppink solid;
         border-radius: 5px;
       }
+
+      .time {
+        margin: 0px;
+      }
     }
 
+    // Because of the time component set with 0 margin, this gets displayed on
+    // top of the time.
     .close-button {
       color: $text;
       text-shadow: none;
@@ -140,7 +152,10 @@ $critical: rgba(#92062e, 0.8);
 ///   Control Center
 //------------------------------------------
 .control-center {
-  border-radius: 20px 0 0 20px;
+  border-left: 1px $bg-variant-500 solid;
+  border-top: 1px $bg-variant-500 solid;
+  border-bottom: 1px $bg-variant-500 solid;
+  border-radius: 10px 0 0 10px;
   box-shadow:
     1px 0px 2px 1px rgba(#333333, 0.3),
     8px 1px 2px 1px rgba(#333333, 0.3),
@@ -152,8 +167,8 @@ $critical: rgba(#92062e, 0.8);
     // Adjust only the parts that need to be tweaked.
     padding-top: 3px;
     padding-bottom: 3px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 0px;
+    padding-right: 0px;
 
     margin-top: 0;
     margin-bottom: 0;
@@ -202,19 +217,19 @@ $critical: rgba(#92062e, 0.8);
         }
       }
 
+      // Per notification close button
       .close-button {
         color: $text;
         text-shadow: none;
         padding: 0;
         border-radius: 100%;
-        margin-top: 5px;
-        margin-left: 10px;
+        margin-top: 2px;
+        margin-left: 6px;
         margin-right: 5px;
         box-shadow: none;
         border: none;
-        min-width: 24px;
-        min-height: 24px;
-        // transition: background 0.15s ease-in-out;
+        min-width: 12px;
+        min-height: 12px;
       }
     }
   }
@@ -237,15 +252,122 @@ $critical: rgba(#92062e, 0.8);
 ////----------------------------------------
 ///    Widget Related
 //------------------------------------------
+.widget-dnd {
+  background: transparent;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 10px;
+  margin-right: 5px;
+  border-radius: 5px;
+
+  & > label {
+    font-family: DejaVu Sans;
+    font-size: 1.25rem;
+  }
+
+  & > switch {
+    font-size: 0.75rem;
+    border-radius: 5px;
+    background: transparent;
+    border: 1px solid $bg-variant-500;
+
+    & slider {
+      border-radius: 4px;
+    }
+
+    &:checked {
+      background: green;
+      & slider {
+        background: greenyellow;
+      }
+    }
+  }
+}
+
 .widget-mpris  {
-  padding: 8px;
-  padding: 16px;
-  margin: 16px 20px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 26px;
+  margin-right: 5px;
   background-color: transparent;
   border-radius: 12px;
   // box-shadow: 30px 3px 10px rgba(0, 0, 0, 0.35);
 
   .widget-mpris-player {
     border-radius: 12px;
+  }
+}
+
+// This looks pretty bad but it's better than nothing...
+.widget-volume {
+  background: transparent;
+  color: white;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 26px;
+  margin-right: 5px;
+  border-radius: 5px;
+
+  & > box {
+    & slider {
+      background: white;
+      border-radius: 4px;
+      border: 2px $bg-variant-200 solid;
+
+      padding-top: 2px;
+      padding-bottom: 2px;
+      padding-left: 0px;
+      padding-right: 0px;
+
+      margin-top: 0px;
+      margin-bottom: 0px;
+
+      &:hover, &:focus {
+        border-color: white;
+      }
+    }
+    & > button {
+      font-size: 0.75rem;
+      border-radius: 5px;
+      background: transparent;
+      border: 1px solid $bg-variant-500;
+
+      &:hover, &:focus {
+        background: $bg-500;
+      }
+    }
+  }
+}
+
+// not working
+.per-app-volume {
+    background-color: blue;
+    padding: 4px 8px 8px;
+    margin: 0 8px 8px;
+    border-radius: 10px;
+}
+
+.widget-title {
+  background: transparent;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 10px;
+  margin-right: 5px;
+  border-radius: 5px;
+
+  & > label {
+    font-family: DejaVu Sans;
+    font-size: 1.75rem;
+  }
+
+  & > button {
+    font-size: 0.75rem;
+    border-radius: 5px;
+    background: transparent;
+    border: 1px solid $bg-variant-500;
+
+    &:hover, &:focus {
+      background: $bg-500;
+    }
   }
 }

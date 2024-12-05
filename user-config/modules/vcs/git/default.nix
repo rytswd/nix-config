@@ -22,7 +22,9 @@
       pkgs.git-codereview   # https://golang.org/x/review/git-codereview
       pkgs.git-crypt        # https://github.com/AGWA/git-crypt
       pkgs.libsecret
+      # TODO: It may be better to take this out, as I don't use it too much.
       pkgs.pre-commit
+      pkgs.python311Packages.pre-commit-hooks
     ];
     xdg.configFile = {
       # "git/config".source = ./git/config;

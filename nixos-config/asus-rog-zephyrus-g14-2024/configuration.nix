@@ -3,7 +3,6 @@
 
 { config
 , pkgs
-, currentSystem
 , lib
 , ... }:
 
@@ -16,6 +15,7 @@
     ../modules/window-manager
     ../modules/login-manager
     ../modules/desktop-environment
+    ../modules/input
     ../modules/vpn
     ../modules/x11
     ../modules/appearance

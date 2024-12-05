@@ -36,6 +36,7 @@ in {
       ../modules/file-management
       ../modules/dictionary
       ../modules/communication
+      ../modules/i18n
       ../modules/image
       ../modules/screenshot
       ../modules/music

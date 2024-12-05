@@ -13,18 +13,15 @@
       fontDir.enable = true;
 
       packages = [
-        (pkgs.nerdfonts.override {
-          fonts = [
-            "DroidSansMono"
-            "FiraCode"
-            "FiraMono"
-            "Hack"
-            "Iosevka"
-            "NerdFontsSymbolsOnly"
-            "Noto"
-            "VictorMono"
-          ]; })
-      ] ++ [
+        pkgs.nerd-fonts.droid-sans-mono
+        pkgs.nerd-fonts.fira-code
+        pkgs.nerd-fonts.fira-mono
+        pkgs.nerd-fonts.hack
+        pkgs.nerd-fonts.iosevka
+        pkgs.nerd-fonts.noto
+        pkgs.nerd-fonts.symbols-only
+        pkgs.nerd-fonts.victor-mono
+
         pkgs.dejavu_fonts
         pkgs.raleway
         pkgs.monaspace

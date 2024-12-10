@@ -29,6 +29,11 @@
           enable = true;
           enableOffloadCmd = true;
         };
+        # TODO: This is highly device dependent and should be configured
+        # separately. The Bus ID can be found with the following command:
+        #
+        #     sudo lshw -C display
+        #
         amdgpuBusId = "PCI:101:0:0";
         nvidiaBusId = "PCI:1:0:0";
       };

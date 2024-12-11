@@ -13,6 +13,7 @@
       ###------------------------------
       ##   Network related
       #--------------------------------
+      pkgs.tcpdump
       pkgs.bandwhich    # https://github.com/imsnif/bandwhich
 
       ###------------------------------

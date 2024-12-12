@@ -8,6 +8,7 @@
     ./brave.nix
     ./vivaldi.nix
     ./chromium.nix
+    ./firefox.nix
     # TODO: Nyxt build fails, and thus disabling it for now.
     # ./nyxt.nix
   ];
@@ -18,5 +19,6 @@
   browser.brave.enable = lib.mkDefault true;
   browser.vivaldi.enable = lib.mkDefault true;
   # browser.chromium.enable = lib.mkDefault true;
+  browser.firefox.enable = lib.mkDefault true;
   # browser.nyxt.enable = lib.mkDefault true;
 }

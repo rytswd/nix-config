@@ -127,6 +127,14 @@ keymap:
       Super-Shift-2: Super-Shift-2
       Super-Shift-3: Super-Shift-3
       Super-Shift-4: Super-Shift-4
+      # Ensure some special key bindings are not overridden.
+      # This one is an odd one, because I want to send the Dvorak key binding
+      # so that niri can handle this, and in order to achieve that, I need to
+      # set the left hand side with "double Dvorak conversion", i.e. when I
+      # want to use QWERTY Super + V, I need to provide Super + T instead
+      # (this is because "V" in QWERTY writes "K" in Dvorak, and "K" in QWERTY
+      # is where "T" is in Dvorak).
+      Super-Alt-t: Super-Alt-k
 
   - name: Emacs / macOS like key bindings
     application:

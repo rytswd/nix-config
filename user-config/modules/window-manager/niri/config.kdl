@@ -133,7 +133,8 @@ environment {
 }
 
 binds {
-    Alt+Space     { spawn "sh" "-c" "rofi -show drun"; }
+    Alt+Space         { spawn "rofi" "-show" "drun"; }
+    Super+Shift+Space { spawn "rofi" "-show" "window"; }
     Shift+XF86Launch1 { spawn "ghostty"; }
     Super+Alt+K   { spawn "sh" "-c" \
                     "cliphist list | fuzzel -d | cliphist decode | wl-copy" \

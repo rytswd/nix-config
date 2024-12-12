@@ -129,6 +129,7 @@ spawn-at-startup "maestral" "start" // Hack
 environment {
     NIXOS_OZONE_WL "1"
     BEMOJI_PICKER_CMD r#"rofi -dmenu -no-show-icons"#
+    XMODIFIERS r#"@im=fcitx"#
 }
 
 binds {

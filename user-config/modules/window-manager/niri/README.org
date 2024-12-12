@@ -41,9 +41,18 @@ NOTE: Because a lot of input tweaks are made by Xremap these GTK flags are not u
 - ~altwin:swap_alt_win~: Swap Alt and Super keys -- this makes it similar to Apple keyboards
 - ~ctrl:nocaps~: Do not use CapsLock, and make it behave as Control
 I am still using the following.
-- ~grp:win_space_toggle~: Super + Space is still used for language switch.
+- ~grp:win_space_toggle~: Super + Space can be used for language switch.
 
-#+begin_src kdl
+NOTE: Currently debating whether I should switch to use fcitx5 for the actual input for everything. This means I would need to configure my language choices there, and also the keyboard layout. This is a bit more cumbersome to ensure English in Dvorak but Japanese in QWERTY. For now, I don't have too much usage of writing in Japanese, so not using fcitx5 at all.
+
+#+begin_src kdl :tangle no :noweb-ref x
+        xkb {
+            
+        }
+#+end_src
+
+NOTE: This is what I had before.
+ #+begin_src kdl
         xkb {
             layout "us,jp"
             variant "dvorak,"
@@ -451,6 +460,12 @@ Some apps do not launch with Wayland (and when there is no XWayland to fall back
 #+begin_src kdl
   NIXOS_OZONE_WL "1"
   BEMOJI_PICKER_CMD r#"rofi -dmenu -no-show-icons"#
+#+end_src
+
+**** Japanese Input
+Apparently I need the following for fcitx5 to kick in.
+#+begin_src kdl :tangle no :noweb-ref env-var
+  XMODIFIERS r#"@im=fcitx"#
 #+end_src
 
 

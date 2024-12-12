@@ -453,12 +453,14 @@ Some environment variables should be set for applications to startup cleanly. Na
 #+end_src
 
 **** Wayland
-:PROPERTIES:
-:header-args: :tangle no :noweb-ref env-var
-:END:
 Some apps do not launch with Wayland (and when there is no XWayland to fall back to). Because Niri doesn't provide XWayland at all, I need to ensure apps open up using Wayland.
-#+begin_src kdl
+#+begin_src kdl :tangle no :noweb-ref env-var
   NIXOS_OZONE_WL "1"
+#+end_src
+
+**** Bemoji / Rofi
+Ensure bemoji shows up without extra spacing which rofi adds by default.
+#+begin_src kdl :tangle no :noweb-ref env-var
   BEMOJI_PICKER_CMD r#"rofi -dmenu -no-show-icons"#
 #+end_src
 

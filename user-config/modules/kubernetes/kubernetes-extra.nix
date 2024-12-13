@@ -14,6 +14,7 @@
       pkgs.vcluster
       pkgs.kubevirt
       pkgs.kubelogin-oidc
+      pkgs.mirrord
     ];
   };
 }

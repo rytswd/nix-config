@@ -2,6 +2,10 @@
 
 # Signal to update the Waybar icons.
 let signal = 10
+# Use --login-server if the login server is set in the env variable. If not set,
+# this will be an empty string.
+let login_server_flag = (
+  $env | try { get TAILSCALE_LOGIN_SERVER | $'--login-server=($in)' })
 
 def main (input?: string) {
   match $input {
@@ -39,12 +43,18 @@ def toggle_tailscale () {
           do -i { tailscale down })
         "Stopped" => (
           do -i { (tailscale up
+                    # NOTE: Without the env variable setup, there will be no
+                    # login server specified.
+                    $login_server_flag
                     --accept-routes
                     --ssh
                     --operator=$env.USER) })
         # In case of unknown state, assume it's not connected, and retry.
         _ => (
           do -i { (tailscale up
+                    # NOTE: Without the env variable setup, there will be no
+                    # login server specified.
+                    $login_server_flag
                     --accept-routes
                     --ssh
                     --operator=$env.USER) })

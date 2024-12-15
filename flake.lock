@@ -1590,10 +1590,10 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1731684989,
-        "narHash": "sha256-XS969jbLrp5qAfPsiSOJyKpE86A4HcEcnLT7zvCT9A4=",
+        "lastModified": 1734225842,
+        "narHash": "sha256-2/ytnqwzaRkyUgNYt8QYCeLXcmcw/eDXfKrSPbPdJ5Y=",
         "ref": "main",
-        "rev": "d2bdb579ef0d9abd945ef91bf908f19ed5b57923",
+        "rev": "fb376e099528d4551a0cfb854511a7a22f3ca5be",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/rytswd/nix-config-private"

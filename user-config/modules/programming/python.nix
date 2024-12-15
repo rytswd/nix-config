@@ -10,6 +10,7 @@
 
   config = lib.mkIf config.programming.python.enable {
     home.packages = [
+      pkgs.uv       # https://github.com/astral-sh/uv
       pkgs.poetry   # https://python-poetry.org/
 
       # Packages that I want to ensure is available all the time.

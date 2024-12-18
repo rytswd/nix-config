@@ -16,6 +16,7 @@
       pkgs.ko
       pkgs.gopls
       pkgs.templ
+      pkgs.delve
     ];
     programs.go = {
       enable = true;

@@ -19,6 +19,7 @@
     ../modules/vpn
     ../modules/x11
     ../modules/appearance
+    ../modules/security
     ../modules/flatpak
 
     # NOTE: This may be an overkill to have a module, but using this approach

@@ -45,7 +45,7 @@ in {
     bar.waybar.enable = true;
     editor.helix.enable = false;
     editor.vscode.enable = false;
-    notification.ags-notification.enable = true;
+    notification.swaync.enable = true;
 
     programming.nix.enable = true;
 

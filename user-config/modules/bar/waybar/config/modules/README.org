@@ -1,0 +1,22 @@
+#+title: Custom Module Backend
+
+This directory holds some scripts that are used by Waybar modules.
+
+https://github.com/Alexays/Waybar/wiki/Module:-Custom
+
+The idea is to make relatively straightforward tasks to be handled by a simple click, such as changing wallpaper, stopping VPN, etc.
+
+* Modules
+There are some modules that I have worked out for my needs.
+
+- [X] Wallpaper change
+- [X] VPN stop
+- [X] Screen recording
+- [X] Lock screen
+- [ ] Change Niri window opacity (not sure if this can be done)
+- [X] Refresh Waybar (bottom and left)
+
+* Implementation
+All the modules are written in Nushell, which gives clearer code that would be easy enough to understand without remembering all the quirks around Bash (such as understanding ~$?~, ~$@~, ~$$~, ~if~ handling, etc.).
+
+Note that, in order for each script to handle some state update back to the bar, it needs to make use of ~SIGRTMIN~. There should be no overlap (otherwise wrong module could be refreshed, though it probably won't have too much impact).

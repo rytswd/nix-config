@@ -188,6 +188,8 @@
   },
   "custom/wallpaper": {
     "format": "󰸉",
+    "tooltip": true,
+    "tooltip-format": "Update wallpaper",
     "return_type": "json",
     "on-click": "$XDG_CONFIG_HOME/waybar/modules/wallpaper.nu",
     "tooltip-format": "Change wallpaper",
@@ -199,6 +201,7 @@
   "custom/tailscale": {
     "format": "{}",
     "tooltip": true,
+    "tooltip-format": "Update Tailscale",
     // On-click event handling
     "on-click": "$XDG_CONFIG_HOME/waybar/modules/tailscale.nu toggle",
     "on-right-click": "$XDG_CONFIG_HOME/waybar/modules/tailscale.nu status",
@@ -211,6 +214,7 @@
   "custom/wf-recorder": {
     "format": "{}",
     "tooltip": true,
+    "tooltip-format": "Start recording",
     // On-click event handling
     "on-click": "$XDG_CONFIG_HOME/waybar/modules/wf-recorder.nu toggle",
     "on-right-click": "$XDG_CONFIG_HOME/waybar/modules/wf-recorder.nu status",

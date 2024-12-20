@@ -5,10 +5,9 @@
   "spacing": 0,
   // "hegiht": 16, // This has no impact.
   "modules-left": [
-    // TBC
     "custom/launcher",
-    // "niri/workspaces",
     // "custom/niri-windows",
+    // "wlr/taskbar",
     "niri/window",
   ],
   // "modules-center": [
@@ -17,7 +16,6 @@
   // ],
   "modules-right": [
     "group/top-right",
-    "custom/wallpaper",
     "pulseaudio",
     "bluetooth",
     "network",
@@ -253,6 +251,7 @@
       "custom/wf-recorder",
       "idle_inhibitor",
       "custom/tailscale",
+      "custom/wallpaper",
     ],
   },
   // "group/most-top-left": {

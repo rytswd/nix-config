@@ -164,9 +164,6 @@
     # erdtreeOverlay = (import ./overlays/erdtree.nix );
     # yaziOverlay = (import ./overlays/yazi.nix );
     gripOverlay = (import ./overlays/grip.nix );
-    mirrordOverlay = (final: prev: {
-      mirrord = prev.callPackage ./overlays/mirrord {};
-    });
 
     # NixOS related overlays
     niriOverlay = inputs.niri.overlays.niri;
@@ -186,7 +183,6 @@
       # erdtreeOverlay
       # yaziOverlay
       gripOverlay
-      # mirrordOverlay
 
       niriOverlay # TODO: Make this only for NixOS.
     ];

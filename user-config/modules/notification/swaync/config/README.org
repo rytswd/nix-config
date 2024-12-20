@@ -1,0 +1,10 @@
+#+title: Sway Notification Center
+
+https://github.com/ErikReider/SwayNotificationCenter
+
+* Notes
+- Config must be in json, not jsonc
+- Because class and widget setup is quite complex, I'm using SCSS
+- This means I need to run sass to generate the final CSS
+- The base CSS can be retrieved from the following location
+  ~/nix/store/xyz...-SwayNotificationCenter-0.10.1/etc/xdg/swaync/style.css~

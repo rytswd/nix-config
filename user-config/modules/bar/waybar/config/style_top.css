@@ -41,6 +41,8 @@ window#waybar {
 #custom-launcher,
 #custom-notifications,
 #custom-tailscale,
+#custom-waybar-bottom,
+#custom-waybar-left,
 #custom-wf-recorder,
 #custom-wallpaper {
   color: black;
@@ -81,6 +83,8 @@ window#waybar {
 #custom-launcher:hover,
 #custom-notifications:hover,
 #custom-tailscale:hover,
+#custom-waybar-bottom:hover,
+#custom-waybar-left:hover,
 #custom-wf-recorder:hover,
 #custom-wallpaper:hover {
   color: #ffffff;
@@ -90,6 +94,12 @@ window#waybar {
 /***========================================
  **  Standard modules
  *==========================================*/
+
+/***----------------------------------------
+ **  Left hand side
+ *------------------------------------------*/
+
+/* TBC */
 
 /***----------------------------------------
  **  Right hand side
@@ -106,6 +116,8 @@ window#waybar {
 #temperature,
 #custom-wallpaper,
 #custom-tailscale,
+#custom-waybar-bottom,
+#custom-waybar-left,
 #custom-wf-recorder {
   /* Because the margin will be added from all adjacent modules, I'm only adding
   on one side -- and in this case, only the right hand side. All the other

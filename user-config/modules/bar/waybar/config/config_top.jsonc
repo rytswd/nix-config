@@ -224,6 +224,32 @@
     "signal": 11,
     "return-type": "json",
   },
+  "custom/waybar-left": {
+    "format": "{}",
+    "tooltip": true,
+    "tooltip-format": "Update Waybar on left",
+    // On-click event handling
+    "on-click": "$XDG_CONFIG_HOME/waybar/modules/waybar.nu toggle_left",
+    "on-right-click": "$XDG_CONFIG_HOME/waybar/modules/waybar.nu status_left",
+    // Executed when Waybar is loaded, and when signal is sent.
+    "exec": "$XDG_CONFIG_HOME/waybar/modules/waybar.nu status_left",
+    "interval": "once",
+    "signal": 9,
+    "return-type": "json",
+  },
+  "custom/waybar-bottom": {
+    "format": "{}",
+    "tooltip": true,
+    "tooltip-format": "Update Waybar at bottom",
+    // On-click event handling
+    "on-click": "$XDG_CONFIG_HOME/waybar/modules/waybar.nu toggle_bottom",
+    "on-right-click": "$XDG_CONFIG_HOME/waybar/modules/waybar.nu status_bottom",
+    // Executed when Waybar is loaded, and when signal is sent.
+    "exec": "$XDG_CONFIG_HOME/waybar/modules/waybar.nu status_bottom",
+    "interval": "once",
+    "signal": 9,
+    "return-type": "json",
+  },
 
   ////----------------------------------------
   ///   Groups
@@ -252,6 +278,8 @@
       "custom/group-head",
       // The rest is aligned from left, meaning the first one below this line
       // is the most left item.
+      "custom/waybar-left",
+      "custom/waybar-bottom",
       "custom/wf-recorder",
       "idle_inhibitor",
       "custom/tailscale",

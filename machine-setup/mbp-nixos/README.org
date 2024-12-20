@@ -1,0 +1,5 @@
+#+title: NixOS on MacBook Pro
+
+https://github.com/tpwrules/nixos-apple-silicon
+
+TBC, I intend to work on this when I have time.

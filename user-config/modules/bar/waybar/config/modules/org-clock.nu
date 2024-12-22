@@ -14,8 +14,9 @@ def main (input?: string) {
 def get_status () {
   let status_string = (do -i
     { (emacsclient --eval
-        '(when (org-clocking-p)
-          (substring-no-properties (org-clock-get-clock-string)))') })
+        "(when (featurep 'org)
+          (when (org-clocking-p)
+            (substring-no-properties (org-clock-get-clock-string))))") })
     | complete
     | match $in {
         {exit_code: 0, stdout: $str} => ($str | str trim)

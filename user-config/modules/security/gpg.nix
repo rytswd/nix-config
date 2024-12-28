@@ -23,7 +23,7 @@
     };
     services.gpg-agent = {
       enable = true;
-      pinentryPackage = pkgs.pinentry-gnome3;
+      pinentryPackage = pkgs.pinentry-rofi;
 
       # GPG agent keeps the cache of the key, and set TTL (time-to-live) of
       # 600sec by default. Whenever the cache is accessed, the timer is reset.

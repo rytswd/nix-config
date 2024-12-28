@@ -9,12 +9,15 @@
   };
 
   config = lib.mkIf config.kubernetes.extra.enable {
-    home.packages = [
+    home.packages = let
+      mirrord = pkgs.callPackage ./mirrord/package.nix {};
+    in [
       pkgs.talosctl
       pkgs.vcluster
       pkgs.kubevirt
       pkgs.kubelogin-oidc
       pkgs.mirrord
+      # mirrord
     ];
   };
 }

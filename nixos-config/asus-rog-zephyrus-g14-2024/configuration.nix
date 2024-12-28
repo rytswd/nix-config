@@ -35,14 +35,6 @@
   # tool can automatically find the right target.
   networking.hostName = "asus-rog-zephyrus-g14-2024";
 
-  boot = {
-    loader.systemd-boot.enable = true;
-    loader.efi.canTouchEfiVariables = true;
-
-    # Be careful updating this.
-    kernelPackages = pkgs.linuxPackages_latest;
-  };
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

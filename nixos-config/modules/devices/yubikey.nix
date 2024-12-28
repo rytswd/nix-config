@@ -13,6 +13,9 @@
       pkgs.yubikey-manager
       pkgs.yubikey-personalization
       pkgs.yubioath-flutter
+
+      # age setup
+      pkgs.age-plugin-yubikey
     ];
 
     # For PC and SC smart card reader daemon.

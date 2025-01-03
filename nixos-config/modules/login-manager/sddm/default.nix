@@ -10,15 +10,18 @@
 
   config = lib.mkIf config.login-manager.sddm.enable {
     environment.systemPackages = let
-      tokyo-night-sddm = pkgs.libsForQt5.callPackage
-        ./tokyo-night-sddm.nix { };
+      # NOTE: Extra theme setup by pulling GitHub repos.
+      tokyo-night = pkgs.callPackage ./tokyo-night.nix { };
+      bluish = pkgs.callPackage ./bluish.nix { };
       in [
-        tokyo-night-sddm
+        tokyo-night
+        bluish
       ];
     services.displayManager.sddm = {
       enable = true;
       # theme = "maldives";
-      theme = "tokyo-night-sddm";
+      # theme = "tokyo-night";
+      theme = "bluish";
     };
   };
 }

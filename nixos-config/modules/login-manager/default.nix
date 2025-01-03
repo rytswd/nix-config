@@ -6,7 +6,7 @@
 {
   imports = [
     ./gdm.nix
-    ./sddm.nix
+    ./sddm
     ./cosmic-greeter.nix
   ];
 

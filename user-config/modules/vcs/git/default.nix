@@ -39,7 +39,9 @@
           # NOTE: email is set below with includes.
           useConfigOnly = true;
           # Key with YubiKey
-          signingkey = "24F699F8056E6082";
+          signingkey = "E0784F1CC9B94CFF";
+          # Old RSA based
+          # signingkey = "24F699F8056E6082";
           # Old key used on macOS
           # signingkey = 678FE5498813DE6A
         };

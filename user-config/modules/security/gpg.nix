@@ -13,12 +13,21 @@
       enable = true;
       package = pkgs.gnupg;
       scdaemonSettings = {
+        # NOTE: The below can be used to debug the behaviour.
+        # log-file = "/var/lib/scdaemon.log";
+        # debug-level = "advanced";
+
+        # reader-port = "Yubico Yubi";
+
         # Because YubiKey setup is handled by pcscd (PC/SC Smart Card Daemon),
         # disabling the built-in ccid handling from scdaemon. This is a setting
         # for the host machine, and not for home-manager to handle.
-        # TODO: I had to remove this after upgrading nixpkgs; I need to check
-        # more on any logic change around this.
-        # disable-ccid = true;
+        disable-ccid = true;
+        # NOTE: I had to remove the above line after upgrading nixpkgs; this
+        # was then confirmed to be the culprit of some GPG based actions to
+        # fail, such as SOPS usage. Adding this back resolved the issue, but
+        # I have never got to the bottom of why this setup wasn't working in
+        # the first place.
       };
     };
     services.gpg-agent = {
@@ -47,8 +56,12 @@
       # Allow use of GPG keys for SSH.
       enableSshSupport = true;
       sshKeys = [
-        # Provide the keygrip
-        "0D289B68FD943DE2E94B37FF33D03DEB5275FB51"
+        # Provide the keygrip:
+        # This can be retrieved from ~/.gnupg/sshcontrol
+        # ECC
+        "437EC237AB5254CF769090431321D9446B182C86"
+        # RSA
+        # "0D289B68FD943DE2E94B37FF33D03DEB5275FB51"
       ];
     };
   };

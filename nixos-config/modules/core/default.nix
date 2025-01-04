@@ -5,6 +5,7 @@
 
 {
   imports = [
+    ./boot.nix
     ./network.nix
     ./firewall.nix
     ./shell.nix
@@ -19,6 +20,7 @@
     ./tmp.nix
   ];
 
+  core.boot.enable = lib.mkDefault true;
   core.network.enable = lib.mkDefault true;
   core.firewall.dropbox.enable = lib.mkDefault true;
   core.shell.enable = lib.mkDefault true;

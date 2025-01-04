@@ -431,8 +431,13 @@ For notification setup, I use AGS widget for now.
   spawn-at-startup "sh" "-c" "ags -c ~/.config/ags-notification/config.js -b notification"
 #+end_src
 
-For clipboard history, I'm using ~cliphist~ mapped with ~wl-paste~. While this may be better handled at systemd and other levels, I'm just keeping it as is.
-#+begin_src kdl
+The clipboard handling needed a bit more sophisticated control, and I moved to use ~clipse~ instead.
+#+begin_src kdl :noweb-ref old
+  spawn-at-startup "sh" "-c" "clipse -listen"
+#+end_src
+
+For clipboard history, I used to use ~cliphist~ mapped with ~wl-paste~.
+#+begin_src kdl :noweb-ref old
   spawn-at-startup "sh" "-c" "wl-paste --watch cliphist store"
 #+end_src
 
@@ -503,20 +508,28 @@ I moved to use Rofi (with Wayland support) so that I can show more items in one 
   Super+Shift+Space { spawn "rofi" "-show" "window"; }
 #+end_src
 
-There are times some commands stop working. I'm making sure at least I get a terminla I can run stuff from.
+There are times some commands stop working. I'm making sure at least I get a terminal I can run stuff from.
 #+begin_src kdl
   Shift+XF86Launch1 { spawn "ghostty"; }
 #+end_src
 
-Use ~fuzzel~ for the clipboard history. I do use ~rofi~ for the main launcher now, but for clipboard history, I do not need the column layout, and that is easier handled with a simple setup with ~fuzzel~.
+Use ~clipse~ for the clipboard history. which needs a terminal emulator.
+#+begin_src kdl
+  Super+Shift+F12 { spawn "ghostty" "-e" "clipse"; }
+#+end_src
 
-NOTE: For emoji, I could use rofi-emoji, but decided to use ~bemoji~ which keeps the history.
+TODO: Remove this once I confirm the clipse provides all the control I need.
+NOTE: This is the old config.
+With ~cliphist~, ~fuzzel~ is used for the clipboard history. I do use ~rofi~ for the main launcher now, but for clipboard history, I do not need the column layout, and that is easier handled with a simple setup with ~fuzzel~.
 #+begin_src kdl
   Super+Alt+K   { spawn "sh" "-c" \
                   "cliphist list | fuzzel -d | cliphist decode | wl-copy" \
                   ; } // Dvorak V
-  Super+Alt+Backslash { spawn "sh" "-c" \
-                  "bemoji -t -c -n" ; }
+#+end_src
+
+NOTE: For emoji, I could use rofi-emoji, but decided to use ~bemoji~ which keeps the history.
+#+begin_src kdl
+  Super+Alt+Backslash { spawn "sh" "-c" "bemoji -t -c -n" ; }
   Super+Shift+Backslash { spawn "swaync-client" "-t" "-sw" ; }
 #+end_src
 

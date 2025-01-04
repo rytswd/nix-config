@@ -122,6 +122,8 @@ spawn-at-startup "swww-daemon"
 
 spawn-at-startup "sh" "-c" "ags -c ~/.config/ags-notification/config.js -b notification"
 
+spawn-at-startup "sh" "-c" "clipse -listen"
+
 spawn-at-startup "sh" "-c" "wl-paste --watch cliphist store"
 
 spawn-at-startup "maestral" "start" // Hack
@@ -136,11 +138,11 @@ binds {
     Alt+Space         { spawn "rofi" "-show" "drun"; }
     Super+Shift+Space { spawn "rofi" "-show" "window"; }
     Shift+XF86Launch1 { spawn "ghostty"; }
+    Super+Shift+F12 { spawn "ghostty" "-e" "clipse"; }
     Super+Alt+K   { spawn "sh" "-c" \
                     "cliphist list | fuzzel -d | cliphist decode | wl-copy" \
                     ; } // Dvorak V
-    Super+Alt+Backslash { spawn "sh" "-c" \
-                    "bemoji -t -c -n" ; }
+    Super+Alt+Backslash { spawn "sh" "-c" "bemoji -t -c -n" ; }
     Super+Shift+Backslash { spawn "swaync-client" "-t" "-sw" ; }
     Super+Alt+N   { spawn "swaylock"; } // Dvorak L
     Super+Shift+M { quit; }

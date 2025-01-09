@@ -1531,11 +1531,11 @@
         "xwayland-satellite-unstable": "xwayland-satellite-unstable"
       },
       "locked": {
-        "lastModified": 1733123132,
-        "narHash": "sha256-+zm5mxIAui8MqVie3L7cmBLwPIh3EI/ExvWqPlH+EP8=",
+        "lastModified": 1736305077,
+        "narHash": "sha256-4LOeGF3/X8w7pvUxHoxu2cr0OmAjQ6OHFaS3jihzr/4=",
         "owner": "sodiboo",
         "repo": "niri-flake",
-        "rev": "cb14fec76ba88c7d547126c3502580ee9247b67b",
+        "rev": "2f9556bee47915529d1c56f7bab9e2124ee94ee0",
         "type": "github"
       },
       "original": {
@@ -1564,11 +1564,11 @@
     "niri-unstable": {
       "flake": false,
       "locked": {
-        "lastModified": 1733120661,
-        "narHash": "sha256-7rDSEWqGW25PrYVmUhCPiMSN1aYV7IueOdUeM2Hf8lE=",
+        "lastModified": 1736073506,
+        "narHash": "sha256-c8UMa0Yb8hYm9D3Q/k+GsRxsk8oTYy2OJywCHjWXrlU=",
         "owner": "YaLTeR",
         "repo": "niri",
-        "rev": "8665003269d1fbe4efe3c477a71400392930cac9",
+        "rev": "89678c7b1e6ebe6ec5411db5a2b99bd6bea63565",
         "type": "github"
       },
       "original": {
@@ -1590,10 +1590,10 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1734562067,
-        "narHash": "sha256-R3A6SgNAN26saIIXUts9XSodLV9cr1zi22Ffx9DpPXA=",
+        "lastModified": 1736218066,
+        "narHash": "sha256-ZdnOZOE9ZklQAVBJn+vOPT7aK3LoSjeF50ssjpI2Wsk=",
         "ref": "main",
-        "rev": "8ec4bea761a487190e7b4b6e27cb99f46daa9894",
+        "rev": "11925532a0285f6fe3473258128c6f382ec11171",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/rytswd/nix-config-private"
@@ -2691,11 +2691,11 @@
     "xwayland-satellite-unstable": {
       "flake": false,
       "locked": {
-        "lastModified": 1732233710,
-        "narHash": "sha256-gWf9dX6DVx0ssK2G3yrFG9yMT9UU0mDwyD51z/Q6FTA=",
+        "lastModified": 1736304088,
+        "narHash": "sha256-FyHHCppAorSicKNhm1OrcUcuViOSGRirG9KXGfKfNec=",
         "owner": "Supreeeme",
         "repo": "xwayland-satellite",
-        "rev": "02f30546264ff8407cbb39528b3a3cc3045e53c1",
+        "rev": "42ffd06d1ee14b5c36d4798f8a43c977ef067ad1",
         "type": "github"
       },
       "original": {

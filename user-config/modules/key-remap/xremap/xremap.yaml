@@ -222,9 +222,11 @@ keymap:
       Ctrl-Shift_L-down: C-Shift-Super-down
       Ctrl-Shift_L-up: C-Shift-Super-up
       # NOTE: niri takes these inputs as they are, rather than doing Dvorak
-      # conversion.
+      # conversion. Thus I need to provide the QWERTY equivalent on both key and
+      # value. (e.g. "j" in QWERTY to map to "h" in Dvorak)
       Ctrl-Shift_L-j: C-Shift-Super-j
       Ctrl-Shift_L-p: C-Shift-Super-p
+      Ctrl-Shift_L-y: C-Shift-Super-y
       Ctrl-Alt_L-left: C-Shift-Alt-left
       Ctrl-Alt_L-right: C-Shift-Alt-right
       Ctrl-left: C-Shift-Super-Alt-left

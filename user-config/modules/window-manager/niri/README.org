@@ -340,7 +340,7 @@ Define a cursor look.
 #+begin_src kdl
   cursor {
       xcursor-theme "breeze_cursors"
-      xcursor-size  48
+      xcursor-size  32
       hide-when-typing
   }
 #+end_src

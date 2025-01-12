@@ -32,7 +32,13 @@
     };
     services.gpg-agent = {
       enable = true;
-      pinentryPackage = pkgs.pinentry-rofi;
+
+      # I used to use PIN entry from GNOME originally, and then moved to rofi
+      # because it worked more naturally with niri. However, with the recent
+      # addition of floating window (as of Jan 2025), GNOME PIN entry works well
+      # and I'm trying a switch back.
+      # pinentryPackage = pkgs.pinentry-rofi;
+      pinentryPackage = pkgs.pinentry-gnome3;
 
       # GPG agent keeps the cache of the key, and set TTL (time-to-live) of
       # 600sec by default. Whenever the cache is accessed, the timer is reset.

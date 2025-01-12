@@ -161,7 +161,7 @@
   "wlr/taskbar": {
     "active-only": true,
     "sort-by-app-id": true,
-
+    "tooltip-format": "{title} | {app_id}",
     "on-click": "activate",
   },
 

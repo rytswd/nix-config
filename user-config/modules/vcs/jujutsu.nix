@@ -13,7 +13,9 @@
       enable = true;
     };
     home.packages = [
-      pkgs.lazyjj
+      # NOTE: lazyjj failing build
+      # Ref: https://github.com/NixOS/nixpkgs/issues/370890
+      # pkgs.lazyjj
     ];
     xdg.configFile = {
       "jj".source = ./jujutsu;

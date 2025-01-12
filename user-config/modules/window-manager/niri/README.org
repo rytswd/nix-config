@@ -397,6 +397,37 @@ Also, for Slack, I'm making it as big.
   }
 #+end_src
 
+Floating handling
+TODO: I will need to adjust this more.
+#+begin_src kdl
+// Open the Firefox picture-in-picture window at the bottom-left corner of the screen
+// with a small gap.
+window-rule {
+    // Firefox
+    match app-id="firefox$" title="^Picture-in-Picture$"
+    // Vivaldi
+    match title="^Picture in picture$"
+
+    open-floating true
+    default-column-width { fixed 480; }
+    default-window-height { fixed 270; }
+    default-floating-position x=32 y=32 relative-to="bottom-right"
+}
+#+end_src
+
+For picture-in-picture with Google Meet
+#+begin_src kdl
+window-rule {
+    // Vivaldi
+    match title="^Meet "
+
+    open-floating true
+    default-column-width { fixed 240; }
+    default-window-height { fixed 320; }
+    default-floating-position x=32 y=32 relative-to="bottom-right"
+}
+#+end_src
+
 TODO: I should configure the key handling items to be outside of screencapture / screencast.
 #+begin_src kdl :tangle no
   // Example: block out two password managers from screen capture.

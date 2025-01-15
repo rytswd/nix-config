@@ -15,10 +15,14 @@
       enableZshIntegration = true;
       enableFishIntegration = true;
       enableNushellIntegration = true;
-      # NOTE: If I want to get rid of the binding, I can add below.
-      # flags = [
-      #   "--disable-up-arrow"
-      # ];
+
+      flags = [
+        # The up arrow binding gets triggered by mistake, and while I tried to
+        # adopt for some time, I found it more annoying than useful. When I
+        # need to check the actual history, I will be sending an explicit keys
+        # and that would give me better control.
+        "--disable-up-arrow"
+      ];
       settings = {
         auto_sync = true;
         sync_frequency = "5m";

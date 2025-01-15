@@ -183,6 +183,7 @@ binds {
 
     Super+Tab                   { focus-window-down-or-column-right; }
     Super+Shift+Tab             { focus-window-up-or-column-left; }
+    Super+Grave                 { switch-focus-between-floating-and-tiling; }
     
     // NOTE: These key bindings are designed so that they are difficult to use,
     // and should not conflict with other key bindings. In order to use this

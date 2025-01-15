@@ -405,6 +405,16 @@ For Emacs, I'm setting the default column to be bigger
   }
 #+end_src
 
+If Emacs is open as a popup, use floating window and make it much smaller.
+The title is manually set by ~(set-frame-name TITLE)~ in my Emacs code.
+#+begin_src kdl
+  window-rule {
+      match app-id="emacs" title="emacs-ephemeral-popup"
+      open-floating true
+      default-floating-position x=32 y=32 relative-to="bottom-right"
+  }
+#+end_src
+
 Also, for Slack, I'm making it as big, and also stick to the named workspace.
 #+begin_src kdl
   window-rule {

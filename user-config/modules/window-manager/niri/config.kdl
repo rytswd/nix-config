@@ -122,6 +122,12 @@ window-rule {
 }
 
 window-rule {
+    match app-id="emacs" title="emacs-ephemeral-popup"
+    open-floating true
+    default-floating-position x=32 y=32 relative-to="bottom-right"
+}
+
+window-rule {
     match app-id="Slack"
     open-on-workspace "slack"
     default-column-width { proportion 0.9; }

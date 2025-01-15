@@ -14,7 +14,7 @@
     # PipeWire seems to have a better audio and screen support in general, disable
     # the below clearly (as sound.enable is meant to be ALSA).
     # For PipeWire, this needs to be explicitly set to false.
-    hardware.pulseaudio.enable = false;
+    services.pulseaudio.enable = false;
     # "sound.enable" is analogous to hardware.alsa (PR
     # https://github.com/NixOS/nixpkgs/pull/319839 pending as of writing), and
     # because PulseAudio being disabled updates this field, commenting it out. (It

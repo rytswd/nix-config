@@ -352,6 +352,22 @@ Disable help menu.
   }
 #+end_src
 
+*** Named Workspaces
+:PROPERTIES:
+:header-args: :tangle config.kdl :noweb yes
+:END:
+Niri can be configured to have named workspaces, along with all the dynamic workspaces that are associated with number IDs.
+#+begin_src kdl
+  workspace "coding"
+
+  workspace "civo"
+
+  workspace "slack"
+
+  workspace "perf"
+#+end_src
+
+
 *** Window Rules
 :PROPERTIES:
 :header-args: :tangle config.kdl :noweb yes
@@ -389,10 +405,11 @@ For Emacs, I'm setting the default column to be bigger
   }
 #+end_src
 
-Also, for Slack, I'm making it as big.
+Also, for Slack, I'm making it as big, and also stick to the named workspace.
 #+begin_src kdl
   window-rule {
-      match app-id="slack"
+      match app-id="Slack"
+      open-on-workspace "slack"
       default-column-width { proportion 0.9; }
   }
 #+end_src
@@ -698,21 +715,5 @@ Close window is the most similar to Cmd+Q on macOS, but probably more intuitive.
     Print                   { screenshot; }
     Ctrl+Print              { screenshot-screen; }
     Alt+Print               { screenshot-window; }
-#+end_src
-
-
-** Named Workspaces
-:PROPERTIES:
-:header-args: :tangle config.kdl :noweb yes
-:END:
-Niri can be configured to have named workspaces, along with all the dynamic workspaces that are associated with number IDs.
-#+begin_src kdl
-  workspace "coding"
-
-  workspace "civo"
-
-  workspace "slack"
-
-  workspace "perf"
 #+end_src
 

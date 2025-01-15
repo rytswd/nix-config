@@ -92,6 +92,14 @@ hotkey-overlay {
     skip-at-startup
 }
 
+workspace "coding"
+
+workspace "civo"
+
+workspace "slack"
+
+workspace "perf"
+
 window-rule {
     opacity 0.95
     clip-to-geometry true
@@ -114,7 +122,8 @@ window-rule {
 }
 
 window-rule {
-    match app-id="slack"
+    match app-id="Slack"
+    open-on-workspace "slack"
     default-column-width { proportion 0.9; }
 }
 
@@ -255,11 +264,3 @@ binds {
     Ctrl+Print              { screenshot-screen; }
     Alt+Print               { screenshot-window; }
 }
-
-workspace "coding"
-
-workspace "civo"
-
-workspace "slack"
-
-workspace "perf"

@@ -587,7 +587,7 @@ With ~cliphist~, ~fuzzel~ is used for the clipboard history. I do use ~rofi~ for
 
 NOTE: For emoji, I could use rofi-emoji, but decided to use ~bemoji~ which keeps the history.
 #+begin_src kdl
-  Super+Alt+Backslash { spawn "sh" "-c" "bemoji -t -c -n" ; }
+  Super+Alt+Backslash { spawn "sh" "-c" "bemoji -c -n" ; }
   Super+Shift+Backslash { spawn "swaync-client" "-t" "-sw" ; }
 #+end_src
 

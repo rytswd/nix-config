@@ -1,12 +1,16 @@
 modmap:
-  - name: Global
+  - name: Caps to Ctrl and Esc
     remap:
       # Make CapsLock as Ctrl when held, Esc when pressed
       CapsLock:
         held: leftctrl
         alone: esc
         alone_timeout_millis: 150
-      # Swap Super and Alt
+  - name: Swap Super and Alt
+    device:
+      only:
+        - "Asus Keyboard"
+    remap:
       Super_L: Alt_L
       Alt_L: Super_L
 
@@ -240,4 +244,3 @@ keymap:
       Ctrl-Super-right: C-Super-right
       Ctrl-Super-down: C-Super-down
       Ctrl-Super-up: C-Super-up
-

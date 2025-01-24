@@ -586,6 +586,8 @@ With ~cliphist~, ~fuzzel~ is used for the clipboard history. I do use ~rofi~ for
 #+end_src
 
 NOTE: For emoji, I could use rofi-emoji, but decided to use ~bemoji~ which keeps the history.
+NOTE: I would want to use the bemoji's "type" behaviour, but it doesn't seem to work on some apps (like Slack).
+Ref: https://github.com/marty-oehme/bemoji/issues/34
 #+begin_src kdl
   Super+Alt+Backslash { spawn "sh" "-c" "bemoji -c -n" ; }
   Super+Shift+Backslash { spawn "swaync-client" "-t" "-sw" ; }

@@ -19,8 +19,13 @@
     withWlroots = true;
     # Ensures I do not have to restart the service when definition changes
     watch = true;
+    # The list of devices can be seen in xremap initialisation logs:
+    #
+    #     journalctl --user -xeu xremap
+    #
     deviceNames = [
       "Asus Keyboard"
+      "Naya B.V. Create Left Keyboard"
     ];
     yamlConfig = (builtins.readFile ./xremap.yaml);
   };

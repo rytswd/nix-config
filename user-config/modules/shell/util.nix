@@ -82,7 +82,12 @@
       zoxide = {
         enable = true;
         # In order to call the builtin 'cd', I can use 'builtin cd'.
-        options = [ "--cmd cd"];
+        # NOTE: I decided to move away from using cd replacement. The error
+        # message was misleading, and when using a simple cd, I usually do not
+        # want to fall back to move me elsewhere. Also, the main usage comes
+        # from the interactive "zi" command -- which I would want to control
+        # what gets recorded.
+        # options = [ "--cmd cd"];
 
         enableBashIntegration = true;
         enableZshIntegration = true;

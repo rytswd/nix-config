@@ -13,6 +13,14 @@ modmap:
     remap:
       Super_L: Alt_L
       Alt_L: Super_L
+  # Temporary setup for Naya to handle numpad as arrow keys
+  - name: Kp to Arrows
+    device:
+    remap:
+      KP4: left
+      KP8: up
+      KP6: right
+      KP2: down
 
 # NOTE:
 # xremap works by intercepting the input event at evdev / uinput level. This

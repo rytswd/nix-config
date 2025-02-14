@@ -2382,6 +2382,7 @@
         "sops-nix": "sops-nix_2",
         "swww": "swww",
         "xremap": "xremap",
+        "zen-browser": "zen-browser",
         "zig": "zig_2"
       }
     },
@@ -2923,6 +2924,26 @@
       "original": {
         "owner": "Supreeeme",
         "repo": "xwayland-satellite",
+        "type": "github"
+      }
+    },
+    "zen-browser": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1739071251,
+        "narHash": "sha256-Kj4grI7YpHk2RIsy73Dwg7ikDn94MI7zKrWN0BXrvJI=",
+        "owner": "0xc000022070",
+        "repo": "zen-browser-flake",
+        "rev": "410d6e9a8ba0edd163d0828a4cda1b1f267f2e1a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "0xc000022070",
+        "repo": "zen-browser-flake",
         "type": "github"
       }
     },

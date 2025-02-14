@@ -9,6 +9,7 @@
     ./vivaldi.nix
     ./chromium.nix
     ./firefox.nix
+    ./zen.nix
     # TODO: Nyxt build fails, and thus disabling it for now.
     # ./nyxt.nix
   ];
@@ -21,4 +22,5 @@
   # browser.chromium.enable = lib.mkDefault true;
   browser.firefox.enable = lib.mkDefault true;
   # browser.nyxt.enable = lib.mkDefault true;
+  browser.zen.enable = lib.mkDefault true;
 }

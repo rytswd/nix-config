@@ -103,6 +103,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     # Window Manager
     niri= {
       url = "github:sodiboo/niri-flake";

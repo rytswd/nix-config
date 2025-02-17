@@ -113,6 +113,7 @@ window-rule {
     match app-id="firefox"
     match app-id="chromium"
     match app-id="nyxt"
+    match app-id="zen"
     opacity 1.0
 }
 
@@ -138,6 +139,8 @@ window-rule {
 window-rule {
     // Firefox
     match app-id="firefox$" title="^Picture-in-Picture$"
+    // Zen
+    match app-id="zen" title="^Picture-in-Picture$"
     // Vivaldi
     match title="^Picture in picture$"
 
@@ -195,7 +198,9 @@ binds {
     // and should not conflict with other key bindings. In order to use this
     // in real scenario, I would need key remapping solutions like Xremap.
     Ctrl+Shift+Alt+Super+Left   { focus-column-left; }
+    Ctrl+Shift+Alt+Super+Kp_Left   { focus-column-left; }
     Ctrl+Shift+Alt+Super+Right  { focus-column-right; }
+    Ctrl+Shift+Alt+Super+Kp_Right  { focus-column-right; }
     Ctrl+Shift+Alt+Super+Down   { focus-window-or-workspace-down; }
     Ctrl+Shift+Alt+Super+Up     { focus-window-or-workspace-up; }
     // These are somewhat easy alternative when remap is not working for any

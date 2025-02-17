@@ -85,6 +85,7 @@ keymap:
         - /brave/
         - /chromium/
         - /firefox/
+        - /zen/
     remap:
       # NOTE: Because Xremap intercepts before Dvorak key binding comes into
       # action, the left hand side is based on the QWERTY binding. However, for

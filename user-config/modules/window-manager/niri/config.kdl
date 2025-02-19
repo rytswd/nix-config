@@ -94,8 +94,6 @@ hotkey-overlay {
 
 workspace "coding"
 
-workspace "civo"
-
 workspace "slack"
 
 workspace "perf"

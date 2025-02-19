@@ -15,7 +15,7 @@ nixpkgs-unstable.lib.nixosSystem rec {
     # inputs.cosmic.nixosModules.default
 
     # Extra modules based on private setup.
-    inputs.nix-config-private.nixos-modules.civo
+    # inputs.nix-config-private.nixos-modules.civo
 
     # Adjust Nix and Nixpkgs related flags before proceeding.
     ./nix-flags.nix

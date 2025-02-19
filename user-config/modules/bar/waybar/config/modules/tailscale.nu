@@ -5,7 +5,7 @@ let signal = 10
 # Use --login-server if the login server is set in the env variable. If not set,
 # this will be an empty string.
 let login_server_flag = (
-  $env | try { get TAILSCALE_LOGIN_SERVER | $'--login-server=($in)' })
+  $env | try { get TAILSCALE_LOGIN_SERVER | $'--login-server=($in)' } catch { "" })
 
 def main (input?: string) {
   match $input {
@@ -42,26 +42,38 @@ def toggle_tailscale () {
         "Running" => (
           do -i { tailscale down })
         "Stopped" => (
-          do -i { (tailscale up
-                    # NOTE: Without the env variable setup, there will be no
-                    # login server specified.
-                    $login_server_flag
-                    --accept-routes
-                    --ssh
-                    --operator=$env.USER) })
+          do -i {
+            if ($login_server_flag == "") {
+              # NOTE: Without the env variable setup, there will be no
+              # login server specified.
+              tailscale up
+            } else {
+              (tailscale up
+                  $login_server_flag
+                  --accept-routes
+                  --ssh
+                  --operator=$env.USER)}
+          })
         # In case of unknown state, assume it's not connected, and retry.
         _ => (
-          do -i { (tailscale up
-                    # NOTE: Without the env variable setup, there will be no
-                    # login server specified.
-                    $login_server_flag
-                    --accept-routes
-                    --ssh
-                    --operator=$env.USER) })
+          do -i {
+            if ($login_server_flag == "") {
+              # NOTE: Without the env variable setup, there will be no
+              # login server specified.
+              tailscale up
+            } else {
+              (tailscale up
+                  $login_server_flag
+                  --accept-routes
+                  --ssh
+                  --operator=$env.USER)}
+          })
     })
 
   # This assumes that the module is called from Waybar.
   # Waybar module can update its look by getting signal.
-  let parent_pid = (ps | where pid == $nu.pid | get ppid | first)
-  do -i {coreutils --coreutils-prog=kill --signal=$"RTMIN+($signal)" $parent_pid}
+  let parent_pid = (ps | where pid == $nu.pid | get ppid | first | default 0)
+  if ($parent_pid == 0) {
+    do -i { coreutils --coreutils-prog=kill --signal=$"RTMIN+($signal)" $parent_pid }
+  }
 }

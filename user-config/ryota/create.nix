@@ -11,7 +11,7 @@ let ryota =
 
     isNormalUser = true;
     extraGroups = [
-      # "wheel" # For sudo
+      "wheel" # For sudo
       "input" # For Xremap and input handling without sudo
       "uinput" # For Xremap and input handling without sudo
       "networkmanager"# For nmcli etc.

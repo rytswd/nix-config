@@ -124,10 +124,6 @@
       inputs.hyprland.follows = "hyprland";
     };
     hyprswitch.url = "github:h3rmt/hyprswitch/release";
-    hyprscroller = {
-      url = "github:dawsers/hyprscroller";
-      inputs.hyprland.follows = "hyprland";
-    };
 
     # Desktop Environment
     # cosmic = {

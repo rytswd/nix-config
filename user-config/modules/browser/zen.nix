@@ -11,7 +11,8 @@
 
   config = lib.mkIf config.browser.zen.enable {
     home.packages = [
-      inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".beta
+      # inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".beta
+      inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".twilight
     ];
   };
 }

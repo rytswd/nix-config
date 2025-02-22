@@ -282,7 +282,7 @@
       "custom/waybar-bottom",
       "custom/wf-recorder",
       "idle_inhibitor",
-      "custom/tailscale",
+      // "custom/tailscale",
       "custom/wallpaper",
     ],
   },

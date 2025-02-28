@@ -26,6 +26,7 @@
     deviceNames = [
       "Asus Keyboard"
       "Naya B.V. Create Left Keyboard"
+      "Naya Create Keyboard"
     ];
     yamlConfig = (builtins.readFile ./xremap.yaml);
   };

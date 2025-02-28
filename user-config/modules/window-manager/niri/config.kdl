@@ -129,7 +129,6 @@ window-rule {
 window-rule {
     match app-id="Slack"
     open-on-workspace "slack"
-    default-column-width { proportion 0.9; }
 }
 
 // Open the Firefox picture-in-picture window at the bottom-left corner of the screen

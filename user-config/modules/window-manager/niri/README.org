@@ -419,7 +419,6 @@ Also, for Slack, I'm making it as big, and also stick to the named workspace.
   window-rule {
       match app-id="Slack"
       open-on-workspace "slack"
-      default-column-width { proportion 0.9; }
   }
 #+end_src
 

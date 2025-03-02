@@ -5,9 +5,9 @@
 
 {
   imports = [
-    ./clamav.nix
+    # ./clamav.nix
   ];
 
-  # NOTE: This is required for the work environment.
-  security.clamav.enable = lib.mkDefault true;
+  # NOTE: This used to be required for work.
+  # security.clamav.enable = lib.mkDefault true;
 }

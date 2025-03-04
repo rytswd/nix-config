@@ -74,7 +74,7 @@
       inputs.nixpkgs-stable.follows = "nixpkgs-unstable";
       inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
     };
-    jujutsu.url = "github:martinvonz/jj";
+    jujutsu.url = "github:jj-vcs/jj";
 
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";

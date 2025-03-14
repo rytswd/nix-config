@@ -33,6 +33,7 @@ in {
 
   # macOS specific ones
   bar.sketchybar.enable = true;
+  editor.zed.enable = false; # Known issue with macOS
   window-manager.yabai.enable = true;
 
   ###----------------------------------------

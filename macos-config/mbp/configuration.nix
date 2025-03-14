@@ -15,11 +15,12 @@ in {
       options = "--delete-older-than 7d";
     };
 
+    optimise.automatic = true;
+
     settings = {
       max-jobs = 8;
       trusted-users = [ "@admin" ];
 
-      auto-optimise-store = true;
       # Recommended when using `direnv` etc.
       keep-derivations = true;
       keep-outputs = true;

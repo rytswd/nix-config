@@ -2,7 +2,6 @@
 , lib
 , config
 , inputs
-, darwin
 , ...}:
 
 {
@@ -47,9 +46,9 @@
       ##   For macOS
       #------------------------------------------
       inherited = {
-        inherit (darwin) sigtool;
-        inherit (darwin.apple_sdk_11_0) llvmPackages_14;
-        inherit (darwin.apple_sdk_11_0.frameworks)
+        inherit (inputs.darwin) sigtool;
+        inherit (inputs.darwin.apple_sdk_11_0) llvmPackages_14;
+        inherit (inputs.darwin.apple_sdk_11_0.frameworks)
       Accelerate AppKit Carbon Cocoa GSS ImageCaptureCore ImageIO IOKit OSAKit
       Quartz QuartzCore UniformTypeIdentifiers WebKit;
       };

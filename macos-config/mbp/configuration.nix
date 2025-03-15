@@ -186,7 +186,7 @@ in {
 
   security = {
     # Allow use of TouchID for sudo authentication.
-    pam.enableSudoTouchIdAuth = true;
+    pam.services.sudo_local.touchIdAuth = true;
   };
 
   # NOTE: For retrieving the existing setting, you can run the following:

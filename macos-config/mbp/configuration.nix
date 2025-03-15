@@ -6,6 +6,25 @@
 
 let username = "ryota"; # FIXME this is broken now.
 in {
+  imports = [
+    # ../modules/core
+    # ../modules/graphics
+    # ../modules/media
+    # ../modules/devices
+    # ../modules/window-manager
+    # ../modules/login-manager
+    # ../modules/desktop-environment
+    # ../modules/input
+    # ../modules/vpn
+    ../modules/appearance
+    # ../modules/security
+
+    # NOTE: This may be an overkill to have a module, but using this approach
+    # just for the uniformity.
+    # Commenting this out for now as asusctl isn't working correctly.
+    # ../modules/machine-specific/asus.nix
+  ];
+
   nix = {
     gc = {
       automatic = true;
@@ -86,25 +105,6 @@ in {
         # karabiner-elements # Couldn't make it work, disabling
       ;
     };
-  };
-    
-  fonts = {
-    # Ref: https://nixos.wiki/wiki/Fonts
-    packages = [
-      (pkgs.nerdfonts.override {
-        fonts = [
-          "DroidSansMono"
-          "FiraCode"
-          "FiraMono"
-          "Hack"
-          "Iosevka"
-          "NerdFontsSymbolsOnly"
-          "Noto"
-        ]; })
-    ] ++ [
-      pkgs.raleway
-      pkgs.monaspace
-    ];
   };
 
   programs = {

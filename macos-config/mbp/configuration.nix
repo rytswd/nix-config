@@ -7,8 +7,6 @@
 let username = "ryota"; # FIXME this is broken now.
 in {
   nix = {
-    configureBuildUsers = true;
-
     gc = {
       automatic = true;
       interval = { Hour = 23; };
@@ -55,7 +53,6 @@ in {
   services = {
     # Ensure Nix daemon is running.
     nix-daemon = {
-      enable = true;
       logFile = "/var/log/nix-daemon.log";
     };
   };

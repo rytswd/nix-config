@@ -37,7 +37,7 @@
 
       # Emacs 30 is not yet released, and thus pulled in using emacs-overlay and
       # emacs mirror source as a part of flake input.
-      emacs-30-nixos = (pkgs.emacs-pgtk.overrideAttrs (old: {
+      emacs-30-nixos = (pkgs.emacs-git-pgtk.overrideAttrs (old: {
         version = "30.0-${inputs.emacs-30-src.shortRev}";
         src = inputs.emacs-30-src;
       })).override emacs-nixos-override-attrs;

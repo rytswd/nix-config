@@ -17,7 +17,8 @@
 
     nixpkgs-unstable = {
       url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-      # NOTE: Only used when I need to test the absolute latest.
+      # NOTE: Only used when I need to test the absolute latest. This would mean
+      # I wouldn't be able to use the binary cache.
       # url = "github:NixOS/nixpkgs/master";
     };
 
@@ -50,16 +51,17 @@
     # Rust -- TODO: check whether I should use fenix or rust-overlay
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      # inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     fenix = {
       url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      # inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # Roc
     roc = {
       url = "github:roc-lang/roc";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # Zig
@@ -70,9 +72,9 @@
     ##  Tools
     #------------------------------------------
     ghostty = {
-      url = "git+ssh://git@github.com/ghostty-org/ghostty";
-      inputs.nixpkgs-stable.follows = "nixpkgs-unstable";
-      inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
+      url = "github:ghostty-org/ghostty";
+      # inputs.nixpkgs-stable.follows = "nixpkgs-unstable";
+      # inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
     };
 
     emacs-overlay = {
@@ -99,24 +101,26 @@
 
     swww = {
       url = "github:LGFae/swww";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      # inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      # inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # Window Manager
     niri= {
       url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.nixpkgs-stable.follows = "nixpkgs-unstable";
+      # inputs.nixpkgs.follows = "nixpkgs-unstable";
+      # inputs.nixpkgs-stable.follows = "nixpkgs-unstable";
     };
 
     hyprland = {
       url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      # NOTE: Do not update the nixpkgs input, as this could cause the cache
+      # handling to fail.
+      # inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";

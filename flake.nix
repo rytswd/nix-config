@@ -150,7 +150,7 @@
     goOverlay = (final: prev: {
       go = nixpkgs-unstable.legacyPackages.${prev.system}.go_1_24;
     });
-    rustOverlay = inputs.rust-overlay.overlays.default;
+    # rustOverlay = inputs.rust-overlay.overlays.default;
     fenixOverlay = inputs.fenix.overlays.default;
     zigOverlay = inputs.zig.overlays.default;
     rocOverlay = (final: prev: {
@@ -172,9 +172,9 @@
     niriOverlay = inputs.niri.overlays.niri;
     overlays = [
       goOverlay
-      rustOverlay
+      # rustOverlay
+      fenixOverlay
       zigOverlay
-      # fenixOverlay
       rocOverlay
 
       emacsOverlay

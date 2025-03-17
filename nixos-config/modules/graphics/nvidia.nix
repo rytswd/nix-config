@@ -18,12 +18,14 @@
       powerManagement.finegrained = false;
       open = false;
       nvidiaSettings = true;
-      # NOTE: .stable with ‘nvidia-x11-560.35.03-6.12.1’ is marked broken with
+      # NOTE: .stable with ‘nvidia-x11-560.35.03-6.12.1’ was marked broken with
       # Linux kernel 6.12.
-      # I'm using production version which seems to be working correctly.
+      # I fell back to production version which was working correctly.
       # https://github.com/NixOS/nixpkgs/pull/358235
       # https://github.com/NixOS/nixpkgs/commit/8653ea453d81a7320c63f930911bcd9f7e063c65
-      package = config.boot.kernelPackages.nvidiaPackages.production;
+      # This has been reverted after confirming that the no package override is
+      # necessary in the later update.
+      # package = config.boot.kernelPackages.nvidiaPackages.production;
       prime = {
         offload = {
           enable = true;

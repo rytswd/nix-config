@@ -14,6 +14,7 @@
       pkgs.git
       pkgs.cachix
       pkgs.nh
+      pkgs.nixos-rebuild-ng
     ];
   };
 }

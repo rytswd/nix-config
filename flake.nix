@@ -148,7 +148,7 @@
 
     # Language related overlays
     goOverlay = (final: prev: {
-      go = nixpkgs-unstable.legacyPackages.${prev.system}.go_1_23;
+      go = nixpkgs-unstable.legacyPackages.${prev.system}.go_1_24;
     });
     rustOverlay = inputs.rust-overlay.overlays.default;
     fenixOverlay = inputs.fenix.overlays.default;

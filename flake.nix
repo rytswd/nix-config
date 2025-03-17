@@ -182,9 +182,9 @@
       vscodeOverlay
 
       treeSitterOverlay
+      gripOverlay
       # erdtreeOverlay
       # yaziOverlay
-      gripOverlay
 
       niriOverlay # TODO: Make this only for NixOS.
     ];

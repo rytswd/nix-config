@@ -38,6 +38,8 @@
     };
 
   swapDevices = [ ];
+  # Make use of zram compressed block device in RAM.
+  zramSwap.enable = true;
 
   networking.useDHCP = lib.mkDefault true;
 }

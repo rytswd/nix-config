@@ -1,6 +1,7 @@
 { pkgs
 , lib
 , config
+, inputs
 , ...}:
 
 {
@@ -19,5 +20,8 @@
     home.shellAliases = {
       flakeinit = "nix flake init -t \"github:rytswd/nix-direnv-template\" --refresh";
     };
+    # For Nixd to pick up the nixpkgs.
+    # TODO: I need to also add extra config for Nixd.
+    nix.nixPath = [ "nixpkgs=${inputs.nixpkgs-unstable}" ];
   };
 }

@@ -13,7 +13,7 @@
       enable = true;
       # systemdTarget = "sway-session.target";
       events = [
-        { event = "lock"; command = "${pkgs.swaylock-effects}/bin/swaylock"; }
+        # { event = "lock"; command = "${pkgs.swaylock-effects}/bin/swaylock"; }
         { event = "before-sleep"; command = "${pkgs.swaylock-effects}/bin/swaylock"; }
         # { event = "after-resume"; command = "${pkgs.sway}/bin/swaymsg \"output * toggle\""; }
       ];

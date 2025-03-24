@@ -34,7 +34,8 @@
   programming.haskell.enable = lib.mkDefault true;
   programming.python.enable = lib.mkDefault true;
   programming.zig.enable = lib.mkDefault true;
-  programming.roc.enable = lib.mkDefault true;
+  # TODO: Build broken, commenting it out for now.
+  # programming.roc.enable = lib.mkDefault true;
   programming.markdown.enable = lib.mkDefault true;
   programming.c.enable = lib.mkDefault true;
   programming.protobuf.enable = lib.mkDefault true;

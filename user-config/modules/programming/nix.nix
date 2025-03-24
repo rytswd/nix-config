@@ -16,6 +16,7 @@
       pkgs.nvd
       pkgs.nh   # Friendly CLI wrapper
       pkgs.nixd # Language Server
+      pkgs.nixpkgs-review # PR review utility
     ];
     home.shellAliases = {
       flakeinit = "nix flake init -t \"github:rytswd/nix-direnv-template\" --refresh";

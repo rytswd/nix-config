@@ -16,5 +16,6 @@
   editor.neovim.enable = lib.mkDefault true;
   editor.helix.enable = lib.mkDefault true;
   editor.vscode.enable = lib.mkDefault true;
-  editor.zed.enable = lib.mkDefault true;
+  # TODO: The build failure with the latest flake input, disabling it.
+  # editor.zed.enable = lib.mkDefault true;
 }

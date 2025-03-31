@@ -18,6 +18,7 @@
       powerManagement.finegrained = false;
       open = false;
       nvidiaSettings = true;
+
       # NOTE: .stable with ‘nvidia-x11-560.35.03-6.12.1’ was marked broken with
       # Linux kernel 6.12.
       # I fell back to production version which was working correctly.
@@ -26,6 +27,7 @@
       # This has been reverted after confirming that the no package override is
       # necessary in the later update.
       # package = config.boot.kernelPackages.nvidiaPackages.production;
+
       prime = {
         offload = {
           enable = true;
@@ -43,5 +45,8 @@
 
     # This adds nvidia offload
     services.xserver.videoDrivers = ["nvidia"];
+
+    # Ensure Docker can make use of GPU.
+    hardware.nvidia-container-toolkit.enable = true;
   };
 }

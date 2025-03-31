@@ -14,9 +14,13 @@
       pkgs.nix-prefetch-github
       pkgs.nix-output-monitor
       pkgs.nvd
-      pkgs.nh   # Friendly CLI wrapper
       pkgs.nixd # Language Server
       pkgs.nixpkgs-review # PR review utility
+    ] ++ [
+      # Because of Darwin support provided by a separate flake, this ensures
+      # there is no conflicting package on macOS. NixOS technically doesn't need
+      # this setup if nh is made available on NixOS level.
+      (if pkgs.stdenv.isDarwin then {} else pkgs.nh)
     ];
     home.shellAliases = {
       flakeinit = "nix flake init -t \"github:rytswd/nix-direnv-template\" --refresh";

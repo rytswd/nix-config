@@ -15,6 +15,7 @@ let ryota =
       "input" # For Xremap and input handling without sudo
       "uinput" # For Xremap and input handling without sudo
       "networkmanager"# For nmcli etc.
+      "docker" # For docker
     ];
 
     # Set initial password.

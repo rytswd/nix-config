@@ -164,7 +164,7 @@
 
     # Other utility related overlays
     treeSitterOverlay = (import ./overlays/tree-sitter.nix );
-    gripOverlay = (import ./overlays/grip.nix );
+    # gripOverlay = (import ./overlays/grip.nix );
     # erdtreeOverlay = (import ./overlays/erdtree.nix );
     # yaziOverlay = (import ./overlays/yazi.nix );
 
@@ -182,7 +182,7 @@
       vscodeOverlay
 
       treeSitterOverlay
-      gripOverlay
+      # gripOverlay
       # erdtreeOverlay
       # yaziOverlay
 

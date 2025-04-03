@@ -48,5 +48,9 @@
 
     # Ensure Docker can make use of GPU.
     hardware.nvidia-container-toolkit.enable = true;
+
+    environment.systemPackages = [
+      pkgs.nvitop       # https://github.com/XuehaiPan/nvitop
+    ];
   };
 }

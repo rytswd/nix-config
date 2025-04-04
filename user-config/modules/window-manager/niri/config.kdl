@@ -94,7 +94,7 @@ hotkey-overlay {
 
 workspace "coding"
 
-workspace "slack"
+workspace "communication"
 
 workspace "perf"
 
@@ -128,7 +128,9 @@ window-rule {
 
 window-rule {
     match app-id="Slack"
-    open-on-workspace "slack"
+    match app-id="vesktop"
+    match app-id="signal"
+    open-on-workspace "communication"
 }
 
 // Open the Firefox picture-in-picture window at the bottom-left corner of the screen

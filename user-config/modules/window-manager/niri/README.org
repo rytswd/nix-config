@@ -360,7 +360,7 @@ Niri can be configured to have named workspaces, along with all the dynamic work
 #+begin_src kdl
   workspace "coding"
 
-  workspace "slack"
+  workspace "communication"
 
   workspace "perf"
 #+end_src
@@ -414,11 +414,13 @@ The title is manually set by ~(set-frame-name TITLE)~ in my Emacs code.
   }
 #+end_src
 
-Also, for Slack, I'm making it as big, and also stick to the named workspace.
+For some communication related apps such as Slack, Vesktop (i.e. Discord), I assign it to a dedicated workspace.
 #+begin_src kdl
   window-rule {
       match app-id="Slack"
-      open-on-workspace "slack"
+      match app-id="vesktop"
+      match app-id="signal"
+      open-on-workspace "communication"
   }
 #+end_src
 

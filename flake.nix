@@ -81,8 +81,12 @@
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    emacs-30-src = {
+    emacs-mirror-30-src = {
       url = "github:emacs-mirror/emacs/emacs-30";
+      flake = false;
+    };
+    emacs-mirror-latest-src = {
+      url = "github:emacs-mirror/emacs";
       flake = false;
     };
 

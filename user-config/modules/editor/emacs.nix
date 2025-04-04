@@ -35,11 +35,15 @@
       # Based on emacs-overlay
       emacs-29-unstable-nixos = pkgs.emacs-unstable.override emacs-nixos-override-attrs;
 
-      # Emacs 30 is not yet released, and thus pulled in using emacs-overlay and
-      # emacs mirror source as a part of flake input.
       emacs-30-nixos = (pkgs.emacs-git-pgtk.overrideAttrs (old: {
-        version = "30.0-${inputs.emacs-30-src.shortRev}";
-        src = inputs.emacs-30-src;
+        version = "30.0-${inputs.emacs-mirror-30-src.shortRev}";
+        src = inputs.emacs-mirror-30-src;
+      })).override emacs-nixos-override-attrs;
+
+      # Latest Emacs source
+      emacs-latest-nixos = (pkgs.emacs-git-pgtk.overrideAttrs (old: {
+        version = "31.0-${inputs.emacs-mirror-latest-src.shortRev}";
+        src = inputs.emacs-mirror-latest-src;
       })).override emacs-nixos-override-attrs;
 
       ###----------------------------------------
@@ -113,7 +117,10 @@
       package =
         if pkgs.stdenv.isDarwin
         then emacs-30-plus
-        else emacs-30-nixos;
+        else
+            # emacs-latest-nixos # latest uses the master branch
+            emacs-30-nixos
+      ;
       extraPackages = packages;
     };
 

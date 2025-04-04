@@ -188,19 +188,35 @@
         "type": "github"
       }
     },
-    "emacs-30-src": {
+    "emacs-mirror-30-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1743523328,
-        "narHash": "sha256-wckCUZzprY7iCjYLQFUmCq0oImaXcBvqu2t4JH+N8Yw=",
+        "lastModified": 1743692015,
+        "narHash": "sha256-as0F8sxijDLD4tpCJo+GWwFocQWsC5Nb+DNOfwlZy8o=",
         "owner": "emacs-mirror",
         "repo": "emacs",
-        "rev": "a0962074743521447b1549f9e0ecd03325debc0d",
+        "rev": "ae7f65f3f9cbe03608c9920e7f2f82a5a82e62d6",
         "type": "github"
       },
       "original": {
         "owner": "emacs-mirror",
         "ref": "emacs-30",
+        "repo": "emacs",
+        "type": "github"
+      }
+    },
+    "emacs-mirror-latest-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1743699117,
+        "narHash": "sha256-QOzRhIJnQPR8TkCw8r4mpqXT9xg6OrAB304FEkBdRbM=",
+        "owner": "emacs-mirror",
+        "repo": "emacs",
+        "rev": "37262eac0525562ac03fe84e6f657de908808245",
+        "type": "github"
+      },
+      "original": {
+        "owner": "emacs-mirror",
         "repo": "emacs",
         "type": "github"
       }
@@ -1636,7 +1652,8 @@
       "inputs": {
         "ags": "ags",
         "darwin": "darwin",
-        "emacs-30-src": "emacs-30-src",
+        "emacs-mirror-30-src": "emacs-mirror-30-src",
+        "emacs-mirror-latest-src": "emacs-mirror-latest-src",
         "emacs-overlay": "emacs-overlay",
         "fenix": "fenix",
         "ghostty": "ghostty",

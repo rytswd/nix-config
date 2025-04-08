@@ -16,7 +16,8 @@
       modesetting.enable = true;
       powerManagement.enable = false;
       powerManagement.finegrained = false;
-      open = false;
+
+      open = true;
       nvidiaSettings = true;
 
       # NOTE: .stable with ‘nvidia-x11-560.35.03-6.12.1’ was marked broken with

@@ -197,6 +197,9 @@ Layout handles some additional appearance adjustments.
       preset-column-widths {
           <<layout-preset-column-widths>>
       }
+      tab-indicator {
+          <<layout-tab-indicator>>
+      }
       <<layout-other>>
   }
 #+end_src
@@ -287,6 +290,24 @@ The values can be a proportional value (with ~proportion~), or fixed logical pix
         proportion 0.5
         proportion 0.75
         proportion 0.95
+#+end_src
+
+**** Tab Indicator
+:PROPERTIES:
+:header-args: :tangle no :noweb-ref layout-tab-indicator
+:END:
+When using tab mode to squash multiple windows into a singel display area, I can use the tab support from niri. The default look is quite subtle, and too subtle to the point I cannot see the unnfocused tabs. I make slight adjustment here.
+
+#+begin_src kdl
+        width 8
+        gap 8
+        length total-proportion=0.7
+        corner-radius 7
+        gaps-between-tabs 8
+        position "top"
+        place-within-column
+        active-gradient to="#45CB85" from="#344966" angle=75
+        inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
 #+end_src
 
 **** Other Layout Related Flags

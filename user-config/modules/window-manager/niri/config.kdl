@@ -67,6 +67,17 @@ layout {
         proportion 0.75
         proportion 0.95
     }
+    tab-indicator {
+        width 8
+        gap 8
+        length total-proportion=0.7
+        corner-radius 7
+        gaps-between-tabs 8
+        position "top"
+        place-within-column
+        active-gradient to="#45CB85" from="#344966" angle=75
+        inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+    }
     gaps 16
     center-focused-column "on-overflow"
     default-column-width {}

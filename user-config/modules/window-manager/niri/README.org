@@ -314,6 +314,12 @@ When using tab mode to squash multiple windows into a singel display area, I can
 :PROPERTIES:
 :header-args: :tangle no :noweb-ref layout-other
 :END:
+Add shadow for floating windows
+#+begin_src kdl
+      shadow {
+          on
+      }
+#+end_src
 
 Add gap between each window.
 #+begin_src kdl

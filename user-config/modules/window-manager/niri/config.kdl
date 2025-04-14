@@ -78,6 +78,9 @@ layout {
         active-gradient to="#45CB85" from="#344966" angle=75
         inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
     }
+    shadow {
+        on
+    }
     gaps 16
     center-focused-column "on-overflow"
     default-column-width {}

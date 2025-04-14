@@ -410,6 +410,8 @@ It is important to set the ~draw-border-with-background~ flag to ~false~, otherw
   }
 #+end_src
 
+NOTE: I could add an extra window rule for screencast highlight. I may want to do that at some point.
+
 Browsers should not be transparent
 #+begin_src kdl
   window-rule {

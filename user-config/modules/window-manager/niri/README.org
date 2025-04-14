@@ -717,6 +717,8 @@ Close window is the most similar to Cmd+Q on macOS, but probably more intuitive.
     Ctrl+Shift+Super+Up     { move-window-up-or-to-workspace-up; }
     Ctrl+Shift+Super+H      { consume-or-expel-window-left; }
     Ctrl+Shift+Super+L      { consume-or-expel-window-right; }
+    // Make windows in the same column into tabbed display
+    Ctrl+Shift+Super+T      { toggle-column-tabbed-display; }
     Ctrl+Shift+Super+F      { toggle-window-floating; }
 #+end_src
 

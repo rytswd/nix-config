@@ -9,7 +9,7 @@
   };
 
   config = lib.mkIf config.communication.signal.enable {
-    home.packages = [ pkgs.signal-desktop ];
+    home.packages = [ pkgs.signal-desktop-bin ];
 
     # NOTE:
     # Somehow the default Signal Desktop app don't show up correctly.

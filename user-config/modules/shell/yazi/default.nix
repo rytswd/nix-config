@@ -21,7 +21,7 @@
     # Because of the limitation around Zoxide not handling the argument cleanly,
     # I'm adding an extra function to work out the change directory logic with
     # Yazi for each shell.
-    programs.zsh.initExtra = ''
+    programs.zsh.initContent = ''
       function yy() {
         local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
         yazi "$@" --cwd-file="$tmp"

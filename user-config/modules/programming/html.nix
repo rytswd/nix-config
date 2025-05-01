@@ -10,6 +10,7 @@
 
   config = lib.mkIf config.programming.html.enable {
     home.packages = [
+      # NOTE: This needs Node runtime to run.
       pkgs.emmet-language-server
     ];
   };

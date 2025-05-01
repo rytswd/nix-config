@@ -13,6 +13,7 @@
       pkgs.bun
       pkgs.deno
       pkgs.yarn
+      pkgs.nodejs_22
 
       ###------------------------------
       ##   Node Packages

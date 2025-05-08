@@ -12,7 +12,7 @@
 
   config = lib.mkIf config.service.ollama.enable {
     home.packages = [
-      pkgs.ollama
+      pkgs.ollama-cuda
     ];
     # TODO: Handle ollama server process
   };

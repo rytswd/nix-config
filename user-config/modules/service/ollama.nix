@@ -29,6 +29,9 @@
       # In case of this error, I just need to run the following command:
       #
       #     sudo rmmod nvidia_uvm; sudo modprobe nvidia_uvm
+      #
+      # However, this assumes there is no other GPU usage, or if they are, they
+      # could be safely killed with the above command.
       environment = {
         __NV_PRIME_RENDER_OFFLOAD = "1";
         __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";

@@ -16,6 +16,8 @@
     ./zig.nix
     ./roc.nix
     ./markdown.nix
+    ./toml.nix
+    ./yaml.nix
     ./c.nix
     ./protobuf.nix
     ./java.nix
@@ -37,6 +39,8 @@
   # TODO: Build broken, commenting it out for now.
   # programming.roc.enable = lib.mkDefault true;
   programming.markdown.enable = lib.mkDefault true;
+  programming.toml.enable = lib.mkDefault true;
+  programming.yaml.enable = lib.mkDefault true;
   programming.c.enable = lib.mkDefault true;
   programming.protobuf.enable = lib.mkDefault true;
   programming.java.enable = lib.mkDefault true;

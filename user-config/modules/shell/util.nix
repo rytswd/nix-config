@@ -30,9 +30,6 @@
       pkgs.cloc         # https://github.com/AlDanial/cloc
       pkgs.ripunzip     # https://github.com/google/ripunzip
 
-      # TODO: Consider creating programming YAML
-      pkgs.dyff         # https://github.com/homeport/dyff
-
       # pkgs.rm-improved  # https://github.com/nivekuil/rip
 
       ###------------------------------

@@ -1,7 +1,7 @@
 {
   "url": "https://github.com/tree-sitter-grammars/tree-sitter-hcl",
-  "rev": "9e3ec9848f28d26845ba300fd73c740459b83e9b",
-  "sha256": "sha256-HM77BXavgP+H3XwHSqRdLlylmkH+idtuZqLeOV2VUiM=",
+  "rev": "009def4ae38ec30e5b40beeae26efe93484ab286",
+  "sha256": "sha256-3tM4cggewH2uorO8sgM0E/YFt1//zxBKHAqZVNmZVQU=",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

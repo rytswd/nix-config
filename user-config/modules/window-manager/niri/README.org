@@ -486,6 +486,42 @@ window-rule {
 }
 #+end_src
 
+Zoom popup handling.
+Ref: https://github.com/YaLTeR/niri/discussions/1453
+#+begin_src kdl
+window-rule {
+    match app-id="Zoom Workplace" title=".*(menu).*"
+
+    open-floating true
+    open-focused true
+    min-width 250
+    default-floating-position x=32 y=32 relative-to="bottom-right"
+}
+#+end_src
+
+Below is for the emoji reaction in Zoom.
+#+begin_src kdl
+window-rule {
+    match app-id="Zoom Workplace" title=".*(popup).*"
+
+    open-floating true
+    open-focused true
+    default-column-width { fixed 300; }
+    default-window-height { fixed 320; }
+    default-floating-position x=32 y=32 relative-to="bottom-right"
+}
+#+end_src
+
+Weird system message
+#+begin_src kdl
+window-rule {
+    match app-id="Zoom Workplace" title="zoom"
+
+    open-floating true
+    default-floating-position x=0 y=32 relative-to="top"
+}
+#+end_src
+
 TODO: I should configure the key handling items to be outside of screencapture / screencast.
 #+begin_src kdl :tangle no
   // Example: block out two password managers from screen capture.

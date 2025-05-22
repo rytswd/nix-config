@@ -20,6 +20,11 @@
         ec = "emacsclient -n";
         flake = "nix flake";
       };
+
+      # Disable greeting by setting `fish_greeting` with empty value.
+      interactiveShellInit = ''
+        set fish_greeting
+      '';
     };
   };
 }

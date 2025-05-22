@@ -24,7 +24,7 @@
         withSQLite3 = true;
         withTreeSitter = true;
         withWebP = true;
-        withImageMagick = true;
+        # withImageMagick = true;
         # Ref: https://github.com/NixOS/nixpkgs/pull/344631
         # It looks like Emacs 30 is not compatible with the webkit2gtk.
         # withXwidgets = true;

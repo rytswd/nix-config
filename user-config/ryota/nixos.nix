@@ -44,6 +44,7 @@ in {
       ../modules/linux-widget
 
       # Extra modules based on private setup.
+      inputs.nix-config-private.user-modules.email
       # inputs.nix-config-private.user-modules.civo
     ];
 

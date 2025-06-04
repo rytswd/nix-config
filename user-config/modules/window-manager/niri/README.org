@@ -3,7 +3,7 @@
 https://github.com/YaLTeR/niri
 
 * About Niri
-Niri's my daily driver as of writing (July 2024), and its support for infinite scrolling support helps managing multiple contexts at once.
+Niri's my daily driver since July 2024, and its support for infinite scrolling support helps managing multiple contexts at once.
 
 * Config
 Niri config uses ~.kdl~ (https://kdl.dev), and a single file input. For a better config management, I'm using the Org Mode tangle here instead.

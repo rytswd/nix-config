@@ -10,7 +10,8 @@
 
   config = lib.mkIf config.desktop-environment.gnome.enable {
     services.xserver.enable = true;
-    services.xserver.desktopManager.gnome = {
+
+    services.desktopManager.gnome = {
       enable = true;
       extraGSettingsOverridePackages = [
         pkgs.mutter

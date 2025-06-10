@@ -28,6 +28,8 @@
     };
     # Ref: https://www.reddit.com/r/linuxquestions/comments/10chul6/what_the_hell_is_a_pipewire_alsa_pulseaudio_and/
 
+    # This is recommended in the NixOS doc.
+    # Ref: https://discourse.nixos.org/t/how-to-use-pipewire-instead-of-pulseaudio/22853/3
     security.rtkit.enable = true;
 
     # Making pavucontrol GUI available by default.

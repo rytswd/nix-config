@@ -522,6 +522,32 @@ window-rule {
 }
 #+end_src
 
+Indicate screencasted windows with red colors.
+TODO: This is not working well for some reason.
+#+begin_src kdl
+window-rule {
+    match is-window-cast-target=true
+
+    focus-ring {
+        active-color "#f38ba8"
+        inactive-color "#7d0d2d"
+    }
+
+    border {
+        inactive-color "#7d0d2d"
+    }
+
+    shadow {
+        color "#7d0d2d70"
+    }
+
+    tab-indicator {
+        active-color "#f38ba8"
+        inactive-color "#7d0d2d"
+    }
+}
+#+end_src
+
 TODO: I should configure the key handling items to be outside of screencapture / screencast.
 #+begin_src kdl :tangle no
   // Example: block out two password managers from screen capture.

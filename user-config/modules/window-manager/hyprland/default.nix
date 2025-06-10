@@ -5,6 +5,8 @@
 , ...}:
 
 {
+  imports = [ inputs.hyprshell.homeModules.hyprshell ];
+
   options = {
     window-manager.hyprland.enable = lib.mkEnableOption "Enable Hyprland user settings.";
   };
@@ -30,6 +32,25 @@
       };
     };
 
+    programs.hyprshell = {
+      enable = true;
+      systemd.args = "-v";
+      settings = {
+        launcher = {
+          max_items = 6;
+          plugins.websearch = {
+            enable = true;
+            engines = [{
+              name = "DuckDuckGo";
+              url = "https://duckduckgo.com/?q=%s";
+              key = "d";
+            }];
+          };
+        };
+        windows.switch.enable = false;
+      };
+    };
+
     # Because the config is quite lengthy, I'm simply mapping a file into the
     # XDG directory.
     xdg = {
@@ -42,7 +63,6 @@
     home.packages = [
       pkgs.hypridle
       pkgs.hyprlock
-      inputs.hyprswitch.packages.${pkgs.system}.default
     ];
   };
 }

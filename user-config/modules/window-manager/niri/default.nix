@@ -18,5 +18,12 @@
     home.shellAliases = {
       "nirimvw" = "niri msg action move-window-to-workspace";
     };
+    xdg.portal = {
+      enable = true;
+      extraPortals = [
+        # niri needs this for screen cast.
+        pkgs.xdg-desktop-portal-gnome
+      ];
+    };
   };
 }

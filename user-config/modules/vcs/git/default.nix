@@ -39,7 +39,9 @@
           # NOTE: email is set below with includes.
           useConfigOnly = true;
           # Key with YubiKey
-          signingkey = "E0784F1CC9B94CFF";
+          signingkey = "0651ED8112A83CB5";
+          # Old ECC based
+          # signingkey = "E0784F1CC9B94CFF";
           # Old RSA based
           # signingkey = "24F699F8056E6082";
           # Old key used on macOS
@@ -65,7 +67,7 @@
           # templatedir = "${config.xdg.configHome}/git/templates";
         };
 
-        help.autocorrect = 1;
+        help.autocorrect = "prompt";
         commit.gpgsign = true;
 
         # NOTE: A lot of the settings here aren't really used as I use Emacs's
@@ -73,7 +75,22 @@
         push.default = "current";
         fetch.prune = true;
         pull.rebase = true;
-        rebase.autoStash = true;
+        rebase = {
+          autoSquash = true;
+          autoStash = true;
+          updateRefs = true;
+        };
+
+        # Taken from GitButler Bits and Booze video
+        column.ui = "auto";
+        branch.sort = "-committerdate";
+        tag.sort = "version:refname";
+        diff = {
+          algorithm = "histogram";
+          colorMoved = "plain";
+          mnemonicPrefix = true;
+          renames = true;
+        };
 
         filter.lfs = {
           required = true;

@@ -14,4 +14,5 @@
     enable = true;
     enableUserService = true;
   };
+  programs.rog-control-center.enable = true;
 }

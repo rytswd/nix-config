@@ -15,11 +15,11 @@
       fcitx5 = {
         waylandFrontend = true;
         addons = with pkgs; [
-          fcitx5-configtool
           fcitx5-mozc
           fcitx5-gtk
-          fcitx5-catppuccin
+        #   fcitx5-configtool
         ];
+
         settings = {
           # Corresponds to ~/.config/fcitx5/profile
           inputMethod = {
@@ -68,6 +68,24 @@
               EnumerateSkipFirst = false;
               ModifierOnlyKeyTimeout = 250;
             };
+          };
+        };
+
+        # Corresponds to ~/.local/share/fcitx5/themes/ directory
+        themes = {
+          mocha = let
+            catppuccinThemes = pkgs.fetchFromGitHub {
+              owner = "catppuccin";
+              repo = "fcitx5";
+              rev = "393845cf3ed0e0000bfe57fe1b9ad75748e2547f";
+              hash = "sha256-ss0kW+ulvMhxeZKBrjQ7E5Cya+02eJrGsE4OLEkqKks=";
+            };
+            catppuccinTheme = "${catppuccinThemes}/src/catppuccin-mocha-mauve";
+          in {
+            # theme = ./theme.conf;
+            theme = (builtins.readFile "${catppuccinTheme}/theme.conf");
+            highlightImage = "${catppuccinTheme}/highlight.svg";
+            panelImage = "${catppuccinTheme}/panel.svg";
           };
         };
       };

@@ -8,5 +8,5 @@
     ./japanese.nix
   ];
 
-  i18n.japanese.enable = lib.mkDefault false; # BROKEN NOW
+  i18n.japanese.enable = lib.mkDefault true;
 }

@@ -5,12 +5,18 @@
 , ...}:
 
 {
-  imports = [ inputs.sops-nix.homeManagerModules.sops ];
+  options = {
+    security.sops.enable = lib.mkEnableOption "Enable SOPS setup.";
+  };
 
-  home.packages = [
-    pkgs.sops
-  ];
-  sops = {
-    gnupg.home = "${config.xdg.configHome}/.gnupg";
+  # NOTE: SOPS setup here does not use SOPS Nix, check sops-nix.nix instead.
+  config = lib.mkIf config.security.sops.enable {
+    home.packages = [
+      pkgs.sops
+    ];
+
+    xdg.configFile = {
+      "sops/age/keys.txt".source = ./sops-keys.txt;
+    };
   };
 }

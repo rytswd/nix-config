@@ -42,6 +42,7 @@ in {
       ../modules/music
       ../modules/video
       ../modules/linux-widget
+      ../modules/llm
       ../modules/virtualisation
 
       # Extra modules based on private setup.

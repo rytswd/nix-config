@@ -14,7 +14,22 @@
     # separate repository as of writing. This is because I like the fast
     # feedback loop using Elpaca, and the packages installed here are those that
     # need extra steps configuring using Elpaca.
-    programs.emacs = let
+
+    home.packages = let
+      ###----------------------------------------
+      ##   Elisp
+      #------------------------------------------
+      extraPackages = (epkgs: with epkgs; [
+        vterm
+        jinx
+        pdf-tools
+        mu4e
+        lsp-bridge
+        # all-the-icons # TODO: This still requires a manual "install".
+        treesit-grammars.with-all-grammars
+      ]);
+      withPackages = emacs: emacs.pkgs.withPackages extraPackages;
+
       ###----------------------------------------
       ##   For NixOS
       #------------------------------------------
@@ -29,22 +44,27 @@
         # It looks like Emacs 30 is not compatible with the webkit2gtk.
         # withXwidgets = true;
       };
+      withNixOSOverride = emacs: emacs.override emacs-nixos-override-attrs;
 
-      # Based on Nixpkgs
-      emacs-29-nixos = pkgs.emacs29-pgtk.override emacs-nixos-override-attrs;
-      # Based on emacs-overlay
-      emacs-29-unstable-nixos = pkgs.emacs-unstable.override emacs-nixos-override-attrs;
-
-      emacs-30-nixos = (pkgs.emacs-git-pgtk.overrideAttrs (old: {
-        version = "30.0-${inputs.emacs-mirror-30-src.shortRev}";
+      # Version setup
+      withEmacs30 = emacs: emacs.overrideAttrs (_: {
+        version = "30.1-${inputs.emacs-mirror-30-src.shortRev}";
         src = inputs.emacs-mirror-30-src;
-      })).override emacs-nixos-override-attrs;
-
-      # Latest Emacs source
-      emacs-latest-nixos = (pkgs.emacs-git-pgtk.overrideAttrs (old: {
+      });
+      withEmacsLatest = emacs: emacs.overrideAttrs (_: {
         version = "31.0-${inputs.emacs-mirror-latest-src.shortRev}";
         src = inputs.emacs-mirror-latest-src;
-      })).override emacs-nixos-override-attrs;
+      });
+
+      # Default version for my daily usage.
+      emacs-default-nixos =
+        pkgs.emacs-git-pgtk |> withEmacs30 |> withNixOSOverride |> withPackages;
+
+      # Specific version builds, with suffix setup for desktop entrties.
+      emacs-30-nixos =
+        pkgs.emacs-git-pgtk |> withEmacs30 |> withNixOSOverride |> withPackages;
+      emacs-latest-nixos =
+        pkgs.emacs-git-pgtk |> withEmacsLatest |> withNixOSOverride |> withPackages;
 
       ###----------------------------------------
       ##   For macOS
@@ -103,28 +123,24 @@
         ];
       });
 
-      packages = (epkgs: with epkgs; [
-        vterm
-        jinx
-        pdf-tools
-        mu4e
-        lsp-bridge
-        # all-the-icons # TODO: This still requires a manual "install".
-        treesit-grammars.with-all-grammars
-      ]);
-    in {
-      enable = true;
-      package =
-        if pkgs.stdenv.isDarwin
-        then emacs-30-plus
-        else
-            # emacs-latest-nixos # latest uses the master branch
-            emacs-30-nixos
-      ;
-      extraPackages = packages;
-    };
+    # in {
+    #   enable = true;
+    #   package =
+    #     if pkgs.stdenv.isDarwin
+    #     then emacs-30-plus
+    #     else
+    #         # emacs-latest-nixos # latest uses the master branch
+    #         emacs-30-nixos
+    #   ;
+    #   extraPackages = packages;
+    # };
+      in [
+        emacs-30-nixos
+        emacs-latest-nixos
+        # withPackages emacs-latest-nixos
 
-    # For performance update with LSP
-    home.packages = [ pkgs.emacs-lsp-booster ];
+        # For performance update with LSP
+        pkgs.emacs-lsp-booster
+      ];
   };
 }

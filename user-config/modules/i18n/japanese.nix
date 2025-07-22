@@ -88,6 +88,8 @@
             panelImage = "${catppuccinTheme}/panel.svg";
           };
         };
+        # Based on the above theem name, enable it with the below addon config.
+        settings.addons.classicui.globalSection.Theme = "mocha";
       };
     };
   };

@@ -41,7 +41,10 @@
       #     plugin add nu_plugin_dbus
       #     plugin use dbus
       #
-      "nushell/plugins/nu_plugin_dbus".source = "${pkgs.nushellPlugins.dbus}/bin/nu_plugin_dbus";
+      # TODO: version marked as broken
+      # Ref: https://github.com/devyn/nu_plugin_dbus/issues/11
+      # Ref: https://github.com/devyn/nu_plugin_dbus/pull/12
+      # "nushell/plugins/nu_plugin_dbus".source = "${pkgs.nushellPlugins.dbus}/bin/nu_plugin_dbus";
       "nushell/plugins/nu_plugin_polars".source = "${pkgs.nushellPlugins.polars}/bin/nu_plugin_polars";
     };
   };

@@ -1,5 +1,15 @@
 [user]
 name = "Ryota"
+# Email replaced by SOPS Nix. The below placeholder is in the form of:
+#
+#     <SOPS:**SHA256_OF_SECRET**:PLACEHOLDER>
+#
+# And SHA256 can be generated using
+#
+#     nix repl
+#     > builtins.hashString "sha256" "SECRET_NAME"
+#
+email = "<SOPS:f3fc243059c60b962cd635b495c310bf7402fdb58ea031a43b6fe9b3a2ce150d:PLACEHOLDER>"
 
 [signing]
 behavior = "own"
@@ -11,7 +21,7 @@ backend = "gpg"
 [ui]
 pager = ":builtin"
 paginate = "auto"
-default-command = "log"
+default-command = ["log", "-s", "-n", "10"]
 
 [ui.streampager]
 wrapping = "word"      # wrap on word boundaries

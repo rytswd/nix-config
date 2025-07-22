@@ -6,7 +6,7 @@
 {
   imports = [
     ./git
-    ./jujutsu.nix
+    ./jujutsu
   ];
 
   vcs.git.enable = lib.mkDefault true;

@@ -196,7 +196,7 @@
           # en-computers
           # en-science
         # ]))
-        # (pkgs.hunspellWithDicts (with pkgs.hunspellDicts; [
+        # (pkgs.hunspell.withDicts (with pkgs.hunspellDicts; [
         #   en_GB-large
         #   en_US
         # ]))

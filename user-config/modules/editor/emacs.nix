@@ -45,26 +45,17 @@
         # withXwidgets = true;
       };
       withNixOSOverride = emacs: emacs.override emacs-nixos-override-attrs;
+      withWrapper = emacs: pkgs.writeShellScriptBin "emacs-master" ''
+        exec ${emacs}/bin/emacs "$@"
+      '';
 
-      # Version setup
-      withEmacs30 = emacs: emacs.overrideAttrs (_: {
-        version = "30.1-${inputs.emacs-mirror-30-src.shortRev}";
-        src = inputs.emacs-mirror-30-src;
-      });
-      withEmacsLatest = emacs: emacs.overrideAttrs (_: {
-        version = "31.0-${inputs.emacs-mirror-latest-src.shortRev}";
-        src = inputs.emacs-mirror-latest-src;
-      });
-
-      # Default version for my daily usage.
-      emacs-default-nixos =
-        pkgs.emacs-git-pgtk |> withEmacs30 |> withNixOSOverride |> withPackages;
-
-      # Specific version builds, with suffix setup for desktop entrties.
-      emacs-30-nixos =
-        pkgs.emacs-git-pgtk |> withEmacs30 |> withNixOSOverride |> withPackages;
-      emacs-latest-nixos =
-        pkgs.emacs-git-pgtk |> withEmacsLatest |> withNixOSOverride |> withPackages;
+      # Emacs unstable refers to the latest tag available. This is often the
+      # latest stable build.
+      emacs-unstable-nixos =
+        pkgs.emacs-unstable-pgtk |> withNixOSOverride |> withPackages;
+      # Emacs git refers to the latest master build, and thus could be flaky.
+      emacs-master-nixos =
+        pkgs.emacs-git-pgtk |> withNixOSOverride |> withPackages |> withWrapper;
 
       ###----------------------------------------
       ##   For macOS
@@ -134,11 +125,14 @@
     #   ;
     #   extraPackages = packages;
     # };
-      in [
-        emacs-30-nixos
-        emacs-latest-nixos
-        # withPackages emacs-latest-nixos
-
+    in
+      if pkgs.stdenv.isDarwin
+      then [
+        emacs-30-plus
+      ] else [
+        emacs-unstable-nixos
+        emacs-master-nixos
+      ] ++ [
         # For performance update with LSP
         pkgs.emacs-lsp-booster
       ];

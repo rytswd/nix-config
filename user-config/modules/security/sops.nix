@@ -14,9 +14,5 @@
     home.packages = [
       pkgs.sops
     ];
-
-    xdg.configFile = {
-      "sops/age/keys.txt".source = ./sops-keys.txt;
-    };
   };
 }

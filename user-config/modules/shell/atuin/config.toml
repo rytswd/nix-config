@@ -1,0 +1,6 @@
+auto_sync = true
+enter_accept = false
+filter_mode_shell_up_key_binding = "session"
+search_mode = "fuzzy"
+sync_address = "<SOPS:a11c58631f8a45192297b16c4915f9316510a3395c2a34b79e9590e3ba69fb82:PLACEHOLDER>"
+sync_frequency = "5m"

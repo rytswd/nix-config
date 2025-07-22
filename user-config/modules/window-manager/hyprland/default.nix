@@ -5,8 +5,6 @@
 , ...}:
 
 {
-  imports = [ inputs.hyprshell.homeModules.hyprshell ];
-
   options = {
     window-manager.hyprland.enable = lib.mkEnableOption "Enable Hyprland user settings.";
   };
@@ -32,7 +30,7 @@
       };
     };
 
-    programs.hyprshell = {
+    services.hyprshell = {
       enable = true;
       systemd.args = "-v";
       settings = {

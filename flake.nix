@@ -136,10 +136,6 @@
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
-    # hyprshell = {
-    #   url = "github:h3rmt/hyprswitch?ref=hyprshell";
-    #   # inputs.nixpkgs.follows = "nixpkgs-unstable";
-    # };
 
     # Desktop Environment
     # cosmic = {

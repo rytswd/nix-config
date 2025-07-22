@@ -35,7 +35,13 @@
     nh-darwin.url = "github:ToyVo/nh_darwin";
 
     sops-nix = {
-      url = "github:Mic92/sops-nix";
+      # NOTE: Using some PR based setup to get the latest fix around age.
+      # url = "github:Mic92/sops-nix";
+      url = "github:sean-xyz/sops-nix/age-plugin";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    agenix = {
+      url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 

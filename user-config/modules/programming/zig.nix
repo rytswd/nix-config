@@ -1,6 +1,7 @@
 { pkgs
 , lib
 , config
+, inputs
 , ...}:
 
 {
@@ -9,10 +10,16 @@
   };
 
   config = lib.mkIf config.programming.zig.enable {
-    home.packages = [
+    home.packages = let
+      # NOTE: Based on https://github.com/mitchellh/zig-overlay
+      zig = pkgs.zigpkgs.master;
+      zls = inputs.zls.packages.${pkgs.system}.zls.overrideAttrs (_: {
+        nativeBuildInputs = [ zig ];
+      });
+    in [
       # pkgs.zig
-      pkgs.zigpkgs.master # NOTE: Based on https://github.com/mitchellh/zig-overlay
-      pkgs.zls
+      zig
+      zls
     ];
   };
 }

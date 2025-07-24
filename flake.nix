@@ -72,7 +72,11 @@
 
     # Zig
     # nixpkgs-zig-0-12.url = "github:vancluever/nixpkgs/vancluever-zig-0-12";
-    zig.url = "github:mitchellh/zig-overlay";
+    zig-overlay.url = "github:mitchellh/zig-overlay";
+    zls = {
+      url = "github:zigtools/zls";
+      inputs.zig-overlay.follows = "zig-overlay";
+    };
 
     ###----------------------------------------
     ##  Tools
@@ -161,7 +165,7 @@
     });
     # rustOverlay = inputs.rust-overlay.overlays.default;
     fenixOverlay = inputs.fenix.overlays.default;
-    zigOverlay = inputs.zig.overlays.default;
+    zigOverlay = inputs.zig-overlay.overlays.default;
     rocOverlay = (final: prev: {
       rocpkgs = inputs.roc.packages.${prev.system};
     });

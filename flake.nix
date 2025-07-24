@@ -36,7 +36,9 @@
 
     sops-nix = {
       # NOTE: Using some PR based setup to get the latest fix around age.
+      # Ref: https://github.com/Mic92/sops-nix/pull/781
       # url = "github:Mic92/sops-nix";
+      # url = "github:NovaViper/sops-nix/age-plugin";
       url = "github:sean-xyz/sops-nix/age-plugin";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };

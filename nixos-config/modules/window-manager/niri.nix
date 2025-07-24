@@ -18,5 +18,8 @@
       enable = true;
       package = pkgs.niri-unstable;
     };
+
+    # Default to niri as the default session.
+    services.displayManager.defaultSession = "niri";
   };
 }

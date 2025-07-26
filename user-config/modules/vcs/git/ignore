@@ -1,6 +1,8 @@
-;;; Files to ignore from git
+###========================================
+#   Files to ignore from git
+#==========================================
 
-;; macOS related files
+# macOS related files
 .DS_Store
 .DS_Store?
 ._*
@@ -8,3 +10,7 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Claude related
+.claude
+CLAUDE.local.md

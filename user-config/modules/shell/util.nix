@@ -99,6 +99,8 @@
       # Temporarily commenting out as I'm still exploring this.
       # "btop/btop.conf".source = ./btop/btop.conf;
 
+      "erdtree/.erdtree.toml".source = ./erdtree/erdtree.toml;
+
       "fd".source = ./fd;
       "fd".recursive = true;
 

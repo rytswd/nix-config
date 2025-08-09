@@ -13,14 +13,13 @@
       enable = true;
       # systemdTarget = "sway-session.target";
       events = [
-        # { event = "lock"; command = "${pkgs.swaylock-effects}/bin/swaylock"; }
         { event = "before-sleep"; command = "${pkgs.swaylock-effects}/bin/swaylock"; }
-        # { event = "after-resume"; command = "${pkgs.sway}/bin/swaymsg \"output * toggle\""; }
       ];
       timeouts = [
         # 15 min
-        { timeout = (60 * 15); command = "${pkgs.systemd}/bin/systemctl suspend"; }
-        # { timeout = 1200; command = "${pkgs.sway}/bin/swaymsg \"output * toggle\""; }
+        { timeout = (60 * 15); command = "${pkgs.swaylock-effects}/bin/swaylock"; }
+        # 30 min
+        { timeout = (60 * 30); command = "${pkgs.systemd}/bin/systemctl suspend"; }
       ];
     };
 

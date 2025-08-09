@@ -45,8 +45,6 @@
           consoleMode = "auto";
         };
 
-
-
         efi.canTouchEfiVariables = true;
       };
 

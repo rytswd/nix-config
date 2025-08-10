@@ -37,7 +37,9 @@
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
-  swapDevices = [ ];
+  swapDevices = [
+    { device = "/swapfile"; size = 16 * 1024; } # 16GB for now
+  ];
   # Make use of zram compressed block device in RAM.
   zramSwap.enable = true;
 

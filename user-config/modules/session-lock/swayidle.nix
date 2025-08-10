@@ -20,6 +20,8 @@
         { timeout = (60 * 15); command = "${pkgs.swaylock-effects}/bin/swaylock"; }
         # 30 min
         { timeout = (60 * 30); command = "${pkgs.systemd}/bin/systemctl suspend"; }
+        # TODO: Hibernate setup needs more tweaking, and thus commenting out for now.
+        # { timeout = (60 * 30); command = "${pkgs.systemd}/bin/systemctl suspend-then-hibernate"; }
       ];
     };
 

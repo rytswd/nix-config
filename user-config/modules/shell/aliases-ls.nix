@@ -11,17 +11,19 @@
 # If eza is the preference, override the ls based commands. Otherwise, add
 # equivalent commands with an "x" prefix.
 // (if (withEza) then {
-  # ls  = "eza --group-directories-first --classify";
-  l   = "eza -l --group-directories-first --classify";
-  la  = "eza -la --group-directories-first --classify";
-  lt  = "eza -lT --group-directories-first --classify";
+  # NOTE: "--sort Name" sorts with capital letters first, and "--sort name" is
+  # case insensitive sorting.
+  # ls  = "eza --group-directories-first --classify --sort Name";
+  l   = "eza -l --group-directories-first --classify --sort Name";
+  la  = "eza -la --group-directories-first --classify --sort Name";
+  lt  = "eza -lT --group-directories-first --classify --sort Name";
   ll  = "eza -lT --group-directories-first --classify --sort modified";
   llt = "eza -laTF --git --group-directories-first --git-ignore --ignore-glob .git --sort modified";
 } else {
-  xls = "eza --group-directories-first --classify";
-  xl  = "eza -l --group-directories-first --classify";
-  xla = "eza -la --group-directories-first --classify";
-  xlt  = "eza -lT --group-directories-first --classify";
+  xls = "eza --group-directories-first --classify --sort Name";
+  xl  = "eza -l --group-directories-first --classify --sort Name";
+  xla = "eza -la --group-directories-first --classify --sort Name";
+  xlt  = "eza -lT --group-directories-first --classify --sort Name";
   xll  = "eza -lT --group-directories-first --classify --sort modified";
   xllt = "eza -laTF --git --group-directories-first --git-ignore --ignore-glob .git --sort modified";
 })

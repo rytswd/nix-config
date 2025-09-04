@@ -5,6 +5,7 @@
 
 {
   options = {
+    # Ref: https://github.com/jtheoof/swappy
     screenshot.swappy.enable = lib.mkEnableOption "Enable Swappy.";
   };
 

@@ -11,6 +11,8 @@
   config = lib.mkIf config.virtualisation.qemu.enable {
     home.packages = [
       pkgs.qemu
+      pkgs.virt-manager
+      pkgs.virt-viewer
     ];
   };
 }

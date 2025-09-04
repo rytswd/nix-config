@@ -1,7 +1,12 @@
 final: prev:
 let
-  claude-code-version = "1.0.72";
-  claude-code-src-hash = "sha256-1vIElqZ5sk62o1amdfOqhmSG4B5wzKWDLcCgvQO4a5o=";
+  # NOTE: For updating the version, run the following:
+  #
+  # nix shell nixpkgs#nix-prefetch
+  # nix-prefetch fetchzip --url "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.88.tgz"
+  # npm hash only changes when the dependency updates, and only found after built.
+  claude-code-version = "1.0.88";
+  claude-code-src-hash = "sha256-o0A9P0sBB2Fk18CArGGv/QBi55ZtFgoJ2/3gHlDwyEU=";
   claude-code-npmDepsHash = "sha256-LkQf2lW6TM1zRr10H7JgtnE+dy0CE7WCxF4GhTd4GT4=";
 in
 {

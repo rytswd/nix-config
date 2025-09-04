@@ -9,8 +9,15 @@
   };
 
   config = lib.mkIf config.core.locale.enable {
-    # Set your time zone.
-    time.timeZone = "Europe/London";
+    # Set time zone based on the geo location.
+    services.automatic-timezoned.enable = true;
+    services.geoclue2 = {
+      enable = true;
+      enableDemoAgent = lib.mkForce true; # This might be the key missing piece
+    };
+
+    # Below sets the time zone statically when the location cannot be found.
+    time.timeZone = lib.mkDefault "Europe/London";
 
     # Select internationalisation properties.
     i18n = {

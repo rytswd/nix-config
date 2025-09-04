@@ -22,6 +22,25 @@
       podman = {
         enable = true;
       };
+
+      libvirtd = {
+        enable = true;
+        qemu = {
+          package = pkgs.qemu_kvm;
+          runAsRoot = true;
+          swtpm.enable = true;
+          ovmf = {
+            enable = true;
+            packages = [(pkgs.OVMF.override {
+              secureBoot = true;
+              tpmSupport = true;
+            }).fd];
+          };
+        };
+      };
     };
+    # Trust local bridge used for VMs
+    # Ref: https://www.reddit.com/r/NixOS/comments/18qtsoz/no_internet_in_virtmanagerkvm_guest/
+    networking.firewall.trustedInterfaces = [ "virbr0" ];
   };
 }

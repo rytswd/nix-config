@@ -16,6 +16,7 @@ let ryota =
       "uinput" # For Xremap and input handling without sudo
       "networkmanager"# For nmcli etc.
       "docker" # For docker
+      "libvirtd" # For VM
     ];
 
     # Set initial password.

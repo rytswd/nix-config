@@ -11,7 +11,6 @@
   config = lib.mkIf config.notification.swaync.enable {
     services.swaync = {
       enable = true;
-
     };
     xdg.configFile = {
       "swaync".source = ./config;

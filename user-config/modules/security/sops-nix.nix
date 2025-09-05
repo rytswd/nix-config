@@ -18,10 +18,11 @@
       defaultSopsFile = "${private-repo}/secrets/main.yaml";
       defaultSopsFormat = "yaml";
 
-      # NOTE: The key file here is based on YubiKey, and as of writing in 2025,
-      # key with passphrase does not work well with SOPS Nix. For that reason,
-      # I opted to create a dedicate age recipient for each machine I need,
-      # and use multiple recipient support by age / SOPS.
+      # NOTE: The main key file I use in most cases is with YubiKey, and as of
+      # writing in 2025, key with passphrase does not work well with SOPS Nix.
+      # For that reason, I opted to create a dedicate age recipient for each
+      # machine I need, and use multiple recipient support by age / SOPS.
+      #
       # Ref: https://github.com/Mic92/sops-nix/issues/377
       # age.keyFile = "${home}/.config/sops/age/keys.txt";
 

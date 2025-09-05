@@ -27,6 +27,8 @@
               "0" = "Main";
               "1" = "JP";
             };
+
+            # Main keyboard layout which is US Dvorak
             "Groups/0" = {
               Name = "Main";
               "Default Layout" = "us";
@@ -34,6 +36,7 @@
             };
             "Groups/0/Items/0".Name = "keyboard-us-dvorak";
 
+            # Keyboard layout for Japanese typing
             "Groups/1" = {
               Name = "JP";
               "Default Layout" = "us";

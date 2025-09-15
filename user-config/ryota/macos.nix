@@ -32,7 +32,7 @@ in {
   communication.slack.enable = true;
 
   # macOS specific ones
-  bar.sketchybar.enable = true;
+  # bar.sketchybar.enable = true; # Changing since macOS Tahoe
   editor.zed.enable = false; # Known issue with macOS
   window-manager.yabai.enable = true;
 

@@ -154,6 +154,7 @@ keymap:
       not:
         - emacs
         - ghostty
+        - alacritty
         - nyxt
     remap:
       ###----------------------------------------
@@ -199,6 +200,7 @@ keymap:
       not:
         - emacs
         - ghostty
+        - alacritty
         - nyxt
     remap:
       # NOTE: Because Xremap intercepts before Dvorak key binding comes into

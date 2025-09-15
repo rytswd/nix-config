@@ -19,6 +19,7 @@ in {
     ../modules/vcs
     ../modules/editor
     ../modules/programming
+    ../modules/security
     ../modules/kubernetes
     ../modules/service
     ../modules/dictionary

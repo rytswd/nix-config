@@ -17,9 +17,11 @@
         # only built in NixOS.
       ]
       else [
-        # Because it's managed in a private repository for now, this needs a
-        # separate input.
-        inputs.ghostty.packages.${pkgs.system}.default
+        pkgs.ghostty
+        # NOTE: I'm disabling the below, as I hit the OpenGL context issue:
+        # Ref: https://ghostty.org/docs/install/binary
+        # # This is the latest build.
+        # inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default
       ];
 
     xdg.configFile = {

@@ -15,6 +15,9 @@
     xdg.configFile = {
       "niri/config.kdl".source = ./config.kdl;
     };
+    home.packages = [
+      pkgs.xwayland-satellite
+    ];
     home.shellAliases = {
       "nirimvw" = "niri msg action move-window-to-workspace";
     };

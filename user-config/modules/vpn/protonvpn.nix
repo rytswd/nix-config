@@ -9,6 +9,9 @@
   };
 
   config = lib.mkIf config.vpn.protonvpn.enable {
-    home.packages = [ pkgs.protonvpn-gui ];
+    home.packages = [
+      pkgs.protonvpn-gui
+      pkgs.protonvpn-cli
+    ];
   };
 }

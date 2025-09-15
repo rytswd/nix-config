@@ -5,8 +5,8 @@ let
   # nix shell nixpkgs#nix-prefetch
   # nix-prefetch fetchzip --url "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.88.tgz"
   # npm hash only changes when the dependency updates, and only found after built.
-  claude-code-version = "1.0.88";
-  claude-code-src-hash = "sha256-o0A9P0sBB2Fk18CArGGv/QBi55ZtFgoJ2/3gHlDwyEU=";
+  claude-code-version = "1.0.112";
+  claude-code-src-hash = "sha256-nXkXh+TjMkLItbqgaJbqrNm9EaRVJjYAP6RryKQm9QY=";
   claude-code-npmDepsHash = "sha256-LkQf2lW6TM1zRr10H7JgtnE+dy0CE7WCxF4GhTd4GT4=";
 in
 {

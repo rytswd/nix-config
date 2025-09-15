@@ -191,6 +191,8 @@ in {
   #     defaults read NSGlobalDomain.
   #
   system = {
+    primaryUser = "ryota";
+
     # Currently, applications aren't linked to /Application.
     # https://github.com/LnL7/nix-darwin/issues/139#issuecomment-663117229
     build.applications = pkgs.lib.mkForce (pkgs.buildEnv {

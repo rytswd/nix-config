@@ -57,7 +57,7 @@
     "tooltip-format": "{:%Y-%m-%d | %H:%M}",
     "on-click-right": "gnome-calendar",
     "tooltip-format": "{tz_list}",
-    "timezones": ["Europe/London", "US/Eastern", "Asia/Tokyo", "Etc/UTC"],
+    "timezones": ["", "Europe/London", "US/Eastern", "Asia/Tokyo", "Etc/UTC"],
   },
   "cpu": {
     "format": "󰍛 {usage}%",

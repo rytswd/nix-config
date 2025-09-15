@@ -138,6 +138,7 @@ in {
       "google-chrome"
       "firefox"
       "vivaldi"
+      "zen"
       # "microsoft-edge-dev"
 
       ###------------------------------

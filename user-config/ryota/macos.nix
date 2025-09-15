@@ -52,8 +52,6 @@ in {
 
     packages =
       [
-        # Temporary, should be moved somewhere else
-        inputs.nh-darwin.packages.${pkgs.stdenv.hostPlatform.system}.default
         ###------------------------------
         ##   UI Tools
         #--------------------------------

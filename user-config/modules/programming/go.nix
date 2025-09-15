@@ -24,5 +24,8 @@
       goBin = "Coding/go/bin";
       goPrivate = [ "github.com/rytswd" "github.com/upsidr" ];
     };
+    home.sessionPath = [
+      "$HOME/Coding/go/bin"
+    ];
   };
 }

@@ -22,6 +22,11 @@
       # pkgs.rustc
       # pkgs.cargo
       # pkgs.rust-analyzer
+
+      pkgs.rust-script
+    ];
+    home.sessionPath = [
+      "$HOME/.cargo/bin"
     ];
   };
 }

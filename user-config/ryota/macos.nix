@@ -83,20 +83,20 @@ in {
 
   # Startup Processes
   launchd.agents = {
-    ollama = {
-      enable = true;
-      config = {
-        ProgramArguments = [
-          "${pkgs.ollama}/bin/ollama"
-          "serve"
-        ];
-        # Always keep it running.
-        KeepAlive = true;
-        RunAtLoad = true;
-        ProcessType = "Background";
-        WorkingDirectory = "/tmp/";
-      };
-    };
+    # ollama = {
+    #   enable = true;
+    #   config = {
+    #     ProgramArguments = [
+    #       "${pkgs.ollama}/bin/ollama"
+    #       "serve"
+    #     ];
+    #     # Always keep it running.
+    #     KeepAlive = true;
+    #     RunAtLoad = true;
+    #     ProcessType = "Background";
+    #     WorkingDirectory = "/tmp/";
+    #   };
+    # };
     pueue = {
       enable = true;
       config = {

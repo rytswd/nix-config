@@ -161,37 +161,37 @@ in {
         StandardErrorPath = "/tmp/skhd.log";
       };
     };
-    sketchybar = {
-      enable = true;
-      config = {
-        ProgramArguments = [
-          "${pkgs.sketchybar}/bin/sketchybar"
-          "-c"
-          "${config.xdg.configHome}/sketchybar/sketchybarrc.nu"
-        ];
-        EnvironmentVariables = {
-          # Ensure PATH is correctly handled
-          PATH = pkgs.lib.concatStringsSep ":" [
-            "/Users/${username}/.nix-profile/bin"
-            "/etc/profiles/per-user/${username}/bin"
-            "/run/current-system/sw/bin"
-            "/nix/var/nix/profiles/default/bin"
-            "/usr/local/bin"
-            "/usr/bin"
-            "/usr/sbin"
-            "/bin"
-            "/sbin"
-          ];
-        };
-        # Although I would usually want to keep it runnig, there are cases where
-        # I want to test updating some configurations. For that, it's best to
-        # stop using Nix based version and run a local process instead.
-        KeepAlive = false;
-        RunAtLoad = true;
-        WorkingDirectory  = "/tmp/";
-        StandardOutPath   = "/tmp/sketchybar.log";
-        StandardErrorPath = "/tmp/sketchybar.log";
-      };
-    };
+    # sketchybar = {
+    #   enable = true;
+    #   config = {
+    #     ProgramArguments = [
+    #       "${pkgs.sketchybar}/bin/sketchybar"
+    #       "-c"
+    #       "${config.xdg.configHome}/sketchybar/sketchybarrc.nu"
+    #     ];
+    #     EnvironmentVariables = {
+    #       # Ensure PATH is correctly handled
+    #       PATH = pkgs.lib.concatStringsSep ":" [
+    #         "/Users/${username}/.nix-profile/bin"
+    #         "/etc/profiles/per-user/${username}/bin"
+    #         "/run/current-system/sw/bin"
+    #         "/nix/var/nix/profiles/default/bin"
+    #         "/usr/local/bin"
+    #         "/usr/bin"
+    #         "/usr/sbin"
+    #         "/bin"
+    #         "/sbin"
+    #       ];
+    #     };
+    #     # Although I would usually want to keep it runnig, there are cases where
+    #     # I want to test updating some configurations. For that, it's best to
+    #     # stop using Nix based version and run a local process instead.
+    #     KeepAlive = false;
+    #     RunAtLoad = true;
+    #     WorkingDirectory  = "/tmp/";
+    #     StandardOutPath   = "/tmp/sketchybar.log";
+    #     StandardErrorPath = "/tmp/sketchybar.log";
+    #   };
+    # };
   };
 }

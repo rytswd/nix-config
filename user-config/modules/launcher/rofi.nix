@@ -11,7 +11,7 @@
   config = lib.mkIf config.launcher.rofi.enable {
     programs.rofi = {
       enable = true;
-      package = pkgs.rofi-wayland;
+      package = pkgs.rofi;
       # Because I use bemoji, I don't really need rofi-emoji plugin.
       # plugins = [
       #   pkgs.rofi-emoji-wayland

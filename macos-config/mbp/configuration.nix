@@ -221,7 +221,10 @@ in {
         "com.apple.keyboard.fnState"    = true; # Enable F1, F2, etc. as they are.
         "com.apple.sound.beep.volume"   = 0.25; # Set the beep volume to 25%.
 
-        _HIHideMenuBar = true;  # Hide menu bar as I'm using more customisable menu bar.
+        # NOTE: I used to use sketchybar, but with macOS 26, the menu bar looks
+        # aesthetically similar, and functionally equivalent. I'm opting to use
+        # the default menu bar again.
+        # _HIHideMenuBar = true;  # Hide menu bar as I'm using more customisable menu bar.
 
         # NOTE: Below is only for reference. They are set by different config options.
         # AppleShowAllFiles = true; # Always show hidden files.

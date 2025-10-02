@@ -137,6 +137,18 @@ window#waybar {
 }
 #battery.critical {
   border-bottom: solid 2px alpha(#92062e, 0.8);
+  animation: blink 1s linear infinite; /* Add animation */
+}
+@keyframes blink {
+  0% {
+    border-bottom-color: alpha(#92062e, 0.8); /* Fully visible at the start */
+  }
+  50% {
+    border-bottom-color: transparent; /* Fully transparent in the middle */
+  }
+  100% {
+    border-bottom-color: alpha(#92062e, 0.8); /* Back to fully visible at the end */
+  }
 }
 #battery.charging {
   border-bottom: solid 2px alpha(#06922e, 0.8);

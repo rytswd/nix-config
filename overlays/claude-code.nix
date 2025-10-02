@@ -3,10 +3,10 @@ let
   # NOTE: For updating the version, run the following:
   #
   # nix shell nixpkgs#nix-prefetch
-  # nix-prefetch fetchzip --url "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.88.tgz"
+  # nix-prefetch fetchzip --url "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.0.0.tgz"
   # npm hash only changes when the dependency updates, and only found after built.
-  claude-code-version = "1.0.112";
-  claude-code-src-hash = "sha256-nXkXh+TjMkLItbqgaJbqrNm9EaRVJjYAP6RryKQm9QY=";
+  claude-code-version = "2.0.0";
+  claude-code-src-hash = "sha256-uHU9SZso0OZkbcroaVqqVoDvpn28rZVc6drHBrElt5M=";
   claude-code-npmDepsHash = "sha256-LkQf2lW6TM1zRr10H7JgtnE+dy0CE7WCxF4GhTd4GT4=";
 in
 {

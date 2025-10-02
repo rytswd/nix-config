@@ -347,9 +347,11 @@ Add gap between each window.
       gaps 16
 #+end_src
 
-When I use ~focus-~ commands, this flag makes the window to be in the centre. When I do a three finger swipe, that won't be the case (which is how I like).
+When I use ~focus-~ commands, this flag controls whether the window gets centralised. I set this to never, and when I want to centralise, I can do with a command "center-column".
+Also, I set it to always centre if it's a single column, which makes sense for new window in the workspace.
 #+begin_src kdl
-      center-focused-column "on-overflow"
+      center-focused-column "never"
+      always-center-single-column
 #+end_src
 
 I set the default window (or more precisely, column, in Niri term) to be figured out by the application. I could set some proportional or fixed value similar to the preset column width.
@@ -450,7 +452,7 @@ For Emacs, I'm setting the default column to be bigger
 #+begin_src kdl
   window-rule {
       match app-id="emacs"
-      default-column-width { proportion 0.9; }
+      default-column-width { proportion 0.925; }
   }
 #+end_src
 

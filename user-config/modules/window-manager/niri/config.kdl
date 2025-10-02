@@ -92,7 +92,8 @@ layout {
         on
     }
     gaps 16
-    center-focused-column "on-overflow"
+    center-focused-column "never"
+    always-center-single-column
     default-column-width {}
 }
 
@@ -141,7 +142,7 @@ window-rule {
 
 window-rule {
     match app-id="emacs"
-    default-column-width { proportion 0.9; }
+    default-column-width { proportion 0.925; }
 }
 
 window-rule {

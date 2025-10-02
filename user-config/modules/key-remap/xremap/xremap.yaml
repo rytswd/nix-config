@@ -53,12 +53,17 @@ keymap:
       #     4. I end up with the key binding of:
       #        Super-s: C-semicolon
       Super-Shift-a: C-Shift-a
-      Super-Shift-t: C-Shift-k # OWERTY k == Dvorak t
+      # Super-Shift-t: C-Shift-k # OWERTY k == Dvorak t
+      Super-Shift-t: C-Shift-t # OWERTY k == Dvorak t
       Super-Shift-u: C-Shift-f # OWERTY f == Dvorak u
       Super-Shift-m: C-Shift-m
-      Super-b: C-n # OWERTY n == Dvorak b
-      Super-f: C-y # OWERTY y == Dvorak f
-      Super-k: C-v # OWERTY v == Dvorak k
+      # Super-b: C-n # OWERTY n == Dvorak b
+      # Super-f: C-y # OWERTY y == Dvorak f
+      # Super-k: C-v # OWERTY v == Dvorak k
+      Super-z: C-z # OWERTY v == Dvorak k
+      Super-x: C-x # OWERTY n == Dvorak b
+      Super-c: C-c # OWERTY v == Dvorak k
+      Super-v: C-v # OWERTY v == Dvorak k
       Super-dot: C-e # QWERTY e == Dvorak .
       Super-comma: C-w # QWERTY w == Dvorak ,
       Super-1: C-1

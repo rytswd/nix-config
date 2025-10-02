@@ -20,12 +20,14 @@
     ];
     programs.go = {
       enable = true;
-      goPath = "Coding/go";
-      goBin = "Coding/go/bin";
-      goPrivate = [ "github.com/rytswd" "github.com/upsidr" ];
+      env = {
+        GOPATH = "${config.home.homeDirectory}/Coding/go";
+        GOBIN = "${config.home.homeDirectory}/Coding/go/bin";
+        GOPRIVATE = [ "github.com/rytswd" "github.com/upsidr" ];
+      };
     };
     home.sessionPath = [
-      "$HOME/Coding/go/bin"
+      "${config.home.homeDirectory}/Coding/go/bin"
     ];
   };
 }

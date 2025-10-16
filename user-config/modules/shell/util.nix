@@ -28,6 +28,7 @@
       pkgs.erdtree      # https://github.com/solidiquis/erdtree
       pkgs.delta        # https://github.com/dandavison/delta
       pkgs.cloc         # https://github.com/AlDanial/cloc
+      pkgs.tokei        # https://github.com/XAMPPRocky/tokei
       pkgs.ripunzip     # https://github.com/google/ripunzip
 
       # pkgs.rm-improved  # https://github.com/nivekuil/rip
@@ -46,6 +47,7 @@
       pkgs.htop         # https://github.com/htop-dev/htop
       pkgs.bottom       # https://github.com/ClementTsang/bottom
       pkgs.hyperfine    # https://github.com/sharkdp/hyperfine
+      pkgs.powertop     # https://github.com/fenrus75/powertop
 
       ###------------------------------
       ##   Process related

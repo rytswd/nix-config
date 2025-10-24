@@ -51,6 +51,9 @@
         gitlab.user = "rytswd";
         credential.helper =  "${pkgs.gitFull}/bin/git-credential-libsecret";
 
+        # Use ssh instead of https for git operations
+        url."ssh://git@github.com/".insteadOf = "https://github.com/";
+
         core = {
           autocrlf = "input";
           editor = "nvim";

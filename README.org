@@ -6,7 +6,10 @@
 My configuration will not be useful as is for many, and it's never meant to be. I made all the configurations for my specific needs. You are welcome to have a look to understand how I work, how to configure with Nix, etc. I will check Issues and Pull Requests, but may not take in suggestions and configurations.
 
 ** 🧪 Nix Setup
-Nix is used for both macOS and NixOS for my configuration. You can check out both configurations here. All the configurations are based on [[https://nixos.wiki/wiki/Flakes][Nix Flake]].
+Nix is used for both NixOS and macOS for my configuration. You can check out both configurations here. All the configurations are based on [[https://nixos.wiki/wiki/Flakes][Nix Flake]].
+
+*** For NixOS
+/To be updated/
 
 *** For macOS
 For macOS, I use [[https://github.com/LnL7/nix-darwin][nix-darwin]] and [[https://github.com/nix-community/home-manager][home-manager]] to configure.
@@ -32,17 +35,17 @@ I mainly use *Emacs* for any coding tasks, and many more (note taking, task mana
 With my Emacs, I use [[https://github.com/emacs-evil/evil][Evil key bindings]] along with Emacs bindings. I use both Emacs and Vi bindings all the time, and thus NeoVim is also another platform I sometimes fall back to. I do have VSCode installed and use it occasionally, but rather rarely.
 
 **** 💻  Terminal
-I used to use various solutions, but now my main driver is *Ghostty*. It is performant and does everything I need well and cleanly. Before Ghostty, I used to use [[https://github.com/alacritty/alacritty][Alacritty]] and [[https://github.com/tmux/tmux][tmux]], but I do not feel the need anymore. I also have [[https://sw.kovidgoyal.net/kitty/][Kitty]] available, but I do not use it.
+I used to use various solutions, but now my main driver is *[[https://ghostty.org/][Ghostty]]*. It is performant and does everything I need well and cleanly. Before Ghostty, I used to use [[https://github.com/alacritty/alacritty][Alacritty]] and [[https://github.com/tmux/tmux][tmux]], but I do not feel the need anymore. I also have [[https://sw.kovidgoyal.net/kitty/][Kitty]] available, but I do not use it.
 
 **** ⚙️ Core Components
-Here is the list of tools I use for the key components of each OS.
-| 🐱               | macOS       | NixOS   |
-|-------------------+-------------+---------|
-| Window Management | [[https://github.com/koekeishiya/yabai][yabai]]       | TBC     |
-| Shortcut          | [[https://github.com/koekeishiya/skhd][skhd]]        | TBC     |
-| Toolbar           | [[https://github.com/felixkratz/sketchybar/][sketchybar]]  | TBC     |
-| App Launcher      | [[https://www.raycast.com/][Raycast]]     | TBC     |
-| Browser           | [[https://arc.net/][Arc Browser]] | [[https://vivaldi.com/][Vivaldi]] |
+Here is the list of other tools I use for the key components of each OS.
+| 🐱                | macOS         | NixOS       |
+|-------------------+---------------+-------------|
+| Window Management | [[https://github.com/koekeishiya/yabai][yabai]]         | [[https://github.com/YaLTeR/niri][niri]]        |
+| Shortcut          | [[https://github.com/koekeishiya/skhd][skhd]]          | [[https://github.com/xremap/xremap][Xremap]]      |
+| Toolbar           | macOS default | [[https://github.com/Alexays/Waybar][Waybar]]      |
+| App Launcher      | [[https://www.raycast.com/][Raycast]]       | [[https://github.com/davatorium/rofi][rofi]]        |
+| Browser           | [[https://zen-browser.app/][Zen Browser]]   | [[https://zen-browser.app/][Zen Browser]] |
 
 **** 🍂 Other Tools
 For macOS

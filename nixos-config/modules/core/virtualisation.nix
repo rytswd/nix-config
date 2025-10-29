@@ -29,13 +29,14 @@
           package = pkgs.qemu_kvm;
           runAsRoot = true;
           swtpm.enable = true;
-          ovmf = {
-            enable = true;
-            packages = [(pkgs.OVMF.override {
-              secureBoot = true;
-              tpmSupport = true;
-            }).fd];
-          };
+          # NOTE: The below is deprecated as of Oct 2025.
+          # ovmf = {
+          #   enable = true;
+          #   packages = [(pkgs.OVMF.override {
+          #     secureBoot = true;
+          #     tpmSupport = true;
+          #   }).fd];
+          # };
         };
       };
     };

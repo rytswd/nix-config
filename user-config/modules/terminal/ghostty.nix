@@ -17,11 +17,12 @@
         # only built in NixOS.
       ]
       else [
-        pkgs.ghostty
-        # NOTE: I'm disabling the below, as I hit the OpenGL context issue:
+        # pkgs.ghostty
+
+        # NOTE: At times I hit the OpenGL context issue:
         # Ref: https://ghostty.org/docs/install/binary
-        # # This is the latest build.
-        # inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default
+        # This is based on the latest build.
+        inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default
       ];
 
     xdg.configFile = {

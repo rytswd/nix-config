@@ -19,7 +19,7 @@
           lines = 20;
           horizontal-pad = 20;
           inner-pad = 7;
-          terminal = "${inputs.ghostty.packages.${pkgs.system}.default}/bin/ghostty";
+          terminal = "${inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/ghostty";
           layer = "overlay";
         };
         colors = {

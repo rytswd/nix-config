@@ -11,7 +11,7 @@
 
   config = lib.mkIf config.notification.ags-notification.enable {
     home.packages = [
-      inputs.ags.packages.${pkgs.system}.default
+      inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
     xdg.configFile = {
       "ags-notification".source = ./ags-notification;

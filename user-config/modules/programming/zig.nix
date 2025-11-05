@@ -13,7 +13,7 @@
     home.packages = let
       # NOTE: Based on https://github.com/mitchellh/zig-overlay
       zig = pkgs.zigpkgs.master;
-      zls = inputs.zls.packages.${pkgs.system}.zls.overrideAttrs (_: {
+      zls = inputs.zls.packages.${pkgs.stdenv.hostPlatform.system}.zls.overrideAttrs (_: {
         nativeBuildInputs = [ zig ];
       });
     in [

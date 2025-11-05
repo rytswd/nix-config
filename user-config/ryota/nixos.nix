@@ -77,7 +77,7 @@ in {
 
       packages = [
         # Utility
-        pkgs.glxinfo # For OpenGL etc.
+        pkgs.mesa-demos # For OpenGL etc.
       ];
 
       stateVersion = "23.11";

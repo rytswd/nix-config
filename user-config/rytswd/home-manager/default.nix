@@ -26,7 +26,7 @@
           ###------------------------------
           ##   Additional Utilities
           #--------------------------------
-          du-dust       # https://github.com/bootandy/dust
+          dust          # https://github.com/bootandy/dust
           bandwhich     # https://github.com/imsnif/bandwhich
           mkcert        # https://github.com/FiloSottile/mkcert
           bottom        # https://github.com/ClementTsang/bottom
@@ -69,7 +69,7 @@
           kind
           krew
           k9s
-          kube3d
+          k3d
           kubectx
           kubeseal
           pinniped

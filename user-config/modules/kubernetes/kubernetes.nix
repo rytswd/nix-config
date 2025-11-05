@@ -16,7 +16,7 @@
       pkgs.kind
       pkgs.krew
       pkgs.k9s
-      pkgs.kube3d
+      pkgs.k3d
       pkgs.kubectx
     ];
     home.shellAliases = {

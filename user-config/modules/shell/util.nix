@@ -24,7 +24,7 @@
       pkgs.ripgrep      # https://github.com/BurntSushi/ripgrep
       pkgs.fd           # https://github.com/sharkdp/fd
       pkgs.zoxide       # https://github.com/ajeetdsouza/zoxide
-      pkgs.du-dust      # https://github.com/bootandy/dust
+      pkgs.dust         # https://github.com/bootandy/dust
       pkgs.erdtree      # https://github.com/solidiquis/erdtree
       pkgs.delta        # https://github.com/dandavison/delta
       pkgs.cloc         # https://github.com/AlDanial/cloc

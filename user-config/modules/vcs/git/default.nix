@@ -33,7 +33,7 @@
 
     # Git config equivalent
     programs.git = {
-      extraConfig = {
+      settings = {
         user = {
           name = "Ryota";
           # NOTE: email is set below with includes.

@@ -161,13 +161,13 @@
 
     # Language related overlays
     goOverlay = (final: prev: {
-      go = nixpkgs-unstable.legacyPackages.${prev.system}.go_1_25;
+      go = nixpkgs-unstable.legacyPackages.${prev.stdenv.hostPlatform.system}.go_1_25;
     });
     # rustOverlay = inputs.rust-overlay.overlays.default;
     fenixOverlay = inputs.fenix.overlays.default;
     zigOverlay = inputs.zig-overlay.overlays.default;
     rocOverlay = (final: prev: {
-      rocpkgs = inputs.roc.packages.${prev.system};
+      rocpkgs = inputs.roc.packages.${prev.stdenv.hostPlatform.system};
     });
 
     # Editor related overlays

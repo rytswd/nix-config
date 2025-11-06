@@ -28,7 +28,7 @@
         pkgs.monaspace
         pkgs.noto-fonts
         pkgs.noto-fonts-cjk-sans
-        pkgs.noto-fonts-emoji
+        pkgs.noto-fonts-color-emoji
         pkgs.victor-mono
         pkgs.emacs-all-the-icons-fonts
 

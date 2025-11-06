@@ -16,7 +16,8 @@
         # pandoc-citeproc
         shake         # Build tool
         hlint         # Required for spacemacs haskell-mode
-        apply-refact  # Required for spacemacs haskell-mode
+        # Noted as broken as of Oct 2025
+        # apply-refact  # Required for spacemacs haskell-mode
         hasktags      # Required for spacemacs haskell-mode
         hoogle        # Required for spacemacs haskell-mode
         lucid

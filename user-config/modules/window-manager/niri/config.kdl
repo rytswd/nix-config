@@ -249,7 +249,7 @@ environment {
 
 binds {
     Alt+Space         { spawn "rofi" "-show" "drun"; }
-    Super+Shift+Space { spawn "rofi" "-show" "window"; }
+    Alt+Shift+Space   { spawn "rofi" "-show" "window"; }
     Shift+XF86Launch1 { spawn "ghostty"; }
     Super+Shift+F12 { spawn "ghostty" "-e" "clipse"; }
     Super+Alt+K   { spawn "sh" "-c" \

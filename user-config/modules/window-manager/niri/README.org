@@ -679,7 +679,7 @@ NOTE: I got a lot of configurations in Xremap, and without it, many of the bindi
 I moved to use Rofi (with Wayland support) so that I can show more items in one pane.
 #+begin_src kdl
   Alt+Space         { spawn "rofi" "-show" "drun"; }
-  Super+Shift+Space { spawn "rofi" "-show" "window"; }
+  Alt+Shift+Space   { spawn "rofi" "-show" "window"; }
 #+end_src
 
 There are times some commands stop working. I'm making sure at least I get a terminal I can run stuff from.

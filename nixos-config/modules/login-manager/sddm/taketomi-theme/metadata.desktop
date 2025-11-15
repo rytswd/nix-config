@@ -2,12 +2,10 @@
 Name=Taketomi Theme
 Description=SDDM theme with Taketomi background
 Author=rytswd
-Copyright=(c) 2025
 License=MIT
 Type=sddm-theme
 Version=1.0
-Website=
 MainScript=Main.qml
 ConfigFile=theme.conf
 Theme-Id=taketomi-theme
-Theme-API=2.0
+QtVersion=6

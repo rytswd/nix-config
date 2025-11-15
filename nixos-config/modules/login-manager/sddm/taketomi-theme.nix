@@ -3,8 +3,8 @@
 , wrapQtAppsHook
 , qtbase
 , qtsvg
-, qtgraphicaleffects
-, qtquickcontrols2
+, qtdeclarative
+, qt5compat
 }:
 stdenvNoCC.mkDerivation {
   pname = "sddm-taketomi-theme";
@@ -18,11 +18,18 @@ stdenvNoCC.mkDerivation {
     wrapQtAppsHook
   ];
 
+  buildInputs = [
+    qtbase
+    qtsvg
+    qtdeclarative
+    qt5compat
+  ];
+
   propagatedUserEnvPkgs = [
     qtbase
     qtsvg
-    qtgraphicaleffects
-    qtquickcontrols2
+    qtdeclarative
+    qt5compat
   ];
 
   installPhase = ''

@@ -1,10 +1,11 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick
+import QtQuick.Effects
 import SddmComponents 2.0
+import "Components"
 
 Rectangle {
-    width: 640
-    height: 480
+    id: root
+    anchors.fill: parent
 
     TextConstants { id: textConstants }
 
@@ -12,8 +13,8 @@ Rectangle {
         target: sddm
         function onLoginSucceeded() {}
         function onLoginFailed() {
-            password.text = ""
-            password.focus = true
+            loginForm.passwordText = ""
+            loginForm.forceActiveFocus()
         }
     }
 
@@ -26,236 +27,93 @@ Rectangle {
         smooth: true
     }
 
-    // Overlay for dimming
+    // Gradient overlay
     Rectangle {
         anchors.fill: parent
-        color: "#000000"
-        opacity: 0.3
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: "#30000000" }
+            GradientStop { position: 1.0; color: "#50000000" }
+        }
     }
 
-    // Login Container
+    // Clock
+    Clock {
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.leftMargin: 60
+        anchors.topMargin: 50
+    }
+
+    // Blurred background source for login box
+    ShaderEffectSource {
+        id: blurSource
+        sourceItem: backgroundImage
+        anchors.fill: loginBox
+        sourceRect: Qt.rect(loginBox.x, loginBox.y, loginBox.width, loginBox.height)
+        visible: false
+    }
+
+    // Login box with blur
     Rectangle {
+        id: loginBox
         anchors.centerIn: parent
-        width: 360
-        height: 380
-        color: "#E6FFFFFF"
-        radius: 16
+        anchors.verticalCenterOffset: -30
+        width: 520
+        height: 580
+        radius: 20
+        color: "#35000000"
+        border.width: 1
+        border.color: Colors.borderAccent
+        clip: true
 
-        Column {
-            anchors.centerIn: parent
-            spacing: 16
-            width: parent.width - 80
+        MultiEffect {
+            anchors.fill: parent
+            source: blurSource
+            blurEnabled: true
+            blur: 1.0
+            blurMax: 64
+            saturation: 0.7
+        }
 
-            // Welcome text
-            Text {
-                width: parent.width
-                text: "Welcome"
-                font.pixelSize: 28
-                font.weight: Font.Light
-                color: "#1A1A1A"
-                horizontalAlignment: Text.AlignHCenter
-            }
+        Rectangle {
+            anchors.fill: parent
+            radius: parent.radius
+            color: Colors.surfaceDark
+        }
 
-            Item { height: 8 }
-
-            // Username field
-            TextField {
-                id: username
-                width: parent.width
-                height: 48
-                placeholderText: "Username"
-                text: userModel.lastUser
-                font.pixelSize: 15
-                color: "#1A1A1A"
-                placeholderTextColor: "#999999"
-
-                background: Rectangle {
-                    color: "#FFFFFF"
-                    radius: 8
-                    border.color: username.activeFocus ? "#4A90E2" : "#E0E0E0"
-                    border.width: 1
-                }
-
-                leftPadding: 16
-                rightPadding: 16
-
-                Keys.onReturnPressed: password.focus = true
-            }
-
-            // Password field
-            TextField {
-                id: password
-                width: parent.width
-                height: 48
-                placeholderText: "Password"
-                echoMode: TextInput.Password
-                font.pixelSize: 15
-                color: "#1A1A1A"
-                placeholderTextColor: "#999999"
-
-                background: Rectangle {
-                    color: "#FFFFFF"
-                    radius: 8
-                    border.color: password.activeFocus ? "#4A90E2" : "#E0E0E0"
-                    border.width: 1
-                }
-
-                leftPadding: 16
-                rightPadding: 16
-
-                Keys.onReturnPressed: {
-                    sddm.login(username.text, password.text, session.currentIndex)
-                }
-
-                Component.onCompleted: {
-                    if (username.text !== "")
-                        password.focus = true
-                    else
-                        username.focus = true
-                }
-            }
-
-            // Session selector
-            ComboBox {
-                id: session
-                width: parent.width
-                height: 48
-                model: sessionModel
-                currentIndex: sessionModel.lastIndex
-                textRole: "name"
-                font.pixelSize: 15
-
-                background: Rectangle {
-                    color: "#FFFFFF"
-                    radius: 8
-                    border.color: session.activeFocus ? "#4A90E2" : "#E0E0E0"
-                    border.width: 1
-                }
-
-                contentItem: Text {
-                    text: session.displayText
-                    color: "#1A1A1A"
-                    font: session.font
-                    verticalAlignment: Text.AlignVCenter
-                    elide: Text.ElideRight
-                    leftPadding: 16
-                }
-
-                delegate: ItemDelegate {
-                    width: session.width
-                    contentItem: Text {
-                        text: model.name
-                        color: "#1A1A1A"
-                        font: session.font
-                        elide: Text.ElideRight
-                        verticalAlignment: Text.AlignVCenter
-                    }
-                    highlighted: session.highlightedIndex === index
-                }
-
-                popup: Popup {
-                    y: session.height + 4
-                    width: session.width
-                    implicitHeight: contentItem.implicitHeight
-                    padding: 4
-
-                    contentItem: ListView {
-                        clip: true
-                        implicitHeight: contentHeight
-                        model: session.popup.visible ? session.delegateModel : null
-                        currentIndex: session.highlightedIndex
-
-                        ScrollIndicator.vertical: ScrollIndicator { }
-                    }
-
-                    background: Rectangle {
-                        color: "#FFFFFF"
-                        radius: 8
-                        border.color: "#E0E0E0"
-                        border.width: 1
-                    }
-                }
-            }
-
-            Item { height: 4 }
-
-            // Login button
-            Button {
-                width: parent.width
-                height: 48
-                text: "Sign In"
-                font.pixelSize: 15
-                font.weight: Font.Medium
-
-                background: Rectangle {
-                    color: parent.pressed ? "#357ABD" : (parent.hovered ? "#5AA3E8" : "#4A90E2")
-                    radius: 8
-                }
-
-                contentItem: Text {
-                    text: parent.text
-                    color: "#FFFFFF"
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    font: parent.font
-                }
-
-                onClicked: {
-                    sddm.login(username.text, password.text, session.currentIndex)
-                }
+        LoginForm {
+            id: loginForm
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.margins: 60
+            usernameText: userModel.lastUser
+            sessionControl: topControls.sessionControl
+            layoutControl: topControls.layoutControl
+            onLoginRequested: function(user, pass, sessionIdx) {
+                sddm.login(user, pass, sessionIdx)
             }
         }
     }
 
-    // Power controls
-    Row {
-        anchors.bottom: parent.bottom
+    // Avatar
+    Avatar {
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: loginBox.top
+        anchors.bottomMargin: -150
+        username: userModel.lastUser
+        z: 10
+    }
+
+    // Top right controls
+    TopControls {
+        id: topControls
+        anchors.top: parent.top
         anchors.right: parent.right
-        anchors.margins: 24
-        spacing: 12
-
-        Button {
-            width: 44
-            height: 44
-            text: "\u27F3"
-            font.pixelSize: 20
-            visible: sddm.canReboot
-            onClicked: sddm.reboot()
-
-            background: Rectangle {
-                color: parent.pressed ? "#99FFFFFF" : (parent.hovered ? "#CCFFFFFF" : "#B3FFFFFF")
-                radius: 22
-            }
-
-            contentItem: Text {
-                text: parent.text
-                color: "#1A1A1A"
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                font: parent.font
-            }
-        }
-
-        Button {
-            width: 44
-            height: 44
-            text: "\u23FB"
-            font.pixelSize: 20
-            visible: sddm.canPowerOff
-            onClicked: sddm.powerOff()
-
-            background: Rectangle {
-                color: parent.pressed ? "#99FFFFFF" : (parent.hovered ? "#CCFFFFFF" : "#B3FFFFFF")
-                radius: 22
-            }
-
-            contentItem: Text {
-                text: parent.text
-                color: "#1A1A1A"
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                font: parent.font
-            }
-        }
+        anchors.topMargin: 50
+        anchors.rightMargin: 60
+        loginButtonControl: loginForm.children[loginForm.children.length - 2]
+        usernameControl: loginForm.children[2]
     }
 }

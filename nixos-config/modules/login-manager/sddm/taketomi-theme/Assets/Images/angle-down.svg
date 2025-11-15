@@ -1,0 +1,11 @@
+<!--<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path d="M7 10l5 5 5-5z" fill="#ff8c42"/>
+</svg>-->
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
+  <g fill-rule="evenodd" transform="translate(27.2 27.448) scale(.64532)">
+    <rect width="104.237" height="20" x="-30.788" y="115.539" rx="9.267" ry="10.668" transform="rotate(-45)"/>
+    <rect width="104.237" height="20" x="-135.539" y="-30.788" rx="9.267" ry="10.668" transform="rotate(-135)"/>
+  </g>
+</svg>

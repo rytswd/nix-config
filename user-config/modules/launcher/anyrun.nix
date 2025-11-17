@@ -27,24 +27,28 @@
         plugins = [
           "${pkgs.anyrun}/lib/libapplications.so"
           "${pkgs.anyrun}/lib/libsymbols.so"
+          "${pkgs.anyrun}/lib/libniri_focus.so"
+          "${pkgs.anyrun}/lib/libdictionary.so"
+          "${pkgs.anyrun}/lib/libtranslate.so"
+          "${pkgs.anyrun}/lib/librink.so"
         ];
       };
 
-      # Inline comments are supported for language injection into
-      # multi-line strings with Treesitter! (Depends on your editor)
-      extraCss = /*css */ ''
-        .some_class {
-          background: red;
-        }
-      '';
+      # # Inline comments are supported for language injection into
+      # # multi-line strings with Treesitter! (Depends on your editor)
+      # extraCss = /*css */ ''
+      #   .some_class {
+      #     background: red;
+      #   }
+      # '';
 
-      extraConfigFiles."some-plugin.ron".text = ''
-        Config(
-        // for any other plugin
-        // this file will be put in ~/.config/anyrun/some-plugin.ron
-        // refer to docs of xdg.configFile for available options
-      )
-      '';
+      # extraConfigFiles."some-plugin.ron".text = ''
+      #   Config(
+      #   // for any other plugin
+      #   // this file will be put in ~/.config/anyrun/some-plugin.ron
+      #   // refer to docs of xdg.configFile for available options
+      # )
+      # '';
     };
   };
 }

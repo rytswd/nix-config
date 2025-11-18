@@ -12,7 +12,7 @@
 
   config = lib.mkIf config.service.ollama.enable {
     home.packages = [
-      pkgs.ollama-cuda
+      pkgs.ollama-vulkan
     ];
 
     # NOTE: Due to the laptop sleep handling, I could see a random error of:
@@ -32,8 +32,12 @@
 
     services.ollama = {
       enable = true;
-      package = pkgs.ollama-cuda;
-      acceleration = "cuda";
+
+      # NOTE: Due to some broken cuda version, I'm using vulkan instead.
+      package = pkgs.ollama-vulkan;
+      # package = pkgs.ollama-cuda;
+      # acceleration = "cuda";
+
       # environmentVariables = {
       #   # NOTE: The below env mimics the use of nvidia-offload.
       #   __NV_PRIME_RENDER_OFFLOAD = "1";

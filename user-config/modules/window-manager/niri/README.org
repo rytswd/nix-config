@@ -701,6 +701,7 @@ NOTE: I got a lot of configurations in Xremap, and without it, many of the bindi
       <<key-bindings-focus>>
       <<key-bindings-size>>
       <<key-bindings-move>>
+      <<key-bindings-visibility>>
 
       <<key-bindings-mouse-wheel>>
 
@@ -845,6 +846,18 @@ Close window is the most similar to Cmd+Q on macOS, but probably more intuitive.
     Ctrl+Shift+Super+T      { toggle-column-tabbed-display; }
     Ctrl+Shift+Super+F      { toggle-window-floating; }
 #+end_src
+
+*** Visibility
+:PROPERTIES:
+:header-args: :tangle no :noweb-ref key-bindings-visibility
+:END:
+#+begin_src kdl
+    // NOTE: These key bindings are designed so that they are difficult to use,
+    // and should not conflict with other key bindings. In order to use this
+    // in real scenario, I would need key remapping solutions like Xremap.
+    Ctrl+Shift+Super+0      { toggle-window-rule-opacity; }
+#+end_src
+
 
 *** Mouse Wheel Based
 :PROPERTIES:

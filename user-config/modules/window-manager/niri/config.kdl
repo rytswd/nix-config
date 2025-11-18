@@ -349,6 +349,10 @@ binds {
     // Make windows in the same column into tabbed display
     Ctrl+Shift+Super+T      { toggle-column-tabbed-display; }
     Ctrl+Shift+Super+F      { toggle-window-floating; }
+    // NOTE: These key bindings are designed so that they are difficult to use,
+    // and should not conflict with other key bindings. In order to use this
+    // in real scenario, I would need key remapping solutions like Xremap.
+    Ctrl+Shift+Super+0      { toggle-window-rule-opacity; }
 
     Ctrl+Super+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
     Ctrl+Super+WheelScrollUp   cooldown-ms=150 { focus-workspace-up; }

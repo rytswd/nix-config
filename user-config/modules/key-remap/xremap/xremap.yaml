@@ -236,27 +236,28 @@ keymap:
     # navigation related bindings intact, I'm creating a special sequence that
     # does not conflict with anything else.
     remap:
-      Ctrl-Shift_L-left: C-Shift-Super-left
-      Ctrl-Shift_L-right: C-Shift-Super-right
-      Ctrl-Shift_L-down: C-Shift-Super-down
-      Ctrl-Shift_L-up: C-Shift-Super-up
+      Ctrl-Shift_L-left:    C-Shift-Super-left
+      Ctrl-Shift_L-right:   C-Shift-Super-right
+      Ctrl-Shift_L-down:    C-Shift-Super-down
+      Ctrl-Shift_L-up:      C-Shift-Super-up
       # NOTE: niri takes these inputs as they are, rather than doing Dvorak
       # conversion. Thus I need to provide the QWERTY equivalent on both key and
       # value. (e.g. "j" in QWERTY to map to "h" in Dvorak)
-      Ctrl-Shift_L-j: C-Shift-Super-j
-      Ctrl-Shift_L-p: C-Shift-Super-p
-      Ctrl-Shift_L-k: C-Shift-Super-k
-      Ctrl-Shift_L-y: C-Shift-Super-y
-      Ctrl-Alt_L-left: C-Shift-Alt-left
-      Ctrl-Alt_L-right: C-Shift-Alt-right
-      Ctrl-left: C-Shift-Super-Alt-left
-      Ctrl-right: C-Shift-Super-Alt-right
-      Ctrl-down: C-Shift-Super-Alt-down
-      Ctrl-up: C-Shift-Super-Alt-up
+      Ctrl-Shift_L-j:       C-Shift-Super-j
+      Ctrl-Shift_L-p:       C-Shift-Super-p
+      Ctrl-Shift_L-k:       C-Shift-Super-k
+      Ctrl-Shift_L-y:       C-Shift-Super-y
+      Ctrl-Shift_L-0:       C-Shift-Super-0
+      Ctrl-Alt_L-left:      C-Shift-Alt-left
+      Ctrl-Alt_L-right:     C-Shift-Alt-right
+      Ctrl-left:            C-Shift-Super-Alt-left
+      Ctrl-right:           C-Shift-Super-Alt-right
+      Ctrl-down:            C-Shift-Super-Alt-down
+      Ctrl-up:              C-Shift-Super-Alt-up
       # NOTE: The below mappings make sure they don't get affected by above.
-      Ctrl-Alt_L-down: C-Alt-down
-      Ctrl-Alt_L-up: C-Alt-up
-      Ctrl-Super-left: C-Super-left
-      Ctrl-Super-right: C-Super-right
-      Ctrl-Super-down: C-Super-down
-      Ctrl-Super-up: C-Super-up
+      Ctrl-Alt_L-down:      C-Alt-down
+      Ctrl-Alt_L-up:        C-Alt-up
+      Ctrl-Super-left:      C-Super-left
+      Ctrl-Super-right:     C-Super-right
+      Ctrl-Super-down:      C-Super-down
+      Ctrl-Super-up:        C-Super-up

@@ -24,6 +24,9 @@
       # Disable greeting by setting `fish_greeting` with empty value.
       interactiveShellInit = ''
         set fish_greeting
+
+        # Adjust alt+backspace behaviour
+        bind alt-backspace backward-kill-path-component
       '';
     };
   };

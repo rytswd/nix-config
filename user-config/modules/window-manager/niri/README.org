@@ -15,7 +15,7 @@ Niri config uses ~.kdl~ (https://kdl.dev), and a single file input. For a better
 ** Look and Feel
 *** Input
 https://github.com/YaLTeR/niri/wiki/Configuration:-Input
-Input configures a few tihngs
+Input configures a few things
 
 #+begin_src kdl :tangle config.kdl :noweb yes
   input {
@@ -586,6 +586,43 @@ TODO: I should configure the key handling items to be outside of screencapture /
   }
 #+end_src
 
+** Recent Windows
+:PROPERTIES:
+:header-args: :tangle config.kdl :noweb yes
+:END:
+Also known as MRU (Most Recently Used)
+
+#+begin_src kdl
+  recent-windows {
+      // off
+      open-delay-ms 150
+  
+      highlight {
+          active-color "#999999ff"
+          urgent-color "#ff9999ff"
+          padding 30
+          corner-radius 3
+      }
+  
+      previews {
+          max-height 480
+          max-scale 0.6
+      }
+  
+      binds {
+          Alt+Tab         { next-window; }
+          Alt+Shift+Tab   { previous-window; }
+          // Alt+grave       { next-window     filter="app-id"; }
+          // Alt+Shift+grave { previous-window filter="app-id"; }
+  
+          // Mod+Tab         { next-window; }
+          // Mod+Shift+Tab   { previous-window; }
+          // Mod+grave       { next-window     filter="app-id"; }
+          // Mod+Shift+grave { previous-window filter="app-id"; }
+      }
+  }
+#+end_src
+
 
 ** Programs
 *** Startup Processes
@@ -676,7 +713,8 @@ NOTE: I got a lot of configurations in Xremap, and without it, many of the bindi
 :header-args: :tangle no :noweb-ref key-bindings-commands
 :END:
 +I use ~fuzzel~ for my launcher.+
-I moved to use Rofi (with Wayland support) so that I can show more items in one pane.
++I moved to use Rofi (with Wayland support) so that I can show more items in one pane.+
+I'm considering to move to use a dedicated solution.
 #+begin_src kdl
   Alt+Space         { spawn "rofi" "-show" "drun"; }
   Alt+Shift+Space   { spawn "rofi" "-show" "window"; }

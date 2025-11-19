@@ -3,8 +3,12 @@ let
   # NOTE: For updating the version, run the following:
   #
   #     nix-prefetch-github -- google-gemini gemini-cli --rev "0.17.0-preview.0"
+  #
+  # The latest release can be found here:
+  # https://github.com/google-gemini/gemini-cli/releases
   gemini-cli-version = "0.17.0-preview.0";
   gemini-cli-src-hash = "sha256-zkFRkadkjQcdOBLHTV/+LKengcrjt0AkA1Va2rS1exU=";
+
   # npm hash only changes when the dependency updates, and only found after built.
   # I can get the hash by providing `lib.fakeHash`.
   # gemini-cli-npmDepsHash = prev.lib.fakeHash;

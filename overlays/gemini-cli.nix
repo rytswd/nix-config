@@ -12,7 +12,7 @@ let
   # npm hash only changes when the dependency updates, and only found after built.
   # I can get the hash by providing `lib.fakeHash`.
   # gemini-cli-npmDepsHash = prev.lib.fakeHash;
-  gemini-cli-npmDepsHash = "sha256-yDCUZD//nM6Xr8CU86nv+ug5BrqRGdnVixU8mGpVies=";
+  gemini-cli-npmDepsHash = "sha256-dKaKRuHzvNJgi8LP4kKsb68O5k2MTqblQ+7cjYqLqs0=";
 in
 {
   gemini-cli = prev.gemini-cli.overrideAttrs (old: rec {

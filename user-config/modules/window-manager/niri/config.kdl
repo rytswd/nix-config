@@ -261,7 +261,7 @@ recent-windows {
     }
 }
 
-spawn-at-startup "swww-daemon"
+spawn-at-startup "awww-daemon"
 
 spawn-at-startup "sh" "-c" "ags -c ~/.config/ags-notification/config.js -b notification"
 

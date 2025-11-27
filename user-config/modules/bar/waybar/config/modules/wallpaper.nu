@@ -1,7 +1,7 @@
 #!/usr/bin/env nu
 
 let current_background = (
-  swww query
+  awww query
     | str replace -r '.+currently displaying: image: (.+)' '$1')
 
 let pictures = (
@@ -16,4 +16,4 @@ let new_picture = (
   $pictures
     | get $new_idx
     | get name
-    | swww img $in --transition-type random)
+    | awww img $in --transition-type random)

@@ -135,6 +135,26 @@
         "type": "github"
       }
     },
+    "awww": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "nixpkgs": "nixpkgs",
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1764175031,
+        "narHash": "sha256-SXCfY//GEH1ehxQ1yfrcF6J2xUBWuTlokudSeRlWphg=",
+        "ref": "refs/heads/main",
+        "rev": "4fa305744634fd99c5d38e3cf4143fbdd9b390e3",
+        "revCount": 1318,
+        "type": "git",
+        "url": "https://codeberg.org/LGFae/awww"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/LGFae/awww"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1751562746,

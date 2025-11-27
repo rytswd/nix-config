@@ -113,8 +113,8 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    swww = {
-      url = "github:LGFae/swww";
+    awww = {
+      url = "git+https://codeberg.org/LGFae/awww";
       # inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 

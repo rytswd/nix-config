@@ -632,9 +632,9 @@ Also known as MRU (Most Recently Used)
 While it is better to control the startup processes using systemd and other solutions, there are some specific ones I would only need when using Niri (or some specific Window Manager).
 It is also far easier to configure here than setting up systemd, so I sometimes abuse this for a quick setup 😛
 
-For wallpaper setup using ~swww~, I need the daemon to be running.
+For wallpaper setup using ~awww~, I need the daemon to be running.
 #+begin_src kdl
-  spawn-at-startup "swww-daemon"
+  spawn-at-startup "awww-daemon"
 #+end_src
 
 For notification setup, I use AGS widget for now.

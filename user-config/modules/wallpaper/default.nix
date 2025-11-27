@@ -5,10 +5,10 @@
 
 {
   imports = [
-    ./swww.nix
+    ./awww.nix
     ./mpvpaper.nix
   ];
 
-  wallpaper.swww.enable = lib.mkDefault true;
-  wallpaper.mpvpaper.enable = lib.mkDefault true;
+  wallpaper.awww.enable = lib.mkDefault true;
+  wallpaper.mpvpaper.enable = lib.mkDefault false;
 }

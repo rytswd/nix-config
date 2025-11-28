@@ -100,6 +100,11 @@
       flake = false;
     };
 
+    swapdir = {
+      url = "git+ssh://git@github.com/rytswd/swapdir";
+      # url = "github:rytswd/swapdir";
+    };
+
     ###----------------------------------------
     ##  NixOS Specific
     #------------------------------------------

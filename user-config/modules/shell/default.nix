@@ -18,6 +18,8 @@
     ./nushell.nix
     ./zsh.nix
 
+    ./swapdir.nix
+
     ./direnv
     ./starship
     ./atuin
@@ -33,6 +35,8 @@
   shell.fish.enable = lib.mkDefault true;
   shell.nushell.enable = lib.mkDefault true;
   shell.zsh.enable = lib.mkDefault true;
+
+  shell.swapdir.enable = lib.mkDefault true;
 
   shell.direnv.enable = lib.mkDefault true;
   shell.starship.enable = lib.mkDefault true;

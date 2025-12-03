@@ -7,8 +7,10 @@
   imports = [
     ./claude.nix
     ./gemini.nix
+    ./opencode.nix
   ];
 
   llm.claude.enable = lib.mkDefault true;
   llm.gemini.enable = lib.mkDefault true;
+  llm.opencode.enable = lib.mkDefault true;
 }

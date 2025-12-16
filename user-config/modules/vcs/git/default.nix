@@ -72,6 +72,7 @@
 
         help.autocorrect = "prompt";
         commit.gpgsign = true;
+        format.signoff = true;
 
         # NOTE: A lot of the settings here aren't really used as I use Emacs's
         # magit for most of git interactions.

@@ -113,10 +113,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.home-manager.follows = "home-manager";
     };
-    ags = {
-      url = "github:Aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
 
     awww = {
       url = "git+https://codeberg.org/LGFae/awww";

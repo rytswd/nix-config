@@ -71,7 +71,6 @@
     };
 
     # Zig
-    # nixpkgs-zig-0-12.url = "github:vancluever/nixpkgs/vancluever-zig-0-12";
     zig-overlay.url = "github:mitchellh/zig-overlay";
     zls = {
       url = "github:zigtools/zls";
@@ -99,6 +98,8 @@
       url = "github:emacs-mirror/emacs";
       flake = false;
     };
+
+    llm-agents.url = "github:numtide/llm-agents.nix";
 
     swapdir = {
       url = "git+ssh://git@github.com/rytswd/swapdir";

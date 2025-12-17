@@ -1,6 +1,7 @@
 { pkgs
 , lib
 , config
+, inputs
 , ...}:
 
 {
@@ -9,8 +10,8 @@
   };
 
   config = lib.mkIf config.llm.gemini.enable {
-    home.packages = [
-      pkgs.gemini-cli
+    home.packages = with inputs.llm-agents.packages.${pkgs.system}; [
+      gemini-cli
     ];
   };
 }

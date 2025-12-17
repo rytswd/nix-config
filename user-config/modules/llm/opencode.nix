@@ -1,6 +1,7 @@
 { pkgs
 , lib
 , config
+, inputs
 , ...}:
 
 {
@@ -9,8 +10,8 @@
   };
 
   config = lib.mkIf config.llm.opencode.enable {
-    programs.opencode = {
-      enable = true;
-    };
+    home.packages = with inputs.llm-agents.packages.${pkgs.system}; [
+      opencode
+    ];
   };
 }

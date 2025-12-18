@@ -26,5 +26,7 @@ default-command = ["log", "-s", "-n", "10"]
 [ui.streampager]
 wrapping = "word"      # wrap on word boundaries
 
-[git]
-push-new-bookmarks = true
+[remotes.origin]
+auto-track-bookmarks = "glob:*"
+[remotes.upstream]
+auto-track-bookmarks = "main"

@@ -61,6 +61,8 @@
       pkgs.shellcheck   # https://github.com/koalaman/shellcheck
       pkgs.atuin        # https://github.com/atuinsh/atuin
       pkgs.neofetch     # https://github.com/dylanaraps/neofetch
+      pkgs.fastfetch    # https://github.com/fastfetch-cli/fastfetch
+      pkgs.asciinema_3  # https://github.com/asciinema/asciinema
 
       # pkgs.zellij       # https://github.com/zellij-org/zellij
       # pkgs.sd           # https://github.com/chmln/sd

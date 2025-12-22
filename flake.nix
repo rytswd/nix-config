@@ -189,8 +189,6 @@
     vscodeOverlay = (import ./overlays/vscode.nix);
 
     # Other utility related overlays
-    claudeCodeOverlay = (import ./overlays/claude-code.nix );
-    geminiCLIOverlay = (import ./overlays/gemini-cli.nix );
     treeSitterOverlay = (import ./overlays/tree-sitter.nix );
     # gripOverlay = (import ./overlays/grip.nix );
     # erdtreeOverlay = (import ./overlays/erdtree.nix );
@@ -208,8 +206,6 @@
       emacsOverlay
       vscodeOverlay
 
-      claudeCodeOverlay
-      geminiCLIOverlay
       treeSitterOverlay
       # gripOverlay
       # erdtreeOverlay

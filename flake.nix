@@ -119,7 +119,6 @@
     # Ephemeral root
     impermanence = {
       url = "github:nix-community/impermanence";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     xremap = {

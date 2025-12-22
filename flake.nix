@@ -109,6 +109,18 @@
     ###----------------------------------------
     ##  NixOS Specific
     #------------------------------------------
+    # Disk partition handling
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Ephemeral root
+    impermanence = {
+      url = "github:nix-community/impermanence";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     xremap = {
       url = "github:xremap/nix-flake";
       inputs.nixpkgs.follows = "nixpkgs-unstable";

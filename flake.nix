@@ -100,6 +100,7 @@
     };
 
     llm-agents.url = "github:numtide/llm-agents.nix";
+    treesitter-grammars.url = "git+ssh://git@github.com/0-re/treesitter-grammars.nix";
 
     swapdir = {
       url = "git+ssh://git@github.com/rytswd/swapdir";
@@ -183,6 +184,7 @@
     rocOverlay = (final: prev: {
       rocpkgs = inputs.roc.packages.${prev.stdenv.hostPlatform.system};
     });
+    treesitterOverlay = inputs.treesitter-grammars.overlays.default;
 
     # Editor related overlays
     emacsOverlay = inputs.emacs-overlay.overlays.default;
@@ -206,7 +208,10 @@
       emacsOverlay
       vscodeOverlay
 
-      treeSitterOverlay
+      # TODO: merge into one. treesitter is coming from flake, treeSitter is local.
+      # treeSitterOverlay
+      treesitterOverlay
+
       # gripOverlay
       # erdtreeOverlay
       # yaziOverlay

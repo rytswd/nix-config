@@ -12,13 +12,9 @@
     services.swayidle = {
       enable = true;
       # systemdTarget = "sway-session.target";
-      events = [
-        {
-          # This is needed when suspend is called by other logic, such as lid close.
-          event = "before-sleep";
-          command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
-        }
-      ];
+      events = {
+        "before-sleep" = "${pkgs.swaylock-effects}/bin/swaylock -fF";
+      };
       timeouts = [
         # 10 min
         {

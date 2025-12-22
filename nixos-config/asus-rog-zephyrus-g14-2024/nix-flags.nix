@@ -21,7 +21,11 @@
     };
 
     settings = {
+      # Optimise Nix Store using hard links to save storage space.
       auto-optimise-store = true;
+
+      # Do not warn dirty Git repo.
+      warn-dirty = false;
 
       # Recommended when using `direnv` etc.
       keep-derivations = true;
@@ -34,7 +38,11 @@
       ];
 
       # Cache / Cachix
-      trusted-users = [ "@admin" "ryota" ];
+      trusted-users = [
+        "@wheel"
+        "root"
+      ];
+
       substituters = [
         "https://cache.nixos.org/"
         "https://nix-community.cachix.org"

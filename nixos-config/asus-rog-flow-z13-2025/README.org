@@ -1,0 +1,63 @@
+#+title: Initial Setup Steps
+
+* Partitioning with disko
+Partition setup can be done using disko https://github.com/nix-community/disko.
+
+First, I need to download the disko configuration.
+
+#+begin_src bash
+  curl https://raw.githubusercontent.com/rytswd/nix-config/main/nixos-config/asus-rog-flow-z13-2025/disko.nix -o /tmp/disko-config.nix
+#+end_src
+
+#+begin_src bash
+  sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount /tmp/disko-config.nix
+#+end_src
+
+After a short while, this asks whether I would like to continue with the reformatting step, and when I confirm with "yes", I would also get prompted for a password phrase for LUKS.
+
+Shortly after, the formatting completes, and I can check the mount setup with ~mount | grep /mnt~, or simply with ~lsblk~.
+
+Once disk partition is complete, move onto the rest of the Nix configuration.
+
+* Hardware spec
+Based on the hardware capabilities, Nix can figure out some flags with ~nixos-generate-config~ command. However, when using this, we need to tell it that disko has done the disk partition, and thus should not touch the file system anymore.
+
+#+begin_src bash
+  sudo nixos-generate-config --no-filesystems --root /mnt
+#+end_src
+
+This generates two files:
+- ~/mnt/etc/nixos/hardware-configuration.nix~
+- ~/mnt/etc/nixos/configuration.nix~
+
+The hardware configuration holds onto some hardware specific flags found by Nix. The ~configuration.nix~ is the main configuration for adjusting the system behaviour.
+
+* Copy config over
+If there is a separate local machine I can connect from, simply copy over the git repo using:
+#+begin_src bash
+  rsync -ahvz nix-config nixos@192.168.1.3:/tmp
+#+end_src
+
+(Dummy IP address used)
+
+* Run install
+With that in place, I should be able to simply run ~nixos-rebuild~ -- but with the initial installation, I should use ~nixos-install~. But as I have some private repository in my dependency chain, I need to ensure that the access is established before the rebuild to take place.
+
+With a separate local machine, I can forward the credential by ensuring GPG agent is setup to support forwarding.
+#+begin_src bash
+  export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+  gpg-connect-agent updatestartuptty /bye
+#+end_src
+
+With that set up, I should be able to connect to the local machine with:
+#+begin_src bash
+  ssh -A nixos@<ip-address>
+#+end_src
+Where ~-A~ establishes credential forwarding socket.
+
+#+begin_src bash
+  export NIX_CONFIG="experimental-features = nix-command flakes pipe-operators"
+  nixos-rebuild build --flake .#asus-rog-flow-z13-2025
+#+end_src
+
+

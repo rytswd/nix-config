@@ -183,7 +183,7 @@
     rocOverlay = (final: prev: {
       rocpkgs = inputs.roc.packages.${prev.stdenv.hostPlatform.system};
     });
-    treesitterOverlay = inputs.treesitter-grammars.overlays.default;
+    # treesitterOverlay = inputs.treesitter-grammars.overlays.default;
 
     # Editor related overlays
     emacsOverlay = inputs.emacs-overlay.overlays.default;
@@ -209,7 +209,7 @@
 
       # TODO: merge into one. treesitter is coming from flake, treeSitter is local.
       # treeSitterOverlay
-      treesitterOverlay
+      # treesitterOverlay
 
       # gripOverlay
       # erdtreeOverlay

@@ -2,15 +2,29 @@
 , lib
 , config
 , inputs
+, osConfig ? {}
 , ...}:
 
+let
+  # Map hostname to output config file
+  outputConfigByHostname = {
+    "asus-rog-flow-z13-2025" = ./output-asus-rog-flow-z13-2025.kdl;
+    "asus-rog-zephyrus-g14-2024" = ./output-asus-rog-zephyrus-g14-2024.kdl;
+  };
+
+  # Determine default output config based on hostname
+  defaultOutputConfig =
+    if osConfig ? networking.hostName
+    then outputConfigByHostname.${osConfig.networking.hostName} or ./output-asus-rog-zephyrus-g14-2024.kdl
+    else ./output-asus-rog-zephyrus-g14-2024.kdl;
+in
 {
   options = {
     window-manager.niri.enable = lib.mkEnableOption "Enable Niri user settings.";
 
     window-manager.niri.outputConfig = lib.mkOption {
       type = lib.types.path;
-      default = ./output-asus-rog-zephyrus-g14-2024.kdl;
+      default = defaultOutputConfig;
       description = "Path to the output.kdl file for device-specific display configuration";
       example = lib.literalExpression "./output-asus-rog-flow-z13-2025.kdl";
     };

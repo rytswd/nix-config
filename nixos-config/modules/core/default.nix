@@ -5,7 +5,7 @@
 
 {
   imports = [
-    ./boot.nix
+    ./boot
     ./nix.nix
     ./network.nix
     ./firewall.nix
@@ -21,7 +21,8 @@
     ./tmp.nix
   ];
 
-  core.boot.enable = lib.mkDefault true;
+  # core.boot has nested flag setup.
+
   core.nix.enable = lib.mkDefault true;
   core.network.enable = lib.mkDefault true;
   core.firewall.dropbox.enable = lib.mkDefault true;

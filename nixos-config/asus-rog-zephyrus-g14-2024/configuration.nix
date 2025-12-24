@@ -1,6 +1,3 @@
-# A lot of configurations have been taken / inspired by:
-# https://github.com/mitchellh/nixos-config/blob/main/machines/vm-shared.nix
-
 { config
 , pkgs
 , lib

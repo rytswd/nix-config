@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, ...}:
 
 let
   admin =
@@ -18,7 +18,7 @@ let
         isSystemUser = true;
 
         extraGroups = [
-          "input"  # For Xremap and input handling without sudo
+          "input" # For Xremap and input handling without sudo
           "uinput" # For Xremap and input handling without sudo
         ];
 
@@ -30,18 +30,4 @@ let
 in
 {
   users.users.admin = admin;
-
-  # When using impermanence, configure what directories get persisted.
-  config = lib.mkIf config.core.boot.impermanence.enable {
-    environment.persistence."/nix/persist" = {
-      users.admin = {
-        directories = [
-          ".ssh"
-        ];
-        files = [
-          # To be updated
-        ];
-      };
-    };
-  };
 }

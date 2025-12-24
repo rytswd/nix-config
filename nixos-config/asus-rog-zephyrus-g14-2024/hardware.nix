@@ -8,7 +8,6 @@
 # that have been added, removed, or modified.
 #
 # Other configurations for this machine can be found in other files.
-
 { config
 , lib
 , pkgs

@@ -54,7 +54,6 @@ in {
     ##   Module related options
     #------------------------------------------
     bar.waybar.enable = true;
-    # bar.ags.enable = true;
     kubernetes.extra.enable = true;
     communication.slack.enable = true;
     communication.signal.enable = true;

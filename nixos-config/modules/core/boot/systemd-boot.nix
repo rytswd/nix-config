@@ -7,10 +7,10 @@
 
 {
   options = {
-    core.boot.grub.enable = lib.mkEnableOption "Enable systemd-boot boot loader.";
+    core.boot.systemd-boot.enable = lib.mkEnableOption "Enable systemd-boot boot loader.";
   };
 
-  config = lib.mkIf config.core.boot.grub.enable {
+  config = lib.mkIf config.core.boot.systemd-boot.enable {
     boot.loader = {
       # Only one can be enabled at a time. Others that are not enabled are
       # there only for reference.

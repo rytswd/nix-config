@@ -1,30 +1,17 @@
-{
-  self,
-  nixpkgs,
-  nixpkgs-unstable,
-  home-manager,
-  system,
-  overlays,
-  inputs,
-  ...
-}:
+{ nixpkgs
+, nixpkgs-unstable
+, home-manager
+, system
+, overlays
+, inputs
+, ...}:
 
 nixpkgs-unstable.lib.nixosSystem rec {
   inherit system;
-  specialArgs = {
-    inherit
-      nixpkgs
-      nixpkgs-unstable
-      home-manager
-      overlays
-      ;
-  };
+  specialArgs = { inherit nixpkgs nixpkgs-unstable home-manager overlays; };
   modules = [
-    inputs.disko.nixosModules.disko
-
     inputs.sops-nix.nixosModules.sops
-    self.inputs.niri.nixosModules.niri
-    # inputs.niri.nixosModules.niri
+    inputs.niri.nixosModules.niri
     # inputs.cosmic.nixosModules.default
 
     # Extra modules based on private setup.
@@ -33,20 +20,29 @@ nixpkgs-unstable.lib.nixosSystem rec {
     # Adjust Nix and Nixpkgs related flags before proceeding.
     ../modules/nix-base.nix
 
-    # Start with the hardware configuration around M1 VM first.
+    ###----------------------------------------
+    ##  Main Configuration
+    #------------------------------------------
+    # hardware.nix has some hardware specific configurations.
     ./hardware.nix
-
-    # Manage system wide configurations here.
+    # configuration.nix pulls in various modules to achieve similar
+    # configuration across machines.
     ./configuration.nix
+    # disko defines the partition and filesystem setup.
+    inputs.disko.nixosModules.disko
+    inputs.impermanence.nixosModules.impermanence
+    ./impermanence.nix
 
+    ###----------------------------------------
+    ##  User Setup
+    #------------------------------------------
     # Create users.
     ../../user-config/admin/create.nix
     ../../user-config/ryota/create.nix
     # ../../user-config/rytswd/create.nix
 
     # Set up home-manager and users.
-    home-manager.nixosModules.home-manager
-    {
+    home-manager.nixosModules.home-manager {
       # NOTE: Without this, I get an error applying home-manager updates
       # (following the addition of GTK config).
       home-manager.backupFileExtension = "backup";

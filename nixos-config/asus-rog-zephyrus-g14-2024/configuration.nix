@@ -27,6 +27,8 @@
     ../modules/machine-specific/laptop.nix
   ];
 
+  core.boot.limine.enable = true;
+
   desktop-environment.gnome.dconf.enable = true;
   devices.yubikey.enable = true;
 

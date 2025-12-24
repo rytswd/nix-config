@@ -596,6 +596,7 @@ Also known as MRU (Most Recently Used)
   recent-windows {
       // off
       open-delay-ms 150
+      debounce-ms 1000
   
       highlight {
           active-color "#999999ff"

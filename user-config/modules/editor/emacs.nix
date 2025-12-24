@@ -24,7 +24,7 @@
         jinx
         pdf-tools
         mu4e
-        lsp-bridge
+        eglot-booster
         # all-the-icons # TODO: This still requires a manual "install".
         treesit-grammars.with-all-grammars
       ]);

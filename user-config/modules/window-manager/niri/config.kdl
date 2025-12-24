@@ -24,28 +24,7 @@ input {
     }
 }
 
-output "eDP-1" {
-    mode "2880x1800@120.000"
-    scale 1.666667
-    transform "normal"
-}
-output "eDP-2" {
-    mode "2880x1800@120.000"
-    scale 1.666667
-    transform "normal"
-}
-output "DP-1" {
-    mode "1920x1080@60.000"
-    position x=1728 y=0
-}
-output "DP-2" {
-    mode "1920x1080@60.000"
-    position x=1728 y=0
-}
-output "HDMI-A-1" {
-    mode "1920x1080@60.000"
-    position x=1728 y=0
-}
+include "output.kdl"
 
 layout {
     focus-ring {

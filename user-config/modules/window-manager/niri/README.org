@@ -131,34 +131,14 @@ There are a few other flags, such as ~warp-mouse-to-focus~, ~focus-follows-mouse
 https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
 Output configures the display settings.
 
-TODO: This assumes the use of Asus machine for the configuration. If I need to adjust based on the machine used, I will need to come up with another way to manage different display configuration per machine.
+This assumes the ~output.kdl~ file to be available in the XDG directory, so that it can be included as a part of the spec. Device specific display is defined in separate files in this directory.
 
 NOTE: eDP-1 and eDP-2 are duplicated. Sometimes the display is registered with eDP-1 during bootup sequence, and sometimes some error pushes it to eDP-2. I haven't got to the bottom of this behaviour, and for the time being, duplicating it for simplicity.
 #+begin_src kdl :tangle config.kdl :noweb yes
-  output "eDP-1" {
-      <<output-embedded>>
-  }
-  output "eDP-2" {
-      <<output-embedded>>
-  }
-  output "DP-1" {
-      <<output-external>>
-  }
-  output "DP-2" {
-      <<output-external>>
-  }
-  output "HDMI-A-1" {
-      <<output-external>>
-  }
+  include "output.kdl"
 #+end_src
 
-
-
-**** Embedded Display
-:PROPERTIES:
-:header-args: :tangle no :noweb-ref output-embedded
-:END:
-
+**** Note about embedded display
 Resolution is set by "mode" keyword.
 #+begin_quote
     Resolution and, optionally, refresh rate of the output.
@@ -169,35 +149,8 @@ Resolution is set by "mode" keyword.
     Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
 #+end_quote
 
-I set it to the maximum resolution.  
-#+begin_src kdl
-    mode "2880x1800@120.000"
-#+end_src
-
-But with the high resolution, everything gets rendered too small, and thus change the scale to make it similar to macOS.
-#+begin_src kdl
-    scale 1.666667
-#+end_src
-
-I don't need any transformation for the embedded screen.
-#+begin_src kdl
-    transform "normal"
-#+end_src
-
-**** External Display
-:PROPERTIES:
-:header-args: :tangle no :noweb-ref output-external
-:END:
-
-#+begin_src kdl
-    mode "1920x1080@60.000"
-#+end_src
-
-The position of =1728= is calculated based on the display resolution x scale (~2880 / 1.666667 = 1728~).
-#+begin_src kdl
-    position x=1728 y=0
-#+end_src
-
+**** Note about external display
+External display is also configured per device. This is because the size of the embedded display would change the x alignment.
 
 
 *** Layout

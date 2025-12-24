@@ -10,6 +10,10 @@ nixpkgs-unstable.lib.nixosSystem rec {
   inherit system;
   specialArgs = { inherit nixpkgs nixpkgs-unstable home-manager overlays; };
   modules = [
+    inputs.disko.nixosModules.disko
+    inputs.impermanence.nixosModules.impermanence
+    ../modules/nix-impermanence.nix
+
     inputs.sops-nix.nixosModules.sops
     inputs.niri.nixosModules.niri
     # inputs.cosmic.nixosModules.default
@@ -23,23 +27,23 @@ nixpkgs-unstable.lib.nixosSystem rec {
     ###----------------------------------------
     ##  Main Configuration
     #------------------------------------------
+    # disko defines the partition and filesystem setup.
+    ./disko.nix
     # hardware.nix has some hardware specific configurations.
     ./hardware.nix
     # configuration.nix pulls in various modules to achieve similar
     # configuration across machines.
     ./configuration.nix
-    # disko defines the partition and filesystem setup.
-    inputs.disko.nixosModules.disko
-    inputs.impermanence.nixosModules.impermanence
-    ./impermanence.nix
 
     ###----------------------------------------
     ##  User Setup
     #------------------------------------------
     # Create users.
     ../../user-config/admin/create.nix
+    ../../user-config/admin/persist-impermanence.nix
+
     ../../user-config/ryota/create.nix
-    # ../../user-config/rytswd/create.nix
+    ../../user-config/ryota/persist-impermanence.nix
 
     # Set up home-manager and users.
     home-manager.nixosModules.home-manager {

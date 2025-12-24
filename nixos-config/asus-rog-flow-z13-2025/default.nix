@@ -31,7 +31,7 @@ nixpkgs-unstable.lib.nixosSystem rec {
     # inputs.nix-config-private.nixos-modules.civo
 
     # Adjust Nix and Nixpkgs related flags before proceeding.
-    ./nix-flags.nix
+    ../modules/nix-base.nix
 
     # Start with the hardware configuration around M1 VM first.
     ./hardware.nix

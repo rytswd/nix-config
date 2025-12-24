@@ -18,12 +18,19 @@ nixpkgs-unstable.lib.nixosSystem rec {
     # inputs.nix-config-private.nixos-modules.civo
 
     # Adjust Nix and Nixpkgs related flags before proceeding.
-    ./nix-flags.nix
+    ../modules/nix-base.nix
 
-    # Start with the hardware configuration around M1 VM first.
+    ###----------------------------------------
+    ##  Main Configuration
+    #------------------------------------------
+    # NOTE: disko isn't used for this machine.
+    # disko defines the partition and filesystem setup.
+    # inputs.disko.nixosModules.disko
+    # ./disko.nix
+    # hardware.nix has some hardware specific configurations.
     ./hardware.nix
-
-    # Manage system wide configurations here.
+    # configuration.nix pulls in various modules to achieve similar
+    # configuration across machines.
     ./configuration.nix
 
     # Create users.

@@ -40,10 +40,7 @@ nixpkgs-unstable.lib.nixosSystem rec {
     #------------------------------------------
     # Create users.
     ../../user-config/admin/create.nix
-    ../../user-config/admin/persist-impermanence.nix
-
     ../../user-config/ryota/create.nix
-    ../../user-config/ryota/persist-impermanence.nix
 
     # Set up home-manager and users.
     home-manager.nixosModules.home-manager {
@@ -62,8 +59,22 @@ nixpkgs-unstable.lib.nixosSystem rec {
 
       # Each user needs to be set up separately. Because home-manager needs to
       # know where the home directory is, I need to specify the username again.
-      home-manager.users.admin = ../../user-config/admin/nixos.nix;
-      home-manager.users.ryota = ../../user-config/ryota/nixos.nix;
+
+      # Impermanence setup enabled for this device.
+      home-manager.users.admin = ../../user-config/admin/nixos.nix
+      // {
+        imports = [
+          inputs.impermanence.homeManagerModules.impermanence
+          ./persist-impermanence.nix
+        ];
+      };
+      home-manager.users.ryota = ../../user-config/ryota/nixos.nix
+      // {
+        imports = [
+          inputs.impermanence.homeManagerModules.impermanence
+          ./persist-impermanence.nix
+        ];
+      };
     }
   ];
 }

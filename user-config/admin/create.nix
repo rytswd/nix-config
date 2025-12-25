@@ -9,15 +9,15 @@ let
     else
       {
         home = "/home/admin";
-        group = "wheel";
 
         # For running scripts, zsh is easier as it works similarly to bash.
         shell = pkgs.bash;
 
-        # IMPORTANT: The admin user is not a normal user.
-        isSystemUser = true;
+        # Changed to normal user to support home-manager
+        isNormalUser = true;
 
         extraGroups = [
+          "wheel" # For sudo
           "input" # For Xremap and input handling without sudo
           "uinput" # For Xremap and input handling without sudo
         ];

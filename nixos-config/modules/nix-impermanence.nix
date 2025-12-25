@@ -13,6 +13,9 @@
     fileSystems."/nix/persist".neededForBoot = true;
     programs.fuse.userAllowOther = true;
 
+    # Make fusermount available for home-manager activation
+    environment.systemPackages = [ pkgs.fuse ];
+
     # TODO: Review this to make it work, currently failing to start up.
     # boot.initrd.systemd = {
     #   enable = true;

@@ -80,13 +80,13 @@ nixpkgs-unstable.lib.nixosSystem rec {
       home-manager.users.admin = ../../user-config/admin/nixos.nix // {
         imports = [
           inputs.impermanence.homeManagerModules.impermanence
-          ./persist-impermanence.nix
+          ../../user-config/admin/persist-impermanence.nix
         ];
       };
       home-manager.users.ryota = ../../user-config/ryota/nixos.nix // {
         imports = [
           inputs.impermanence.homeManagerModules.impermanence
-          ./persist-impermanence.nix
+          ../../user-config/ryota/persist-impermanence.nix
         ];
       };
     }

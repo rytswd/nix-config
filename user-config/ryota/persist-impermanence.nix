@@ -19,9 +19,12 @@
       ##  dotfiles
       #------------------------------------------
       ".password-store"
-      ".emacs.d"
       ".ssh"
       ".gnupg"
+      {
+        directory = ".emacs.d";
+        method = "symlink";
+      }
 
       ###========================================
       ##  XDG Cache & Data & State

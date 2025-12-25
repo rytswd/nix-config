@@ -6,17 +6,11 @@
 }:
 
 {
-  options = {
-    core.boot.impermanence.enable = lib.mkEnableOption "Enable impermanence.";
-  };
-
-  config = lib.mkIf config.core.boot.impermanence.enable {
+  config =  {
     # Only added to force build failure when missing.
     boot.loader.systemd-boot.enable = true;
 
     fileSystems."/nix/persist".neededForBoot = true;
-
-    # Required for home-manager impermanence with allowOther
     programs.fuse.userAllowOther = true;
 
     # TODO: Review this to make it work, currently failing to start up.

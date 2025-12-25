@@ -16,6 +16,9 @@
 
     fileSystems."/nix/persist".neededForBoot = true;
 
+    # Required for home-manager impermanence with allowOther
+    programs.fuse.userAllowOther = true;
+
     # TODO: Review this to make it work, currently failing to start up.
     # boot.initrd.systemd = {
     #   enable = true;

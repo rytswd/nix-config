@@ -1,19 +1,37 @@
-{ nixpkgs
-, nixpkgs-unstable
-, home-manager
-, system
-, overlays
-, inputs
-, ...}:
+{
+  nixpkgs,
+  nixpkgs-unstable,
+  home-manager,
+  system,
+  overlays,
+  inputs,
+  ...
+}:
 
 nixpkgs-unstable.lib.nixosSystem rec {
   inherit system;
-  specialArgs = { inherit nixpkgs nixpkgs-unstable home-manager overlays; };
+  specialArgs = {
+    inherit
+      nixpkgs
+      nixpkgs-unstable
+      home-manager
+      overlays
+      ;
+  };
   modules = [
+    ###----------------------------------------
+    ##  Disk setup
+    #------------------------------------------
+    # disko defines the partition and filesystem setup.
     inputs.disko.nixosModules.disko
+    ./disko.nix
+    # impermanence makes the whole disk ephemeral unless otherwise specified.
     inputs.impermanence.nixosModules.impermanence
     ../modules/nix-impermanence.nix
 
+    ###----------------------------------------
+    ##  Third party solutions
+    #------------------------------------------
     inputs.sops-nix.nixosModules.sops
     inputs.niri.nixosModules.niri
     # inputs.cosmic.nixosModules.default
@@ -21,14 +39,11 @@ nixpkgs-unstable.lib.nixosSystem rec {
     # Extra modules based on private setup.
     # inputs.nix-config-private.nixos-modules.civo
 
-    # Adjust Nix and Nixpkgs related flags before proceeding.
-    ../modules/nix-base.nix
-
     ###----------------------------------------
     ##  Main Configuration
     #------------------------------------------
-    # disko defines the partition and filesystem setup.
-    ./disko.nix
+    # Adjust Nix and Nixpkgs related flags before proceeding.
+    ../modules/nix-base.nix
     # hardware.nix has some hardware specific configurations.
     ./hardware.nix
     # configuration.nix pulls in various modules to achieve similar
@@ -43,7 +58,8 @@ nixpkgs-unstable.lib.nixosSystem rec {
     ../../user-config/ryota/create.nix
 
     # Set up home-manager and users.
-    home-manager.nixosModules.home-manager {
+    home-manager.nixosModules.home-manager
+    {
       # NOTE: Without this, I get an error applying home-manager updates
       # (following the addition of GTK config).
       home-manager.backupFileExtension = "backup";
@@ -61,15 +77,13 @@ nixpkgs-unstable.lib.nixosSystem rec {
       # know where the home directory is, I need to specify the username again.
 
       # Impermanence setup enabled for this device.
-      home-manager.users.admin = ../../user-config/admin/nixos.nix
-      // {
+      home-manager.users.admin = ../../user-config/admin/nixos.nix // {
         imports = [
           inputs.impermanence.homeManagerModules.impermanence
           ./persist-impermanence.nix
         ];
       };
-      home-manager.users.ryota = ../../user-config/ryota/nixos.nix
-      // {
+      home-manager.users.ryota = ../../user-config/ryota/nixos.nix // {
         imports = [
           inputs.impermanence.homeManagerModules.impermanence
           ./persist-impermanence.nix

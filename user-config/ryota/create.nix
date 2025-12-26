@@ -25,6 +25,7 @@ let
           "networkmanager" # For nmcli etc.
           "docker" # For docker
           "libvirtd" # For VM
+          "video" # For camera use
         ];
 
         # Set initial password.

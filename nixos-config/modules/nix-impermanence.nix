@@ -61,6 +61,7 @@
         "/var/lib/containers"
         "/var/lib/fwupd"
         "/var/lib/iwd"
+        "/var/lib/sddm"
         "/var/lib/syncthing"
         "/var/lib/systemd/coredump"
         "/etc/NetworkManager/system-connections"

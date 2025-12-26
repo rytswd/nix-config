@@ -29,6 +29,9 @@
   desktop-environment.gnome.dconf.enable = true;
   devices.yubikey.enable = true;
 
+  # Flow Z13 does not have NVidia GPU.
+  graphics.nvidia-offload.enable = false;
+
   # NOTE: This should match the name used for nixosConfigurations, so that nh
   # tool can automatically find the right target.
   networking.hostName = "asus-rog-flow-z13-2025";

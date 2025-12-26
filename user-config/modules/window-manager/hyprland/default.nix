@@ -34,18 +34,21 @@
       enable = true;
       systemd.args = "-v";
       settings = {
-        launcher = {
-          max_items = 6;
-          plugins.websearch = {
-            enable = true;
-            engines = [{
-              name = "DuckDuckGo";
-              url = "https://duckduckgo.com/?q=%s";
-              key = "d";
-            }];
+        version = 3;
+        windows = {
+          scale = 8.5;
+          items_per_row = 5;
+          overview = {
+            key = "super_l";
+            modifier = "super";
+            launcher = {
+              default_terminal = "alacritty";
+            };
+          };
+          switch = {
+            modifier = "alt";
           };
         };
-        windows.switch.enable = false;
       };
     };
 

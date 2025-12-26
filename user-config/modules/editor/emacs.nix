@@ -15,6 +15,10 @@
     # feedback loop using Elpaca, and the packages installed here are those that
     # need extra steps configuring using Elpaca.
 
+    # Symlink .emacs.d to Coding directory
+    home.file.".emacs.d".source = config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/Coding/github.com/rytswd/emacs-config/rytswd";
+
     home.packages = let
       ###----------------------------------------
       ##   Elisp

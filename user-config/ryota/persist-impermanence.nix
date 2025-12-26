@@ -21,10 +21,6 @@
       ".password-store"
       ".ssh"
       ".gnupg"
-      {
-        directory = ".emacs.d";
-        method = "symlink";
-      }
 
       ###========================================
       ##  XDG Cache & Data & State

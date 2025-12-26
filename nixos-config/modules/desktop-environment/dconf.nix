@@ -41,6 +41,10 @@
               ];
               xkb-options = [ "terminate:ctrl_alt_bksp,ctrl:nocaps,altwin:swap_alt_win,grp:win_space_toggle" ];
             };
+            # NOTE: In case some apps do not handle the dark theme handling,
+            # try running the following command:
+            #
+            #     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
             "org/gnome/desktop/interface" = {
               gtk-theme = "adw-gtk3-dark";
               color-scheme = "prefer-dark";

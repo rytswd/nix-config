@@ -8,5 +8,5 @@
     ./zfs.nix
   ];
 
-  core.zfs.enable = lib.mkDefault false; # Being explicit
+  filesystem.zfs.enable = lib.mkDefault false; # Being explicit
 }

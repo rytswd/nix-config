@@ -59,11 +59,15 @@
         "/var/lib/nixos"
         "/var/lib/bluetooth"
         "/var/lib/containers"
+        "/var/lib/docker"
         "/var/lib/fwupd"
         "/var/lib/iwd"
+        "/var/lib/libvirt"
+        "/var/lib/qemu"
         "/var/lib/sddm"
         "/var/lib/syncthing"
         "/var/lib/systemd/coredump"
+        "/var/lib/tailscale"
         "/etc/NetworkManager/system-connections"
       ];
       files = [

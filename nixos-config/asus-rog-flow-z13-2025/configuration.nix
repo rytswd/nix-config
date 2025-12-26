@@ -6,6 +6,7 @@
 {
   imports = [
     ../modules/core
+    ../modules/filesystem
     ../modules/graphics
     ../modules/media
     ../modules/devices
@@ -25,6 +26,7 @@
   ];
 
   core.boot.systemd-boot.enable = true;
+  filesystem.zfs.enable = true;
 
   desktop-environment.gnome.dconf.enable = true;
   devices.yubikey.enable = true;

@@ -5,7 +5,6 @@
       rev = "main";
       # useWorktree = false;  # Default: clone to Coding/.../emacs-config/
       update = true;          # Pull updates on each activation
-      ignoreGlobalGitConfig = true; # Temporary testing
     };
     # "Coding/github.com/rytswd/emacs-config" = {
     #   url = "https://github.com:rytswd/emacs-config.git";

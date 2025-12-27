@@ -36,15 +36,6 @@ let
         description = "Version control system to use (git or jj)";
       };
 
-      ignoreGlobalGitConfig = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          If true, ignores global git config during clone (useful to bypass HTTPS→SSH rewrites).
-          Only applies to git, not jj.
-        '';
-      };
-
       update = mkOption {
         type = types.bool;
         default = false;
@@ -68,14 +59,9 @@ let
       vcsCmd = if repo.vcs == "jj" then pkgs.jujutsu else pkgs.git;
       vcsName = repo.vcs;
 
-      # For git, optionally bypass global config to avoid HTTPS→SSH rewrites
-      gitConfigEnv = if repo.ignoreGlobalGitConfig
-        then "GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_SYSTEM=/dev/null "
-        else "";
-
       cloneCmd = if repo.vcs == "jj"
         then ''${vcsCmd}/bin/jj git clone "${repo.url}" "$REPO_PATH" --colocate --branch "${repo.rev}"''
-        else ''${gitConfigEnv}${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"'';
+        else ''${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"'';
 
       updateCmd = if repo.vcs == "jj"
         then ''${vcsCmd}/bin/jj -R "$REPO_PATH" git fetch && ${vcsCmd}/bin/jj -R "$REPO_PATH" rebase''
@@ -84,11 +70,17 @@ let
       checkDir = if repo.vcs == "jj" then ".jj" else ".git";
     in
     nameValuePair "vcs-clone-${name}" (hm.dag.entryAfter ["writeBoundary" "reloadSystemd"] ''
-      # Ensure SSH is available in PATH for git SSH operations
-      export PATH="${pkgs.openssh}/bin:$PATH"
+      # Run only if we're the actual user (not in another user's activation context)
+      if [ "$(${pkgs.coreutils}/bin/id -un)" != "${config.home.username}" ]; then
+        echo "Skipping git clone for ${name} - running as wrong user"
+        exit 0
+      fi
 
-      # Set SSH_AUTH_SOCK to this user's GPG agent socket (if it exists)
-      # Always override any inherited SSH_AUTH_SOCK to prevent using another user's agent
+      # Clean environment to avoid inheriting other users' configs
+      export PATH="${pkgs.openssh}/bin:${pkgs.git}/bin:${pkgs.coreutils}/bin:$PATH"
+      unset SSH_AUTH_SOCK
+
+      # Set up this user's SSH agent if available
       if [ -S "$HOME/.gnupg/S.gpg-agent.ssh" ]; then
         export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
       fi

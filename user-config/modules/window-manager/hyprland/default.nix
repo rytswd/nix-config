@@ -31,7 +31,7 @@
     };
 
     services.hyprshell = {
-      enable = true;
+      enable = false;
       systemd.args = "-v";
       settings = {
         version = 3;

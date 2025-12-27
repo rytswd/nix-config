@@ -15,10 +15,6 @@
     # feedback loop using Elpaca, and the packages installed here are those that
     # need extra steps configuring using Elpaca.
 
-    # Symlink .emacs.d to Coding directory
-    home.file.".emacs.d".source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/Coding/github.com/rytswd/emacs-config/rytswd";
-
     home.packages = let
       ###----------------------------------------
       ##   Elisp
@@ -140,5 +136,23 @@
         # For performance update with LSP
         pkgs.emacs-lsp-booster
       ];
+
+    # Symlink .emacs.d to Coding directory
+    home.activation.linkEmacsConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      EMACS_CONFIG="${config.home.homeDirectory}/Coding/github.com/rytswd/emacs-config/rytswd"
+      if [ -d "$EMACS_CONFIG" ]; then
+        $DRY_RUN_CMD rm -rf ${config.home.homeDirectory}/.emacs.d
+        $DRY_RUN_CMD ln -sf "$EMACS_CONFIG" ${config.home.homeDirectory}/.emacs.d
+      fi
+    '';
+    # NOTE: The below approach makes use of mkOutOfStoreSymlink utility, which
+    # works by ensuring the symlink gets created without copying the files into
+    # Nix store. However, this may be problematic during the initial machine
+    # setup, where the target files are not available. The above approach makes
+    # use of a simple shell script, which is more idiomatic for Home Manager
+    # use cases.
+    # home.file.".emacs.d".source = config.lib.file.mkOutOfStoreSymlink
+    #   "${config.home.homeDirectory}/Coding/github.com/rytswd/emacs-config/rytswd";
+
   };
 }

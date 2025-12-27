@@ -60,7 +60,7 @@ let
       vcsName = repo.vcs;
 
       cloneCmd = if repo.vcs == "jj"
-        then ''${vcsCmd}/bin/jj git clone "${repo.url}" "$REPO_PATH" --branch "${repo.rev}"''
+        then ''${vcsCmd}/bin/jj git clone "${repo.url}" "$REPO_PATH" --colocate --branch "${repo.rev}"''
         else ''${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"'';
 
       updateCmd = if repo.vcs == "jj"
@@ -73,8 +73,9 @@ let
       # Ensure SSH is available in PATH for git SSH operations
       export PATH="${pkgs.openssh}/bin:$PATH"
 
-      # Ensure SSH_AUTH_SOCK is available for SSH-based operations
-      if [ -z "$SSH_AUTH_SOCK" ] && [ -S "$HOME/.gnupg/S.gpg-agent.ssh" ]; then
+      # Set SSH_AUTH_SOCK to this user's GPG agent socket (if it exists)
+      # Always override any inherited SSH_AUTH_SOCK to prevent using another user's agent
+      if [ -S "$HOME/.gnupg/S.gpg-agent.ssh" ]; then
         export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
       fi
 

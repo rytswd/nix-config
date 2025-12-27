@@ -70,6 +70,9 @@ let
       checkDir = if repo.vcs == "jj" then ".jj" else ".git";
     in
     nameValuePair "vcs-clone-${name}" (hm.dag.entryAfter ["writeBoundary" "reloadSystemd"] ''
+      # Ensure SSH is available in PATH for git SSH operations
+      export PATH="${pkgs.openssh}/bin:$PATH"
+
       # Ensure SSH_AUTH_SOCK is available for SSH-based operations
       if [ -z "$SSH_AUTH_SOCK" ] && [ -S "$HOME/.gnupg/S.gpg-agent.ssh" ]; then
         export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"

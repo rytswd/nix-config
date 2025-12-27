@@ -53,6 +53,9 @@ in
     # Extra modules based on private setup.
     inputs.nix-config-private.user-modules.sops
     inputs.nix-config-private.user-modules.email
+
+    # User specific config
+    ./home-git-clone.nix
   ];
 
   ###----------------------------------------

@@ -137,22 +137,21 @@
         pkgs.emacs-lsp-booster
       ];
 
-    # Clone Emacs configuration repository
-    home.gitClone."Coding/github.com/rytswd/emacs-config" = {
-      url = "git@github.com:rytswd/emacs-config.git";
-      rev = "main";
-      # useWorktree = false;  # Default: clone to Coding/.../emacs-config/
-      # update = false;       # Set to true to pull updates on each activation
-    };
-
-    # Symlink .emacs.d to the rytswd subdirectory in the cloned repository
-    home.activation.linkEmacsConfig = lib.hm.dag.entryAfter ["writeBoundary" "vcs-clone-Coding-github.com-rytswd-emacs-config"] ''
+    # Symlink .emacs.d to Coding directory
+    home.activation.linkEmacsConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
       EMACS_CONFIG="${config.home.homeDirectory}/Coding/github.com/rytswd/emacs-config/rytswd"
       if [ -d "$EMACS_CONFIG" ]; then
         $DRY_RUN_CMD rm -rf ${config.home.homeDirectory}/.emacs.d
         $DRY_RUN_CMD ln -sf "$EMACS_CONFIG" ${config.home.homeDirectory}/.emacs.d
       fi
     '';
-
+    # NOTE: The below approach makes use of mkOutOfStoreSymlink utility, which
+    # works by ensuring the symlink gets created without copying the files into
+    # Nix store. However, this may be problematic during the initial machine
+    # setup, where the target files are not available. The above approach makes
+    # use of a simple shell script, which is more idiomatic for Home Manager
+    # use cases.
+    # home.file.".emacs.d".source = config.lib.file.mkOutOfStoreSymlink
+    #   "${config.home.homeDirectory}/Coding/github.com/rytswd/emacs-config/rytswd";
   };
 }

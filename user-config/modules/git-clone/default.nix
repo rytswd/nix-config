@@ -70,19 +70,21 @@ let
       checkDir = if repo.vcs == "jj" then ".jj" else ".git";
     in
     nameValuePair "vcs-clone-${name}" (hm.dag.entryAfter ["writeBoundary" "reloadSystemd"] ''
-      # Run only if we're the actual user (not in another user's activation context)
-      if [ "$(${pkgs.coreutils}/bin/id -un)" != "${config.home.username}" ]; then
-        echo "Skipping git clone for ${name} - running as wrong user"
+      # Only run git clone if we're actually the target user
+      # This prevents ryota's activation from trying to clone admin's repos with ryota's creds
+      CURRENT_USER=$(${pkgs.coreutils}/bin/whoami)
+      if [ "$CURRENT_USER" != "${config.home.username}" ]; then
+        echo "Skipping git-clone for ${config.home.username} (running as $CURRENT_USER)"
         exit 0
       fi
 
-      # Clean environment to avoid inheriting other users' configs
+      # Ensure we have the tools we need
       export PATH="${pkgs.openssh}/bin:${pkgs.git}/bin:${pkgs.coreutils}/bin:$PATH"
-      unset SSH_AUTH_SOCK
 
-      # Set up this user's SSH agent if available
-      if [ -S "$HOME/.gnupg/S.gpg-agent.ssh" ]; then
-        export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
+      # Prefer this user's GPG agent SSH socket if it exists
+      # This ensures each user uses their own SSH keys/agent
+      if [ -S "${config.home.homeDirectory}/.gnupg/S.gpg-agent.ssh" ]; then
+        export SSH_AUTH_SOCK="${config.home.homeDirectory}/.gnupg/S.gpg-agent.ssh"
       fi
 
       REPO_PATH="${repoPath}"

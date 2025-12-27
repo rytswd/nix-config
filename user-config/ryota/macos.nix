@@ -11,6 +11,7 @@ in {
     # The shell setup defines some aliases, and in order to allow overriding,
     # calling this earlier than other modules.
     ../modules/shell
+    ../modules/git-clone
     ../modules/key-remap/skhd
 
     ../modules/terminal

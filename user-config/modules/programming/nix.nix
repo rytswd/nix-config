@@ -29,5 +29,12 @@
     # For Nixd to pick up the nixpkgs.
     # TODO: I need to also add extra config for Nixd.
     nix.nixPath = [ "nixpkgs=${inputs.nixpkgs-unstable}" ];
+
+    home.gitClone."Coding/github.com/rytswd/nix-config" = {
+      url = "git@github.com:rytswd/nix-config.git";
+      rev = "main";
+      # useWorktree = false;  # Default: clone to Coding/.../emacs-config/
+      # update = false;       # Set to true to pull updates on each activation
+    };
   };
 }

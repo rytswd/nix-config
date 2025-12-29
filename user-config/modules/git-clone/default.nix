@@ -77,24 +77,20 @@ let
                      then repo.bypassGitConfig
                      else isHttps;
 
-      # Environment for bypassing git config
-      bypassEnv = ''GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_SYSTEM=/dev/null'';
+      # Wrapper to optionally bypass git config
+      withBypass = cmd: if shouldBypass
+        then ''${pkgs.coreutils}/bin/env GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_SYSTEM=/dev/null ${cmd}''
+        else cmd;
 
-      cloneCmd = if repo.vcs == "jj"
-        then if shouldBypass
-          then ''${pkgs.coreutils}/bin/env ${bypassEnv} ${vcsCmd}/bin/jj git clone "${repo.url}" "$REPO_PATH" --colocate --branch "${repo.rev}"''
-          else ''${vcsCmd}/bin/jj git clone "${repo.url}" "$REPO_PATH" --colocate --branch "${repo.rev}"''
-        else if shouldBypass
-          then ''${pkgs.coreutils}/bin/env ${bypassEnv} ${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"''
-          else ''${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"'';
+      cloneCmd =
+        if repo.vcs == "jj"
+        then withBypass ''${vcsCmd}/bin/jj git clone "${repo.url}" "$REPO_PATH" --colocate --branch "${repo.rev}"''
+        else withBypass ''${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"'';
 
-      updateCmd = if repo.vcs == "jj"
-        then if shouldBypass
-          then ''${pkgs.coreutils}/bin/env ${bypassEnv} ${vcsCmd}/bin/jj -R "$REPO_PATH" git fetch''
-          else ''${vcsCmd}/bin/jj -R "$REPO_PATH" git fetch''
-        else if shouldBypass
-          then ''${pkgs.coreutils}/bin/env ${bypassEnv} ${vcsCmd}/bin/git -C "$REPO_PATH" pull''
-          else ''${vcsCmd}/bin/git -C "$REPO_PATH" pull'';
+      updateCmd =
+        if repo.vcs == "jj"
+        then withBypass ''${vcsCmd}/bin/jj -R "$REPO_PATH" git fetch''
+        else withBypass ''${vcsCmd}/bin/git -C "$REPO_PATH" pull'';
 
       checkDir = if repo.vcs == "jj" then ".jj" else ".git";
     in

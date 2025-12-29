@@ -81,13 +81,17 @@ let
       bypassEnv = ''GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_SYSTEM=/dev/null'';
 
       cloneCmd = if repo.vcs == "jj"
-        then ''${vcsCmd}/bin/jj git clone "${repo.url}" "$REPO_PATH" --colocate --branch "${repo.rev}"''
+        then if shouldBypass
+          then ''${pkgs.coreutils}/bin/env ${bypassEnv} ${vcsCmd}/bin/jj git clone "${repo.url}" "$REPO_PATH" --colocate --branch "${repo.rev}"''
+          else ''${vcsCmd}/bin/jj git clone "${repo.url}" "$REPO_PATH" --colocate --branch "${repo.rev}"''
         else if shouldBypass
           then ''${pkgs.coreutils}/bin/env ${bypassEnv} ${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"''
           else ''${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"'';
 
       updateCmd = if repo.vcs == "jj"
-        then ''${vcsCmd}/bin/jj -R "$REPO_PATH" git fetch && ${vcsCmd}/bin/jj -R "$REPO_PATH" rebase''
+        then if shouldBypass
+          then ''${pkgs.coreutils}/bin/env ${bypassEnv} ${vcsCmd}/bin/jj -R "$REPO_PATH" git fetch''
+          else ''${vcsCmd}/bin/jj -R "$REPO_PATH" git fetch''
         else if shouldBypass
           then ''${pkgs.coreutils}/bin/env ${bypassEnv} ${vcsCmd}/bin/git -C "$REPO_PATH" pull''
           else ''${vcsCmd}/bin/git -C "$REPO_PATH" pull'';

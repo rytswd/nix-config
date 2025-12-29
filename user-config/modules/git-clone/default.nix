@@ -5,6 +5,9 @@ with lib;
 let
   cfg = config.home.gitClone;
 
+  # Empty git config file for bypassing user's git config
+  emptyGitConfig = pkgs.writeText "empty-git-config" "";
+
   repoModule = types.submodule {
     options = {
       url = mkOption {
@@ -80,7 +83,7 @@ let
       cloneCmd = if repo.vcs == "jj"
         then ''${vcsCmd}/bin/jj git clone "${repo.url}" "$REPO_PATH" --colocate --branch "${repo.rev}"''
         else if shouldBypass
-          then ''GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_SYSTEM=/dev/null ${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"''
+          then ''GIT_CONFIG_GLOBAL=${emptyGitConfig} GIT_CONFIG_SYSTEM=${emptyGitConfig} ${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"''
           else ''${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"'';
 
       updateCmd = if repo.vcs == "jj"

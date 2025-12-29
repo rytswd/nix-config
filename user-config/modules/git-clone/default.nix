@@ -36,6 +36,16 @@ let
         description = "Version control system to use (git or jj)";
       };
 
+      bypassGitConfig = mkOption {
+        type = types.nullOr types.bool;
+        default = null;
+        description = ''
+          If true, ignores git config during clone (useful to prevent HTTPS→SSH rewrites).
+          If null (default), automatically bypasses config for HTTPS URLs only.
+          If false, always uses git config.
+        '';
+      };
+
       update = mkOption {
         type = types.bool;
         default = false;
@@ -59,9 +69,19 @@ let
       vcsCmd = if repo.vcs == "jj" then pkgs.jujutsu else pkgs.git;
       vcsName = repo.vcs;
 
+      # Determine whether to bypass git config
+      # - If bypassGitConfig explicitly set, use that
+      # - Otherwise, auto-bypass for HTTPS URLs to prevent rewrites
+      isHttps = lib.hasPrefix "https://" repo.url;
+      shouldBypass = if repo.bypassGitConfig != null
+                     then repo.bypassGitConfig
+                     else isHttps;
+
       cloneCmd = if repo.vcs == "jj"
         then ''${vcsCmd}/bin/jj git clone "${repo.url}" "$REPO_PATH" --colocate --branch "${repo.rev}"''
-        else ''${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"'';
+        else if shouldBypass
+          then ''GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_SYSTEM=/dev/null ${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"''
+          else ''${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"'';
 
       updateCmd = if repo.vcs == "jj"
         then ''${vcsCmd}/bin/jj -R "$REPO_PATH" git fetch && ${vcsCmd}/bin/jj -R "$REPO_PATH" rebase''

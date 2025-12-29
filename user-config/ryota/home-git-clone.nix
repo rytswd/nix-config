@@ -10,7 +10,7 @@
       url = "git@github.com:rytswd/emacs-config.git";
       rev = "main";
       # useWorktree = false;  # Default: clone to Coding/.../emacs-config/
-      # update = false;       # Set to true to pull updates on each activation
+      update = true;       # Set to true to pull updates on each activation
     };
   };
 }

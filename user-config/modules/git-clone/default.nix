@@ -13,7 +13,7 @@ let
       url = mkOption {
         type = types.str;
         description = "Git repository URL (HTTPS or SSH)";
-        example = "git@github.com:rytswd/emacs-config.git";
+        example = "git@github.com:rytswd/nix-config.git";
       };
 
       rev = mkOption {

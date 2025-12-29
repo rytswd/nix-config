@@ -83,7 +83,7 @@ let
       cloneCmd = if repo.vcs == "jj"
         then ''${vcsCmd}/bin/jj git clone "${repo.url}" "$REPO_PATH" --colocate --branch "${repo.rev}"''
         else if shouldBypass
-          then ''GIT_CONFIG_GLOBAL=${emptyGitConfig} GIT_CONFIG_SYSTEM=${emptyGitConfig} ${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"''
+          then ''${pkgs.coreutils}/bin/env GIT_CONFIG_GLOBAL=${emptyGitConfig} GIT_CONFIG_SYSTEM=${emptyGitConfig} ${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"''
           else ''${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"'';
 
       updateCmd = if repo.vcs == "jj"

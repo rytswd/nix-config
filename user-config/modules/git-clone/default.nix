@@ -77,15 +77,20 @@ let
                      then repo.bypassGitConfig
                      else isHttps;
 
+      # Environment for bypassing git config
+      bypassEnv = ''GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_SYSTEM=/dev/null'';
+
       cloneCmd = if repo.vcs == "jj"
         then ''${vcsCmd}/bin/jj git clone "${repo.url}" "$REPO_PATH" --colocate --branch "${repo.rev}"''
         else if shouldBypass
-          then ''${vcsCmd}/bin/git -c url."https://".insteadOf= -c url."ssh://git@github.com/".insteadOf= clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"''
+          then ''${pkgs.coreutils}/bin/env ${bypassEnv} ${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"''
           else ''${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"'';
 
       updateCmd = if repo.vcs == "jj"
         then ''${vcsCmd}/bin/jj -R "$REPO_PATH" git fetch && ${vcsCmd}/bin/jj -R "$REPO_PATH" rebase''
-        else ''${vcsCmd}/bin/git -C "$REPO_PATH" pull'';
+        else if shouldBypass
+          then ''${pkgs.coreutils}/bin/env ${bypassEnv} ${vcsCmd}/bin/git -C "$REPO_PATH" pull''
+          else ''${vcsCmd}/bin/git -C "$REPO_PATH" pull'';
 
       checkDir = if repo.vcs == "jj" then ".jj" else ".git";
     in

@@ -5,9 +5,6 @@ with lib;
 let
   cfg = config.home.gitClone;
 
-  # Empty git config file for bypassing user's git config
-  emptyGitConfig = pkgs.writeText "empty-git-config" "";
-
   repoModule = types.submodule {
     options = {
       url = mkOption {
@@ -83,7 +80,7 @@ let
       cloneCmd = if repo.vcs == "jj"
         then ''${vcsCmd}/bin/jj git clone "${repo.url}" "$REPO_PATH" --colocate --branch "${repo.rev}"''
         else if shouldBypass
-          then ''${pkgs.coreutils}/bin/env GIT_CONFIG_GLOBAL=${emptyGitConfig} GIT_CONFIG_SYSTEM=${emptyGitConfig} ${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"''
+          then ''${vcsCmd}/bin/git -c url."https://".insteadOf= -c url."ssh://git@github.com/".insteadOf= clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"''
           else ''${vcsCmd}/bin/git clone --branch "${repo.rev}" "${repo.url}" "$REPO_PATH"'';
 
       updateCmd = if repo.vcs == "jj"
@@ -93,19 +90,10 @@ let
       checkDir = if repo.vcs == "jj" then ".jj" else ".git";
     in
     nameValuePair "vcs-clone-${name}" (hm.dag.entryAfter ["writeBoundary" "reloadSystemd"] ''
-      # Only run git clone if we're actually the target user
-      # This prevents ryota's activation from trying to clone admin's repos with ryota's creds
-      CURRENT_USER=$(${pkgs.coreutils}/bin/whoami)
-      if [ "$CURRENT_USER" != "${config.home.username}" ]; then
-        echo "Skipping git-clone for ${config.home.username} (running as $CURRENT_USER)"
-        exit 0
-      fi
-
       # Ensure we have the tools we need
       export PATH="${pkgs.openssh}/bin:${pkgs.git}/bin:${pkgs.coreutils}/bin:$PATH"
 
-      # Prefer this user's GPG agent SSH socket if it exists
-      # This ensures each user uses their own SSH keys/agent
+      # Use this user's GPG agent SSH socket if available
       if [ -S "${config.home.homeDirectory}/.gnupg/S.gpg-agent.ssh" ]; then
         export SSH_AUTH_SOCK="${config.home.homeDirectory}/.gnupg/S.gpg-agent.ssh"
       fi

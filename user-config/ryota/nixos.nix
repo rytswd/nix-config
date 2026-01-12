@@ -18,7 +18,6 @@ in
     ../modules/shell
     # The rest of the module call order is rather arbitrary, just in order of
     # importance for my own use case.
-    ../modules/git-clone
     ../modules/key-remap/xremap
     ../modules/appearance
     ../modules/window-manager

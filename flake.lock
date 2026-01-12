@@ -661,6 +661,24 @@
         "type": "github"
       }
     },
+    "home-git-clone": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_4"
+      },
+      "locked": {
+        "lastModified": 1767974548,
+        "narHash": "sha256-VtUrNThSTC/TC1QoH1mhaIOZP2+nfy5Vt57TXksMydw=",
+        "owner": "rytswd",
+        "repo": "home-git-clone",
+        "rev": "f13343faeb0be47ffa85a36b51b9d2616961d3bc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rytswd",
+        "repo": "home-git-clone",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -1614,6 +1632,22 @@
     },
     "nixpkgs_10": {
       "locked": {
+        "lastModified": 1763966396,
+        "narHash": "sha256-6eeL1YPcY1MV3DDStIDIdy/zZCDKgHdkCmsrLJFiZf0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5ae3b07d8d6527c42f17c876e404993199144b6a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_11": {
+      "locked": {
         "lastModified": 1765779637,
         "narHash": "sha256-KJ2wa/BLSrTqDjbfyNx70ov/HdgNBCBBSQP3BIzKnv4=",
         "owner": "NixOS",
@@ -1754,6 +1788,22 @@
       }
     },
     "nixpkgs_4": {
+      "locked": {
+        "lastModified": 1767892417,
+        "narHash": "sha256-dhhvQY67aboBk8b0/u0XB6vwHdgbROZT3fJAjyNh5Ww=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "3497aa5c9457a9d88d71fa93a4a8368816fbeeba",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_5": {
       "locked": {
         "lastModified": 1766070988,
         "narHash": "sha256-G/WVghka6c4bAzMhTwT2vjLccg/awmHkdKSd2JrycLc=",
@@ -1930,6 +1980,7 @@
         "emacs-overlay": "emacs-overlay",
         "fenix": "fenix",
         "ghostty": "ghostty",
+        "home-git-clone": "home-git-clone",
         "home-manager": "home-manager_3",
         "hyprland": "hyprland",
         "hyprland-plugins": "hyprland-plugins",

@@ -100,6 +100,7 @@
     };
 
     llm-agents.url = "github:numtide/llm-agents.nix";
+    home-git-clone.url = "github:rytswd/home-git-clone";
     treesitter-grammars.url = "git+ssh://git@github.com/0-re/treesitter-grammars.nix";
 
     swapdir = {

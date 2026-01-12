@@ -1,16 +1,14 @@
+{ inputs, ... }:
+
 {
+  imports = [ inputs.home-git-clone.homeManagerModules.default ];
+
   home.gitClone = {
-    "Coding/github.com/rytswd/nix-config" = {
-      url = "git@github.com:rytswd/nix-config.git";
-      rev = "main";
-      # useWorktree = false;  # Default: clone to Coding/.../emacs-config/
-      # update = false;       # Set to true to pull updates on each activation
-    };
-    "Coding/github.com/rytswd/emacs-config" = {
-      url = "git@github.com:rytswd/emacs-config.git";
-      rev = "main";
-      # useWorktree = false;  # Default: clone to Coding/.../emacs-config/
-      update = true;       # Set to true to pull updates on each activation
-    };
+    "Coding/github.com/rytswd/nix-config".url = "git@github.com:rytswd/nix-config.git";
+    "Coding/github.com/rytswd/emacs-config".url = "git@github.com:rytswd/emacs-config.git";
+  };
+
+  home.jjClone = {
+    "Coding/github.com/rytswd/ren".url = "git@github.com:rytswd/ren.git";
   };
 }

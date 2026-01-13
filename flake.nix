@@ -11,19 +11,15 @@
   description = "NixOS and other Nix configurations for rytswd";
 
   inputs = {
-    nixpkgs = {
-      url = "github:NixOS/nixpkgs/release-24.11";
-    };
-
-    nixpkgs-unstable = {
-      url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-      # NOTE: Only used when I need to test the absolute latest. This would mean
-      # I wouldn't be able to use the binary cache.
-      # url = "github:NixOS/nixpkgs/master";
-    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # NOTE: Only used when I need to test the absolute latest. This would mean
+    # I wouldn't be able to use the binary cache.
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
+      # Use latest unstable for home-manager.
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 

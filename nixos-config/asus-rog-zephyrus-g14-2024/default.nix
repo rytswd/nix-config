@@ -1,14 +1,23 @@
-{ nixpkgs
-, nixpkgs-unstable
-, home-manager
-, system
-, overlays
-, inputs
-, ...}:
+{
+  nixpkgs,
+  nixpkgs-unstable,
+  home-manager,
+  system,
+  overlays,
+  inputs,
+  ...
+}:
 
-nixpkgs-unstable.lib.nixosSystem rec {
+nixpkgs.lib.nixosSystem rec {
   inherit system;
-  specialArgs = { inherit nixpkgs nixpkgs-unstable home-manager overlays; };
+  specialArgs = {
+    inherit
+      nixpkgs
+      nixpkgs-unstable
+      home-manager
+      overlays
+      ;
+  };
   modules = [
     inputs.disko.nixosModules.disko
     # NOTE: This is not using impermanence.
@@ -45,24 +54,30 @@ nixpkgs-unstable.lib.nixosSystem rec {
     # ../../user-config/ryota/persist-impermanence.nix
 
     # Set up home-manager and users.
-    home-manager.nixosModules.home-manager {
-      # NOTE: Without this, I get an error applying home-manager updates
-      # (following the addition of GTK config).
-      home-manager.backupFileExtension = "backup";
+    home-manager.nixosModules.home-manager
+    {
+      home-manager = {
+        # NOTE: Without this, I get an error applying home-manager updates
+        # (following the addition of GTK config).
+        backupFileExtension = "backup";
+        useGlobalPkgs = false;
+        useUserPackages = true;
+        extraSpecialArgs = { inherit inputs; };
 
-      # NOTE: I'm depending on the NixOS packages, but I shouldn't need to for
-      # home-manager. This is something I need to sort out.
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      # home-manager.sharedModules = [
-      #   # Placeholder
-      # ];
-      home-manager.extraSpecialArgs = { inherit inputs; };
+        # Set nixpkgs config for all home-manager users
+        sharedModules = [{
+          nixpkgs.config.allowUnfree = true;
+          nixpkgs.overlays = overlays;
+        }];
 
-      # Each user needs to be set up separately. Because home-manager needs to
-      # know where the home directory is, I need to specify the username again.
-      home-manager.users.admin = ../../user-config/admin/nixos.nix;
-      home-manager.users.ryota = ../../user-config/ryota/nixos.nix;
+        # Each user needs to be set up separately.
+        # Because home-manager needs to know where the home directory is,
+        # I need to specify the username again.
+        users = {
+          admin = ../../user-config/admin/nixos.nix;
+          ryota = ../../user-config/ryota/nixos.nix;
+        };
+      };
     }
   ];
 }

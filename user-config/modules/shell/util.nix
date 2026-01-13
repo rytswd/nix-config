@@ -63,6 +63,7 @@
       pkgs.neofetch     # https://github.com/dylanaraps/neofetch
       pkgs.fastfetch    # https://github.com/fastfetch-cli/fastfetch
       pkgs.asciinema_3  # https://github.com/asciinema/asciinema
+      pkgs.asciinema-agg # https://github.com/asciinema/agg
 
       # pkgs.zellij       # https://github.com/zellij-org/zellij
       # pkgs.sd           # https://github.com/chmln/sd

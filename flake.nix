@@ -96,13 +96,10 @@
     };
 
     llm-agents.url = "github:numtide/llm-agents.nix";
+    swapdir.url = "git+ssh://git@github.com/rytswd/swapdir";
+    # swapdir.url = "github:rytswd/swapdir";
     home-git-clone.url = "github:rytswd/home-git-clone";
     treesitter-grammars.url = "git+ssh://git@github.com/0-re/treesitter-grammars.nix";
-
-    swapdir = {
-      url = "git+ssh://git@github.com/rytswd/swapdir";
-      # url = "github:rytswd/swapdir";
-    };
 
     ###----------------------------------------
     ##  NixOS Specific

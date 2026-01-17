@@ -1517,13 +1517,15 @@
         "nixpkgs-unstable": [
           "nixpkgs-unstable"
         ],
-        "sops-nix": "sops-nix"
+        "sops-nix": [
+          "sops-nix"
+        ]
       },
       "locked": {
-        "lastModified": 1768613502,
-        "narHash": "sha256-BA2bs/IyK1pXni95/dEK4IphpR8A+TmUuzTuyj+k7dQ=",
+        "lastModified": 1768619884,
+        "narHash": "sha256-9gE9ecH1lf629OxE/M1DukI1pnUOjelOkEWGQep2Y+g=",
         "ref": "main",
-        "rev": "03245777c8794697cf439212f10bff9386e0e597",
+        "rev": "84c5ae4290a3b490d276e79041324cd78cf7d9d3",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/rytswd/nix-config-private"
@@ -1610,22 +1612,6 @@
       "original": {
         "owner": "NixOS",
         "ref": "nixos-25.11",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-stable_3": {
-      "locked": {
-        "lastModified": 1730602179,
-        "narHash": "sha256-efgLzQAWSzJuCLiCaQUCDu4NudNlHdg2NzGLX5GYaEY=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "3c2f1c4ca372622cb2f9de8016c9a0b1cbd0f37c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "release-24.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -1993,7 +1979,7 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "roc": "roc",
         "rust-overlay": "rust-overlay_3",
-        "sops-nix": "sops-nix_2",
+        "sops-nix": "sops-nix",
         "swapdir": "swapdir",
         "treesitter-grammars": "treesitter-grammars",
         "xremap": "xremap",
@@ -2082,42 +2068,20 @@
     "sops-nix": {
       "inputs": {
         "nixpkgs": [
-          "nix-config-private",
-          "nixpkgs-unstable"
-        ],
-        "nixpkgs-stable": "nixpkgs-stable_3"
-      },
-      "locked": {
-        "lastModified": 1731364708,
-        "narHash": "sha256-HC0anOL+KmUQ2hdRl0AtunbAckasxrkn4VLmxbW/WaA=",
-        "owner": "Mic92",
-        "repo": "sops-nix",
-        "rev": "4c91d52db103e757fc25b58998b0576ae702d659",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Mic92",
-        "repo": "sops-nix",
-        "type": "github"
-      }
-    },
-    "sops-nix_2": {
-      "inputs": {
-        "nixpkgs": [
           "nixpkgs-unstable"
         ]
       },
       "locked": {
-        "lastModified": 1759950140,
-        "narHash": "sha256-Y0dIqfJo7uuFoYbN44r1XIiAkdMB6y2Lk4efBIiepmI=",
-        "owner": "sean-xyz",
+        "lastModified": 1768618786,
+        "narHash": "sha256-jGTUmQYS5a2cJNkuZ+ggWQVg3vi5LVuWxEkY3VUbEhA=",
+        "owner": "rytswd",
         "repo": "sops-nix",
-        "rev": "6438841102de14a3f9daef984db94acb4b887cff",
+        "rev": "9a2b5bf8e784cdeaae87640ef6ba6e06d7153a86",
         "type": "github"
       },
       "original": {
-        "owner": "sean-xyz",
-        "ref": "age-plugin",
+        "owner": "rytswd",
+        "ref": "add-yubikey-age-support",
         "repo": "sops-nix",
         "type": "github"
       }

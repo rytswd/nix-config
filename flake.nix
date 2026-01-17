@@ -33,7 +33,8 @@
       # Ref: https://github.com/Mic92/sops-nix/pull/781
       # url = "github:Mic92/sops-nix";
       # url = "github:NovaViper/sops-nix/age-plugin";
-      url = "github:sean-xyz/sops-nix/age-plugin";
+      # url = "github:sean-xyz/sops-nix/age-plugin";
+      url = "github:rytswd/sops-nix/add-yubikey-age-support";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     agenix = {
@@ -45,6 +46,7 @@
       url = "git+ssh://git@github.com/rytswd/nix-config-private?ref=main&shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
+      inputs.sops-nix.follows = "sops-nix";
     };
 
     ###----------------------------------------

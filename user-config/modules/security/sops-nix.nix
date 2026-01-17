@@ -38,6 +38,8 @@
 
       age.plugins = [ pkgs.age-plugin-yubikey ];
 
+      age.requirePcscd = true;
+
       secrets = {
         "email/main-1" = {};
         "email/main-2" = {};

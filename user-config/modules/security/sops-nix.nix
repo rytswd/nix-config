@@ -34,7 +34,8 @@
       #
       # The age recipient key generated should only be passed to the private
       # repo with SOPS encryption target.
-      age.keyFile = "${config.xdg.dataHome}/sops/age/local-keys.txt";
+      # age.keyFile = "${config.xdg.dataHome}/sops/age/local-keys.txt";
+      age.keyFile = "${config.xdg.configFile}/sops/age/keys.txt";
 
       age.plugins = [ pkgs.age-plugin-yubikey ];
 

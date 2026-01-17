@@ -5,6 +5,7 @@
 
   home.gitClone = {
     "Coding/github.com/rytswd/nix-config".url = "git@github.com:rytswd/nix-config.git";
+    "Coding/github.com/rytswd/nix-config-private".url = "git@github.com:rytswd/nix-config-private.git";
     "Coding/github.com/rytswd/emacs-config".url = "git@github.com:rytswd/emacs-config.git";
   };
 

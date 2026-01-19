@@ -78,6 +78,10 @@
     # and thus disabling it.
     # services.yubikey-agent.enable = true;
 
+    programs.yubikey-touch-detector = {
+      enable = true;
+    };
+
     # TODO: Check if this is necessary. Probably this is duplicating some other
     # settings (and I rely more on home-manager config anyways).
     programs.gnupg.agent = {

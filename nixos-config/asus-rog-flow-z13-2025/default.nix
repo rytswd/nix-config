@@ -12,6 +12,7 @@ nixpkgs-unstable.lib.nixosSystem rec {
   inherit system;
   specialArgs = {
     inherit
+      inputs
       nixpkgs
       nixpkgs-unstable
       home-manager

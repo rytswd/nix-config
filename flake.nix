@@ -17,6 +17,10 @@
     # I wouldn't be able to use the binary cache.
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
 
+    # NOTE: For any flake reference that should use dedicated binary cache,
+    # I should not update the nixpkgs input. When I want to get the latest
+    # binary, I should update it with "nixpkgs-unstable" or master.
+
     home-manager = {
       url = "github:nix-community/home-manager/master";
       # Use latest unstable for home-manager.
@@ -25,6 +29,7 @@
 
     darwin = {
       url = "github:lnl7/nix-darwin/master";
+      # Use latest unstable for macOS.
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
@@ -48,16 +53,6 @@
     ###----------------------------------------
     ##  Language related flakes
     #------------------------------------------
-    # Rust -- TODO: check whether I should use fenix or rust-overlay
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      # inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    fenix = {
-      url = "github:nix-community/fenix";
-      # inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
     # Roc
     roc = {
       url = "github:roc-lang/roc";
@@ -121,26 +116,19 @@
 
     awww = {
       url = "git+https://codeberg.org/LGFae/awww";
-      # inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
-      # inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # Window Manager
     niri= {
       url = "github:sodiboo/niri-flake";
-      # inputs.nixpkgs.follows = "nixpkgs-unstable";
-      # inputs.nixpkgs-stable.follows = "nixpkgs-unstable";
     };
 
     hyprland = {
       url = "github:hyprwm/Hyprland";
-      # NOTE: Do not update the nixpkgs input, as this could cause the cache
-      # handling to fail.
-      # inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
@@ -166,38 +154,30 @@
     # + Overlays
 
     # Language related overlays
-    goOverlay = (final: prev: {
-      go = nixpkgs-unstable.legacyPackages.${prev.stdenv.hostPlatform.system}.go_1_25;
-    });
-    # rustOverlay = inputs.rust-overlay.overlays.default;
-    fenixOverlay = inputs.fenix.overlays.default;
     zigOverlay = inputs.zig-overlay.overlays.default;
     rocOverlay = (final: prev: {
       rocpkgs = inputs.roc.packages.${prev.stdenv.hostPlatform.system};
     });
-    # treesitterOverlay = inputs.treesitter-grammars.overlays.default;
 
     # Editor related overlays
-    emacsOverlay = inputs.emacs-overlay.overlays.default;
-    vscodeOverlay = (import ./overlays/vscode.nix);
+    # emacsOverlay = inputs.emacs-overlay.overlays.default;
+    # vscodeOverlay = (import ./overlays/vscode.nix);
 
     # Other utility related overlays
+    treesitterOverlay = inputs.treesitter-grammars.overlays.default;
     treeSitterOverlay = (import ./overlays/tree-sitter.nix );
     # gripOverlay = (import ./overlays/grip.nix );
     # erdtreeOverlay = (import ./overlays/erdtree.nix );
     # yaziOverlay = (import ./overlays/yazi.nix );
 
-    # NixOS related overlays
-    niriOverlay = inputs.niri.overlays.niri;
     overlays = [
-      goOverlay
       # rustOverlay
-      fenixOverlay
+      # fenixOverlay
       zigOverlay
       rocOverlay
 
-      emacsOverlay
-      vscodeOverlay
+      # emacsOverlay
+      # vscodeOverlay
 
       # TODO: merge into one. treesitter is coming from flake, treeSitter is local.
       # treeSitterOverlay
@@ -206,8 +186,6 @@
       # gripOverlay
       # erdtreeOverlay
       # yaziOverlay
-
-      niriOverlay # TODO: Make this only for NixOS.
     ];
 
   in {

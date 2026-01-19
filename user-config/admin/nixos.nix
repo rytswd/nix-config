@@ -63,6 +63,9 @@ in
   xdg.enable = true;
 
   home = {
+    # I specifically use different version for system and home.
+    enableNixpkgsReleaseCheck = false;
+
     username = "${username}";
     homeDirectory = "/home/${username}";
 

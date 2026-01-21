@@ -39,7 +39,6 @@ let
         pkgs.git
         pkgs.yubikey-manager
         pkgs.coreutils
-        pkgs.gnugrep
       ]
     }
 
@@ -60,7 +59,6 @@ let
       # IMPORTANT: user.signingKey points to the .pub file in ~/.ssh
       git config -f "${statusFile}" user.signingKey "$KEY_PATH"
       git config -f "${statusFile}" gpg.format "ssh"
-      git config -f "${statusFile}" commit.gpgSign "true"
     else
       echo "YubiKey $SERIAL found, but key file missing at $KEY_PATH"
       truncate -s 0 "${statusFile}"

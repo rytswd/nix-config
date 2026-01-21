@@ -12,7 +12,7 @@
   config = lib.mkIf config.llm.codex.enable {
     home.packages = with inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
       codex
-      code
+      # code
     ];
   };
 }

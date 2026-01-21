@@ -33,13 +33,22 @@
 
     # Git config equivalent
     programs.git = {
+      # IMPORTANT: Include the mutable file that the YubiKey script writes to.
+      # If the file is empty (no key), Git just ignores it.
+      includes = [
+        { path = "${config.xdg.configHome}/git/yubikey-status"; }
+      ];
+
       settings = {
         user = {
           name = "Ryota";
-          # NOTE: email is set below with includes.
+          # NOTE: email is set separately.
           useConfigOnly = true;
+          # REMOVED: signingkey (handled dynamically)
           # Key with YubiKey
-          signingkey = "0651ED8112A83CB5";
+          # signingkey = "0D952F25BB1123EA";
+          # Old with 3 YubiKeys
+          # signingkey = "0651ED8112A83CB5";
           # Old ECC based
           # signingkey = "E0784F1CC9B94CFF";
           # Old RSA based

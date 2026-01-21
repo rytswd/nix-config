@@ -1419,11 +1419,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1768745902,
-        "narHash": "sha256-gmSD6lw6PXv+m+mxXci3jC0DUsQoyWCEIoQHKpcU3Xw=",
+        "lastModified": 1768963675,
+        "narHash": "sha256-44B5JgSSOoSX9tn0W+5X6K4nVreNWUN5+CncbANRDfQ=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "dc76b44fe668048b4e6960d13cc2d6545616c961",
+        "rev": "1cbe61f4954d94b0c07c7ef4020bb8f6de6b0c60",
         "type": "github"
       },
       "original": {
@@ -1503,10 +1503,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1768820192,
-        "narHash": "sha256-U3QWMw9Uo0lJe2gCFJXpwbxdKwyl+lgqv0Vy8fBk2PE=",
+        "lastModified": 1768969666,
+        "narHash": "sha256-AUzJQIRGD/dOSneAOeQ+26uZ9aHIrtlyyDbeb4D8ONc=",
         "ref": "main",
-        "rev": "ca6e4ae0dd3aadfd0594aee963b1e00bc4b8a1a2",
+        "rev": "cf43fe6a4cfb6ac97bd57d09ade4593f452928d2",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/rytswd/nix-config-private"
@@ -1756,11 +1756,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1768569498,
-        "narHash": "sha256-bB6Nt99Cj8Nu5nIUq0GLmpiErIT5KFshMQJGMZwgqUo=",
+        "lastModified": 1768875095,
+        "narHash": "sha256-dYP3DjiL7oIiiq3H65tGIXXIT1Waiadmv93JS0sS+8A=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "be5afa0fcb31f0a96bf9ecba05a516c66fcd8114",
+        "rev": "ed142ab1b3a092c4d149245d0c4126a5d7ea00b0",
         "type": "github"
       },
       "original": {

@@ -15,6 +15,8 @@
       # https://github.com/xremap/xremap?tab=readme-ov-file#running-xremap-without-sudo
       extraRules = ''
         KERNEL=="uinput", GROUP="input", TAG+="uaccess"
+        ACTION=="add|remove", SUBSYSTEM=="usb", ATTRS{idVendor}=="1050", \
+            RUN+="${pkgs.systemd}/bin/machinectl shell --uid=ryota .host /bin/sh -c 'systemctl --user start yk-git-update.service || true'"
       '';
     };
   };

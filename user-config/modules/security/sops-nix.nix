@@ -15,48 +15,16 @@
     sops = let
       private-repo = (builtins.toString inputs.nix-config-private);
     in {
-      defaultSopsFile = "${private-repo}/secrets/main.yaml";
+      # Dummy data, this definition is actually provided by module definition
+      # in the private repo. There is a strong assertion in place and when not
+      # provided, this would cause eval time error.
+      defaultSopsFile = lib.mkDefault "/dummy.yaml";
       defaultSopsFormat = "yaml";
 
-      # NOTE: The main key file I use in most cases is with YubiKey, and as of
-      # writing in 2025, key with passphrase does not work well with SOPS Nix.
-      # For that reason, I opted to create a dedicate age recipient for each
-      # machine I need, and use multiple recipient support by age / SOPS.
-      #
-      # Ref: https://github.com/Mic92/sops-nix/issues/377
-      # age.keyFile = "${home}/.config/sops/age/keys.txt";
-
-      # NOTE: This local key needs to be generated manually, and also the
-      # recipient key needs to be added to the SOPS encrypted secrets.
-      #
-      #     mkdir -p $XDG_DATA_HOME/sops/age
-      #     age-keygen -o $XDG_DATA_HOME/sops/age/local-keys.txt
-      #
-      # The age recipient key generated should only be passed to the private
-      # repo with SOPS encryption target.
-      # age.keyFile = "${config.xdg.dataHome}/sops/age/local-keys.txt";
-      age.keyFile = "${config.xdg.configHome}/sops-nix/yubikey-age.txt";
-
-      age.plugins = [ pkgs.age-plugin-yubikey ];
-
-      age.requirePcscd = true;
-
-      secrets = {
-        "email/main-1" = {};
-        "email/main-2" = {};
-        "email/main-3" = {};
-        "email/personal-1" = {};
-        "email/personal-2" = {};
-        "email/gaming-1" = {};
-        "email/gaming-2" = {};
-
-        "services/atuin/endpoint" = {};
-
-        # # Work related
-        # "email/work-1" = {
-        #   sopsFile = "${private-repo}/secrets/work.yaml";
-        # };
-      };
+      # Dummy data, this definition is actually provided by module definition
+      # in the private repo. There is a strong assertion in place and when not
+      # provided, this would cause eval time error.
+      age.keyFile = lib.mkDefault "dummy.txt";
     };
   };
 }

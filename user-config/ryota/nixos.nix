@@ -50,8 +50,8 @@ in
     ../modules/virtualisation
 
     # Extra modules based on private setup.
-    inputs.nix-config-private.user-modules.sops
-    inputs.nix-config-private.user-modules.email
+    inputs.nix-config-private.homeManagerModules.sops-nix
+    inputs.nix-config-private.homeManagerModules.email
 
     # User specific config
     ./home-git-clone.nix

@@ -12,9 +12,7 @@
   };
 
   config = lib.mkIf config.security.sops-nix.enable {
-    sops = let
-      private-repo = (builtins.toString inputs.nix-config-private);
-    in {
+    sops = {
       # Dummy data, this definition is actually provided by module definition
       # in the private repo. There is a strong assertion in place and when not
       # provided, this would cause eval time error.

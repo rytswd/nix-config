@@ -35,7 +35,7 @@
         #     nix repl
         #     > builtins.hashString "sha256" "SECRET_NAME"
         #
-        file = ./maesral.ini;
+        file = ./maestral.ini;
         path = "${config.xdg.configHome}/maestral/maestral.ini";
       };
     };

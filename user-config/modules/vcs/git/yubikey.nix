@@ -107,6 +107,7 @@ in
 
         programs.ssh = {
           enable = true;
+          enableDefaultConfig = false;
           # We explicitly tell SSH to use the AUTH key, not the signing key
           matchBlocks = {
             "github.com" = {
@@ -117,6 +118,13 @@ in
               ) keys;
             };
             # Add gitlab or others if needed
+
+            # Suppress warnings from trying to use all YubiKeys.
+            "*" = {
+              extraOptions = {
+                LogLevel = "ERROR";
+              };
+            };
           };
         };
 

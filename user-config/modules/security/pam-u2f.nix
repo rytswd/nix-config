@@ -1,8 +1,10 @@
-{ pkgs
-, lib
-  , config
-  , inputs
-, ...}:
+{
+  pkgs,
+  lib,
+  config,
+  inputs,
+  ...
+}:
 
 {
   options = {
@@ -12,12 +14,14 @@
   };
 
   config = lib.mkIf (config.security.pam-u2f.enable && config.security.sops-nix.enable) {
-    sops.secrets."yubikey-pam-u2f" = let
-      private-repo = (builtins.toString inputs.nix-config-private);
-    in {
-      sopsFile = "${private-repo}/keys/yubikey/pam-u2f.yaml";
-      key = "data";
-      path = "${config.xdg.configHome}/Yubico/u2f_keys";
-    };
+    sops.secrets."yubikey-pam-u2f" =
+      let
+        private-repo = (builtins.toString inputs.nix-config-private);
+      in
+      {
+        sopsFile = "${private-repo}/keys/yubikey/pam-u2f.yaml";
+        key = "data";
+        path = "${config.xdg.configHome}/Yubico/u2f_keys";
+      };
   };
 }

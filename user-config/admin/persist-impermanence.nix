@@ -2,7 +2,6 @@
 # Only import when impermanence is used.
 {
   home.persistence."/nix/persist/home/admin" = {
-    allowOther = true;
     directories = [
       ".ssh"
     ];

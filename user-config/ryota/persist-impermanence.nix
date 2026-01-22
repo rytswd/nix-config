@@ -2,7 +2,6 @@
 # Only import when impermanence is used.
 {
   home.persistence."/nix/persist/home/ryota" = {
-    allowOther = true;
     directories = [
       ###----------------------------------------
       ##  Common directories
@@ -45,6 +44,7 @@
       ".cache/Proton"
 
       # Browsers
+      ".zen"
       ".cache/vivaldi"
       ".cache/zen"
 

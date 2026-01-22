@@ -37,7 +37,6 @@
       ##   Security related
       #--------------------------------
       pkgs.mkcert       # https://github.com/FiloSottile/mkcert
-      pkgs.pass         # https://www.passwordstore.org/
       pkgs.openssl
 
       ###------------------------------

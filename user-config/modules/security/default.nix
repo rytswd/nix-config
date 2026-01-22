@@ -8,6 +8,7 @@
     ./age.nix
     ./gpg.nix
     ./pam-u2f.nix
+    ./pass.nix
     ./sops.nix
 
     # NOTE: Importing below would enable regardless.
@@ -17,6 +18,7 @@
   security.age.enable = lib.mkDefault true;
   security.gpg.enable = lib.mkDefault true;
   security.pam-u2f.enable = lib.mkDefault true;
+  security.pass.enable = lib.mkDefault true;
   security.sops.enable = lib.mkDefault true;
   security.sops-nix.enable = lib.mkDefault true;
 }

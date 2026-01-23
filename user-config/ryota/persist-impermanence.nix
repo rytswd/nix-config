@@ -35,6 +35,7 @@
       ##  Application specific
       #------------------------------------------
       # Emacs
+      ".emacs.d"
       ".cache/mu"
       ".cache/emacs"
       ".cache/org-persist"

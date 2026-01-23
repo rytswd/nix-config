@@ -57,6 +57,7 @@
       ##  Tooling
       #------------------------------------------
       ".cache/awww"
+      ".cache/starship"
       ".local/share/atuin"
       ".local/share/docker"
       ".local/share/zoxide"

@@ -170,8 +170,8 @@
       home.activation.linkEmacsConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         EMACS_CONFIG="${config.home.homeDirectory}/Coding/github.com/rytswd/emacs-config/rytswd"
         if [ -d "$EMACS_CONFIG" ]; then
-          $DRY_RUN_CMD rm -rf ${config.home.homeDirectory}/.emacs.d
-          $DRY_RUN_CMD ln -sf "$EMACS_CONFIG" ${config.home.homeDirectory}/.emacs.d
+          $DRY_RUN_CMD rm -rf ${config.home.homeDirectory}/.config/emacs
+          $DRY_RUN_CMD ln -sf "$EMACS_CONFIG" ${config.home.homeDirectory}/.config/emacs
         fi
       '';
       # NOTE: The below approach makes use of mkOutOfStoreSymlink utility, which

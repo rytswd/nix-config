@@ -35,7 +35,6 @@
       ##  Application specific
       #------------------------------------------
       # Emacs
-      { directory = ".emacs.d"; mode = "u=rwx,g=rwx,o=rwx"; }
       ".cache/mu"
       ".cache/emacs"
       ".cache/org-persist"

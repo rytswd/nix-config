@@ -4,6 +4,7 @@
   home.persistence."/nix/persist/home/admin" = {
     directories = [
       ".ssh"
+      ".config"
     ];
     files = [
       # To be updated

@@ -20,6 +20,7 @@
       ".password-store"
       ".ssh"
       ".gnupg"
+      ".config"
 
       ###========================================
       ##  XDG Cache & Data & State

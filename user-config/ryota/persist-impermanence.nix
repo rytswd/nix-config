@@ -30,6 +30,7 @@
       ".cache/nix"
       ".local/share/direnv"
       ".local/share/fonts"
+      ".local/state/nix"
 
       ###----------------------------------------
       ##  Application specific

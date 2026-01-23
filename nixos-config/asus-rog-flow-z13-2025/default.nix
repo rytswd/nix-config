@@ -80,7 +80,6 @@ nixpkgs-unstable.lib.nixosSystem rec {
       home-manager.users.admin = {
         imports = [
           # Impermanence setup enabled for this device.
-          inputs.impermanence.homeManagerModules.impermanence
           ../../user-config/admin/persist-impermanence.nix
           ../../user-config/admin/nixos.nix
         ];
@@ -88,7 +87,6 @@ nixpkgs-unstable.lib.nixosSystem rec {
       home-manager.users.ryota =  {
         imports = [
           # Impermanence setup enabled for this device.
-          inputs.impermanence.homeManagerModules.impermanence
           ../../user-config/ryota/persist-impermanence.nix
           ../../user-config/ryota/nixos.nix
         ];

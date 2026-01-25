@@ -16,8 +16,8 @@
       configFile = {
         "alacritty/alacritty.toml".source =
           if pkgs.stdenv.isDarwin
-          then ./alacritty-for-macos.toml
-          else ./alacritty-for-nixos.toml;
+          then ./macos.toml
+          else ./nixos.toml;
       };
     };
   };

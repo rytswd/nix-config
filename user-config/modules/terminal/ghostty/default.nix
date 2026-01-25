@@ -28,8 +28,8 @@
     xdg.configFile = {
       "ghostty/config".source =
         if pkgs.stdenv.isDarwin
-        then ./ghostty-for-macos.conf
-        else ./ghostty-for-nixos.conf;
+        then ./macos.conf
+        else ./nixos.conf;
     };
   };
 }

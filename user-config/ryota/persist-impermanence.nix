@@ -20,7 +20,7 @@
       ".password-store"
       ".ssh"
       ".gnupg"
-      ".config"
+      ".config" # This captures most items.
 
       ###========================================
       ##  XDG Cache & Data & State
@@ -83,7 +83,7 @@
       ".cache/ms-playwright-go"
     ];
     files = [
-      # To be updated
+      ".claude.json"
     ];
   };
 }

@@ -1,0 +1,20 @@
+#+title: PAM (Pluggable Authentication Module) with U2F (Universal 2nd Factor)
+
+PAM is a generic framework for authentication.
+By using PAM with U2F (such as hardware security keys), I can make use of the login authentication by simply using one of my YubiKeys.
+
+Because U2F in my case is based on YubiKey, all the private keys are stored on YubiKey, allowing the U2F keys to be a simple plaintext file.
+
+* How to generate ~u2f-keys.txt~ file
+In order to support multiple YubiKeys, I need to run the following commands:
+#+begin_src bash
+  nix shell nixpkgs#pam_u2f
+
+  # With the first key, simply direct stdout to the target file
+  pamu2fcfg     > ./u2f_keys.txt
+
+  # With the second key and onward, I need to provide "-n" flag,
+  # and append to the file.
+  pamu2fcfg -n >> ./u2f_keys.txt
+#+end_src
+

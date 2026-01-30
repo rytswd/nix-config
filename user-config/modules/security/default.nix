@@ -7,7 +7,7 @@
   imports = [
     ./age.nix
     ./gpg.nix
-    ./pam-u2f.nix
+    ./pam-u2f
     ./pass.nix
     ./sops.nix
 

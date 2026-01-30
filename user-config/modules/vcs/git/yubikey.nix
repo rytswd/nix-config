@@ -7,7 +7,7 @@
 }:
 
 let
-  # Define your keys here (Serial -> Secret Name mapping)
+  # Define my keys here (Serial -> Secret Name mapping)
   keys = {
     "28656036" = {
       auth.publicKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIIey7k133RLvHWG7AybBxK8la06QCKw5OGoxvi0IWqUaAAAACHNzaDpBdXRo yubikey-28656036-auth";

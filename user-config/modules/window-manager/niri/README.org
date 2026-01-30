@@ -1,4 +1,4 @@
-#+title: Niri
+#+title: niri
 
 https://github.com/YaLTeR/niri
 

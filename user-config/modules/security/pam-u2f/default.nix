@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.security.pam-u2f.enable {
-    xdg.config = {
+    xdg.configFile = {
       "Yubico/u2f_keys".source = ./u2f-keys.txt;
     };
   };

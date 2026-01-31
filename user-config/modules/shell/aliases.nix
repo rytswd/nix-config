@@ -18,12 +18,18 @@
       "......" = "cd ../../../../..";
 
       c = "clear";
-      cdt = "cd $(mktemp -d)";
+      # NOTE: This breaks Nushell, and thus taking it out. Other shell can
+      # have a dedicated definition for this support.
+      # cdt = "cd $(mktemp -d)";
       rmf = "rm -rf";
 
-      # TODO: Add tar and tgz
+      # Compression / Decompression
+      tar = "tar -cf";
       untar = "tar -xf";
+      tgz = "tar -zcf";
       untgz = "tar -zxf";
+      lstar = "tar -tf";
+      lstgz = "tar -ztf";
 
       vi = "nvim";
     };

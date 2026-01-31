@@ -1444,11 +1444,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1769711683,
-        "narHash": "sha256-XI7DhTfATVquiC6TEwNXn6oOrDRjhkHnN4VV8oopjOw=",
+        "lastModified": 1769763865,
+        "narHash": "sha256-8tmNbA7572xD+JEIfpOUP4XXeejqwh8Uka13Sol1XL4=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "0a6ee6135ab795b544a3f96e9bc280168423662c",
+        "rev": "62f5bff0fafe0b3eedc2f835e94a7dd4da4a6f11",
         "type": "github"
       },
       "original": {
@@ -1528,10 +1528,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1769731782,
-        "narHash": "sha256-QKbv/LensEK+X2BxN/dizi+RyYFHINy8fprN8vDUl2s=",
+        "lastModified": 1769890285,
+        "narHash": "sha256-IuWk3xPyc2wfPb4IcVfZMYzTqQ3TcQ6qPkvG1DPNHSs=",
         "ref": "main",
-        "rev": "bd592b88d33704bb696e3aa446d4e07b9be6ac59",
+        "rev": "34559fd9ac36c3a57f37faeea68e15393809a707",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/rytswd/nix-config-private"

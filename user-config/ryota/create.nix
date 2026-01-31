@@ -15,7 +15,7 @@ let
       {
         home = "/home/ryota";
 
-        shell = pkgs.fish;
+        shell = pkgs.nushell;
 
         isNormalUser = true;
         extraGroups = [

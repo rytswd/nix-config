@@ -377,12 +377,14 @@ Each window on Niri can be configured to have a different look and feel.
 
 This is the default setting, where each window has a slight opacity set, and corner radius (or border-radius in CSS world) set to some comfortable size.
 It is important to set the ~draw-border-with-background~ flag to ~false~, otherwise the border colour affects the window colour (which may look OK, but it's too much as default).
+Also, ~open-maximized-to-edges~ applies to some windows by default. I do not really use it anyways, so defaulting it to false.
 #+begin_src kdl
   window-rule {
       opacity 0.95
       clip-to-geometry true
       geometry-corner-radius 7
       draw-border-with-background false
+      open-maximized-to-edges false
   }
 #+end_src
 

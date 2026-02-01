@@ -7,6 +7,10 @@
 }:
 
 let
+  # Keys are generated with commands like:
+  #
+  #   ssh-keygen -t ed25519-sk -O resident -C "YubiKey Auth Nano C"
+  #
   # Define my keys here (Serial -> Secret Name mapping)
   keys = {
     "28656036" = {

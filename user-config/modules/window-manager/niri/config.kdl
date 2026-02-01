@@ -120,6 +120,11 @@ window-rule {
 }
 
 window-rule {
+    match app-id="ghostty"
+    default-column-width { proportion 0.75; }
+}
+
+window-rule {
     match app-id="emacs"
     default-column-width { proportion 0.925; }
 }

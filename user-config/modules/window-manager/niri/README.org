@@ -401,7 +401,15 @@ Browsers should not be transparent
   }
 #+end_src
 
-For Emacs, I'm setting the default column to be bigger
+For Ghostty, I'm setting the default column to be bigger.
+#+begin_src kdl
+  window-rule {
+      match app-id="ghostty"
+      default-column-width { proportion 0.75; }
+  }
+#+end_src
+
+For Emacs, I'm setting the default column to be even bigger.
 #+begin_src kdl
   window-rule {
       match app-id="emacs"

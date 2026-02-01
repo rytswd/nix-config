@@ -23,6 +23,9 @@
           gccact = "gcloud config configurations activate";
           gccls = "gcloud config configurations list";
           tf = "terraform";
+          l = "ls";
+          ll = "ls -l";
+          la = "ls -la";
         };
       configFile = {
         text = ''

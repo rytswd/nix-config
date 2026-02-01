@@ -9,12 +9,34 @@
   };
 
   config = lib.mkIf config.session-lock.wlogout.enable {
-    home.packages = [
-      pkgs.wlogout
-    ];
-    xdg.configFile = {
-      # I may want to add extra styling at some point.
-      # "wlogout/config".source = ./config;
+    programs.wlogout = {
+      enable = true;
+      layout = [
+        {
+          label = "lock";
+          action = "swaylock";
+          text = "Lock";
+          keybind = "l";
+        }
+        {
+          label = "shutdown";
+          action = "systemctl poweroff";
+          text = "Shutdown";
+          keybind = "s";
+        }
+        {
+          label = "suspend";
+          action = "systemctl suspend";
+          text = "Suspend";
+          keybind = "u";
+        }
+        {
+          label = "reboot";
+          action = "systemctl reboot";
+          text = "Reboot";
+          keybind = "r";
+        }
+      ];
     };
   };
 }

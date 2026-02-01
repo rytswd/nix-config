@@ -31,6 +31,9 @@
       ".local/share/direnv"
       ".local/share/fonts"
       ".local/state/nix"
+      # Extra application entries to be persisted, mainly for Emacs related
+      # entries for outside Emacs interactions.
+      ".local/share/applications"
 
       ###----------------------------------------
       ##  Application specific

@@ -29,9 +29,6 @@ nixpkgs.lib.nixosSystem rec {
     inputs.niri.nixosModules.niri
     # inputs.cosmic.nixosModules.default
 
-    # Extra modules based on private setup.
-    # inputs.nix-config-private.nixos-modules.civo
-
     # Adjust Nix and Nixpkgs related flags before proceeding.
     ../modules/nix-base.nix
 
@@ -53,6 +50,8 @@ nixpkgs.lib.nixosSystem rec {
 
     ../../user-config/ryota/create.nix
     # ../../user-config/ryota/persist-impermanence.nix
+
+    inputs.nix-config-private.nixosModules.users
 
     # Set up home-manager and users.
     home-manager.nixosModules.home-manager

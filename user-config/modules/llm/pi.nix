@@ -13,8 +13,5 @@
     home.packages = with inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
       pi
     ];
-    home.jjClone = {
-      ".pi/agent/extensions".url = "git@github.com:rytswd/pi-agent-extensions.git";
-    };
   };
 }

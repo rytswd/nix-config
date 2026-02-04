@@ -11,5 +11,6 @@
 
   home.jjClone = {
     "Coding/github.com/rytswd/ren".url = "git@github.com:rytswd/ren.git";
+    "Coding/github.com/rytswd/pi-agent-extensions".url = "git@github.com:rytswd/pi-agent-extensions.git";
   };
 }

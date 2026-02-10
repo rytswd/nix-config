@@ -89,6 +89,7 @@ keymap:
         - /brave/
         - /chromium/
         - /firefox/
+        - /librewolf/
         - /zen/
     remap:
       # NOTE: Because Xremap intercepts before Dvorak key binding comes into

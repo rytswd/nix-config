@@ -34,8 +34,8 @@
     };
 
     sops-nix = {
-      # url = "github:Mic92/sops-nix";
-      url = "github:rytswd/sops-nix/add-yubikey-age-support";
+      url = "github:Mic92/sops-nix";
+      # url = "github:rytswd/sops-nix/add-yubikey-age-support";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     agenix = {
@@ -93,6 +93,7 @@
     # swapdir.url = "github:rytswd/swapdir";
     home-git-clone.url = "github:rytswd/home-git-clone";
     treesitter-grammars.url = "git+ssh://git@github.com/0-re/treesitter-grammars.nix";
+    pi-agent-extensions.url = "github:rytswd/pi-agent-extensions/add-nix-module";
 
     ###----------------------------------------
     ##  NixOS Specific

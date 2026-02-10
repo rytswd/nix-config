@@ -21,8 +21,9 @@
 
       # Dummy data, this definition is actually provided by module definition
       # in the private repo. There is a strong assertion in place and when not
-      # provided, this would cause eval time error.
+      # provided, this would cause eval time error with sops-nix.
       age.keyFile = lib.mkDefault "dummy.txt";
+      # age.requirePcscd = lib.mkForce false; # YubiKey setup from my fork.
     };
   };
 }

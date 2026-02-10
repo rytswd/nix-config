@@ -1,5 +1,8 @@
 #+title: Initial Setup Steps
 
+* Network setup
+In order to get the network working, I need to launch ~nmtui~.
+
 * Partitioning with disko
 Partition setup can be done using disko https://github.com/nix-community/disko.
 

@@ -5,12 +5,12 @@
 
 {
   options = {
-    file-management.dropbox.enable = lib.mkEnableOption "Enable Dropbox.";
+    rytswd.file-management.dropbox.enable = lib.mkEnableOption "Enable Dropbox.";
   };
 
   config = let
     # Base setup
-    base = lib.mkIf config.file-management.dropbox.enable {
+    base = lib.mkIf config.rytswd.file-management.dropbox.enable {
       home.packages =
         if pkgs.stdenv.isDarwin
         then []

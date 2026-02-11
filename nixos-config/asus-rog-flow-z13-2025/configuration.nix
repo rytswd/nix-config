@@ -25,7 +25,12 @@
     ../modules/machine-specific/laptop.nix
   ];
 
-  core.boot.systemd-boot.enable = true;
+  core.boot.limine.enable = true;
+  # Secure Boot
+  environment.systemPackages = [ pkgs.sbctl ];
+  # NOTE: This needs to be set to false upon the initial setup.
+  # boot.loader.limine.secureBoot.enable = true;
+
   filesystem.zfs.enable = true;
 
   desktop-environment.gnome.dconf.enable = true;

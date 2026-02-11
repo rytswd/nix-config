@@ -3,6 +3,7 @@
     disk = {
       main = {
         type = "disk";
+        # NOTE: This manages the entire disk.
         device = "/dev/nvme0n1";
         content = {
           type = "gpt";

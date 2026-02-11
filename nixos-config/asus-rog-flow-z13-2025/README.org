@@ -3,17 +3,63 @@
 * Network setup
 In order to get the network working, I need to launch ~nmtui~.
 
+* Ensure host key is available
+The host key is stored in the private repo. Either copy the details using ~scp~ or ~rsync~, or clone the private repo and follow the document.
+
+* Windows dual boot or not?
+If I were to drop Windows dual boot, disko can wipe and reconfigure the disk accordingly. As of writing in Feb 2026, I'm opting to keep Windows just in case. Because of this, there are a few manual actions needed.
+
+** Secure Boot
+In order to allow clean boot for both NixOS and Windows, I need to keep Secure Boot with BitLocker for Windows, and let it work with NixOS the same way. I'm using Limine to handle this.
+
+** Windows partition
+Upon doing extensive Windows disk space clean-up, I can shrink the Windows C drive to its minimum size, which was around 220GB. (It is still too large from my liking, and thus I may drop entirely at some point.)
+In order to allow disko to manage without breaking Windows partittion, I need some manual partitioning.
+#+begin_src console
+  $ sudo fdisk -l
+  Disk /dev/nvme0n1: 953.87 GiB, 1024209543168 bytes, 2000409264 sectors
+  Disk model: MTFDKBK1T0QGN-1BN1AABGA
+  Units: sectors of 1 * 512 = 512 bytes
+  Sector size (logical/physical): 512 bytes / 512 bytes
+  I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+  Disklabel type: gpt
+  Disk identifier: EF2B6D05-E94E-40F4-8E91-2FE86951CE8B
+
+  Device              Start        End   Sectors   Size Type
+  /dev/nvme0n1p1       2048     534527    532480   260M EFI System
+  /dev/nvme0n1p2     534528     567295     32768    16M Microsoft reserved
+  /dev/nvme0n1p3     567296  469325823 468758528 223.5G Microsoft basic data
+  /dev/nvme0n1p4 1939517440 1941155839   1638400   800M Windows recovery environment
+  /dev/nvme0n1p5 1941155840 1999876095  58720256    28G Microsoft basic data
+  /dev/nvme0n1p6 1999876096 2000408575    532480   260M Windows recovery environment
+#+end_src
+
+With this partition in place, I can create a new partition
+#+begin_src bash
+  sudo sgdisk \
+    -n 0:469325824:1939517439 \
+    -t 0:8309 \
+    -c 0:nixos \
+    /dev/nvme0n1
+#+end_src
+
+When using dual boot, I need to use ~disko-dual-boot.nix~, and be sure not to destroy the existing partitions.
+
+* Getting repositories
+The easiest way is to use an existing machine, and ssh into the new machine. ~ssh -A~ would allow using the same credential on the host machine, and I can simply run ~git clone~. For simplicity, I set up the repository in ~/tmp/~ directory for the initial setup, and create a proper clone later on with ~home-git-clone~.
+
 * Partitioning with disko
 Partition setup can be done using disko https://github.com/nix-community/disko.
 
-First, I need to download the disko configuration.
-
+With the repository cloned in ~/tmp/~ directory, I can run the following command (this also assumes the use of custom ISO in this repository)
 #+begin_src bash
-  curl https://raw.githubusercontent.com/rytswd/nix-config/main/nixos-config/asus-rog-flow-z13-2025/disko.nix -o /tmp/disko-config.nix
+  sudo nix run github:nix-community/disko/latest -- --mode format,mount /tmp/nix-config//nixos-config/asus-rog-flow-z13-2025/disko-dual-boot.nix
 #+end_src
 
+If this is based on stock NixOS without flake etc., add extra flags.
+
 #+begin_src bash
-  sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount /tmp/disko-config.nix
+  sudo nix --experimental-features "nix-command flakes"  run github:nix-community/disko/latest -- --mode format,mount /tmp/nix-config//nixos-config/asus-rog-flow-z13-2025/disko-dual-boot.nix
 #+end_src
 
 After a short while, this asks whether I would like to continue with the reformatting step, and when I confirm with "yes", I would also get prompted for a password phrase for LUKS.

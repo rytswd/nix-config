@@ -8,7 +8,7 @@
 {
   config =  {
     # Only added to force build failure when missing.
-    boot.loader.systemd-boot.enable = true;
+    # boot.loader.systemd-boot.enable = true;
 
     fileSystems."/nix/persist".neededForBoot = true;
     programs.fuse.userAllowOther = true;

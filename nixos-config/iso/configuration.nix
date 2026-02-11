@@ -20,6 +20,9 @@
     nushell
     rsync
     neovim
+
+    # Secure Boot
+    sbctl
   ];
 
   # pcscd is required for YubiKey communication

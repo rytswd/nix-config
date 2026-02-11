@@ -240,6 +240,10 @@
         inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
         system = "x86_64-linux";
       });
+      installer-iso = (import ./nixos-config/iso {
+        inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
+        system = "x86_64-linux";
+      });
       # TODO: Fix this based on the new setup.
       # mbp-2021-utm = (import ./nixos-config/mbp-utm {
       #   inherit (nixpkgs-unstable) lib;

@@ -43,6 +43,8 @@
   networking.wireless.enable = false; # We use NetworkManager instead
   networking.networkmanager.enable = true;
 
-  # Set default password of "nixos"
+  # Set default password to "nixos"
   users.users.nixos.initialHashedPassword = lib.mkForce "$6$EKMK91L2/xkLpFct$/2fWa9q0ZiSNYNZPWROp.3Jo1GIM8soMUlNYxsiSa9oOGiKo3y55IbkdqSXlNI3aICws5dxs8mLpn5oDqdBBw/";
+  # Set default password to "root"
+  users.users.root.initialHashedPassword = lib.mkForce "$6$ZljluIu1Z3Z49DXf$YVwliEFGUOqcNT4cn/Ti2xi6acu4BXYcJlpD8T8HSHFs8CZHEDndgeGfg8GpHpbDdW4KWUlOMzeE6KqBPhy5A0";
 }

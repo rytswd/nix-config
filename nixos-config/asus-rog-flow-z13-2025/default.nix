@@ -25,7 +25,9 @@ nixpkgs-unstable.lib.nixosSystem rec {
     #------------------------------------------
     # disko defines the partition and filesystem setup.
     inputs.disko.nixosModules.disko
-    ./disko.nix
+    ./disko-dual-boot.nix
+    # ./disko-nixos-only.nix
+
     # impermanence makes the whole disk ephemeral unless otherwise specified.
     inputs.impermanence.nixosModules.impermanence
     ../modules/nix-impermanence.nix

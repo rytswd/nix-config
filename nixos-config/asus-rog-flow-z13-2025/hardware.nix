@@ -17,6 +17,8 @@
     initrd = {
       availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];
       kernelModules = [];
+      systemd.enable = true;
+      luks.devices."crypted".crypttabExtraOpts = [ "fido2-device=auto" ];
     };
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [];

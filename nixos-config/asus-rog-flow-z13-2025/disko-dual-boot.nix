@@ -1,8 +1,7 @@
 {
   # Mount the existing Windows ESP — NOT managed/formatted by disko
   fileSystems."/boot" = {
-    device = "/dev/disk/by-partlabel/EFI\\x20system\\x20partition";
-    # or simply: device = "/dev/nvme0n1p1";
+    device = "/dev/nvme0n1p1";
     fsType = "vfat";
     options = [ "umask=0077" ];
   };

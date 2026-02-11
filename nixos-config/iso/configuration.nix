@@ -1,5 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, lib, config, ... }:
 {
+  # Give custom image name
+  image.baseName = lib.mkForce "nixos-rytswd-${config.system.nixos.release}-${pkgs.stdenv.hostPlatform.system}";
+
   # ── YubiKey + SOPS tooling ──
   environment.systemPackages = with pkgs; [
     # Age encryption with YubiKey
@@ -36,4 +39,7 @@
   # Optional: networking helpers
   networking.wireless.enable = false; # We use NetworkManager instead
   networking.networkmanager.enable = true;
+
+  # Set default password of "nixos"
+  users.users.nixos.initialHashedPassword = lib.mkForce "$6$EKMK91L2/xkLpFct$/2fWa9q0ZiSNYNZPWROp.3Jo1GIM8soMUlNYxsiSa9oOGiKo3y55IbkdqSXlNI3aICws5dxs8mLpn5oDqdBBw/";
 }

@@ -240,10 +240,6 @@
         inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
         system = "x86_64-linux";
       });
-      installer-iso = (import ./nixos-config/iso {
-        inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
-        system = "x86_64-linux";
-      });
       # TODO: Fix this based on the new setup.
       # mbp-2021-utm = (import ./nixos-config/mbp-utm {
       #   inherit (nixpkgs-unstable) lib;
@@ -271,5 +267,25 @@
         user-config = ./user-config/ryota/nixos.nix;
       });
     };
+
+    ###----------------------------------------
+    ##   Custom ISO
+    #------------------------------------------
+    # The below sets up two paths for building NixOS image:
+    #
+    #     nix build .#nixosConfigurations.installer-iso.config.system.build.isoImage
+    #
+    # And much easier short hand of
+    #
+    #     nix build .#installer-iso
+    #
+    # After creating the image, this can be flashed to USB disk by command like:
+    #
+    #     sudo dd if=result/iso/nixos-rytswd-26.05-x86_64-linux.iso of=/dev/sdX bs=4M status=progress oflag=sync
+    nixosConfigurations.installer-iso = (import ./nixos-config/iso {
+      inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
+      system = "x86_64-linux";
+    });
+    packages.x86_64-linux.installer-iso = self.nixosConfigurations.installer-iso.config.system.build.isoImage;
   };
 }

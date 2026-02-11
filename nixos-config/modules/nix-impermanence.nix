@@ -64,6 +64,7 @@
         "/var/lib/libvirt"
         "/var/lib/pcsc"
         "/var/lib/qemu"
+        "/var/lib/sbctl"
         "/var/lib/sddm"
         "/var/lib/systemd/coredump"
         "/var/lib/tailscale"

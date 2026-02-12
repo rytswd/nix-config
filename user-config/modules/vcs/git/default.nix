@@ -49,12 +49,6 @@
           # signingkey = "0D952F25BB1123EA";
           # Old with 3 YubiKeys
           # signingkey = "0651ED8112A83CB5";
-          # Old ECC based
-          # signingkey = "E0784F1CC9B94CFF";
-          # Old RSA based
-          # signingkey = "24F699F8056E6082";
-          # Old key used on macOS
-          # signingkey = 678FE5498813DE6A
         };
         github.user = "rytswd";
         gitlab.user = "rytswd";

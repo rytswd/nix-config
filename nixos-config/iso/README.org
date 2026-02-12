@@ -1,0 +1,23 @@
+#+title: NixOS Installer ISO
+
+This directory contains the installer ISO definition I can use for installing NixOS. It follows the official minimal image with some adjustments, namely:
+
+- Enable some experimental features such as ~nix-command~, ~flakes~, and ~pipe-operators~
+- ~pcscd~ for YubiKey support
+- Password setup for ~nixos~ and ~root~ user for easy access
+- Some extra tools for file management
+
+Because the modifications are rather minimal, it is fine to use the official image instead. This just makes some steps simpler.
+
+* Build ISO
+This is defined in ~flake.nix~, and I can simply run:
+#+begin_src bash
+  nix build .#installer-iso
+#+end_src
+
+* Save ISO into USB
+Once the image is built, I can save this into a USB device:
+#+begin_src bash
+  sudo dd if=result/iso/nixos-rytswd-26.05-x86_64-linux.iso of=/dev/sdX bs=4M status=progress oflag=sync
+#+end_src
+(Note the output device name, it needs to match the target device.)

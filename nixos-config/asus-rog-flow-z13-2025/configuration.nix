@@ -26,6 +26,19 @@
   ];
 
   core.boot.limine.enable = true;
+  # Dual-boot workaround: Limine's efibootmgr detection breaks with ZFS root
+  # + separate Windows ESP. Skip efibootmgr and install to UEFI fallback path.
+  boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
+  system.activationScripts.limine-uefi-fallback = lib.stringAfter [ "etc" ] ''
+    ESP="/boot"
+       SRC="$ESP/EFI/limine/BOOTX64.EFI"
+       DST="$ESP/EFI/BOOT/BOOTX64.EFI"
+       if [ -f "$SRC" ]; then
+         mkdir -p "$(dirname "$DST")"
+         cp -f "$SRC" "$DST"
+       fi
+  '';
+
   # Secure Boot
   environment.systemPackages = [ pkgs.sbctl ];
   # NOTE: This needs to be set to false upon the initial setup.

@@ -29,39 +29,10 @@
   # Dual-boot workaround: Limine's efibootmgr detection breaks with ZFS root
   # + separate Windows ESP. Skip efibootmgr and install to UEFI fallback path.
   boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
-  system.activationScripts.limine-dual-boot = let
-    efibootmgr = "${pkgs.efibootmgr}/bin/efibootmgr";
-    windowsEntry = ''
-      # Windows chainload
-      /Windows Boot Manager
-      protocol: efi_chainload
-      image_path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
-    '';
-  in lib.stringAfter [ "etc" ] ''
-    ESP="/boot"
-    SRC="$ESP/EFI/limine/BOOTX64.EFI"
-    CONF="$ESP/limine/limine.conf"
-
-    # Copy to UEFI fallback path
-    if [ -f "$SRC" ]; then
-      mkdir -p "$ESP/EFI/BOOT"
-      cp -f "$SRC" "$ESP/EFI/BOOT/BOOTX64.EFI"
-    fi
-
-    # Add Windows entry if not already present
-    if [ -f "$CONF" ] && ! grep -q "Windows" "$CONF"; then
-      cat >> "$CONF" << 'WINDOWS'
-    ${windowsEntry}
-    WINDOWS
-    fi
-
-    # Register boot entry with correct ESP device
-    if [ -d /sys/firmware/efi/efivars ]; then
-      if ! ${efibootmgr} | grep -q "Limine"; then
-        ${efibootmgr} -c -d /dev/nvme0n1 -p 1 \
-          -l '\efi\limine\BOOTX64.EFI' -L 'Limine' || true
-      fi
-    fi
+  boot.loader.limine.extraEntries = ''
+    /Windows Boot Manager
+    protocol: efi_chainload
+    image_path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
   '';
 
   # Secure Boot

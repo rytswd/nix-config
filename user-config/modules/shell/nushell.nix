@@ -27,13 +27,41 @@
           ll = "ls -l";
           la = "ls -la";
         };
-      configFile = {
-        text = ''
-           $env.config = {
-            show_banner: false
-          }
-        '';
+      settings = {
+        show_banner= false;
+        history.sync_on_enter= false;
+        completions = {
+          case_sensitive = false;
+          algorithm = "fuzzy";
         };
+        keybindings = [
+          {
+            name = "insert_last_word";
+            modifier = "alt";
+            keycode = "char_.";
+            mode = ["emacs" "vi_normal" "vi_insert"];
+            event = [
+              # NOTE: In other shells, this should cycle through to use last
+              # argument from the previous commands, but with the below code
+              # it doesn't do that.
+              { edit = "InsertString"; value = " !$"; }
+              { send = "enter"; }
+            ];
+          }
+          {
+            name = "duplicate_word";
+            modifier = "alt";
+            keycode = "char_m";
+            mode = ["emacs" "vi_normal" "vi_insert"];
+            event = [
+              {
+                cmd = "commandline --insert (commandline | str substring 0..(commandline --cursor) | str trim | split row ' ' | last)";
+                send = "executehostcommand";
+              }
+            ];
+          }
+        ];
+      };
     };
 
     xdg.configFile = {

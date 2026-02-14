@@ -240,6 +240,20 @@
         inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
         system = "x86_64-linux";
       });
+
+      # Hetzner Cloud Kubernetes cluster (3× CX32, HA control-plane)
+      hetzner-k8s-cp-1 = (import ./nixos-config/hetzner-k8s/cp-1 {
+        inherit nixpkgs nixpkgs-unstable inputs overlays;
+        system = "x86_64-linux";
+      });
+      hetzner-k8s-cp-2 = (import ./nixos-config/hetzner-k8s/cp-2 {
+        inherit nixpkgs nixpkgs-unstable inputs overlays;
+        system = "x86_64-linux";
+      });
+      hetzner-k8s-cp-3 = (import ./nixos-config/hetzner-k8s/cp-3 {
+        inherit nixpkgs nixpkgs-unstable inputs overlays;
+        system = "x86_64-linux";
+      });
       # TODO: Fix this based on the new setup.
       # mbp-2021-utm = (import ./nixos-config/mbp-utm {
       #   inherit (nixpkgs-unstable) lib;

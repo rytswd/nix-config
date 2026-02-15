@@ -1,22 +1,29 @@
 {
-  # Mount the existing Windows ESP — NOT managed/formatted by disko
-  fileSystems."/boot" = {
-    device = "/dev/nvme0n1p1";
-    fsType = "vfat";
-    options = [ "umask=0077" ];
-  };
-
   disko.devices = {
     disk = {
-      main = {
+      # NixOS ESP - manually created 1GB partition, referenced by label
+      # Created BEFORE root partition for conventional ordering
+      # Create with: sgdisk -n 7:315529216:+1G -t 7:EF00 -c 7:nixos-esp /dev/nvme0n1
+      nixos-esp = {
         type = "disk";
-        # NOTE: This partition needs to be manually created. This is done so
-        # that I can keep the option of Windows dual boot.
+        device = "/dev/disk/by-partlabel/nixos-esp";
+        content = {
+          type = "filesystem";
+          format = "vfat";
+          mountpoint = "/boot";
+          mountOptions = [ "umask=0077" ];
+        };
+      };
+
+      # NixOS root - manually created partition, referenced by label
+      # After shrinking old partition 7 and creating ESP first
+      # Create with: sgdisk -n 8:0:1938903039 -t 8:8300 -c 8:nixos /dev/nvme0n1
+      nixos-root = {
+        type = "disk";
         device = "/dev/disk/by-partlabel/nixos";
         content = {
           type = "luks";
           name = "crypted";
-          # interactive password entry
           settings.allowDiscards = true;
           content = {
             type = "zfs";

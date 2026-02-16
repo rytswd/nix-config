@@ -1,19 +1,251 @@
 #+title: Initial Setup Steps
 
-* Network setup
+* NixOS installer image
+I set up this machine with a dedicated installer ISO, which you can find in this repo. The installer is essentially the same as official minimal ISO, but some extra tools configured such as pcscd for YubiKey handling. You can find more in ~/nixos-config/iso/README.org~.
+
+* Windows setup
+If I were to keep Windows on the machine, I need to resize the Windows disk space so that I can use the rest of the disk space for other usages.
+
+The steps here are extremely convoluted, but without these steps, I need to keep 250GB for Windows, which is excessively large.
+
+#+begin_src cmd
+  :: Disable hibernation (frees ~RAM size, e.g. 16-32GB)
+  powercfg /hibernate off
+
+  :: Clean up Windows Update cache and old components
+  dism /Online /Cleanup-Image /StartComponentCleanup /ResetBase
+
+  :: Remove all restore points
+  vssadmin delete shadows /for=C: /all /quiet
+
+  :: Clear Windows temp folders
+  del /q /s %TEMP%\*
+  del /q /s C:\Windows\Temp\*
+
+  :: Clear Delivery Optimization cache
+  del /q /s C:\Windows\SoftwareDistribution\Download\*
+#+end_src
+
+And some Powershell setup to remove large disk usage because it tries to reserve the same size as RAM.
+#+begin_src powershell
+  Set-CimInstance -Query "Select * from Win32_PageFileSetting where Name='C:\\pagefile.sys'" -Property @{InitialSize = 8192; MaximumSize = 8192}
+#+end_src
+
+I should also use ~sysdm.cpl~ GUI to disable System Restore:
+- Run: sysdm.cpl
+- Go to System Protection tab.
+- Select C: and click Configure.
+- Select "Disable system protection".
+- Click Delete (to clear existing restore points).
+
+At this point, I need to have the machine restart.
+
+After the restart, I can run the defrag, and then shrink the disk space.
+#+begin_src bash
+  defrag C: /O /U /V
+#+end_src
+
+Even then, I still have a lot more to claim back. Disable BitLocker:
+#+begin_src powershell
+  Get-BitLockerVolume
+  Disable-BitLocker -MountPoint "C:"
+#+end_src
+
+Run ~Get-BitLockerVolume~ multiple times until "Encryption Percentage" shows 0.
+
+Once BitLocker is off, I can use NixOS Installer image to shrink the Windows partition size. (I need to disable Secure Boot from BIOS for USB boot.)
+Starting with 145GB to be safe.
+#+begin_src bash
+  sudo ntfsresize --info --no-action /dev/nvme0n1p3
+  sudo ntfsresize --size 145G /dev/nvme0n1p3
+#+end_src
+
+And for the partition resize:
+#+begin_src bash
+  sudo fdisk /dev/nvme0n1
+#+end_src
+
+#+begin_example
+1. Print current table (Important):
+    Type p and hit Enter.
+    Write down the "Start" sector of /dev/nvme0n1p3. You MUST use this exact number later.
+2. Delete the partition:
+    Type d.
+    Select partition number 3 (or whatever your Windows partition is).
+    Don't panic. The data is still there, just the map is gone.
+3. Create new partition:
+    Type n.
+    Partition number: 3.
+    First sector: Type the EXACT START SECTOR you wrote down in step 2. (Default is usually correct, but verify!)
+    Last sector: Type +150G.
+        Note: This creates a 150 GiB partition.
+4. Handle the signature warning:
+    If fdisk asks: "Partition #3 contains a NTFS signature. Do you want to remove it?"
+    Answer: NO. (Type N). Do not wipe the signature.
+5. Verify:
+    Type p. Ensure the Start sector is identical to before, and the Size is 150G.
+6. Write changes:
+    Type w.
+#+end_example
+
+Finally, make sure that the partition takes up 150GB:
+#+begin_src bash
+  # Running this without the --size flag automatically expands to fill the partition
+  sudo ntfsresize /dev/nvme0n1p3
+#+end_src
+
+After this, reboot back into Windows machine. It fails to load up. I can then choose Advanced Option to get the cmd session up.
+With cmd, I can follow something like below.
+#+begin_src bash
+  diskpart
+  select disk 0
+  list partition
+
+  # Likely partition 3
+  select partition 3
+  detail partition
+
+  # Set this EXACT ID
+  set id="ebd0a0a2-b9e5-4433-87c0-68b6b72699c7"
+
+  list volume
+  select volume X  # Replace X with the number of your 150GB volume
+  assign letter=W  # Give it a temporary letter like W
+  exit
+#+end_src
+
+And then, check and fix the disk state.
+#+begin_src bash
+  chkdsk W: /f
+#+end_src
+
+Exit and restart. At this point, I get another error booting up, go through advanced options to get to cmd again.
+Run the following commands:
+#+begin_src bash
+  # Check the volume name, which should be set to C
+  diskpart
+  list volume
+  exit
+
+  # Make sure chkdsk doesn't report any error
+  chkdsk C: /f /x
+  # Rebuild the Boot Files
+  bcdboot C:\Windows
+  # Break the "Automatic Repair" Loop
+  bcdedit /set {default} recoveryenabled No
+  bcdedit /set {default} bootstatuspolicy ignoreallfailures
+#+end_src
+
+Restart again, and find two OS selections at launch. Choose the one that says "On volume 3".
+Windows should start up cleanly, and now I can do the final clean up.
+#+begin_src bash
+  # Set up BitLcoker back -- this needs restart to do hardware check.
+  manage-bde -on C: -UsedSpaceOnly
+#+end_src
+
+I should also use ~sysdm.cpl~ GUI to enable System Restore, and pagefile back in place.
+- System Protection
+  - Go to System Protection tab.
+  - Select C: and click Configure.
+  - Select "Turn on system protection".
+  - Select Max Usage size (around 5GB) and hit OK
+- Pagefile
+  - Go to Advanced tab
+  - Select Performance > "Settings..."
+  - Go to Advanced tab
+  - Select Virtual memory > "Change..."
+  - Custom size of 8192, and hit Set
+
+And some more clean-up, this one is for Windows Recovery.
+#+begin_src bash
+  reagentc /info
+  # If disable, enable
+  reagentc /enable
+#+end_src
+
+Once this is done, restart, set the Secure Boot back, and start back into Windows to ensure it is working as expected.
+After that, I would probably need to clean up temporary disk space Windows used with diagnostic mode. Before proceeding, make sure that the partitions are not actually used by ~Win + X~ -> Disk Management.
+#+begin_src bash
+  diskpart
+  select disk 0
+
+  list partition
+
+  select partition 4
+  delete partition override
+
+  select partition 5
+  delete partition override
+
+  exit
+#+end_src
+
+
+* On device operation
+Once the NixOS installer is started up, I need some action on device. After this is done, I can manage the rest using SSH.
+
+** Network setup
 In order to get the network working, I need to launch ~nmtui~.
 
-* Ensure host key is available
-The host key is stored in the private repo. Either copy the details using ~scp~ or ~rsync~, or clone the private repo and follow the document.
+** (Optional) Retrieve SSH stub
+In order to use the SSH keys saved under YubiKey, I need to run the following commands:
+#+begin_src bash
+  cd ~/.ssh
+  ssh-keygen -K
+#+end_src
 
-* Windows dual boot or not?
-If I were to drop Windows dual boot, disko can wipe and reconfigure the disk accordingly. As of writing in Feb 2026, I'm opting to keep Windows just in case. Because of this, there are a few manual actions needed.
+This will ask PIN and potentially touching the key. As this is a temporary setup, we do not need to add passwords to the keys, simply press enter to keep them empty.
 
-** Secure Boot
+After the keys are stored, I need to update ~~/.ssh/config~ with the following entry:
+#+begin_src config
+  Host github.com
+       User git
+       IdentityFile ~/.ssh/id_ed25519_sk_rk_Auth
+#+end_src
+
+
+* Main configuration from NixOS Installer
+From here on, all the operations can happen on the device, or remotely using SSH.
+
+Note that, it's the easiest to manage all the actions using ~root~ rather than ~nixos~. Non-root user can work for most parts, but may see some error towards the end.
+
+** Info: Access remotely
+When it comes to access control, the easiest way is to use an existing machine, and ssh into the new machine with ~ssh -A~. This would allow using the same credential on the host machine, and I can simply run ~git clone~ and other operations without doing much configuration on the device.
+
+With SSH agent forwarding, I can also make sure later steps can use the credential from the other machine. I need to use the following on a host machine I connect from.
+#+begin_src bash
+  export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+  gpg-connect-agent updatestartuptty /bye
+#+end_src
+
+With that, I can connect to the machine with ~ssh -A~
+#+begin_src bash
+  ssh -A root@192.168.1.3 # TODO: Correct IP
+#+end_src
+
+Note that this SSHes directly as ~root~. Because of credential forwarding, using ~sudo~ may fail due to missing credentials later on.
+
+If a separate machine is not available, I can use the step above to pull the SSH stub keys from YubiKey instead.
+
+** Getting repositories
+For simplicity, I set up the repository in ~/tmp/~ directory for the initial setup, and create a proper clone later on with ~home-git-clone~.
+#+begin_src bash
+  git clone git@github.com:rytswd/nix-config.git
+  git clone git@github.com:rytswd/nix-config-private.git
+#+end_src
+
+** Ensure host key is available
+The host key is stored in the private repo, which is used during secrets activation using SOPS Nix. Either copy the details using ~scp~ or ~rsync~, or clone the private repo and follow the instruction.
+
+** Windows dual boot
+If I were to drop Windows dual boot, disko can wipe and reconfigure the disk fully declaratively. As of writing in Feb 2026, I'm opting to keep Windows partition. Because of this, there are a few manual actions needed.
+
+*** Secure Boot
 In order to allow clean boot for both NixOS and Windows, I need to keep Secure Boot with BitLocker for Windows, and let it work with NixOS the same way. I'm using Limine to handle this.
 
-** Windows partition
-Upon doing extensive Windows disk space clean-up, I can shrink the Windows C drive to its minimum size, which was around 220GB. (It is still too large from my liking, and thus I may drop entirely at some point.)
+*** Windows partition
+I can shrink the Windows C drive after doing extensive Windows disk space clean-up steps, detailed above.
+
 In order to allow disko to manage without breaking Windows partittion, I need some manual partitioning.
 #+begin_src console
   $ sudo fdisk -l
@@ -25,50 +257,196 @@ In order to allow disko to manage without breaking Windows partittion, I need so
   Disklabel type: gpt
   Disk identifier: EF2B6D05-E94E-40F4-8E91-2FE86951CE8B
 
-  Device              Start        End   Sectors   Size Type
-  /dev/nvme0n1p1       2048     534527    532480   260M EFI System
-  /dev/nvme0n1p2     534528     567295     32768    16M Microsoft reserved
-  /dev/nvme0n1p3     567296  469325823 468758528 223.5G Microsoft basic data
-  /dev/nvme0n1p4 1939517440 1941155839   1638400   800M Windows recovery environment
-  /dev/nvme0n1p5 1941155840 1999876095  58720256    28G Microsoft basic data
-  /dev/nvme0n1p6 1999876096 2000408575    532480   260M Windows recovery environment
+  Device              Start        End   Sectors  Size Type
+  /dev/nvme0n1p1       2048     923647    921600  450M EFI System
+  /dev/nvme0n1p2     923648     956415     32768   16M Microsoft reserved
+  /dev/nvme0n1p3     956416  315529215 314572800  150G Microsoft basic data
+  /dev/nvme0n1p4 1938903040 1941155839   2252800  1.1G Windows recovery environment
+  /dev/nvme0n1p5 1941155840 1999876095  58720256   28G Microsoft basic data
+  /dev/nvme0n1p6 1999876096 2000408575    532480  260M Windows recovery environment
 #+end_src
 
 With this partition in place, I can create a new partition
 #+begin_src bash
-  sudo sgdisk \
-    -n 0:469325824:1939517439 \
-    -t 0:8309 \
-    -c 0:nixos \
-    /dev/nvme0n1
+  # 1. Create 1GB ESP first (right after partition 3)
+  sudo sgdisk -n 7:315529216:+1G -t 7:EF00 -c 7:nixos-esp /dev/nvme0n1
+
+  # 2. Create NixOS root partition (remaining ~773GB, ending just before partition 4)
+  sudo sgdisk -n 8:0:1938903039 -t 8:8300 -c 8:nixos /dev/nvme0n1
 #+end_src
 
 When using dual boot, I need to use ~disko-dual-boot.nix~, and be sure not to destroy the existing partitions.
 
-* Getting repositories
-The easiest way is to use an existing machine, and ssh into the new machine. ~ssh -A~ would allow using the same credential on the host machine, and I can simply run ~git clone~. For simplicity, I set up the repository in ~/tmp/~ directory for the initial setup, and create a proper clone later on with ~home-git-clone~.
-
-* Partitioning with disko
+** Partitioning with disko
 Partition setup can be done using disko https://github.com/nix-community/disko.
 
+The command used is slightly different depending on whether I need Windows dual boot or not.
+
+*** With dual boot
 With the repository cloned in ~/tmp/~ directory, I can run the following command (this also assumes the use of custom ISO in this repository)
 #+begin_src bash
-  sudo nix run github:nix-community/disko/latest -- --mode format,mount /tmp/nix-config//nixos-config/asus-rog-flow-z13-2025/disko-dual-boot.nix
+  sudo nix run github:nix-community/disko/latest -- --mode format,mount /tmp/nix-config/nixos-config/asus-rog-flow-z13-2025/disko-dual-boot.nix
 #+end_src
 
-If this is based on stock NixOS without flake etc., add extra flags.
-
+NOTE: If this is based on stock NixOS without ~nix-command~ and ~flakes~ flags, add them like below:
 #+begin_src bash
-  sudo nix --experimental-features "nix-command flakes"  run github:nix-community/disko/latest -- --mode format,mount /tmp/nix-config//nixos-config/asus-rog-flow-z13-2025/disko-dual-boot.nix
+  sudo nix --experimental-features "nix-command flakes"  run github:nix-community/disko/latest -- --mode format,mount /tmp/nix-config/nixos-config/asus-rog-flow-z13-2025/disko-dual-boot.nix
 #+end_src
 
 After a short while, this asks whether I would like to continue with the reformatting step, and when I confirm with "yes", I would also get prompted for a password phrase for LUKS.
 
-Shortly after, the formatting completes, and I can check the mount setup with ~mount | grep /mnt~, or simply with ~lsblk~.
+Shortly after, the formatting completes, and I can check the mount setup:
+#+begin_src bash
+  mount | grep /mnt
+  lsblk
+#+end_src
 
 Once disk partition is complete, move onto the rest of the Nix configuration.
 
-* Hardware spec
+*** (Reference Only) NixOS only
+Note that, as of writing in Feb 2026, my configuration assumes the dual boot setup, and thus this NixOS only disko setup is not used.
+
+With the repository cloned in ~/tmp/~ directory, I can run the following command (this also assumes the use of custom ISO in this repository)
+#+begin_src bash
+  sudo nix run github:nix-community/disko/latest -- --mode destroy,format,mount /tmp/nix-config/nixos-config/asus-rog-flow-z13-2025/disko-nixos-only.nix
+#+end_src
+
+NOTE: If this is based on stock NixOS without ~nix-command~ and ~flakes~ flags, add them like below:
+#+begin_src bash
+  sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount /tmp/disko-config.nix
+#+end_src
+
+*** Info: Open LUKS manually
+When I need to restart the installer, I will need to reopen LUKS manually.
+#+begin_src bash
+  # Open LUKS (will prompt for your passphrase)
+  cryptsetup open /dev/disk/by-partlabel/nixos crypted
+#+end_src
+
+I can confirm the status by running ~lsblk~.
+
+And simply run disko to mount everything 
+#+begin_src bash
+  sudo nix run github:nix-community/disko/latest -- --mode mount /tmp/nix-config/nixos-config/asus-rog-flow-z13-2025/disko-dual-boot.nix
+#+end_src
+
+If I had to run this /after/ getting the NixOS system up and running, I may get an error saying zpool won't import as it was used by other system. I can run the following command:
+#+begin_src bash
+  zpool import -f -R /mnt zroot
+#+end_src
+
+And then run the disko to mount again.
+
+
+*** Info: Close LUKS for rerun
+When the disko needs to be run again due to unexpected restarts etc., I would have to run the following commands to close LUKS block.
+#+begin_src bash
+  # Unmount everything
+  umount -R /mnt
+
+  # Export ZFS pool
+  zpool export zroot
+
+  # Close LUKS
+  cryptsetup close crypted
+
+  # Wipe LUKS header so disko can reformat cleanly
+  wipefs -a /dev/disk/by-partlabel/nixos
+#+end_src
+
+** Install NixOS
+With the above partition in place, I can run ~nixos-install~ (not ~nixos-rebuild~ for the first run). There are a few gotchas around this, though.
+#+begin_src bash
+  # From /tmp/nix-config where this repository is copied to:
+  nixos-install --flake .#asus-rog-flow-z13-2025
+#+end_src
+
+After that, I need to make sure that the boot entry is added -- Limine can handle Windows with chainloading.
+#+begin_src bash
+  sudo nixos-enter --root /mnt -c "NIXOS_INSTALL_BOOTLOADER=1 /nix/var/nix/profiles/system/bin/switch-to-configuration boot"
+  sudo efibootmgr --create --disk /dev/nvme0n1 --part 7 --label "Limine" --loader '\EFI\BOOT\BOOTX64.EFI'
+#+end_src
+
+** Rebuild with chroot
+Before I restart, I should ensure all the configurations including home-manager are all applied.
+#+begin_src bash
+  # Because of nixos-enter chroot, I need to ensure the configuration
+  # is visible from /mnt. With impermanence, I could essentially use
+  # any location.
+  sudo cp -r /tmp/nix-config /mnt/tmp/
+  sudo nixos-enter --root /mnt -c "nixos-rebuild boot --flake /tmp/nix-config#asus-rog-flow-z13-2025"
+#+end_src
+
+** Copy host key over to user profile
+In order to have the smooth startup, I need to ensure SOPS Nix can work out to decrypt all the secrets. I should have the host key from the steps above, and simply copy it over to the target user. I've got more detailed note in my private repo.
+
+
+* Final configuration from NixOS
+At this point, the system should be fully up and running. This step is necessary mainly for dual boot.
+
+** Secure Boot setup
+The following commands need to be run:
+#+begin_src bash
+  sudo sbctl create-keys
+
+  # Check
+  sudo sbctl list-enrolled-keys
+  sudo sbctl status
+  sudo sbctl verify
+
+  # Sign the Limine bootloader
+  sudo sbctl sign -s /boot/efi/boot/BOOTX64.EFI
+  # Do NOT sign the kernel, Limine is all I need the Secure Boot for.
+
+  # Confirm the EFI images are signed
+  sudo sbctl verify
+#+end_src
+
+At this point, I need to restart the machine and need to go into BIOS.
+#+begin_src bash
+  sudo systemctl reboot --firmware-setup
+#+end_src
+
+With the new key created with ~sbctl create-keys~, I need to make sure BIOS firmware stores this information -- but in order to do this, I need to first remove the existing keys. This is the sequence of actions I need to take
+#+begin_example
+  Tab: Security -> Secure Boot
+
+  Secure Boot Control -> change this to "Enabled"
+  # At this point I should see "Expert Key Management"
+
+  Expert Key Management -> Reset to Setup Mode
+
+  # Once again, keep Secure Boot disabled for launching NixOS
+  Secure Boot Control -> change this to "Disabled"
+#+end_example
+
+At this point, Limine may complain saying Blake2b hash for Linux image does not match. This is expected due to the fact I signed the boot image earlier, and will need to rebuild to correct the hash entry.
+Once I get back into NixOS machine, I can run the following to complete the setup.
+#+begin_src bash
+  sudo sbctl enroll-keys --microsoft
+#+end_src
+
+After this step, I should do a ~nixos-rebuild~ to ensure the image is hashed correctly, and then get back to BIOS to enable Secure Boot.
+#+begin_src bash
+  sudo systemctl reboot --firmware-setup
+#+end_src
+
+#+begin_example
+  Tab: Security -> Secure Boot
+
+  Secure Boot Control -> change this to "Enabled"
+#+end_example
+
+** Adjust Nix input
+After the Secure Boot setup is fully in place, I can comment-in the Secure Boot flag on Limine in my ~configuration.nix~.
+
+* References
+:PROPERTIES:
+:VISIBILITY: children
+:END:
+The below are what I put together before, so that I could get everything declaratively defined.
+
+** Hardware spec
 Based on the hardware capabilities, Nix can figure out some flags with ~nixos-generate-config~ command. However, when using this, we need to tell it that disko has done the disk partition, and thus should not touch the file system anymore.
 
 #+begin_src bash
@@ -81,7 +459,7 @@ This generates two files:
 
 The hardware configuration holds onto some hardware specific flags found by Nix. The ~configuration.nix~ is the main configuration for adjusting the system behaviour.
 
-* Copy config over
+** Copy config over
 If there is a separate local machine I can connect from, simply copy over the git repo using:
 #+begin_src bash
   rsync -ahvz nix-config nixos@192.168.1.3:/tmp
@@ -89,7 +467,7 @@ If there is a separate local machine I can connect from, simply copy over the gi
 
 (Dummy IP address used)
 
-* Run install
+** Run install
 With that in place, I should be able to simply run ~nixos-rebuild~ -- but with the initial installation, I should use ~nixos-install~. But as I have some private repository in my dependency chain, I need to ensure that the access is established before the rebuild to take place.
 
 With a separate local machine, I can forward the credential by ensuring GPG agent is setup to support forwarding.

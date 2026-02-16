@@ -32,7 +32,8 @@
   boot.loader.limine.extraEntries = ''
     /Windows Boot Manager
     protocol: efi_chainload
-    image_path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
+    # Windows is on partition 1 (hdd0gpt1), Limine is on partition 7 (hdd0gpt7)
+    image_path: hdd0gpt1:/EFI/Microsoft/Boot/bootmgfw.efi
   '';
 
   # Secure Boot

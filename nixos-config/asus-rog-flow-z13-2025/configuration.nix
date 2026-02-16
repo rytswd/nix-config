@@ -39,7 +39,7 @@
   # Secure Boot
   environment.systemPackages = [ pkgs.sbctl ];
   # NOTE: This needs to be set to false upon the initial setup.
-  # boot.loader.limine.secureBoot.enable = true;
+  boot.loader.limine.secureBoot.enable = true;
 
   filesystem.zfs.enable = true;
 

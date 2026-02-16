@@ -79,6 +79,7 @@ in
       {
         # 1. Setup Directory Structure
         home.activation.ensureGitDirectories = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          mkdir -p "$(dirname "${statusFile}")"
           touch "${statusFile}"
         '';
 

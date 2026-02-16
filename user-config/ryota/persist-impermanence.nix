@@ -18,8 +18,8 @@
       ##  dotfiles
       #------------------------------------------
       ".password-store"
-      ".ssh"
-      ".gnupg"
+      { directory = ".ssh"; mode = "0700"; }
+      { directory = ".gnupg"; mode = "0700"; }
       ".config" # This captures most items.
 
       ###========================================

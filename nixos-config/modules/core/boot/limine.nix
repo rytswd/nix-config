@@ -16,10 +16,6 @@
       # there only for reference.
 
       limine = {
-        # Limine was my preference in terms of its visual appeal, but it cannot
-        # work with LUKS as of writing.
-        # https://codeberg.org/Limine/Limine/src/branch/v10.x/FAQ.md
-        # Ref: https://github.com/limine-bootloader/limine/blob/v9.x/CONFIG.md
         enable = true;
 
         style.wallpapers = [ ./hasliberg.jpg ];

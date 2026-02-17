@@ -25,6 +25,7 @@ nixpkgs-unstable.lib.nixosSystem rec {
     #------------------------------------------
     # disko defines the partition and filesystem setup.
     inputs.disko.nixosModules.disko
+    inputs.disko-zfs.nixosModules.default
     ./disko-dual-boot.nix
     # ./disko-nixos-only.nix
 

@@ -22,9 +22,6 @@
         # Ref: https://github.com/limine-bootloader/limine/blob/v9.x/CONFIG.md
         enable = true;
 
-        # Keeping only a few generations.
-        maxGenerations = 3;
-
         style.wallpapers = [ ./hasliberg.jpg ];
       };
     };

@@ -29,12 +29,17 @@
   # Dual-boot workaround: Limine's efibootmgr detection breaks with ZFS root
   # + separate Windows ESP. Skip efibootmgr and install to UEFI fallback path.
   boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
-  boot.loader.limine.extraEntries = ''
-    /Windows Boot Manager
-    protocol: efi_chainload
-    # Windows is on partition 1 (hdd0gpt1), Limine is on partition 7 (hdd0gpt7)
-    image_path: hdd0gpt1:/EFI/Microsoft/Boot/bootmgfw.efi
-  '';
+  # NOTE: I tried adding EFI chainloading entry for Windows, but BitLocker was
+  # very peculiar about the TPM measurement and couldn't get it to load up. Now
+  # with Limine having the full Secure Boot, I can simply fall back to use
+  # Windows Boot Manager from BIOS, and that's good enough for me.
+  # boot.loader.limine.extraEntries = ''
+  #   /Windows Boot Manager (bootmgfw)
+  #   protocol: efi
+  #   # hdd(drive:partition) - both 1-based, so first disk, first partition.
+  #   # Windows is on partition 1, Limine is on partition 7.
+  #   image_path: hdd(1:1):/EFI/Microsoft/Boot/bootmgfw.efi
+  # '';
 
   # Secure Boot
   environment.systemPackages = [ pkgs.sbctl ];

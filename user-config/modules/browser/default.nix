@@ -15,8 +15,7 @@
   ];
 
   # NOTE: The browsers are assumed to be the setup for NixOS. This is because
-  # some of the packages are not packaged up for macOS, and on macOS, I use
-  # Arc Browser instead.
+  # some of the packages are not packaged up for macOS.
   browser.brave.enable = lib.mkDefault true;
   browser.vivaldi.enable = lib.mkDefault true;
   # browser.chromium.enable = lib.mkDefault true;

@@ -55,6 +55,7 @@ in
 
     # User specific config
     ./home-git-clone.nix
+    ./default-apps.nix
   ];
 
   ###----------------------------------------

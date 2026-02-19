@@ -9,30 +9,28 @@ My configuration will not be useful as is for many, and it's never meant to be. 
 Nix is used for both NixOS and macOS for my configuration. You can check out both configurations here. All the configurations are based on [[https://nixos.wiki/wiki/Flakes][Nix Flake]].
 
 *** For NixOS
-/To be updated/
+For NixOS, I use Nix ecosystem extensively. In order to allow working in various environments, I heavily depend on [[https://github.com/nix-community/home-manager][home-manager]] setup rather than NixOS configuration.
 
 *** For macOS
+NOTE: I rarely use macOS these days, and thus you may find some stale configuration.
 For macOS, I use [[https://github.com/LnL7/nix-darwin][nix-darwin]] and [[https://github.com/nix-community/home-manager][home-manager]] to configure.
 
-You can find more in [[machine-setup/mbp/README.org]].
-
 *** For NixOS with UTM (on Mac)
-All the NixOS configurations are done with ~nixpkgs.lib.nixosSystem~ and [[https://github.com/nix-community/home-manager][home-manager]].
-
+NOTE: I have not been using this at all, and many of the configurations are broken at this point.
 For the UTM setup for VM on macOS, you can find more in [[machine-setup/mbp-utm/README.org]]. Other VM solutions may also be added as I get to test more.
 
 ** 📜 Configuration Details
 The idea is to ensure I have all the ~$HOME~ setup defined declaratively, while allowing some imperative adjustments when and if necessary. Also, it is designed to work with various machines and environments, so that most of the configurations can be shared among the different environments, but still there would be some additional configurations made possible. (Or simply duplicating some resources.)
 
 *** Directories
-To be updated (should be mostly clear by their names)
+Most of the configurations are made so that they can be used for various machines and user setup. You can find ~modules/~ directory, where I define specific functionality in a single file, such as ~user-config/modules/music/spotify.nix~.
 
 *** Key Tools In Use
 You can find the actual configurations in various ~.nix~ files in this repository. Here is a list of items that are worth clarifying for anyone keen to understand how I work in general.
 
 **** 📝 Editor
-I mainly use *Emacs* for any coding tasks, and many more (note taking, task management, email, etc.). All of my Emacs configurations are NOT in this repository, and I manage them in a separate repository (to be open sourced at some point).
-With my Emacs, I use [[https://github.com/emacs-evil/evil][Evil key bindings]] along with Emacs bindings. I use both Emacs and Vi bindings all the time, and thus NeoVim is also another platform I sometimes fall back to. I do have VSCode installed and use it occasionally, but rather rarely.
+I mainly use *Emacs* for any coding tasks, and many more (note taking, task management, email, etc.). All of my Emacs configurations are NOT in this repository, and I manage them in a separate repository (private as of now, maybe to be open sourced in future).
+With my Emacs, I use [[https://github.com/emacs-evil/evil][Evil key bindings]] along with Emacs bindings. I use both Emacs and Vi bindings all the time, and thus NeoVim is also another platform I sometimes fall back to. I do have VSCode and other editors installed and use it occasionally, but quite rare in these days.
 
 **** 💻  Terminal
 I used to use various solutions, but now my main driver is *[[https://ghostty.org/][Ghostty]]*. It is performant and does everything I need well and cleanly. Before Ghostty, I used to use [[https://github.com/alacritty/alacritty][Alacritty]] and [[https://github.com/tmux/tmux][tmux]], but I do not feel the need anymore. I also have [[https://sw.kovidgoyal.net/kitty/][Kitty]] available, but I do not use it.
@@ -46,11 +44,3 @@ Here is the list of other tools I use for the key components of each OS.
 | Toolbar           | macOS default | [[https://github.com/Alexays/Waybar][Waybar]]      |
 | App Launcher      | [[https://www.raycast.com/][Raycast]]       | [[https://github.com/davatorium/rofi][rofi]]        |
 | Browser           | [[https://zen-browser.app/][Zen Browser]]   | [[https://zen-browser.app/][Zen Browser]] |
-
-**** 🍂 Other Tools
-For macOS
-- UTM: https://github.com/utmapp/UTM
-- Kap: https://getkap.co/
-- KeyCastr: https://github.com/keycastr/keycastr
-
-

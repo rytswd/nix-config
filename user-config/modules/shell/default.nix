@@ -23,8 +23,8 @@
     ./direnv
     ./starship
     ./atuin
+    ./tmux
     ./yazi
-    ./tmux # I don't use it much, but keeping it in.
   ];
 
   shell.standard.enable = lib.mkDefault true;
@@ -42,5 +42,5 @@
   shell.starship.enable = lib.mkDefault true;
   shell.atuin.enable = lib.mkDefault true;
   shell.yazi.enable = lib.mkDefault true;
-  shell.tmux.enable = lib.mkDefault false; # Being explicit
+  shell.tmux.enable = lib.mkDefault true;
 }

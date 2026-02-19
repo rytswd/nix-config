@@ -26,7 +26,7 @@
         }; in
         with pkgs.tmuxPlugins; [
           nord
-          # resurrect # Commented out to use the latest version instead
+          resurrect # Commented out to use the latest version instead
           {
             plugin = better-mouse-mode;
             extraConfig = ''
@@ -41,7 +41,7 @@
             '';
           }
         ] ++ [
-          resurrectLatest
+          # resurrectLatest
         ];
       extraConfig = builtins.readFile ./tmux.conf;
     };

@@ -7,30 +7,12 @@
 }:
 
 let
-  # Keys are generated with commands like:
-  #
-  #   ssh-keygen -t ed25519-sk -O resident -C "YubiKey Auth Nano C"
-  #
-  # Define my keys here (Serial -> Secret Name mapping)
-  keys = {
-    "28656036" = {
-      auth.publicKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIIey7k133RLvHWG7AybBxK8la06QCKw5OGoxvi0IWqUaAAAACHNzaDpBdXRo yubikey-28656036-auth";
-      sign.publicKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIDwOp5Hi95SJV+MzrwPXx+9si4DtKHPjjEVnCcfxxpimAAAADnNzaDpHaXRTaWduaW5n yubikey-28656036-signing";
-    };
-    "28656210" = {
-      auth.publicKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIDjsRp17ZN3bBNsJzsS1UmXmztxnPChAIuM2sB8X47jvAAAACHNzaDpBdXRo yubikey-28656210-auth";
-      sign.publicKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAINY7AcCZ8fpomi8xCrBzNuwOPrBVE+HNTXOdNqDzyuFZAAAADnNzaDpHaXRTaWduaW5n yubikey-28656210-signing";
-    };
-    "32149556" = {
-      auth.publicKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIObcjrmJ0U0y2K4WSTNP3s4iO3G+Jz4YmfiUPac++lMeAAAACHNzaDpBdXRo yubikey-32149556-auth";
-      sign.publicKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIAcE4QrxQL58es6zCr/GxfGyzGgF5ykpan+mq+DlvK7MAAAADnNzaDpHaXRTaWduaW5n yubikey-32149556-signing";
-    };
-    "33200429" = {
-      auth.publicKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIKb8IpultzzxnlcmL+DxNXNxMFWUBwIuyIiSY0EVwiRlAAAACHNzaDpBdXRo yubikey-33200429-auth";
-      sign.publicKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIN08ypm/Dc7Ue6P3j25m0RdSavisMvUA6U7o+a0wAaEQAAAADnNzaDpHaXRTaWduaW5n yubikey-33200429-signing";
-    };
-    # Add backup keys here...
-  };
+  allKeys = import "${inputs.self}/shared/keys.nix";
+
+  keys = lib.mapAttrs (_: k: {
+    auth.publicKey = k.auth;
+    sign.publicKey = k.sign;
+  }) allKeys.yubikey;
 
   private-repo = (builtins.toString inputs.nix-config-private);
 

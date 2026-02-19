@@ -2,12 +2,17 @@
 , lib
 , config
 , modulesPath
+, inputs
 , ...}:
 
 # Hetzner Cloud VM overrides. Standard CX-line VMs use BIOS boot (not EFI)
 # and a single NIC with DHCP provided by Hetzner's network. Import this
 # module in any Hetzner Cloud NixOS configuration.
 
+let
+  # Import shared SSH keys from flake root
+  allKeys = import "${inputs.self}/shared/keys.nix";
+in
 {
   imports = [
     # Adds virtio kernel modules (virtio_blk, virtio_scsi, virtio_net, etc.)
@@ -61,20 +66,10 @@
   };
 
   # Authorize all YubiKey SSH keys for root access. These match the keys
-  # registered in the Hetzner Cloud project. Source of truth for the
-  # public keys is user-config/modules/vcs/git/yubikey.nix.
-  users.users.root.openssh.authorizedKeys.keys = [
-    # GPG-based SSH key
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILX+wxTLnIemOShAhsDgBpst0X/Ybu7SGZChaLSX/e7B"
-    # YubiKey 28656036
-    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIIey7k133RLvHWG7AybBxK8la06QCKw5OGoxvi0IWqUaAAAACHNzaDpBdXRo yubikey-28656036-auth"
-    # YubiKey 28656210
-    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIDjsRp17ZN3bBNsJzsS1UmXmztxnPChAIuM2sB8X47jvAAAACHNzaDpBdXRo yubikey-28656210-auth"
-    # YubiKey 32149556
-    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIObcjrmJ0U0y2K4WSTNP3s4iO3G+Jz4YmfiUPac++lMeAAAACHNzaDpBdXRo yubikey-32149556-auth"
-    # YubiKey 33200429
-    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIKb8IpultzzxnlcmL+DxNXNxMFWUBwIuyIiSY0EVwiRlAAAACHNzaDpBdXRo yubikey-33200429-auth"
-  ];
+  # registered in the Hetzner Cloud project. Source of truth is shared/keys.nix.
+  users.users.root.openssh.authorizedKeys.keys =
+    [ allKeys.gpg-ssh ] ++
+    (lib.mapAttrsToList (_: k: k.auth) allKeys.yubikey);
 
   # --- Hetzner Cloud guest agent ---
   services.qemuGuest.enable = true;

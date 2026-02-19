@@ -1,6 +1,6 @@
 #+title: Nix Config
 
-[[file:images/2024-02-16_18-02-48_screenshot.png]]
+[[file:assets/images/nixos-screenshot-2026-02-19.png]]
 
 ** 🌄 My Configuration, Not Yours
 My configuration will not be useful as is for many, and it's never meant to be. I made all the configurations for my specific needs. You are welcome to have a look to understand how I work, how to configure with Nix, etc. I will check Issues and Pull Requests, but may not take in suggestions and configurations.

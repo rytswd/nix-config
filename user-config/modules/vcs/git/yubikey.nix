@@ -14,7 +14,7 @@ let
     sign.publicKey = k.sign;
   }) allKeys.yubikey;
 
-  private-repo = (builtins.toString inputs.nix-config-private);
+  private-repo = (toString inputs.nix-config-private);
 
   # The mutable file Git reads
   statusFile = "${config.xdg.configHome}/git/yubikey-status";

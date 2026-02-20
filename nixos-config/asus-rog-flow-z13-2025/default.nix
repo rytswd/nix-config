@@ -8,7 +8,7 @@
   ...
 }:
 
-nixpkgs-unstable.lib.nixosSystem rec {
+nixpkgs.lib.nixosSystem rec {
   inherit system;
   specialArgs = {
     inherit
@@ -74,15 +74,19 @@ nixpkgs-unstable.lib.nixosSystem rec {
         # NOTE: Without this, I get an error applying home-manager updates
         # (following the addition of GTK config).
         backupFileExtension = "backup";
+
         useGlobalPkgs = false;
         useUserPackages = true;
-        extraSpecialArgs = { inherit inputs; };
 
-        # Set nixpkgs config for all home-manager users
-        sharedModules = [{
-          nixpkgs.config.allowUnfree = true;
-          nixpkgs.overlays = overlays;
-        }];
+        # Update pkgs to point to nixpkgs-unstable.
+        extraSpecialArgs = {
+          inherit inputs;
+          pkgs = import nixpkgs-unstable {
+            inherit system;
+            config.allowUnfree = true;
+            overlays = overlays;
+          };
+        };
 
         # Each user needs to be set up separately.
         # Because home-manager needs to know where the home directory is,

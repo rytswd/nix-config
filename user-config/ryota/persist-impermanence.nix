@@ -35,6 +35,10 @@
       # entries for outside Emacs interactions.
       ".local/share/applications"
 
+      # Shell historise
+      ".local/share/fish"
+      ".local/state/zsh"
+
       ###----------------------------------------
       ##  Application specific
       #------------------------------------------

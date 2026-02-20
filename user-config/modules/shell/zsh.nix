@@ -26,6 +26,7 @@
       autosuggestion.enable = true;
       syntaxHighlighting.enable  = true;
       history.size = 100000;
+      history.path = "${config.xdg.stateHome}/zsh/zsh_history";
       plugins = [
         # NOTE: This approach of having custom plugins work perfectly fine, but this
         # would also pollute the PATH with the plugins' directories. There may be a

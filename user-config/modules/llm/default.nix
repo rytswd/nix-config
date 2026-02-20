@@ -10,6 +10,7 @@
     ./gemini.nix
     ./opencode.nix
     ./pi.nix
+    ./extra-tools.nix
   ];
 
   llm.claude.enable = lib.mkDefault true;
@@ -17,4 +18,5 @@
   llm.gemini.enable = lib.mkDefault true;
   llm.opencode.enable = lib.mkDefault true;
   llm.pi.enable = lib.mkDefault true;
+  llm.extra-tools.enable = lib.mkDefault true;
 }

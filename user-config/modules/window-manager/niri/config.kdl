@@ -127,7 +127,7 @@ window-rule {
 
 window-rule {
     match app-id="emacs"
-    default-column-width { proportion 0.925; }
+    default-column-width { proportion 0.95; }
 }
 
 window-rule {

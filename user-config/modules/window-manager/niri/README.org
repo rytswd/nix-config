@@ -415,7 +415,7 @@ For Emacs, I'm setting the default column to be even bigger.
 #+begin_src kdl
   window-rule {
       match app-id="emacs"
-      default-column-width { proportion 0.925; }
+      default-column-width { proportion 0.95; }
   }
 #+end_src
 

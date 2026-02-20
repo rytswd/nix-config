@@ -1,5 +1,11 @@
 {
+  # GPG signing key ID (shared across all 4 YubiKeys)
+  # Used for git commit signing when GPG is available
+  # Full long-form key ID (without 0x prefix for Git compatibility)
+  gpg-key-id = "6FF76B4830CBDB2E";
+
   # GPG-based SSH key (from YubiKey's GPG auth subkey, shared across all YubiKeys)
+  # Used for SSH authentication when GPG is available
   gpg-ssh = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILX+wxTLnIemOShAhsDgBpst0X/Ybu7SGZChaLSX/e7B";
 
   # FIDO2 resident keys - one auth + one signing key per YubiKey serial

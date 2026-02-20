@@ -40,6 +40,10 @@
         "root"
       ];
 
+      # NOTE: When I have ~/.config/nix/nix.conf, that takes precedence for
+      # setting the cache substituters. Make sure that I don't have any file
+      # there.
+
       substituters = [
         "https://cache.nixos.org/"
         "https://nix-community.cachix.org"
@@ -57,6 +61,7 @@
         "https://hyprland.cachix.org"
         "https://roc-lang.cachix.org"
         "https://cache.numtide.com"
+        "https://cache.thalheim.io"
       ];
       extra-trusted-public-keys = [
         "rytswd-nix-config.cachix.org-1:fpZQ465aGF2LYQ8oKOrd5c8kxaNmD7wBEK/yyhSQozo="
@@ -66,6 +71,7 @@
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "roc-lang.cachix.org-1:6lZeqLP9SadjmUbskJAvcdGR2T5ViR57pDVkxJQb8R4="
         "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+        "cache.thalheim.io-1:R7msbosLEZKrxk/lKxf9BTjOOH7Ax3H0Qj0/6wiHOgc="
       ];
     };
   };

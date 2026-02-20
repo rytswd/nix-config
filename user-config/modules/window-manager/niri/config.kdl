@@ -265,7 +265,7 @@ environment {
 binds {
     Alt+Space         { spawn "rofi" "-show" "drun"; }
     Alt+Shift+Space   { spawn "rofi" "-show" "window"; }
-    Shift+XF86Launch1 { spawn "ghostty"; }
+    XF86Launch1 { spawn "ghostty"; }
     Super+Shift+F12 { spawn "ghostty" "-e" "clipse"; }
     Super+Alt+K   { spawn "sh" "-c" \
                     "cliphist list | fuzzel -d | cliphist decode | wl-copy" \

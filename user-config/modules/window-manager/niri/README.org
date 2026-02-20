@@ -687,7 +687,7 @@ I'm considering to move to use a dedicated solution.
 
 There are times some commands stop working. I'm making sure at least I get a terminal I can run stuff from.
 #+begin_src kdl
-  Shift+XF86Launch1 { spawn "ghostty"; }
+  XF86Launch1 { spawn "ghostty"; }
 #+end_src
 
 Use ~clipse~ for the clipboard history. which needs a terminal emulator.

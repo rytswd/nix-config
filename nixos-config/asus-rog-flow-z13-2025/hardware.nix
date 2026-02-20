@@ -30,4 +30,5 @@
   # Be careful updating this.
   # NOTE: Sticking to this version which is compatible with ZFS.
   boot.kernelPackages = pkgs.linuxPackages_6_18;
+  boot.zfs.package = pkgs.zfs_2_4;
 }

@@ -13,9 +13,12 @@
   };
 
   config = lib.mkIf config.security.pass.enable {
-    home.packages = [
-      pkgs.pass
-    ];
+    programs.password-store = {
+      enable = true;
+      settings = {
+        PASSWORD_STORE_DIR = "${config.xdg.dataHome}/password-store";
+      };
+    };
     services.pass-secret-service = {
       enable = true;
     };

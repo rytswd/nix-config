@@ -17,7 +17,6 @@
       ###----------------------------------------
       ##  dotfiles
       #------------------------------------------
-      ".password-store"
       { directory = ".ssh"; mode = "0700"; }
       { directory = ".gnupg"; mode = "0700"; }
       ".config" # This captures most items.
@@ -70,6 +69,7 @@
       ".local/share/docker"
       ".local/share/zoxide"
       ".local/share/kubebuilder-envtest"
+      ".local/share/password-store"
 
       ###----------------------------------------
       ##  Coding

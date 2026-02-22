@@ -11,6 +11,7 @@
     ./opencode.nix
     ./pi.nix
     ./extra-tools.nix
+    ./skills.nix
   ];
 
   llm.claude.enable = lib.mkDefault true;
@@ -19,4 +20,5 @@
   llm.opencode.enable = lib.mkDefault true;
   llm.pi.enable = lib.mkDefault true;
   llm.extra-tools.enable = lib.mkDefault true;
+  llm.skills.enable = lib.mkDefault true;
 }

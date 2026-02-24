@@ -37,7 +37,6 @@ let
         if gpg --list-secret-keys "${allKeys.gpg-key-id}" >/dev/null 2>&1; then
           echo "GPG YubiKey detected with imported keys. Using GPG for signing."
           git config -f "${statusFile}" user.signingKey "${allKeys.gpg-key-id}"
-          git config -f "${statusFile}" gpg.format "gpg"
           exit 0
         else
           echo "GPG card detected but signing key ${allKeys.gpg-key-id} not in keyring."

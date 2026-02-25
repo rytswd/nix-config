@@ -23,13 +23,10 @@
           gccact = "gcloud config configurations activate";
           gccls = "gcloud config configurations list";
           tf = "terraform";
-          l = "ls";
-          ll = "ls -l";
-          la = "ls -la";
         };
       settings = {
-        show_banner= false;
-        history.sync_on_enter= false;
+        show_banner = false;
+        history.file_format = "sqlite";
         completions = {
           case_sensitive = false;
           algorithm = "fuzzy";
@@ -62,6 +59,11 @@
           }
         ];
       };
+      extraConfig = ''
+        def l [] { ls | sort-by type }
+        def ll [] { ls -l | sort-by type }
+        def la [] { ls -la | sort-by type }
+      '';
     };
 
     xdg.configFile = {

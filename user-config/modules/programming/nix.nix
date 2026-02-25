@@ -17,6 +17,7 @@
       pkgs.nixd # Language Server
       pkgs.nixpkgs-review # PR review utility
       pkgs.alejandra # Formatting
+      pkgs.nixfmt # Formatting
     ] ++ [
       # Because of Darwin support provided by a separate flake, this ensures
       # there is no conflicting package on macOS. NixOS technically doesn't need

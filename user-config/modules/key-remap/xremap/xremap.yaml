@@ -237,6 +237,7 @@ keymap:
     # navigation related bindings intact, I'm creating a special sequence that
     # does not conflict with anything else.
     remap:
+      # Swap windows
       Ctrl-Shift_L-left:    C-Shift-Super-left
       Ctrl-Shift_L-right:   C-Shift-Super-right
       Ctrl-Shift_L-down:    C-Shift-Super-down
@@ -251,10 +252,16 @@ keymap:
       Ctrl-Shift_L-0:       C-Shift-Super-0
       Ctrl-Alt_L-left:      C-Shift-Alt-left
       Ctrl-Alt_L-right:     C-Shift-Alt-right
+      # Move focus
       Ctrl-left:            C-Shift-Super-Alt-left
       Ctrl-right:           C-Shift-Super-Alt-right
       Ctrl-down:            C-Shift-Super-Alt-down
       Ctrl-up:              C-Shift-Super-Alt-up
+      # Another setup for Copilot key based hack, which needs udev rewrite.
+      Alt_L-Ctrl_R-Shift_L-left:    C-Shift-Super-Alt-left
+      Alt_L-Ctrl_R-Shift_L-right:   C-Shift-Super-Alt-right
+      Alt_L-Ctrl_R-Shift_L-down:    C-Shift-Super-Alt-down
+      Alt_L-Ctrl_R-Shift_L-up:      C-Shift-Super-Alt-up
       # NOTE: The below mappings make sure they don't get affected by above.
       Ctrl-Alt_L-down:      C-Alt-down
       Ctrl-Alt_L-up:        C-Alt-up

@@ -60,6 +60,20 @@
   #
   #     readlink -f /sys/bus/usb/devices/usb1 | xargs dirname | xargs basename
   rytswd.services.fix-webcam-resume.pciAddress = "0000:c4:00.4";
+  # Replace Copilot key to act as right ctrl key. Note how this does replace
+  # the key F23 to Ctrl_R, but the Copilot key also has extra modifiers
+  # associated. Binding any Copilot key associated mapping needs to specify all
+  # of those keys, meaning Alt_L, Ctrl_R, and Shift_L.
+  # The evdev input address is taken from evtest
+  #
+  #     ❯ sudo evtest /dev/input/event7
+  #     Input driver version is 1.0.1
+  #     Input device ID: bus 0x3 vendor 0xb05 product 0x1a30 version 0x110
+  #     Input device name: "Asus Keyboard"
+  services.udev.extraHwdb = ''
+    evdev:input:b0003v0B05p1A30*
+     KEYBOARD_KEY_70072=rightctrl
+  '';
 
   # NOTE: This should match the name used for nixosConfigurations, so that nh
   # tool can automatically find the right target.

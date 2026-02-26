@@ -60,9 +60,9 @@
         ];
       };
       extraConfig = ''
-        def l [] { ls | sort-by type }
-        def ll [] { ls -l | sort-by type }
-        def la [] { ls -la | sort-by type }
+        def l [i = .] { ls $i | sort-by type }
+        def ll [i = .] { ls -l $i | sort-by type }
+        def la [i = .] { ls -la $i | sort-by type }
       '';
     };
 

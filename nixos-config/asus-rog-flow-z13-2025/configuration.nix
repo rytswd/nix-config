@@ -56,7 +56,10 @@
   # Flow Z13 does not have NVidia GPU.
   graphics.nvidia-offload.enable = false;
   # Webcam sometimes fails to come up.
-  rytswd.services.fix-webcam-resume.pciAddress = "0000:00:08.1"; # Webcam address on this device
+  # Webcam address on this device is taken by
+  #
+  #     readlink -f /sys/bus/usb/devices/usb1 | xargs dirname | xargs basename
+  rytswd.services.fix-webcam-resume.pciAddress = "0000:c4:00.4";
 
   # NOTE: This should match the name used for nixosConfigurations, so that nh
   # tool can automatically find the right target.

@@ -2542,11 +2542,11 @@
         "nixpkgs": "nixpkgs_12"
       },
       "locked": {
-        "lastModified": 1768182050,
-        "narHash": "sha256-UBD2Zk/Bajofcm8xjeMBHyO6Bgd9FZQBSGih4PutoVs=",
+        "lastModified": 1772195000,
+        "narHash": "sha256-qzI+Jt8MnE7H3y4+8IwRPknte2Tt64fehID6bRwPIOA=",
         "ref": "refs/heads/main",
-        "rev": "38322c514eed38caffe202a9524ea0976d99e208",
-        "revCount": 13,
+        "rev": "426a0c2250e2491c5e8c9b6bc8557d74bea2b9b1",
+        "revCount": 18,
         "type": "git",
         "url": "ssh://git@github.com/0-re/treesitter-grammars.nix"
       },

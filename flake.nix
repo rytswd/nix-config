@@ -171,8 +171,6 @@
     # vscodeOverlay = (import ./overlays/vscode.nix);
 
     # Other utility related overlays
-    treesitterOverlay = inputs.treesitter-grammars.overlays.default;
-    treeSitterOverlay = (import ./overlays/tree-sitter.nix );
     # gripOverlay = (import ./overlays/grip.nix );
     # erdtreeOverlay = (import ./overlays/erdtree.nix );
     # yaziOverlay = (import ./overlays/yazi.nix );
@@ -185,10 +183,6 @@
 
       # emacsOverlay
       # vscodeOverlay
-
-      # TODO: merge into one. treesitter is coming from flake, treeSitter is local.
-      # treeSitterOverlay
-      # treesitterOverlay
 
       # gripOverlay
       # erdtreeOverlay
@@ -260,6 +254,7 @@
         inherit nixpkgs nixpkgs-unstable inputs overlays;
         system = "x86_64-linux";
       });
+
       # TODO: Fix this based on the new setup.
       # mbp-2021-utm = (import ./nixos-config/mbp-utm {
       #   inherit (nixpkgs-unstable) lib;

@@ -69,17 +69,27 @@
     ];
 
     programs = {
-      fzf = {
+      # Shell completion helper. I'm only using this for Nushell for now.
+      # https://github.com/carapace-sh/carapace-bin
+      carapace = {
         enable = true;
-        enableZshIntegration = true;
         enableFishIntegration = true;
+        enableNushellIntegration = true;
+        # enableZshIntegration = true;
       };
 
-      # I use Yazi for most of the file navigation (along with Zoxide).
-      # Yazi definitions are in a separate file as it needs more tweaking.
+      # Fuzzy finder
+      # https://github.com/junegunn/fzf
+      fzf = {
+        enable = true;
+        enableFishIntegration = true;
+        enableZshIntegration = true;
+      };
 
-      # Atuin is also enabled, but handled separately in a module.
+      # Atuin and Yazi are handled separately in a dedicated module for each.
 
+      # cd alternative
+      # https://github.com/ajeetdsouza/zoxide
       zoxide = {
         enable = true;
         # In order to call the builtin 'cd', I can use 'builtin cd'.

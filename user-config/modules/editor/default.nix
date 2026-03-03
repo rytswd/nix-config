@@ -6,7 +6,7 @@
 {
   imports = [
     ./emacs.nix
-    ./neovim.nix
+    ./neovim
     ./helix.nix
     ./vscode.nix
     ./zed.nix

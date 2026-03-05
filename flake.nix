@@ -88,6 +88,8 @@
       flake = false;
     };
 
+    librepods.url = "github:kavishdevar/librepods/linux/rust";
+
     llm-agents.url = "github:numtide/llm-agents.nix";
     swapdir.url = "git+ssh://git@github.com/rytswd/swapdir";
     # swapdir.url = "github:rytswd/swapdir";

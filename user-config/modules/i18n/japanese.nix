@@ -61,10 +61,10 @@
               ActiveByDefault = false;
             };
             "Hotkey/TriggerKeys" = {
-              "0" = "F8";
+              "0" = "";
             };
             "Hotkey/EnumerateGroupForwardKeys" = {
-              "0" = "F9";
+              "0" = "";
             };
             Hotkey = {
               EnumerateWithTriggerKeys = true;

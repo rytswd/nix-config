@@ -21,6 +21,7 @@
     ./c.nix
     ./protobuf.nix
     ./java.nix
+    ./lua.nix
   ];
 
   # Many coding dependencies are better handled per project / directory,
@@ -44,4 +45,5 @@
   programming.c.enable = lib.mkDefault true;
   programming.protobuf.enable = lib.mkDefault true;
   programming.java.enable = lib.mkDefault true;
+  programming.lua.enable = lib.mkDefault true;
 }

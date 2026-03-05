@@ -22,6 +22,7 @@ backend = "gpg"
 pager = ":builtin"
 paginate = "auto"
 default-command = ["log", "-s", "-n", "10"]
+diff-formatter = ["difft", "--color=always", "$left", "$right"]
 
 [ui.streampager]
 wrapping = "word"      # wrap on word boundaries

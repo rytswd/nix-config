@@ -27,6 +27,7 @@
       pkgs.dust         # https://github.com/bootandy/dust
       pkgs.erdtree      # https://github.com/solidiquis/erdtree
       pkgs.delta        # https://github.com/dandavison/delta
+      pkgs.difftastic   # https://github.com/Wilfred/difftastic
       pkgs.cloc         # https://github.com/AlDanial/cloc
       pkgs.tokei        # https://github.com/XAMPPRocky/tokei
       pkgs.ripunzip     # https://github.com/google/ripunzip

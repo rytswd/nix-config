@@ -3,9 +3,8 @@
 input {
     keyboard {
         xkb {
-            layout "us,jp"
+            layout "us,us"
             variant "dvorak,"
-            options "grp:win_space_toggle"
         }
         repeat-rate 75
         repeat-delay 195
@@ -275,6 +274,7 @@ binds {
     Super+Alt+N   { spawn "swaylock"; } // Dvorak L
     Super+Shift+M { quit; }
     Super+Apostrophe { close-window; } // Super + Q on Dvorak
+    F9 { spawn "niri-toggle-input-method"; }
 
     Super+Tab                   { focus-window-down-or-column-right; }
     Super+Shift+Tab             { focus-window-up-or-column-left; }

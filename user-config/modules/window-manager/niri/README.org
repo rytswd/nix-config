@@ -54,9 +54,8 @@ NOTE: Currently debating whether I should switch to use fcitx5 for the actual in
 NOTE: This is what I had before.
  #+begin_src kdl
         xkb {
-            layout "us,jp"
+            layout "us,us"
             variant "dvorak,"
-            options "grp:win_space_toggle"
         }
 #+end_src
 
@@ -726,6 +725,11 @@ Quit Niri, which prompts before exiting.
 Close window is the most similar to Cmd+Q on macOS, but probably more intuitive.
 #+begin_src kdl
   Super+Apostrophe { close-window; } // Super + Q on Dvorak
+#+end_src
+
+Change the input using my custom script ~niri-toggle-input-method~. This changes the input method from "Main" to "JP" in Fcitx setting, as well as Dvorak keyboard layout to Qwerty on XKB.
+#+begin_src kdl
+  F9 { spawn "niri-toggle-input-method"; }
 #+end_src
 
 *** Focus

@@ -39,6 +39,23 @@ in
     };
     home.packages = [
       pkgs.xwayland-satellite
+
+      # NOTE: A bit of hack but this allows toggling fcitx and xkb at the same
+      # time. When things got stuck in a strange state, I can do:
+      #
+      #     fcitx5-remote -g "Main"
+      #     niir msg action switch-layout 0
+      #
+      (pkgs.writeShellScriptBin "niri-toggle-input-method" ''
+        current=$(${pkgs.fcitx5}/bin/fcitx5-remote -q)
+        if [ "$current" = "Main" ]; then
+          niri msg action switch-layout 1
+          ${pkgs.fcitx5}/bin/fcitx5-remote -g "JP"
+        else
+          niri msg action switch-layout 0
+          ${pkgs.fcitx5}/bin/fcitx5-remote -g "Main"
+        fi
+      '')
     ];
     home.shellAliases = {
       "nirimvw" = "niri msg action move-window-to-workspace";

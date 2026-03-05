@@ -65,6 +65,7 @@ in
       extraPortals = [
         # niri needs this for screen cast.
         pkgs.xdg-desktop-portal-gnome
+        pkgs.xdg-desktop-portal-gtk
       ];
       config = {
         common = {

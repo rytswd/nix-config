@@ -45,17 +45,25 @@ I am still using the following.
 
 NOTE: Currently debating whether I should switch to use fcitx5 for the actual input for everything. This means I would need to configure my language choices there, and also the keyboard layout. This is a bit more cumbersome to ensure English in Dvorak but Japanese in QWERTY. For now, I don't have too much usage of writing in Japanese, so not using fcitx5 at all.
 
+This would mean that xkb layout would have a single entry, and everything else would be triggered by other layers such as xremap or fcitx. I have some issues with propagating the fcitx event down, and thus not using this.
 #+begin_src kdl :tangle no :noweb-ref x
         xkb {
             
         }
 #+end_src
 
-NOTE: This is what I had before.
+This is what I had before. Dvorak and US keys that can be toggled as necessary.
  #+begin_src kdl
         xkb {
             layout "us,us"
             variant "dvorak,"
+        }
+#+end_src
+
+NOTE: This uses a custom keymap. It was less reliable than I liked, and thus it's not what I use.
+ #+begin_src kdl :tangle no :noweb-ref x
+        xkb {
+            file "~/.config/niri/keymap.xkb"
         }
 #+end_src
 

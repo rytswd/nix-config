@@ -31,7 +31,7 @@
             # Main keyboard layout which is US Dvorak
             "Groups/0" = {
               Name = "Main";
-              "Default Layout" = "us";
+              "Default Layout" = "us-dvorak";
               DefaultIM = "keyboard-us-dvorak";
             };
             "Groups/0/Items/0".Name = "keyboard-us-dvorak";

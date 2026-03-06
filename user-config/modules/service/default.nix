@@ -12,6 +12,7 @@
     ./gcp.nix
     ./hetzner.nix
     ./fly.nix
+    ./github.nix
     ./terraform.nix
     ./surrealdb.nix
   ];
@@ -23,6 +24,7 @@
   service.gcp.enable = lib.mkDefault true;
   service.hetzner.enable = lib.mkDefault true;
   service.fly.enable = lib.mkDefault true;
+  service.github.enable = lib.mkDefault true;
   service.terraform.enable = lib.mkDefault true;
   service.surrealdb.enable = lib.mkDefault false; #Being explicit
 }

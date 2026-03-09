@@ -7,10 +7,10 @@
   imports = [
     ./git
     ./git/yubikey.nix
-    ./jujutsu
+    ./jj
   ];
 
   vcs.git.enable = lib.mkDefault true;
   vcs.git.yubikey.enable = lib.mkDefault true;
-  vcs.jujutsu.enable = lib.mkDefault true;
+  vcs.jj.enable = lib.mkDefault true;
 }

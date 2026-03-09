@@ -5,12 +5,12 @@
 
 {
   options = {
-    vcs.jujutsu.enable = lib.mkEnableOption "Enable Jujutsu related items.";
+    vcs.jj.enable = lib.mkEnableOption "Enable Jujutsu (jj) related items.";
   };
 
   config = let
     # Base setup
-    base = lib.mkIf config.vcs.jujutsu.enable {
+    base = lib.mkIf config.vcs.jj.enable {
       # NOTE: I'm not enabling the programs here, as it would not work with the
       # manual configuration with TOML.
       # programs.jujutsu = {

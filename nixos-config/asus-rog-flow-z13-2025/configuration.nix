@@ -51,6 +51,11 @@
   filesystem.zfs.enable = true;
 
   desktop-environment.gnome.dconf.enable = true;
+
+  # GNOME defaults i18n.inputMethod to ibus, which sets GTK_IM_MODULE=ibus
+  # and QT_IM_MODULE=ibus in /etc/set-environment. This conflicts with
+  # fcitx5 configured via home-manager. Disable the system-level input method.
+  i18n.inputMethod.enable = lib.mkForce false;
   devices.yubikey.enable = true;
 
   # Flow Z13 does not have NVidia GPU.

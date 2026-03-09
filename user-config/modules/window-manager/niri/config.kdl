@@ -360,6 +360,7 @@ binds {
     
     XF86MonBrightnessUp  { spawn "sh" "-c" "brightnessctl -d \"amdgpu_bl*\" set 5%+" ; }
     XF86MonBrightnessDown { spawn "sh" "-c" "brightnessctl -d \"amdgpu_bl*\" set 5%-" ; }
+    Shift+XF86KbdLightOnOff { spawn "niri msg action power-off-monitors"; }
     
     Super+Shift+2           { screenshot; }
     Super+Shift+3           { screenshot-screen; }

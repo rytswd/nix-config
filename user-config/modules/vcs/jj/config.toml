@@ -25,6 +25,9 @@ sp = ["split"]
 tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
 retrunk = ["rebase", "-d", "trunk()"]
 
+[revset-aliases]
+"closest_bookmark(to)" = "heads(::to & bookmarks())"
+
 [ui]
 pager = ":builtin"
 paginate = "auto"

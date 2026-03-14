@@ -6,6 +6,7 @@
   // "hegiht": 16, // This has no impact.
   "modules-left": [
     "custom/launcher",
+    "custom/overview",
     // "custom/niri-windows",
     // "wlr/taskbar",
     "niri/window",
@@ -172,6 +173,11 @@
     "format": "",
     "on-click": "fuzzel",
     "on-click-right": "wlogout",
+    "tooltip": false,
+  },
+  "custom/overview": {
+    "format": "󱉶",
+    "on-click": "niri msg action toggle-overview",
     "tooltip": false,
   },
   "custom/notifications": {

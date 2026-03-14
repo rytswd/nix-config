@@ -40,6 +40,7 @@ window#waybar {
 #workspaces,
 #custom-launcher,
 #custom-notifications,
+#custom-overview,
 #custom-tailscale,
 #custom-waybar-bottom,
 #custom-waybar-left,
@@ -82,6 +83,7 @@ window#waybar {
 #window:hover,
 #custom-launcher:hover,
 #custom-notifications:hover,
+#custom-overview:hover,
 #custom-tailscale:hover,
 #custom-waybar-bottom:hover,
 #custom-waybar-left:hover,
@@ -290,6 +292,26 @@ window#waybar {
 
   /* The most left component in the top bar, styled slightly differently.*/
   font-size: 12px;
+  /* No border radius as there is another item rendered right next to it.*/
+  border-radius: 0px 0px 0px 0px;
+
+  margin-right: 0px;
+
+  padding-left: 10px;
+  padding-right: 20px;
+
+  /* Subtle shadow with border */
+  border-right: solid 2px alpha(#4C566A, 0.2);
+  border-bottom: solid 2px alpha(#4C566A, 0.2);
+}
+
+#custom-overview {
+  /* Add slightly different colour for the edge module. */
+  color: white;
+  background-color: alpha(#2C364A, 0.7);
+
+  /* The most left component in the top bar, styled slightly differently.*/
+  font-size: 12px;
   border-radius: 0px 10px 10px 0px;
 
   margin-right: 5px;
@@ -301,6 +323,7 @@ window#waybar {
   border-right: solid 2px alpha(#4C566A, 0.2);
   border-bottom: solid 2px alpha(#4C566A, 0.2);
 }
+
 #custom-launcher:hover {
   color: #ffffff;
   background-color: alpha(#4C566A, 0.8);

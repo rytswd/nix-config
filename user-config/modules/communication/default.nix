@@ -9,6 +9,7 @@
     ./slack.nix
     ./signal.nix
     ./discord.nix
+    ./telegram.nix
     ./zoom.nix
   ];
 
@@ -16,5 +17,6 @@
   communication.slack.enable = lib.mkDefault false; # Being explicit
   communication.signal.enable = lib.mkDefault false; # Being explicit
   communication.discord.enable = lib.mkDefault false; # Being explicit
+  communication.telegram.enable = lib.mkDefault false; # Being explicit
   communication.zoom.enable = lib.mkDefault false; # Being explicit
 }

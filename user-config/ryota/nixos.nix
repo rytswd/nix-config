@@ -67,6 +67,7 @@ in
   communication.slack.enable = true;
   communication.signal.enable = true;
   communication.discord.enable = true;
+  communication.telegram.enable = true;
   communication.zoom.enable = true;
   notification.swaync.enable = true;
   service.surrealdb.enable = true;

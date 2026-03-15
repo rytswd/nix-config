@@ -31,7 +31,7 @@ return {
     keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
     opts = {
       window = {
-        width = 82, -- 80 + a bit for signs/numbers
+        width = 102, -- 100 + a bit for signs/numbers
         options = {
           wrap = true,
           linebreak = true,

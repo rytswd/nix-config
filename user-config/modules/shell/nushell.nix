@@ -26,7 +26,11 @@
         };
       settings = {
         show_banner = false;
-        history.file_format = "sqlite";
+        history = {
+          file_format = "sqlite";
+          sync_on_enter = true;
+          isolation = true;
+        };
         completions = {
           case_sensitive = false;
           algorithm = "fuzzy";

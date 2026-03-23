@@ -17,7 +17,7 @@
     programs.notmuch = {
       enable = true;
       hooks = {
-        preNew = "mbsync -a";
+        preNew = "mbsync -aVc ~/.config/isync/mbsyncrc";
       };
     };
   };

@@ -35,6 +35,8 @@
       FZF_ALT_C_OPTS = "--preview 'tree -C {}'";
 
       # man using bat
+      # NOTE: I may need to consider moving to moor
+      PAGER="bat --paging=always";
       MANPAGER = "sh -c 'col -bx | bat -l man -p'";
       MANROFFOPT = "-c";
     };

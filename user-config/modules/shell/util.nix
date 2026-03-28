@@ -31,6 +31,7 @@
       pkgs.cloc         # https://github.com/AlDanial/cloc
       pkgs.tokei        # https://github.com/XAMPPRocky/tokei
       pkgs.ripunzip     # https://github.com/google/ripunzip
+      pkgs.moor         # https://github.com/walles/moor
 
       # pkgs.rm-improved  # https://github.com/nivekuil/rip
 

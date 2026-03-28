@@ -69,11 +69,6 @@
     ###----------------------------------------
     ##  Tools
     #------------------------------------------
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-      # inputs.nixpkgs-stable.follows = "nixpkgs-unstable";
-      # inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
-    };
 
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";
@@ -90,14 +85,18 @@
 
     librepods.url = "github:kavishdevar/librepods/linux/rust";
 
+    # With own binary cache (and thus no nixpkgs following)
+    ghostty.url = "github:ghostty-org/ghostty";
     llm-agents.url = "github:numtide/llm-agents.nix";
     noctalia.url = "github:noctalia-dev/noctalia-shell";
+
+    # Personal ones
     swapdir.url = "git+ssh://git@github.com/rytswd/swapdir";
     # swapdir.url = "github:rytswd/swapdir";
     home-git-clone.url = "github:rytswd/home-git-clone";
-    treesitter-grammars.url = "git+ssh://git@github.com/0-re/treesitter-grammars.nix";
     pi-agent-extensions.url = "github:rytswd/pi-agent-extensions/add-nix-module";
     skills-nix.url = "github:rytswd/skills.nix";
+    treesitter-grammars.url = "git+ssh://git@github.com/0-re/treesitter-grammars.nix";
 
     ###----------------------------------------
     ##  NixOS Specific

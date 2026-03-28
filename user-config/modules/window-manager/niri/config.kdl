@@ -246,15 +246,11 @@ recent-windows {
     }
 }
 
-spawn-at-startup "awww-daemon"
-
-spawn-at-startup "sh" "-c" "ags -c ~/.config/ags-notification/config.js -b notification"
+spawn-at-startup "noctalia-shell"
 
 spawn-at-startup "sh" "-c" "clipse -listen"
 
 spawn-at-startup "sh" "-c" "wl-paste --watch cliphist store"
-
-spawn-at-startup "maestral" "start" // Hack
 
 environment {
     NIXOS_OZONE_WL "1"

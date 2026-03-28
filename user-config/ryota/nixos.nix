@@ -62,14 +62,14 @@ in
   ###----------------------------------------
   ##   Module related options
   #------------------------------------------
-  bar.waybar.enable = true;
+  # bar.waybar.enable = true;
   kubernetes.extra.enable = true;
   communication.slack.enable = true;
   communication.signal.enable = true;
   communication.discord.enable = true;
   communication.telegram.enable = true;
   communication.zoom.enable = true;
-  notification.swaync.enable = true;
+  # notification.swaync.enable = true;
   service.surrealdb.enable = true;
   window-manager.hyprland.enable = true;
   window-manager.niri.enable = true;

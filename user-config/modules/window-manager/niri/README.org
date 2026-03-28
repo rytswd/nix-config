@@ -603,13 +603,23 @@ Also known as MRU (Most Recently Used)
 While it is better to control the startup processes using systemd and other solutions, there are some specific ones I would only need when using Niri (or some specific Window Manager).
 It is also far easier to configure here than setting up systemd, so I sometimes abuse this for a quick setup 😛
 
-For wallpaper setup using ~awww~, I need the daemon to be running.
+**** Noctalia
+Ref: https://noctalia.dev/
+Use Noctalia shell for most of the setup. Noctalia is made available via home-manager, and simply needs to be started at launch.
 #+begin_src kdl
+  spawn-at-startup "noctalia-shell"
+#+end_src
+
+**** Other
+NOTE: This is old setup.
+For wallpaper setup using ~awww~, I need the daemon to be running.
+#+begin_src kdl :tangle no
   spawn-at-startup "awww-daemon"
 #+end_src
 
+NOTE: This is old setup.
 For notification setup, I use AGS widget for now.
-#+begin_src kdl
+#+begin_src kdl :tangle no
   spawn-at-startup "sh" "-c" "ags -c ~/.config/ags-notification/config.js -b notification"
 #+end_src
 
@@ -623,8 +633,9 @@ For clipboard history, I used to use ~cliphist~ mapped with ~wl-paste~.
   spawn-at-startup "sh" "-c" "wl-paste --watch cliphist store"
 #+end_src
 
+NOTE: This is old setup.
 This is purely for a quick-and-dirty solution, but I'm using Maestral deamon startup using this startup setup. I should really have systemd configured, so that regardless of which environment I'm on, I get Maestral running.
-#+begin_src kdl
+#+begin_src kdl :tangle no
   spawn-at-startup "maestral" "start" // Hack
 #+end_src
 

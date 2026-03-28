@@ -29,10 +29,10 @@ in
       # Nix store symlink, preventing the Noctalia UI from saving changes.
     };
 
-    # Instead, create a mutable out-of-store symlink.
-    # The JSON file lives in this directory and is symlinked directly (not
-    # copied into the Nix store), so the Noctalia UI can read AND write it.
-    home.file.".config/noctalia/settings.json" = {
+    # Use the same xdg.configFile attr that the upstream module uses,
+    # but point it to a mutable out-of-store symlink instead.
+    # This avoids duplicate definition conflicts with the module's own entry.
+    xdg.configFile."noctalia/settings.json" = {
       source = config.lib.file.mkOutOfStoreSymlink settingsPath;
     };
   };

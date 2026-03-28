@@ -62,6 +62,7 @@
         "https://roc-lang.cachix.org"
         "https://cache.numtide.com"
         "https://cache.thalheim.io"
+        "https://noctalia.cachix.org"
       ];
       extra-trusted-public-keys = [
         "rytswd-nix-config.cachix.org-1:fpZQ465aGF2LYQ8oKOrd5c8kxaNmD7wBEK/yyhSQozo="
@@ -72,6 +73,7 @@
         "roc-lang.cachix.org-1:6lZeqLP9SadjmUbskJAvcdGR2T5ViR57pDVkxJQb8R4="
         "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
         "cache.thalheim.io-1:R7msbosLEZKrxk/lKxf9BTjOOH7Ax3H0Qj0/6wiHOgc="
+        "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       ];
     };
   };

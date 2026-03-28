@@ -91,6 +91,7 @@
     librepods.url = "github:kavishdevar/librepods/linux/rust";
 
     llm-agents.url = "github:numtide/llm-agents.nix";
+    noctalia.url = "github:noctalia-dev/noctalia-shell";
     swapdir.url = "git+ssh://git@github.com/rytswd/swapdir";
     # swapdir.url = "github:rytswd/swapdir";
     home-git-clone.url = "github:rytswd/home-git-clone";

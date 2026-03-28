@@ -1,0 +1,14 @@
+{
+  "settingsVersion": 0,
+  "bar": {
+    "position": "top",
+    "density": "default"
+  },
+  "general": {
+    "radiusRatio": 1,
+    "enableBlurBehind": true
+  },
+  "location": {
+    "name": "Tokyo"
+  }
+}

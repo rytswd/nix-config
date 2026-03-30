@@ -91,6 +91,7 @@
     ];
     files = [
       ".claude.json"
+      ".face"
     ];
   };
 }

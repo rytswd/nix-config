@@ -128,15 +128,6 @@
           "textColor": "none"
         },
         {
-          "deviceNativePath": "__default__",
-          "displayMode": "graphic",
-          "hideIfIdle": false,
-          "hideIfNotDetected": true,
-          "id": "Battery",
-          "showNoctaliaPerformance": true,
-          "showPowerProfiles": true
-        },
-        {
           "displayMode": "onhover",
           "iconColor": "none",
           "id": "Network",
@@ -168,6 +159,15 @@
           "iconColor": "none",
           "id": "Brightness",
           "textColor": "none"
+        },
+        {
+          "deviceNativePath": "__default__",
+          "displayMode": "graphic",
+          "hideIfIdle": false,
+          "hideIfNotDetected": true,
+          "id": "Battery",
+          "showNoctaliaPerformance": true,
+          "showPowerProfiles": true
         },
         {
           "clockColor": "none",
@@ -691,7 +691,7 @@
     "notifyUpdates": true
   },
   "idle": {
-    "enabled": false,
+    "enabled": true,
     "screenOffTimeout": 600,
     "lockTimeout": 660,
     "suspendTimeout": 1800,

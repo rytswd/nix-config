@@ -708,7 +708,7 @@ Noctalia based commands
 +I moved to use Rofi (with Wayland support) so that I can show more items in one pane.+
 +I'm considering to move to use a dedicated solution.+
 NOTE: This is the old code before I used Noctalia.
-#+begin_src kdl :tangle no
+#+begin_src kdl :noweb-ref x
   Alt+Space         { spawn "rofi" "-show" "drun"; }
   Alt+Shift+Space   { spawn "rofi" "-show" "window"; }
 #+end_src
@@ -720,7 +720,7 @@ There are times some commands stop working. I'm making sure at least I get a ter
 
 NOTE: This is the old setup before Noctalia.
 Use ~clipse~ for the clipboard history. which needs a terminal emulator.
-#+begin_src kdl :tangle no
+#+begin_src kdl :noweb-ref x
   Super+Shift+F12 { spawn "ghostty" "-e" "clipse"; }
 #+end_src
 
@@ -728,14 +728,14 @@ NOTE: This is the old setup before Noctalia.
 NOTE: For emoji, I could use rofi-emoji, but decided to use ~bemoji~ which keeps the history.
 NOTE: I would want to use the bemoji's "type" behaviour, but it doesn't seem to work on some apps (like Slack).
 Ref: https://github.com/marty-oehme/bemoji/issues/34
-#+begin_src kdl :tangle no
+#+begin_src kdl :noweb-ref x
   Super+Alt+Backslash { spawn "sh" "-c" "bemoji -c -n" ; }
   Super+Shift+Backslash { spawn "swaync-client" "-t" "-sw" ; }
 #+end_src
 
 NOTE: This is the old setup before Noctalia.
 Lock screen.
-#+begin_src kdl :tangle no
+#+begin_src kdl :noweb-ref x
   Super+Alt+N   { spawn "swaylock"; } // Dvorak L
 #+end_src
 

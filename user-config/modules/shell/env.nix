@@ -12,7 +12,7 @@
     home.sessionPath = [
       # Rarely used path for making some items to be executable without full
       # path. This is only used in some experiments, but still useful to keep.
-      "$HOME/Coding/bin"
+      "${config.home.homeDirectory}/Coding/bin"
     ];
     home.sessionVariables = {
       # Although I use Emacs for my main driver, I want to ensure that this

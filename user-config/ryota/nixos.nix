@@ -29,7 +29,7 @@ in
     ../modules/terminal
     ../modules/vcs
     ../modules/wallpaper
-    ../modules/session-lock
+    # ../modules/session-lock # Commenting out as Noctalia handles this.
     ../modules/browser
     ../modules/editor
     ../modules/programming

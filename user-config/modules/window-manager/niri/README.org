@@ -628,8 +628,9 @@ The clipboard handling needed a bit more sophisticated control, and I moved to u
   spawn-at-startup "sh" "-c" "clipse -listen"
 #+end_src
 
+NOTE: This is old setup.
 For clipboard history, I used to use ~cliphist~ mapped with ~wl-paste~.
-#+begin_src kdl :noweb-ref old
+#+begin_src kdl :noweb-ref old :tangle no
   spawn-at-startup "sh" "-c" "wl-paste --watch cliphist store"
 #+end_src
 
@@ -695,10 +696,19 @@ NOTE: I got a lot of configurations in Xremap, and without it, many of the bindi
 :PROPERTIES:
 :header-args: :tangle no :noweb-ref key-bindings-commands
 :END:
+Noctalia based commands
+#+begin_src kdl
+  Alt+Space         { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+  Super+Shift+F12   { spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
+  Super+Alt+Backslash { spawn "noctalia-shell" "ipc" "call" "launcher" "emoji"; }
+  Super+Shift+Backslash { spawn "noctalia-shell" "ipc" "call" "notifications" "toggleHistory"; }
+#+end_src
+
 +I use ~fuzzel~ for my launcher.+
 +I moved to use Rofi (with Wayland support) so that I can show more items in one pane.+
-I'm considering to move to use a dedicated solution.
-#+begin_src kdl
++I'm considering to move to use a dedicated solution.+
+NOTE: This is the old code before I used Noctalia.
+#+begin_src kdl :tangle no
   Alt+Space         { spawn "rofi" "-show" "drun"; }
   Alt+Shift+Space   { spawn "rofi" "-show" "window"; }
 #+end_src
@@ -708,31 +718,24 @@ There are times some commands stop working. I'm making sure at least I get a ter
   XF86Launch1 { spawn "ghostty"; }
 #+end_src
 
+NOTE: This is the old setup before Noctalia.
 Use ~clipse~ for the clipboard history. which needs a terminal emulator.
-#+begin_src kdl
+#+begin_src kdl :tangle no
   Super+Shift+F12 { spawn "ghostty" "-e" "clipse"; }
 #+end_src
 
-TODO: Remove this once I confirm the clipse provides all the control I need.
-NOTE: This is the old config.
-With ~cliphist~, ~fuzzel~ is used for the clipboard history. I do use ~rofi~ for the main launcher now, but for clipboard history, I do not need the column layout, and that is easier handled with a simple setup with ~fuzzel~.
-#+begin_src kdl
-  Super+Alt+K   { spawn "sh" "-c" \
-                  "cliphist list | fuzzel -d | cliphist decode | wl-copy" \
-                  ; } // Dvorak V
-#+end_src
-
+NOTE: This is the old setup before Noctalia.
 NOTE: For emoji, I could use rofi-emoji, but decided to use ~bemoji~ which keeps the history.
 NOTE: I would want to use the bemoji's "type" behaviour, but it doesn't seem to work on some apps (like Slack).
 Ref: https://github.com/marty-oehme/bemoji/issues/34
-#+begin_src kdl
+#+begin_src kdl :tangle no
   Super+Alt+Backslash { spawn "sh" "-c" "bemoji -c -n" ; }
   Super+Shift+Backslash { spawn "swaync-client" "-t" "-sw" ; }
 #+end_src
 
-
+NOTE: This is the old setup before Noctalia.
 Lock screen.
-#+begin_src kdl
+#+begin_src kdl :tangle no
   Super+Alt+N   { spawn "swaylock"; } // Dvorak L
 #+end_src
 

@@ -250,21 +250,20 @@ spawn-at-startup "noctalia-shell"
 
 spawn-at-startup "sh" "-c" "clipse -listen"
 
-spawn-at-startup "sh" "-c" "wl-paste --watch cliphist store"
-
 environment {
     NIXOS_OZONE_WL "1"
     BEMOJI_PICKER_CMD r#"rofi -dmenu -no-show-icons"#
 }
 
 binds {
+    Alt+Space         { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+    Super+Shift+F12   { spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
+    Super+Alt+Backslash { spawn "noctalia-shell" "ipc" "call" "launcher" "emoji"; }
+    Super+Shift+Backslash { spawn "noctalia-shell" "ipc" "call" "notifications" "toggleHistory"; }
     Alt+Space         { spawn "rofi" "-show" "drun"; }
     Alt+Shift+Space   { spawn "rofi" "-show" "window"; }
     XF86Launch1 { spawn "ghostty"; }
     Super+Shift+F12 { spawn "ghostty" "-e" "clipse"; }
-    Super+Alt+K   { spawn "sh" "-c" \
-                    "cliphist list | fuzzel -d | cliphist decode | wl-copy" \
-                    ; } // Dvorak V
     Super+Alt+Backslash { spawn "sh" "-c" "bemoji -c -n" ; }
     Super+Shift+Backslash { spawn "swaync-client" "-t" "-sw" ; }
     Super+Alt+N   { spawn "swaylock"; } // Dvorak L

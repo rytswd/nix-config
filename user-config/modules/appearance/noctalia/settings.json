@@ -10,11 +10,11 @@
     "capsuleOpacity": 1,
     "capsuleColorKey": "none",
     "widgetSpacing": 6,
-    "contentPadding": 2,
+    "contentPadding": 6,
     "fontScale": 1,
     "enableExclusionZoneInset": true,
     "backgroundOpacity": 0.93,
-    "useSeparateOpacity": false,
+    "useSeparateOpacity": true,
     "marginVertical": 4,
     "marginHorizontal": 4,
     "frameThickness": 8,
@@ -37,20 +37,6 @@
           "useDistroLogo": false
         },
         {
-          "iconColor": "none",
-          "id": "Settings"
-        },
-        {
-          "colorizeIcons": false,
-          "hideMode": "hidden",
-          "id": "ActiveWindow",
-          "maxWidth": 145,
-          "scrollingMode": "hover",
-          "showIcon": true,
-          "textColor": "none",
-          "useFixedWidth": false
-        },
-        {
           "characterCount": 2,
           "colorizeIcons": false,
           "emptyColor": "secondary",
@@ -70,6 +56,16 @@
           "showBadge": true,
           "showLabelsOnlyWhenOccupied": true,
           "unfocusedIconsOpacity": 1
+        },
+        {
+          "colorizeIcons": false,
+          "hideMode": "hidden",
+          "id": "ActiveWindow",
+          "maxWidth": 145,
+          "scrollingMode": "hover",
+          "showIcon": true,
+          "textColor": "none",
+          "useFixedWidth": false
         }
       ],
       "center": [
@@ -78,16 +74,38 @@
           "hideMode": "hidden",
           "hideWhenIdle": false,
           "id": "MediaMini",
-          "maxWidth": 145,
+          "maxWidth": 400,
           "panelShowAlbumArt": true,
           "scrollingMode": "hover",
           "showAlbumArt": true,
           "showArtistFirst": true,
           "showProgressRing": true,
-          "showVisualizer": false,
+          "showVisualizer": true,
           "textColor": "none",
           "useFixedWidth": false,
           "visualizerType": "linear"
+        },
+        {
+          "compactMode": true,
+          "diskPath": "/",
+          "iconColor": "none",
+          "id": "SystemMonitor",
+          "showCpuCores": false,
+          "showCpuFreq": false,
+          "showCpuTemp": true,
+          "showCpuUsage": true,
+          "showDiskAvailable": false,
+          "showDiskUsage": false,
+          "showDiskUsageAsPercent": false,
+          "showGpuTemp": false,
+          "showLoadAverage": false,
+          "showMemoryAsPercent": false,
+          "showMemoryUsage": true,
+          "showNetworkStats": false,
+          "showSwapUsage": false,
+          "textColor": "none",
+          "useMonospaceFont": true,
+          "usePadding": false
         }
       ],
       "right": [
@@ -111,12 +129,12 @@
         },
         {
           "deviceNativePath": "__default__",
-          "displayMode": "graphic-clean",
+          "displayMode": "graphic",
           "hideIfIdle": false,
           "hideIfNotDetected": true,
           "id": "Battery",
-          "showNoctaliaPerformance": false,
-          "showPowerProfiles": false
+          "showNoctaliaPerformance": true,
+          "showPowerProfiles": true
         },
         {
           "displayMode": "onhover",
@@ -152,28 +170,6 @@
           "textColor": "none"
         },
         {
-          "compactMode": true,
-          "diskPath": "/",
-          "iconColor": "none",
-          "id": "SystemMonitor",
-          "showCpuCores": false,
-          "showCpuFreq": false,
-          "showCpuTemp": true,
-          "showCpuUsage": true,
-          "showDiskAvailable": false,
-          "showDiskUsage": false,
-          "showDiskUsageAsPercent": false,
-          "showGpuTemp": false,
-          "showLoadAverage": false,
-          "showMemoryAsPercent": false,
-          "showMemoryUsage": true,
-          "showNetworkStats": false,
-          "showSwapUsage": false,
-          "textColor": "none",
-          "useMonospaceFont": true,
-          "usePadding": false
-        },
-        {
           "clockColor": "none",
           "customFont": "",
           "formatHorizontal": "HH:mm:ss ddd, MMM dd",
@@ -181,6 +177,10 @@
           "id": "Clock",
           "tooltipFormat": "HH:mm ddd, MMM dd",
           "useCustomFont": false
+        },
+        {
+          "iconColor": "none",
+          "id": "Settings"
         },
         {
           "hideWhenZero": false,
@@ -591,12 +591,12 @@
   },
   "notifications": {
     "enabled": true,
-    "enableMarkdown": false,
-    "density": "default",
+    "enableMarkdown": true,
+    "density": "compact",
     "monitors": [],
     "location": "top_right",
     "overlayLayer": true,
-    "backgroundOpacity": 1,
+    "backgroundOpacity": 0.8,
     "respectExpireTimeout": false,
     "lowUrgencyDuration": 3,
     "normalUrgencyDuration": 8,
@@ -706,9 +706,95 @@
   },
   "desktopWidgets": {
     "enabled": false,
-    "overviewEnabled": true,
-    "gridSnap": false,
-    "gridSnapScale": false,
-    "monitorWidgets": []
+    "overviewEnabled": false,
+    "gridSnap": true,
+    "gridSnapScale": true,
+    "monitorWidgets": [
+      {
+        "name": "eDP-1",
+        "widgets": [
+          {
+            "hideMode": "visible",
+            "id": "MediaPlayer",
+            "roundedCorners": true,
+            "scale": 1.9,
+            "showAlbumArt": true,
+            "showBackground": true,
+            "showButtons": true,
+            "showVisualizer": true,
+            "visualizerType": "linear",
+            "x": 40,
+            "y": 60
+          },
+          {
+            "clockColor": "none",
+            "clockStyle": "analog",
+            "customFont": "",
+            "format": "HH:mm\\nd MMMM yyyy",
+            "id": "Clock",
+            "roundedCorners": true,
+            "scale": 1.9647535127411289,
+            "showBackground": false,
+            "useCustomFont": false,
+            "x": 1180,
+            "y": 800
+          },
+          {
+            "diskPath": "/",
+            "id": "SystemStat",
+            "layout": "bottom",
+            "roundedCorners": true,
+            "scale": 1.25,
+            "showBackground": false,
+            "statType": "Network",
+            "x": 1520,
+            "y": 960
+          },
+          {
+            "id": "Weather",
+            "roundedCorners": true,
+            "scale": 1.1857707509881423,
+            "showBackground": false,
+            "x": 1180,
+            "y": 680
+          },
+          {
+            "diskPath": "/",
+            "id": "SystemStat",
+            "layout": "bottom",
+            "roundedCorners": true,
+            "scale": 1.25,
+            "showBackground": false,
+            "statType": "Memory",
+            "x": 1520,
+            "y": 800
+          },
+          {
+            "diskPath": "/",
+            "id": "SystemStat",
+            "layout": "bottom",
+            "roundedCorners": true,
+            "scale": 1.2500000000000002,
+            "showBackground": false,
+            "statType": "CPU",
+            "x": 1520,
+            "y": 640
+          },
+          {
+            "colorName": "primary",
+            "height": 72,
+            "hideWhenIdle": false,
+            "id": "AudioVisualizer",
+            "roundedCorners": true,
+            "scale": 2,
+            "showBackground": true,
+            "visualizerType": "linear",
+            "width": 320,
+            "x": 40,
+            "y": 960
+          }
+        ]
+      }
+    ]
   }
 }

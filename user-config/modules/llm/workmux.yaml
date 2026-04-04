@@ -1,7 +1,22 @@
 nerdfont: true
 agent: pi
+
+# NOTE: Do NOT use --prompt-file with workmux add for this project.
+# workmux wraps agent prompts with `sh -c 'pi -p "$(cat ...)"'` which
+# breaks pi's TUI rendering (blank pane, invisible output).
+#
+# Instead, use --prompt-file-only:
+#   workmux add <name> --base "$BASE" --background --prompt-file-only --prompt-file /tmp/prompts/<name>.md
+#
+# Then send the prompt to pi via tmux:
+#   w=$(tmux list-windows -F '#{window_index}:#{window_name}' | grep <name> | cut -d: -f1)
+#   tmux send-keys -t $w -- '@.workmux/PROMPT-<name>.md' Enter
+#
+# This gives you a visible, interactive pi TUI session.
+
 post_create:
   - "if [[ -f .envrc ]]; then direnv allow; fi"
+
 panes:
   - command: <agent> # Start the configured agent (e.g., claude)
     focus: true

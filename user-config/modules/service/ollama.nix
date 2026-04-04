@@ -1,10 +1,22 @@
 { pkgs
 , lib
 , config
+, inputs
 , ...}:
 
 # Ref: https://ollama.dev/
 
+let
+  # Use a dedicated nixpkgs input so that ollama can be updated independently
+  # from the rest of nixpkgs with:
+  #
+  #     nix flake update nixpkgs-unstable-fast-track
+  #
+  pkgs-fast-track = import inputs.nixpkgs-unstable-fast-track {
+    inherit (pkgs) system;
+    config.allowUnfree = true;
+  };
+in
 {
   options = {
     service.ollama.enable = lib.mkEnableOption "Enable Ollama related tooling.";
@@ -12,7 +24,7 @@
 
   config = lib.mkIf config.service.ollama.enable {
     home.packages = [
-      pkgs.ollama-vulkan
+      pkgs-fast-track.ollama-vulkan
     ];
 
     # NOTE: Due to the laptop sleep handling, I could see a random error of:
@@ -34,8 +46,8 @@
       enable = true;
 
       # NOTE: Due to some broken cuda version, I'm using vulkan instead.
-      package = pkgs.ollama-vulkan;
-      # package = pkgs.ollama-cuda;
+      package = pkgs-fast-track.ollama-vulkan;
+      # package = pkgs-fast-track.ollama-cuda;
       # acceleration = "cuda";
 
       # environmentVariables = {

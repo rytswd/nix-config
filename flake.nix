@@ -13,6 +13,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # NOTE: Dedicated nixpkgs input that can be updated independently from the
+    # main nixpkgs-unstable, for packages that need the latest version without
+    # affecting everything else. Update with:
+    #     nix flake update nixpkgs-unstable-fast-track
+    nixpkgs-unstable-fast-track.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     # NOTE: Only used when I need to test the absolute latest. This would mean
     # I wouldn't be able to use the binary cache.
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";

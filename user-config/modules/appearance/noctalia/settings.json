@@ -56,19 +56,19 @@
           "showBadge": true,
           "showLabelsOnlyWhenOccupied": true,
           "unfocusedIconsOpacity": 1
-        },
+        }
+      ],
+      "center": [
         {
           "colorizeIcons": false,
           "hideMode": "hidden",
           "id": "ActiveWindow",
-          "maxWidth": 145,
+          "maxWidth": 255,
           "scrollingMode": "hover",
           "showIcon": true,
           "textColor": "none",
           "useFixedWidth": false
-        }
-      ],
-      "center": [
+        },
         {
           "compactMode": false,
           "hideMode": "hidden",
@@ -140,25 +140,14 @@
           "textColor": "none"
         },
         {
-          "displayMode": "onhover",
-          "iconColor": "none",
-          "id": "Volume",
-          "middleClickCommand": "pwvucontrol || pavucontrol",
-          "textColor": "none"
-        },
-        {
-          "displayMode": "onhover",
-          "iconColor": "none",
-          "id": "Microphone",
-          "middleClickCommand": "pwvucontrol || pavucontrol",
-          "textColor": "none"
-        },
-        {
           "applyToAllMonitors": false,
           "displayMode": "onhover",
           "iconColor": "none",
           "id": "Brightness",
           "textColor": "none"
+        },
+        {
+          "id": "plugin:audio-indicator"
         },
         {
           "deviceNativePath": "__default__",
@@ -669,7 +658,7 @@
     "enabled": false,
     "forced": false,
     "autoSchedule": true,
-    "nightTemp": "4000",
+    "nightTemp": "3600",
     "dayTemp": "6500",
     "manualSunrise": "06:30",
     "manualSunset": "18:30"

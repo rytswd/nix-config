@@ -1,7 +1,7 @@
 final: prev:
 
 {
-  python-grip = prev.python311.pkgs.grip.overrideAttrs (old: rec {
+  python-grip = prev.python314.pkgs.grip.overrideAttrs (old: rec {
     version = "4.6.2-latest"; # Created for my own use case
 
     src = prev.fetchFromGitHub {

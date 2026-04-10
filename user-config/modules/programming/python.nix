@@ -14,14 +14,14 @@
       pkgs.poetry   # https://python-poetry.org/
 
       # Packages that I want to ensure is available all the time.
-      (pkgs.python311.withPackages (ps: with ps; [
+      (pkgs.python3.withPackages (ps: with ps; [
         pyyaml
         pandas
       ]))
-      pkgs.python311.pkgs.pip
+      pkgs.python314.pkgs.pip
 
       # TODO: Check what the use case with this is.
-      pkgs.python311.pkgs.diagrams
+      pkgs.python3.pkgs.diagrams
     ];
   };
 }

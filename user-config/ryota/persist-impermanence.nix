@@ -64,6 +64,8 @@
       ##  Tooling
       #------------------------------------------
       ".cache/awww"
+      ".cache/noctalia"
+      ".cache/noctalia-qs"
       ".cache/starship"
       ".local/share/atuin"
       ".local/share/docker"

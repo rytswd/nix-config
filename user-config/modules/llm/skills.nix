@@ -5,7 +5,7 @@
 , ...}:
 
 {
-  imports = [ inputs.skills-nix.homeModules.default ];
+  imports = [ inputs.skills.homeModules.default ];
 
   options = {
     llm.skills.enable = lib.mkEnableOption "Enable Skills.md setup for LLM agents.";
@@ -14,16 +14,17 @@
   config = lib.mkIf config.llm.skills.enable {
     programs.agent-skills = {
       enable = true;
-      skills = with inputs.skills-nix.packages.${pkgs.system}; [
+      skills = with inputs.skills.packages.${pkgs.system}; [
         # context7
         kagi-search
+        team-play
         workmux
         workmux-workflow
       ];
 
       pi.enable = true;       # → ~/.agents/skills/
       claude.enable = true;   # → ~/.claude/skills/
-      gemini.enable = true;   # → ~/.gemini/extensions/skills-nix/
+      gemini.enable = true;   # → ~/.gemini/extensions/skills/
     };
   };
 }

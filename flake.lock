@@ -149,7 +149,7 @@
     "blueprint_4": {
       "inputs": {
         "nixpkgs": [
-          "skills-nix",
+          "skills",
           "nixpkgs"
         ],
         "systems": "systems_10"
@@ -1992,7 +1992,7 @@
         "noctalia": "noctalia",
         "pi-agent-extensions": "pi-agent-extensions",
         "roc": "roc",
-        "skills-nix": "skills-nix",
+        "skills": "skills",
         "sops-nix": "sops-nix",
         "swapdir": "swapdir",
         "treesitter-grammars": "treesitter-grammars",
@@ -2044,18 +2044,18 @@
         "type": "github"
       }
     },
-    "skills-nix": {
+    "skills": {
       "inputs": {
         "blueprint": "blueprint_4",
         "nixpkgs": "nixpkgs_13",
         "workmux-src": "workmux-src"
       },
       "locked": {
-        "lastModified": 1773059678,
-        "narHash": "sha256-NJhik+3oLP9nFWMAXpHT1iQ6DsYZnvr1knjwUjcdCcI=",
+        "lastModified": 1775923864,
+        "narHash": "sha256-WrC+kgMWOwNZJH14zls7IFcnswAPvV+OQ6hyU/ZOQNM=",
         "owner": "rytswd",
         "repo": "skills.nix",
-        "rev": "10a4de84a9ce74c5b0e15c80d8f7b50025505a6c",
+        "rev": "72b9625a71807c544f1b2b302fd615c6633d44f1",
         "type": "github"
       },
       "original": {

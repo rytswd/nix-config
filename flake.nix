@@ -100,7 +100,7 @@
     # swapdir.url = "github:rytswd/swapdir";
     home-git-clone.url = "github:rytswd/home-git-clone";
     pi-agent-extensions.url = "github:rytswd/pi-agent-extensions/add-nix-module";
-    skills-nix.url = "github:rytswd/skills.nix";
+    skills.url = "github:rytswd/skills.nix";
     treesitter-grammars.url = "git+ssh://git@github.com/0-re/treesitter-grammars.nix";
 
     ###----------------------------------------

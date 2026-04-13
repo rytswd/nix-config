@@ -14,3 +14,6 @@ Thumbs.db
 # Claude related
 .claude
 CLAUDE.local.md
+
+# pi related
+.pi/telegram-connect.json

@@ -24,7 +24,7 @@
       pkgs.libsecret
       # TODO: It may be better to take this out, as I don't use it too much.
       pkgs.pre-commit
-      pkgs.python311Packages.pre-commit-hooks
+      pkgs.python314Packages.pre-commit-hooks
     ];
     xdg.configFile = {
       # "git/config".source = ./git/config;

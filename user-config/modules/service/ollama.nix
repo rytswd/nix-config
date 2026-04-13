@@ -24,7 +24,7 @@ in
 
   config = lib.mkIf config.service.ollama.enable {
     home.packages = [
-      pkgs-fast-track.ollama-vulkan
+      (lib.meta.lowPrio pkgs-fast-track.ollama-vulkan)
     ];
 
     # NOTE: Due to the laptop sleep handling, I could see a random error of:

@@ -11,6 +11,7 @@
   config = lib.mkIf config.shell.zsh.enable {
     programs.zsh = {
       enable = true;
+      dotDir = "${config.xdg.configHome}/zsh";
       shellAliases = (import ./aliases-ls.nix { withEza = true; }) //
         (if pkgs.stdenv.isDarwin
          then {

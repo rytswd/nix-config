@@ -14,6 +14,8 @@
   config = lib.mkIf config.editor.neovim.enable {
     programs.neovim = {
       enable = true;
+      withRuby = false;
+      withPython3 = false;
       extraPackages = with pkgs; [
         gcc       # Treesitter compilation
         ripgrep   # telescope / grep

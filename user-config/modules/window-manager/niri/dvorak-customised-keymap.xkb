@@ -1,0 +1,237 @@
+// =============================================================================
+// TEST: Custom XKB keymap — Dvorak with QWERTY Super
+// =============================================================================
+//
+// This is a complete XKB keymap file for use with niri's `xkb { file "..." }`.
+//
+// What it does:
+//   Group 1 — "Dvorak (Super QWERTY)":
+//     - Normal typing: Dvorak
+//     - Shift: Dvorak shifted
+//     - Ctrl/Alt + key: Dvorak (e.g. physical Ctrl+D = Ctrl+E = end of line)
+//     - Super + key: QWERTY (like macOS "Dvorak - QWERTY ⌘")
+//       Super is NOT consumed — niri still sees Super for keybindings
+//
+//   Group 2 — "US QWERTY":
+//     - Plain QWERTY for Japanese/mozc input
+//     - Can add more groups (e.g. German) without xremap changes
+//
+// How to test:
+//   1. Copy this file: cp test-keymap.xkb ~/.config/niri/keymap.xkb
+//   2. Edit ~/.config/niri/config.kdl:
+//          xkb {
+//              file "~/.config/niri/keymap.xkb"
+//          }
+//      (niri auto-reloads on save)
+//   3. Test typing, Ctrl shortcuts, and Super shortcuts
+//   4. Use F9 (or your toggle binding) to switch groups
+//
+// How the custom type works:
+//   XKB resolves each keypress by looking at the active modifiers to pick
+//   a "level" from the key's symbol list. Our custom type defines:
+//     Level 1: no modifier     → Dvorak symbol
+//     Level 2: Shift           → Dvorak shifted symbol
+//     Level 3: Super (Mod4)    → QWERTY symbol
+//     Level 4: Shift+Super     → QWERTY shifted symbol
+//   The `preserve[Super] = Super` line means Super is NOT consumed by the
+//   level selection — it's still visible to niri for keybinding matching.
+//   Ctrl and Alt are NOT in the type's `modifiers`, so they don't affect
+//   level selection — Ctrl+key always gets Level 1 (Dvorak). This is correct.
+//
+// =============================================================================
+
+xkb_keymap {
+
+    xkb_keycodes { include "evdev+aliases(qwerty)" };
+
+    xkb_types {
+        include "complete"
+
+        virtual_modifiers Super;
+
+        // Custom type: 4 levels selected by Shift and Super.
+        // Super is preserved (not consumed) so window managers see it.
+        type "FOUR_LEVEL_SUPER_ONLY" {
+            modifiers = Shift + Super;
+
+            map[None]        = Level1;  // Dvorak
+            map[Shift]       = Level2;  // Dvorak shifted
+            map[Super]       = Level3;  // QWERTY
+            map[Shift+Super] = Level4;  // QWERTY shifted
+
+            // Do NOT consume these modifiers — pass them through to the
+            // compositor/app so niri sees them for keybinding matching.
+            // Shift must also be preserved for Ctrl+Shift+Super combos
+            // (e.g. niri window transitions) to work correctly.
+            preserve[Super]       = Super;
+            preserve[Shift+Super] = Shift+Super;
+
+            level_name[Level1] = "Base";
+            level_name[Level2] = "Shift";
+            level_name[Level3] = "Super";
+            level_name[Level4] = "Shift Super";
+        };
+    };
+
+    xkb_compat { include "complete" };
+
+    xkb_symbols {
+        // Start with Dvorak layout for Group 1, plain US for Group 2
+        include "pc+us(dvorak)+inet(evdev)+us:2"
+
+        name[Group1] = "Dvorak (Super QWERTY)";
+        name[Group2] = "US";
+
+        // Override keys that differ between Dvorak and QWERTY.
+        // Format: [ Dvorak, Dvorak+Shift, QWERTY, QWERTY+Shift ]
+        //
+        // Group 2 (US QWERTY) is included via `us:2` above and needs
+        // no per-key overrides.
+
+        // ----- Number row (keys that differ) -----
+        key <AE11> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ bracketleft,  braceleft,   minus,      underscore ]
+        };
+        key <AE12> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ bracketright, braceright,  equal,      plus ]
+        };
+
+        // ----- Top row -----
+        key <AD01> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ apostrophe, quotedbl,    q, Q ]
+        };
+        key <AD02> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ comma,      less,        w, W ]
+        };
+        key <AD03> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ period,     greater,     e, E ]
+        };
+        key <AD04> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ p, P, r, R ]
+        };
+        key <AD05> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ y, Y, t, T ]
+        };
+        key <AD06> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ f, F, y, Y ]
+        };
+        key <AD07> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ g, G, u, U ]
+        };
+        key <AD08> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ c, C, i, I ]
+        };
+        key <AD09> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ r, R, o, O ]
+        };
+        key <AD10> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ l, L, p, P ]
+        };
+        key <AD11> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ slash,      question,    bracketleft, braceleft ]
+        };
+        key <AD12> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ equal,      plus,        bracketright, braceright ]
+        };
+
+        // ----- Home row -----
+        // <AC01> (a/A) — same in both layouts, no override needed
+        key <AC02> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ o, O, s, S ]
+        };
+        key <AC03> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ e, E, d, D ]
+        };
+        key <AC04> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ u, U, f, F ]
+        };
+        key <AC05> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ i, I, g, G ]
+        };
+        key <AC06> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ d, D, h, H ]
+        };
+        key <AC07> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ h, H, j, J ]
+        };
+        key <AC08> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ t, T, k, K ]
+        };
+        key <AC09> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ n, N, l, L ]
+        };
+        key <AC10> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ s, S, semicolon, colon ]
+        };
+        key <AC11> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ minus, underscore, apostrophe, quotedbl ]
+        };
+        // <BKSL> (\/|) — same in both layouts, no override needed
+
+        // ----- Bottom row -----
+        key <AB01> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ semicolon, colon, z, Z ]
+        };
+        key <AB02> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ q, Q, x, X ]
+        };
+        key <AB03> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ j, J, c, C ]
+        };
+        key <AB04> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ k, K, v, V ]
+        };
+        key <AB05> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ x, X, b, B ]
+        };
+        key <AB06> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ b, B, n, N ]
+        };
+        // <AB07> (m/M) — same in both layouts, no override needed
+        key <AB08> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ w, W, comma, less ]
+        };
+        key <AB09> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ v, V, period, greater ]
+        };
+        key <AB10> {
+            type[Group1] = "FOUR_LEVEL_SUPER_ONLY",
+            symbols[Group1] = [ z, Z, slash, question ]
+        };
+    };
+
+    // geometry is optional; some compositors ignore it
+    xkb_geometry { include "pc(pc105)" };
+};

@@ -35,6 +35,7 @@ in
     # XDG directory. All the code is generated with the Org Mode tangle.
     xdg.configFile = {
       "niri/config.kdl".source = ./config.kdl;
+      # "niri/keymap.xkb".source = ./dvorak-customised-keymap.xkb;
       "niri/output.kdl".source = config.window-manager.niri.outputConfig;
     };
     home.packages = [

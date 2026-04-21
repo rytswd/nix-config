@@ -12,6 +12,7 @@
   config = lib.mkIf config.shell.yazi.enable {
     programs.yazi = {
       enable = true;
+      shellWrapperName = "y";
       enableBashIntegration = true;
       enableZshIntegration = true;
       enableFishIntegration = true;

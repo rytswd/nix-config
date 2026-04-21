@@ -56,34 +56,6 @@
           "showBadge": true,
           "showLabelsOnlyWhenOccupied": true,
           "unfocusedIconsOpacity": 1
-        }
-      ],
-      "center": [
-        {
-          "colorizeIcons": false,
-          "hideMode": "hidden",
-          "id": "ActiveWindow",
-          "maxWidth": 255,
-          "scrollingMode": "hover",
-          "showIcon": true,
-          "textColor": "none",
-          "useFixedWidth": false
-        },
-        {
-          "compactMode": false,
-          "hideMode": "hidden",
-          "hideWhenIdle": false,
-          "id": "MediaMini",
-          "maxWidth": 400,
-          "panelShowAlbumArt": true,
-          "scrollingMode": "hover",
-          "showAlbumArt": true,
-          "showArtistFirst": true,
-          "showProgressRing": true,
-          "showVisualizer": true,
-          "textColor": "none",
-          "useFixedWidth": false,
-          "visualizerType": "linear"
         },
         {
           "compactMode": true,
@@ -106,6 +78,35 @@
           "textColor": "none",
           "useMonospaceFont": true,
           "usePadding": false
+        }
+      ],
+      "center": [
+        {
+          "colorizeIcons": false,
+          "hideMode": "hidden",
+          "id": "ActiveWindow",
+          "maxWidth": 255,
+          "scrollingMode": "hover",
+          "showIcon": true,
+          "showText": true,
+          "textColor": "none",
+          "useFixedWidth": false
+        },
+        {
+          "compactMode": false,
+          "hideMode": "hidden",
+          "hideWhenIdle": false,
+          "id": "MediaMini",
+          "maxWidth": 400,
+          "panelShowAlbumArt": true,
+          "scrollingMode": "hover",
+          "showAlbumArt": true,
+          "showArtistFirst": true,
+          "showProgressRing": true,
+          "showVisualizer": true,
+          "textColor": "none",
+          "useFixedWidth": false,
+          "visualizerType": "linear"
         }
       ],
       "right": [
@@ -239,28 +240,13 @@
     "lockScreenBlur": 0,
     "lockScreenTint": 0,
     "keybinds": {
-      "keyUp": [
-        "Up"
-      ],
-      "keyDown": [
-        "Down"
-      ],
-      "keyLeft": [
-        "Left"
-      ],
-      "keyRight": [
-        "Right"
-      ],
-      "keyEnter": [
-        "Return",
-        "Enter"
-      ],
-      "keyEscape": [
-        "Esc"
-      ],
-      "keyRemove": [
-        "Del"
-      ]
+      "keyUp": ["Up"],
+      "keyDown": ["Down"],
+      "keyLeft": ["Left"],
+      "keyRight": ["Right"],
+      "keyEnter": ["Return", "Enter"],
+      "keyEscape": ["Esc"],
+      "keyRemove": ["Del"]
     },
     "reverseScroll": false,
     "smoothScrollEnabled": true
@@ -283,6 +269,7 @@
     "name": "London",
     "weatherEnabled": true,
     "weatherShowEffects": true,
+    "weatherTaliaMascotAlways": false,
     "useFahrenheit": false,
     "use12hourFormat": false,
     "showWeekNumberInCalendar": true,
@@ -291,7 +278,8 @@
     "analogClockInCalendar": false,
     "firstDayOfWeek": 0,
     "hideWeatherTimezone": false,
-    "hideWeatherCityName": false
+    "hideWeatherCityName": false,
+    "autoLocate": false
   },
   "calendar": {
     "cards": [
@@ -318,6 +306,7 @@
     "showHiddenFiles": false,
     "viewMode": "single",
     "setWallpaperOnAllMonitors": true,
+    "linkLightAndDarkWallpapers": true,
     "fillMode": "crop",
     "fillColor": "#000000",
     "useSolidColor": false,
@@ -379,7 +368,7 @@
     "enableSessionSearch": true,
     "ignoreMouseInput": false,
     "screenshotAnnotationTool": "",
-    "overviewLayer": false,
+    "overviewLayer": true,
     "density": "default"
   },
   "controlCenter": {
@@ -501,7 +490,6 @@
     "indicatorOpacity": 0.6
   },
   "network": {
-    "airplaneModeEnabled": false,
     "bluetoothRssiPollingEnabled": false,
     "bluetoothRssiPollIntervalMs": 60000,
     "networkPanelView": "wifi",
@@ -587,8 +575,8 @@
     "overlayLayer": true,
     "backgroundOpacity": 0.8,
     "respectExpireTimeout": false,
-    "lowUrgencyDuration": 3,
-    "normalUrgencyDuration": 8,
+    "lowUrgencyDuration": 2,
+    "normalUrgencyDuration": 5,
     "criticalUrgencyDuration": 15,
     "clearDismissed": true,
     "saveToHistory": {
@@ -597,7 +585,7 @@
       "critical": true
     },
     "sounds": {
-      "enabled": false,
+      "enabled": true,
       "volume": 0.5,
       "separateSounds": false,
       "criticalSoundFile": "",
@@ -615,11 +603,7 @@
     "autoHideMs": 2000,
     "overlayLayer": true,
     "backgroundOpacity": 1,
-    "enabledTypes": [
-      0,
-      1,
-      2
-    ],
+    "enabledTypes": [0, 1, 2],
     "monitors": []
   },
   "audio": {
@@ -630,7 +614,7 @@
     "spectrumMirrored": true,
     "mprisBlacklist": [],
     "preferredPlayer": "",
-    "volumeFeedback": false,
+    "volumeFeedback": true,
     "volumeFeedbackSoundFile": ""
   },
   "brightness": {

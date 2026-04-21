@@ -21,7 +21,7 @@ backend = "gpg"
 [aliases]
 s = ["status"]
 sp = ["split"]
-la = ["log", "-r", "'all()'"]
+la = ["log", "-r", "all()"]
 
 tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
 gp = ["git", "push"]

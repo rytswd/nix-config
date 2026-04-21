@@ -48,6 +48,7 @@
 
 
       gtk4 = {
+        theme = null;
         # colorScheme = "dark";
         extraConfig = {
           gtk-interface-color-scheme = "dark";

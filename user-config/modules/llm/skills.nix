@@ -14,7 +14,7 @@
   config = lib.mkIf config.llm.skills.enable {
     programs.agent-skills = {
       enable = true;
-      skills = with inputs.skills.packages.${pkgs.system}; [
+      skills = with inputs.skills.packages.${pkgs.stdenv.hostPlatform.system}; [
         # context7
         kagi-search
         team-play

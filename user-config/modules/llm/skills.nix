@@ -18,8 +18,8 @@
         # context7
         kagi-search
         team-play
-        workmux
-        workmux-workflow
+        # workmux
+        # workmux-workflow
       ];
 
       pi.enable = true;       # → ~/.agents/skills/

@@ -810,8 +810,8 @@ Change the input using my custom script ~niri-toggle-input-method~. This changes
 
     Ctrl+Alt+Return         { maximize-column; }
     Ctrl+Alt+Shift+F        { fullscreen-window; }
-    F11                     { fullscreen-window; }
-    Shift+F11               { toggle-windowed-fullscreen; }
+    F11                     { maximize-window-to-edges; }
+    Shift+F11               { fullscreen-window; }
     Ctrl+Alt+C              { center-column; }
     Ctrl+Alt+Space          { switch-preset-column-width; }
     // Mod+Shift+R { reset-window-height; }

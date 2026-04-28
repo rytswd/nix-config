@@ -1,22 +1,22 @@
 {
   "settingsVersion": 59,
   "bar": {
-    "barType": "floating",
+    "barType": "simple",
     "position": "top",
     "monitors": [],
     "density": "compact",
     "showOutline": false,
     "showCapsule": true,
-    "capsuleOpacity": 1,
+    "capsuleOpacity": 0,
     "capsuleColorKey": "none",
     "widgetSpacing": 6,
-    "contentPadding": 6,
+    "contentPadding": 12,
     "fontScale": 1,
     "enableExclusionZoneInset": true,
-    "backgroundOpacity": 0.93,
-    "useSeparateOpacity": true,
-    "marginVertical": 4,
-    "marginHorizontal": 4,
+    "backgroundOpacity": 0.5,
+    "useSeparateOpacity": false,
+    "marginVertical": 5,
+    "marginHorizontal": 5,
     "frameThickness": 8,
     "frameRadius": 12,
     "outerCorners": true,
@@ -29,6 +29,7 @@
       "left": [
         {
           "colorizeSystemIcon": "none",
+          "colorizeSystemText": "none",
           "customIconPath": "",
           "enableColorization": false,
           "icon": "rocket",
@@ -141,6 +142,21 @@
           "textColor": "none"
         },
         {
+          "defaultSettings": {
+            "alwaysShowVolume": false,
+            "clickAction": "audio-panel",
+            "clickCommand": "",
+            "compactMode": false,
+            "dimmedOpacity": 0.5,
+            "iconSizeScale": 1,
+            "micActiveColor": "primary",
+            "middleClickCommand": "pavucontrol",
+            "scrollTarget": "speaker",
+            "showMic": true,
+            "showSpeaker": true,
+            "speakerActiveColor": "primary",
+            "volumeFlashDuration": 1500
+          },
           "id": "plugin:audio-indicator"
         },
         {
@@ -154,7 +170,7 @@
         },
         {
           "clockColor": "none",
-          "customFont": "",
+          "customFont": "Raleway Light",
           "formatHorizontal": "HH:mm:ss ddd, MMM dd",
           "formatVertical": "HH mm - dd MM",
           "id": "Clock",
@@ -176,6 +192,7 @@
         {
           "colorizeDistroLogo": false,
           "colorizeSystemIcon": "primary",
+          "colorizeSystemText": "none",
           "customIconPath": "",
           "enableColorization": true,
           "icon": "noctalia",
@@ -199,7 +216,7 @@
     "avatarImage": "/home/ryota/.face",
     "dimmerOpacity": 0.2,
     "showScreenCorners": true,
-    "forceBlackScreenCorners": false,
+    "forceBlackScreenCorners": true,
     "scaleRatio": 1.0500000000000003,
     "radiusRatio": 0.4,
     "iRadiusRatio": 1,
@@ -267,11 +284,11 @@
     "tooltipsEnabled": true,
     "scrollbarAlwaysVisible": true,
     "boxBorderEnabled": false,
-    "panelBackgroundOpacity": 0.93,
-    "translucentWidgets": false,
+    "panelBackgroundOpacity": 0.66,
+    "translucentWidgets": true,
     "panelsAttachedToBar": true,
     "settingsPanelMode": "attached",
-    "settingsPanelSideBarCardStyle": false
+    "settingsPanelSideBarCardStyle": true
   },
   "location": {
     "name": "London",
@@ -467,20 +484,20 @@
     "disableDesktopWidgets": true
   },
   "dock": {
-    "enabled": false,
+    "enabled": true,
     "position": "bottom",
     "displayMode": "auto_hide",
     "dockType": "floating",
-    "backgroundOpacity": 1,
+    "backgroundOpacity": 0.81,
     "floatingRatio": 1,
     "size": 1,
     "onlySameOutput": true,
     "monitors": [],
     "pinnedApps": [],
     "colorizeIcons": false,
-    "showLauncherIcon": false,
-    "launcherPosition": "end",
-    "launcherUseDistroLogo": false,
+    "showLauncherIcon": true,
+    "launcherPosition": "start",
+    "launcherUseDistroLogo": true,
     "launcherIcon": "",
     "launcherIconColor": "none",
     "pinnedStatic": false,

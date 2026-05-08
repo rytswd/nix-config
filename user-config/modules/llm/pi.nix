@@ -15,7 +15,8 @@
         pi
       ];
       shellAliases = {
-        "pi-ro" = "pi --tools read,grep,find,ls";
+        # NOTE: Fetch is from extension.
+        "pi-ro" = "pi --tools read,grep,find,ls,fetch";
       };
     };
   };

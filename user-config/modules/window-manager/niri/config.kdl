@@ -246,8 +246,6 @@ recent-windows {
     }
 }
 
-spawn-at-startup "noctalia-shell"
-
 spawn-at-startup "sh" "-c" "clipse -listen"
 
 environment {

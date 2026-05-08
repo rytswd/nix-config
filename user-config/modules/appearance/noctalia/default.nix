@@ -24,6 +24,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.noctalia-shell = {
       enable = true;
+      systemd.enable = true;
       # NOTE: `settings` is intentionally omitted here.
       # Setting it would make ~/.config/noctalia/settings.json a read-only
       # Nix store symlink, preventing the Noctalia UI from saving changes.

@@ -605,8 +605,9 @@ It is also far easier to configure here than setting up systemd, so I sometimes 
 
 **** Noctalia
 Ref: https://noctalia.dev/
-Use Noctalia shell for most of the setup. Noctalia is made available via home-manager, and simply needs to be started at launch.
-#+begin_src kdl
+Use Noctalia shell for most of the setup. Noctalia is made available via home-manager, launched with systemd.
+The below is when I had it launched while testing.
+#+begin_src kdl :tangle no
   spawn-at-startup "noctalia-shell"
 #+end_src
 

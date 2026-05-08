@@ -74,7 +74,6 @@
     ###----------------------------------------
     ##  Tools
     #------------------------------------------
-
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -117,32 +116,15 @@
       inputs.disko.follows = "disko";
     };
 
-    # Ephemeral root
-    impermanence = {
-      url = "github:nix-community/impermanence";
-    };
-
+    impermanence.url = "github:nix-community/impermanence";
     xremap = {
       url = "github:xremap/nix-flake";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    awww = {
-      url = "git+https://codeberg.org/LGFae/awww";
-    };
-
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-    };
-
     # Window Manager
-    niri= {
-      url = "github:sodiboo/niri-flake";
-    };
-
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-    };
+    niri.url = "github:sodiboo/niri-flake";
+    hyprland.url = "github:hyprwm/Hyprland";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
@@ -154,6 +136,10 @@
     #   inputs.nixpkgs.follows = "nixpkgs-unstable";
     #   inputs.nixpkgs-stable.follows = "nixpkgs";
     # };
+
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    # NOTE: With noctalia, awww isn't needed.
+    awww.url = "git+https://codeberg.org/LGFae/awww";
   };
 
   outputs =

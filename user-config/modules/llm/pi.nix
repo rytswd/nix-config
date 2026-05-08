@@ -17,6 +17,7 @@
       shellAliases = {
         # NOTE: Fetch is from extension.
         "pi-ro" = "pi --tools read,grep,find,ls,fetch";
+        "pi-ns" = "pi --no-session";
       };
     };
   };

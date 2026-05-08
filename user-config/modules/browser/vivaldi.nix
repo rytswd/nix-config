@@ -9,6 +9,11 @@
   };
 
   config = lib.mkIf config.browser.vivaldi.enable {
-    home.packages = [ pkgs.vivaldi ];
+    home.packages = [
+     (pkgs.vivaldi.override {
+       proprietaryCodecs = true;
+       enableWidevine    = true;
+     })
+    ];
   };
 }

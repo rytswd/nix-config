@@ -250,28 +250,13 @@
     "lockScreenBlur": 0,
     "lockScreenTint": 0,
     "keybinds": {
-      "keyUp": [
-        "Up"
-      ],
-      "keyDown": [
-        "Down"
-      ],
-      "keyLeft": [
-        "Left"
-      ],
-      "keyRight": [
-        "Right"
-      ],
-      "keyEnter": [
-        "Return",
-        "Enter"
-      ],
-      "keyEscape": [
-        "Esc"
-      ],
-      "keyRemove": [
-        "Del"
-      ]
+      "keyUp": ["Up"],
+      "keyDown": ["Down"],
+      "keyLeft": ["Left"],
+      "keyRight": ["Right"],
+      "keyEnter": ["Return", "Enter"],
+      "keyEscape": ["Esc"],
+      "keyRemove": ["Del"]
     },
     "reverseScroll": false,
     "smoothScrollEnabled": true
@@ -502,10 +487,10 @@
     "launcherIconColor": "none",
     "pinnedStatic": false,
     "inactiveIndicators": false,
-    "groupApps": false,
+    "groupApps": true,
     "groupContextMenuMode": "extended",
-    "groupClickAction": "cycle",
-    "groupIndicatorStyle": "dots",
+    "groupClickAction": "list",
+    "groupIndicatorStyle": "number",
     "deadOpacity": 0.6,
     "animationSpeed": 1,
     "sitOnFrame": false,
@@ -628,11 +613,7 @@
     "autoHideMs": 2000,
     "overlayLayer": true,
     "backgroundOpacity": 1,
-    "enabledTypes": [
-      0,
-      1,
-      2
-    ],
+    "enabledTypes": [0, 1, 2],
     "monitors": []
   },
   "audio": {

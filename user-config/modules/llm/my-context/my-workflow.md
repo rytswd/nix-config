@@ -2,12 +2,13 @@
 name: my-workflow
 description: >-
   The user's `jj`/`git`/PR/deploy rules on this machine. ALWAYS load
-  before running any `jj` or `git` command (`commit`, `describe`,
-  `new`, `split`, `push`, `rebase`, `merge`, force-push), before
-  opening or reviewing a PR, and before any deploy. Encodes
-  invariants the agent will violate by default — e.g. `jj describe`
-  alone leaves `@` parked on the described commit and the next edit
-  silently rewrites it; trunk-based `main`; no PRs unless asked.
+  before running any `jj` or `git` command — in particular `commit`,
+  `describe`, `desc`, `new`, `split`, `squash`, `push`, `rebase`,
+  `merge`, `tag`, force-push — before opening or reviewing a PR, and
+  before any deploy. Encodes invariants the agent will violate by
+  default — e.g. `jj describe` and `jj split` leave `@` parked on the
+  described commit and the next edit silently rewrites it; trunk-based
+  `main`; no PRs / tags / releases unless explicitly asked.
 ---
 
 # My Workflow

@@ -1267,11 +1267,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1770693543,
-        "narHash": "sha256-QxyToFpzfQJlUgrMTWMJuMColoNdsGV4/YLXqBOBBwE=",
+        "lastModified": 1776679957,
+        "narHash": "sha256-qtN+2GPlCS+vo6ZqmT/ZiPrMhwNWNzqts3ipkmz5rM8=",
         "owner": "kavishdevar",
         "repo": "librepods",
-        "rev": "decf070f9f512f5369ef30083915462a702671b5",
+        "rev": "4a9a2e7b642e4d2ec2e4e1259ffee0a06e108022",
         "type": "github"
       },
       "original": {

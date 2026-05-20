@@ -8,9 +8,14 @@
 
 let
   cfg = config.appearance.noctalia;
-  # toString prevents Nix from copying the path into the store,
-  # keeping it as a plain string of the absolute path.
-  settingsPath = toString ./settings.json;
+  # Use a live, out-of-store path so the Noctalia UI can write to
+  # settings.json. `config.local.repoPath` is declared in
+  # `../../lib/paths.nix` and defaults to the conventional checkout
+  # location; override per-host if the repo lives elsewhere.
+  #
+  # NB: `toString ./settings.json` would *look* like the same thing but
+  # silently resolves into the read-only flake source under /nix/store.
+  settingsPath = "${config.local.repoPath}/user-config/modules/appearance/noctalia/settings.json";
 in
 {
   options.appearance.noctalia = {

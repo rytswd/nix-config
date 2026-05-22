@@ -9,6 +9,7 @@
   pkgs,
   system,
   inputs,
+  self,
   ...
 }:
 
@@ -21,26 +22,26 @@ in
     # calling this earlier than other modules.
     # The rest of the module call order is rather arbitrary, just in order of
     # importance for my own use case.
-    ../modules/shell
-    ../modules/key-remap/xremap
-    ../modules/appearance
-    ../modules/window-manager
-    ../modules/launcher
-    ../modules/bar
-    ../modules/clipboard
-    ../modules/notification
-    ../modules/terminal
-    ../modules/vcs
-    ../modules/wallpaper
-    ../modules/session-lock
-    ../modules/browser
-    ../modules/editor
-    ../modules/vpn
-    ../modules/security
-    ../modules/linux-widget
+    "${self}/user-config/modules/shell"
+    "${self}/user-config/modules/key-remap/xremap"
+    "${self}/user-config/modules/appearance"
+    "${self}/user-config/modules/window-manager"
+    "${self}/user-config/modules/launcher"
+    "${self}/user-config/modules/bar"
+    "${self}/user-config/modules/clipboard"
+    "${self}/user-config/modules/notification"
+    "${self}/user-config/modules/terminal"
+    "${self}/user-config/modules/vcs"
+    "${self}/user-config/modules/wallpaper"
+    "${self}/user-config/modules/session-lock"
+    "${self}/user-config/modules/browser"
+    "${self}/user-config/modules/editor"
+    "${self}/user-config/modules/vpn"
+    "${self}/user-config/modules/security"
+    "${self}/user-config/modules/linux-widget"
 
     # Add Nix related toolings only
-    ../modules/programming/nix.nix
+    "${self}/user-config/modules/programming/nix.nix"
 
     # User specific config
     ./home-git-clone.nix

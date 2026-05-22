@@ -5,6 +5,7 @@
   pkgs,
   system,
   inputs,
+  self,
   ...
 }:
 
@@ -13,41 +14,44 @@ let
 in
 {
   imports = [
+    # Shared machine-local values (e.g. `local.repoPath`).
+    "${self}/user-config/modules/lib/paths.nix"
+
     # The shell setup defines some aliases, and in order to allow overriding,
     # calling this earlier than other modules.
-    ../modules/shell
+    "${self}/user-config/modules/shell"
     # The rest of the module call order is rather arbitrary, just in order of
     # importance for my own use case.
-    ../modules/key-remap/xremap
-    ../modules/appearance
-    ../modules/window-manager
-    ../modules/launcher
-    ../modules/bar
-    ../modules/clipboard
-    ../modules/notification
-    ../modules/process
-    ../modules/terminal
-    ../modules/vcs
-    ../modules/wallpaper
+    "${self}/user-config/modules/key-remap/xremap"
+    "${self}/user-config/modules/appearance"
+    "${self}/user-config/modules/window-manager"
+    "${self}/user-config/modules/launcher"
+    "${self}/user-config/modules/bar"
+    "${self}/user-config/modules/clipboard"
+    "${self}/user-config/modules/notification"
+    "${self}/user-config/modules/process"
+    "${self}/user-config/modules/terminal"
+    "${self}/user-config/modules/vcs"
+    "${self}/user-config/modules/wallpaper"
     # ../modules/session-lock # Commenting out as Noctalia handles this.
-    ../modules/browser
-    ../modules/editor
-    ../modules/programming
-    ../modules/vpn
-    ../modules/security
-    ../modules/kubernetes
-    ../modules/service
-    ../modules/file-management
-    ../modules/dictionary
-    ../modules/communication
-    ../modules/i18n
-    ../modules/image
-    ../modules/screenshot
-    ../modules/music
-    ../modules/video
-    ../modules/linux-widget
-    ../modules/llm
-    ../modules/virtualisation
+    "${self}/user-config/modules/browser"
+    "${self}/user-config/modules/editor"
+    "${self}/user-config/modules/programming"
+    "${self}/user-config/modules/vpn"
+    "${self}/user-config/modules/security"
+    "${self}/user-config/modules/kubernetes"
+    "${self}/user-config/modules/service"
+    "${self}/user-config/modules/file-management"
+    "${self}/user-config/modules/dictionary"
+    "${self}/user-config/modules/communication"
+    "${self}/user-config/modules/i18n"
+    "${self}/user-config/modules/image"
+    "${self}/user-config/modules/screenshot"
+    "${self}/user-config/modules/music"
+    "${self}/user-config/modules/video"
+    "${self}/user-config/modules/linux-widget"
+    "${self}/user-config/modules/llm"
+    "${self}/user-config/modules/virtualisation"
 
     # Extra modules based on private setup.
     inputs.nix-config-private.homeManagerModules.sops-nix

@@ -1,31 +1,39 @@
 # macOS specific Home Manager configurations
 
-{ config
-, pkgs
-, inputs
-, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  self,
+  ...
+}:
 
-let username = "ryota";
-in {
+let
+  username = "ryota";
+in
+{
   imports = [
+    # Shared machine-local values (e.g. `local.repoPath`).
+    "${self}/user-config/modules/lib/paths.nix"
+
     # The shell setup defines some aliases, and in order to allow overriding,
     # calling this earlier than other modules.
-    ../modules/shell
-    ../modules/git-clone
-    ../modules/key-remap/skhd
+    "${self}/user-config/modules/shell"
+    # "${self}/user-config/modules/git-clone"  # TODO: module path does not exist; private?
+    "${self}/user-config/modules/key-remap/skhd"
 
-    ../modules/terminal
-    ../modules/bar
-    ../modules/window-manager
-    ../modules/vcs
-    ../modules/editor
-    ../modules/programming
-    ../modules/security
-    ../modules/kubernetes
-    ../modules/service
-    ../modules/dictionary
-    ../modules/communication
-    ../modules/image
+    "${self}/user-config/modules/terminal"
+    "${self}/user-config/modules/bar"
+    "${self}/user-config/modules/window-manager"
+    "${self}/user-config/modules/vcs"
+    "${self}/user-config/modules/editor"
+    "${self}/user-config/modules/programming"
+    "${self}/user-config/modules/security"
+    "${self}/user-config/modules/kubernetes"
+    "${self}/user-config/modules/service"
+    "${self}/user-config/modules/dictionary"
+    "${self}/user-config/modules/communication"
+    "${self}/user-config/modules/image"
   ];
   ###----------------------------------------
   ##   Module related options
@@ -51,32 +59,31 @@ in {
     username = "${username}";
     homeDirectory = "/Users/${username}";
 
-    packages =
-      [
-        ###------------------------------
-        ##   UI Tools
-        #--------------------------------
-        pkgs.discord
-        pkgs.zoom-us
+    packages = [
+      ###------------------------------
+      ##   UI Tools
+      #--------------------------------
+      pkgs.discord
+      pkgs.zoom-us
 
-        ###------------------------------
-        ##   macOS Specific
-        #--------------------------------
-        pkgs.skhd       # https://github.com/koekeishiya/skhd
-        pkgs.yabai      # https://github.com/koekeishiya/yabai
+      ###------------------------------
+      ##   macOS Specific
+      #--------------------------------
+      pkgs.skhd # https://github.com/koekeishiya/skhd
+      pkgs.yabai # https://github.com/koekeishiya/yabai
 
-        pkgs.pngpaste   # https://github.com/jcsalterego/pngpaste
+      pkgs.pngpaste # https://github.com/jcsalterego/pngpaste
 
-        pkgs.utm
+      pkgs.utm
 
-        # I don't use this anymore.
-        # pkgs.stats      # https://github.com/exelban/stats
+      # I don't use this anymore.
+      # pkgs.stats      # https://github.com/exelban/stats
 
-        ###------------------------------
-        ##   Extra Setup
-        #--------------------------------
-        pkgs.vscode-insiders   # Added from the overlay setup
-      ];
+      ###------------------------------
+      ##   Extra Setup
+      #--------------------------------
+      pkgs.vscode-insiders # Added from the overlay setup
+    ];
 
     stateVersion = "23.11";
   };
@@ -137,8 +144,8 @@ in {
         # really annoying, and would want to keep it stopped.
         KeepAlive = false;
         RunAtLoad = true;
-        WorkingDirectory  = "/tmp/";
-        StandardOutPath   = "/tmp/yabai.log";
+        WorkingDirectory = "/tmp/";
+        StandardOutPath = "/tmp/yabai.log";
         StandardErrorPath = "/tmp/yabai.log";
       };
     };
@@ -156,8 +163,8 @@ in {
           SuccessfulExit = false;
         };
         RunAtLoad = true;
-        WorkingDirectory  = "/tmp/";
-        StandardOutPath   = "/tmp/skhd.log";
+        WorkingDirectory = "/tmp/";
+        StandardOutPath = "/tmp/skhd.log";
         StandardErrorPath = "/tmp/skhd.log";
       };
     };

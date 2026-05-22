@@ -1,30 +1,33 @@
-{ config
-, pkgs
-, lib
-, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  self,
+  ...
+}:
 
 {
   imports = [
-    ../modules/core
-    ../modules/filesystem
-    ../modules/graphics
-    ../modules/media
-    ../modules/devices
-    ../modules/window-manager
-    ../modules/login-manager
-    ../modules/desktop-environment
-    ../modules/input
-    ../modules/vpn
-    ../modules/x11
-    ../modules/appearance
-    ../modules/security
-    ../modules/flatpak
+    "${self}/nixos-config/modules/core"
+    "${self}/nixos-config/modules/filesystem"
+    "${self}/nixos-config/modules/graphics"
+    "${self}/nixos-config/modules/media"
+    "${self}/nixos-config/modules/devices"
+    "${self}/nixos-config/modules/window-manager"
+    "${self}/nixos-config/modules/login-manager"
+    "${self}/nixos-config/modules/desktop-environment"
+    "${self}/nixos-config/modules/input"
+    "${self}/nixos-config/modules/vpn"
+    "${self}/nixos-config/modules/x11"
+    "${self}/nixos-config/modules/appearance"
+    "${self}/nixos-config/modules/security"
+    "${self}/nixos-config/modules/flatpak"
 
     # Some machine specific configurations.
-    ../modules/machine-specific/asus.nix
+    "${self}/nixos-config/modules/machine-specific/asus.nix"
     # Only to register systemd service for manual kick.
-    ../modules/machine-specific/asus-webcam.nix
-    ../modules/machine-specific/laptop.nix
+    "${self}/nixos-config/modules/machine-specific/asus-webcam.nix"
+    "${self}/nixos-config/modules/machine-specific/laptop.nix"
   ];
 
   core.boot.limine.enable = true;

@@ -1,4 +1,5 @@
 {
+  self,
   nixpkgs,
   nixpkgs-unstable,
   home-manager,
@@ -12,6 +13,7 @@ nixpkgs.lib.nixosSystem rec {
   inherit system;
   specialArgs = {
     inherit
+      self
       inputs
       nixpkgs
       nixpkgs-unstable
@@ -32,7 +34,7 @@ nixpkgs.lib.nixosSystem rec {
 
     # Impermanence makes the whole disk ephemeral unless otherwise specified.
     inputs.impermanence.nixosModules.impermanence
-    ../modules/nix-impermanence.nix
+    "${self}/nixos-config/modules/nix-impermanence.nix"
 
     ###----------------------------------------
     ##  Third party solutions
@@ -51,7 +53,7 @@ nixpkgs.lib.nixosSystem rec {
     ##  Main configuration
     #------------------------------------------
     # Adjust Nix and Nixpkgs related flags before proceeding.
-    ../modules/nix-base.nix
+    "${self}/nixos-config/modules/nix-base.nix"
     # hardware.nix has some hardware specific configuration for this device.
     ./hardware.nix
     # configuration.nix pulls in various modules to achieve similar
@@ -62,8 +64,8 @@ nixpkgs.lib.nixosSystem rec {
     ##  User Setup
     #------------------------------------------
     # Create users.
-    ../../user-config/admin/create.nix
-    ../../user-config/ryota/create.nix
+    "${self}/user-config/admin/create.nix"
+    "${self}/user-config/ryota/create.nix"
 
     inputs.nix-config-private.nixosModules.users
 
@@ -84,7 +86,7 @@ nixpkgs.lib.nixosSystem rec {
 
         # Update pkgs to point to nixpkgs-unstable.
         extraSpecialArgs = {
-          inherit inputs;
+          inherit self inputs;
           pkgs = import nixpkgs-unstable {
             inherit system;
             config.allowUnfree = true;
@@ -99,15 +101,15 @@ nixpkgs.lib.nixosSystem rec {
         users.admin = {
           imports = [
             # Impermanence setup enabled for this device.
-            ../../user-config/admin/persist-impermanence.nix
-            ../../user-config/admin/nixos.nix
+            "${self}/user-config/admin/persist-impermanence.nix"
+            "${self}/user-config/admin/nixos.nix"
           ];
         };
         users.ryota =  {
           imports = [
             # Impermanence setup enabled for this device.
-            ../../user-config/ryota/persist-impermanence.nix
-            ../../user-config/ryota/nixos.nix
+            "${self}/user-config/ryota/persist-impermanence.nix"
+            "${self}/user-config/ryota/nixos.nix"
           ];
         };
       };

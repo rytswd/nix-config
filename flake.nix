@@ -210,7 +210,7 @@
     # could be different from NixOS setup, and uses a separate file.
     darwinConfigurations = {
       ryota-mbp = (import ./macos-config/mbp {
-        inherit nixpkgs nixpkgs-unstable darwin home-manager inputs overlays;
+        inherit self nixpkgs nixpkgs-unstable darwin home-manager inputs overlays;
         system = "aarch64-darwin";
       });
     };
@@ -235,25 +235,25 @@
     # This would produce older configs to be loaded upon restart, though.
     nixosConfigurations = {
       asus-rog-zephyrus-g14-2024 = (import ./nixos-config/asus-rog-zephyrus-g14-2024 {
-        inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
+        inherit self nixpkgs nixpkgs-unstable home-manager inputs overlays;
         system = "x86_64-linux";
       });
       asus-rog-flow-z13-2025 = (import ./nixos-config/asus-rog-flow-z13-2025 {
-        inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
+        inherit self nixpkgs nixpkgs-unstable home-manager inputs overlays;
         system = "x86_64-linux";
       });
 
       # Hetzner Cloud Kubernetes cluster (3× CX32, HA control-plane)
       hetzner-k8s-cp-1 = (import ./nixos-config/hetzner-k8s/cp-1 {
-        inherit nixpkgs nixpkgs-unstable inputs overlays;
+        inherit self nixpkgs nixpkgs-unstable inputs overlays;
         system = "x86_64-linux";
       });
       hetzner-k8s-cp-2 = (import ./nixos-config/hetzner-k8s/cp-2 {
-        inherit nixpkgs nixpkgs-unstable inputs overlays;
+        inherit self nixpkgs nixpkgs-unstable inputs overlays;
         system = "x86_64-linux";
       });
       hetzner-k8s-cp-3 = (import ./nixos-config/hetzner-k8s/cp-3 {
-        inherit nixpkgs nixpkgs-unstable inputs overlays;
+        inherit self nixpkgs nixpkgs-unstable inputs overlays;
         system = "x86_64-linux";
       });
 
@@ -279,7 +279,7 @@
     # to the older version.
     homeConfigurations = {
       "ryota@asus-rog-zephyrus-g14-2024" = (import ./user-config/home-manager {
-        inherit home-manager inputs overlays;
+        inherit self home-manager inputs overlays;
         pkgs = nixpkgs-unstable.legacyPackages."x86_64-linux";
         user-config = ./user-config/ryota/nixos.nix;
       });
@@ -300,7 +300,7 @@
     #
     #     sudo dd if=result/iso/nixos-rytswd-26.05-x86_64-linux.iso of=/dev/sdX bs=4M status=progress oflag=sync
     nixosConfigurations.installer-iso = (import ./nixos-config/iso {
-      inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
+      inherit self nixpkgs nixpkgs-unstable home-manager inputs overlays;
       system = "x86_64-linux";
     });
     packages.x86_64-linux.installer-iso = self.nixosConfigurations.installer-iso.config.system.build.isoImage;

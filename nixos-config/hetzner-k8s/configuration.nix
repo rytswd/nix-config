@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  self,
   ...
 }:
 
@@ -10,11 +11,11 @@
 
 {
   imports = [
-    ../modules/core
-    ../modules/kubernetes
+    "${self}/nixos-config/modules/core"
+    "${self}/nixos-config/modules/kubernetes"
 
     # Hetzner Cloud specific overrides (BIOS boot, systemd-networkd, etc.)
-    ../modules/machine-specific/hetzner-cloud.nix
+    "${self}/nixos-config/modules/machine-specific/hetzner-cloud.nix"
   ];
 
   # --- Kubernetes modules: enable all ---

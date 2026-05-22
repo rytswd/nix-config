@@ -1,4 +1,5 @@
 {
+  self,
   nixpkgs,
   nixpkgs-unstable,
   system,
@@ -11,6 +12,7 @@ nixpkgs-unstable.lib.nixosSystem rec {
   inherit system;
   specialArgs = {
     inherit
+      self
       inputs
       nixpkgs
       nixpkgs-unstable
@@ -22,13 +24,13 @@ nixpkgs-unstable.lib.nixosSystem rec {
     ##  Disk setup
     #------------------------------------------
     inputs.disko.nixosModules.disko
-    ../disko.nix
+    "${self}/nixos-config/hetzner-k8s/disko.nix"
 
     ###----------------------------------------
     ##  Main Configuration
     #------------------------------------------
-    ../../modules/nix-base.nix
-    ../configuration.nix
+    "${self}/nixos-config/modules/nix-base.nix"
+    "${self}/nixos-config/hetzner-k8s/configuration.nix"
 
     ###----------------------------------------
     ##  Node Identity

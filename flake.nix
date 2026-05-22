@@ -183,6 +183,16 @@
 
   in {
     ###----------------------------------------
+    ##   Reusable modules
+    #------------------------------------------
+    # Each `flake-modules.nix` lives next to the modules it lists, so
+    # adding/hiding a module is a single-line change in the relevant
+    # tree — not in flake.nix.
+    nixosModules  = import ./nixos-config/modules/flake-modules.nix;
+    homeModules   = import ./user-config/modules/flake-modules.nix;
+    darwinModules = import ./macos-config/modules/flake-modules.nix;
+
+    ###----------------------------------------
     ##   macOS (Darwin) Configurations
     #------------------------------------------
     # The setup here will configure the macOS system for the given user.

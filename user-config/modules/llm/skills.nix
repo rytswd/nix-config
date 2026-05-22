@@ -22,15 +22,17 @@
         # workmux-workflow
       ];
 
-      localSkills = {
+      localSkills = let
+        rytswd-root = "${config.home.homeDirectory}/Coding/github.com/rytswd";
+      in {
         # User-context suite — machine, tools, prose style, and git/PR
         # workflow preferences. Edits to these .md files take effect
         # instantly (out-of-store symlinks). See:
         #   ./my-context/*.md
-        my-env      = "${config.home.homeDirectory}/Coding/github.com/rytswd/nix-config/user-config/modules/llm/my-context/my-env.md";
-        my-tools    = "${config.home.homeDirectory}/Coding/github.com/rytswd/nix-config/user-config/modules/llm/my-context/my-tools.md";
-        my-style    = "${config.home.homeDirectory}/Coding/github.com/rytswd/nix-config/user-config/modules/llm/my-context/my-style.md";
-        my-workflow = "${config.home.homeDirectory}/Coding/github.com/rytswd/nix-config/user-config/modules/llm/my-context/my-workflow.md";
+        my-env      = "${rytswd-root}/nix-config/user-config/modules/llm/my-context/my-env.md";
+        my-tools    = "${rytswd-root}/nix-config/user-config/modules/llm/my-context/my-tools.md";
+        my-style    = "${rytswd-root}/nix-config/user-config/modules/llm/my-context/my-style.md";
+        my-workflow = "${rytswd-root}/nix-config/user-config/modules/llm/my-context/my-workflow.md";
       };
 
       pi.enable = true;       # → ~/.agents/skills/

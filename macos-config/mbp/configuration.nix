@@ -2,6 +2,7 @@
 , lib
 , pkgs
 , inputs
+, self
 , ... }:
 
 let username = "ryota"; # FIXME this is broken now.
@@ -16,7 +17,7 @@ in {
     # ../modules/desktop-environment
     # ../modules/input
     # ../modules/vpn
-    ../modules/appearance
+    "${self}/macos-config/modules/appearance"
     # ../modules/security
 
     # NOTE: This may be an overkill to have a module, but using this approach

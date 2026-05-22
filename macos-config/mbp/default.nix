@@ -1,15 +1,26 @@
-{ nixpkgs
-, nixpkgs-unstable
-, darwin
-, home-manager
-, system
-, overlays
-, inputs
-, ...}:
+{
+  self,
+  nixpkgs,
+  nixpkgs-unstable,
+  darwin,
+  home-manager,
+  system,
+  overlays,
+  inputs,
+  ...
+}:
 
 darwin.lib.darwinSystem {
   inherit system;
-  specialArgs = { inherit nixpkgs nixpkgs-unstable home-manager overlays; };
+  specialArgs = {
+    inherit
+      self
+      nixpkgs
+      nixpkgs-unstable
+      home-manager
+      overlays
+      ;
+  };
   modules = [
     # Adjust Nix and Nixpkgs related flags before proceeding.
     # ./nix-flags.nix
@@ -32,18 +43,21 @@ darwin.lib.darwinSystem {
     ./configuration.nix
 
     # Create users.
-    ../../user-config/ryota/create.nix
-    # ../../user-config/rytswd/create.nix
+    "${self}/user-config/ryota/create.nix"
+    # "${self}/user-config/rytswd/create.nix"
 
     # Set up home-manager and users.
-    home-manager.darwinModules.home-manager {
+    home-manager.darwinModules.home-manager
+    {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = { inherit inputs; };
+      home-manager.extraSpecialArgs = { inherit self inputs; };
 
       # Each user needs to be set up separately. Because home-manager needs to
       # know where the home directory is, I need to specify the username again.
-      home-manager.users.ryota = import ../../user-config/ryota/macos.nix;
+      home-manager.users.ryota = {
+        imports = [ "${self}/user-config/ryota/macos.nix" ];
+      };
     }
   ];
 }

@@ -7,7 +7,7 @@ nixpkgs.lib.nixosSystem rec {
   modules = [
     { nixpkgs.overlays = [
         (final: prev: {
-          go = nixpkgs-unstable.legacyPackages.${prev.system}.go_1_19;
+          go = nixpkgs-unstable.legacyPackages.${prev.stdenv.hostPlatform.system}.go_1_19;
         })
       ];
     }

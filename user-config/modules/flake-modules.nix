@@ -11,10 +11,15 @@
 #
 # Paths are resolved relative to this file.
 {
-  ## Helpers (option declarations like `local.repoPath`)
+  ###----------------------------------------
+  ##   Helpers
+  #------------------------------------------
+  # Shared option declarations like `local.repoPath`.
   lib-paths       = ./lib/paths.nix;
 
-  ## Bundles
+  ###----------------------------------------
+  ##   Bundles
+  #------------------------------------------
   appearance      = ./appearance;
   bar             = ./bar;
   browser         = ./browser;

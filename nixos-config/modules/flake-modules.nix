@@ -11,11 +11,15 @@
 #
 # Paths are resolved relative to this file.
 {
-  ## Standalone top-level modules
+  ###----------------------------------------
+  ##   Standalone top-level modules
+  #------------------------------------------
   nix-base                  = ./nix-base.nix;
   nix-impermanence          = ./nix-impermanence.nix;
 
-  ## Bundles
+  ###----------------------------------------
+  ##   Bundles
+  #------------------------------------------
   appearance                = ./appearance;
   core                      = ./core;
   desktop-environment       = ./desktop-environment;
@@ -33,8 +37,11 @@
   window-manager            = ./window-manager;
   x11                       = ./x11;
 
-  ## machine-specific: no bundle default.nix; standalone modules only,
-  ## kept exposed because consumers with the same hardware can borrow.
+  ###----------------------------------------
+  ##   machine-specific
+  #------------------------------------------
+  # No bundle default.nix here; standalone modules only, kept exposed
+  # because consumers with the same hardware can borrow them directly.
   machine-specific-asus           = ./machine-specific/asus.nix;
   machine-specific-asus-webcam    = ./machine-specific/asus-webcam.nix;
   machine-specific-hetzner-cloud  = ./machine-specific/hetzner-cloud.nix;

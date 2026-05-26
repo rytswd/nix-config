@@ -36,6 +36,73 @@ description: >-
 - Tables, lists, and short paragraphs over long prose.
 - Cross-link related docs by relative path; avoid duplicating content.
 
+## Code comments — section header blocks
+
+When a file benefits from clear visual structure (long flake configs,
+multi-section modules, large config files), use boxed section headers.
+Not used everywhere — reserved for spots where the visual cue helps a
+reader scan the structure.
+
+Two levels: `=` for top-level sections, `-` for subsections.
+
+Top-level header:
+```
+###========================================
+##   Section name
+#==========================================
+```
+
+Sub-header:
+```
+###----------------------------------------
+##   Subsection name
+#------------------------------------------
+```
+
+Format rules:
+- Top line: 3 markers then 40 `=` (or `-`) characters.
+- Middle line: 2 markers, 3 spaces, then the label.
+- Bottom line: 1 marker then 42 `=` (or `-`) characters.
+- Both top and bottom end up 43 characters wide.
+
+The "marker" is the language's line-comment character: `#` for Nix /
+shell / Python / Ruby, `//` for C / Rust / Go / JS, `--` for Lua / SQL
+/ Haskell, `;` for Lisps, etc. Apply the 3 / 2 / 1 count to whatever
+that marker is.
+
+### Neutralising languages where the marker count is semantically loaded
+
+Some languages reuse repeated comment markers for *different kinds* of
+comment:
+
+- Rust: `//` is a normal comment, `///` is an outer doc comment,
+  `//!` is an inner doc comment.
+- Lua / Haskell: `---` is sometimes a doc-comment convention (LuaDoc /
+  Haddock).
+- Markdown: `#` is a heading marker, so `###` and `##` actually
+  produce headings.
+- Shell heredocs / some Lisp dialects: `##` may collide with
+  preprocessor / reader-macro syntax.
+- Org-mode: `*` count at line start is a heading level.
+
+When the natural 3 / 2 / 1 form would be misinterpreted, prefix the
+whole block with the language's normal comment marker plus a space, so
+the sequence becomes inert text inside a regular comment.
+
+E.g. in Rust, the raw form `///----` would be a doc comment attached
+to the next item. Wrap each line:
+
+```
+// ///----------------------------------------
+// //   Subsection name
+// /------------------------------------------
+```
+
+Now every line is just `// ` (a regular comment) with the original
+block as its text. The visual box still works; the doc-comment
+semantics are neutralised. Same trick for any other language where
+the leading-marker count is meaningful.
+
 ## Agent response style
 - **Terse by default.** No preamble ("I'll help you with that…"),
   no recap of what the user just said.

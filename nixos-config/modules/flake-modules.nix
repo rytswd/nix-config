@@ -27,7 +27,6 @@
   filesystem                = ./filesystem;
   flatpak                   = ./flatpak;
   graphics                  = ./graphics;
-  input                     = ./input;
   kubernetes                = ./kubernetes;
   login-manager             = ./login-manager;
   media                     = ./media;

@@ -66,10 +66,7 @@
 
     # Zig
     zig-overlay.url = "github:mitchellh/zig-overlay";
-    zls = {
-      url = "github:zigtools/zls";
-      inputs.zig-overlay.follows = "zig-overlay";
-    };
+    zls.url = "github:zigtools/zls";
 
     ###----------------------------------------
     ##  Tools

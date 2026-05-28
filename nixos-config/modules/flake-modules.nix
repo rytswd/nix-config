@@ -35,6 +35,7 @@
   virtual-machine           = ./virtual-machine;
   vpn                       = ./vpn;
   window-manager            = ./window-manager;
+  workstation               = ./workstation;
   x11                       = ./x11;
 
   ###----------------------------------------

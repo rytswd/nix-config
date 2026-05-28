@@ -1,8 +1,3 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
 {
   imports = [
     ./boot
@@ -20,20 +15,4 @@
     ./udev.nix
     ./tmp.nix
   ];
-
-  # core.boot has nested flag setup.
-
-  core.nix.enable = lib.mkDefault true;
-  core.network.enable = lib.mkDefault true;
-  core.firewall.dropbox.enable = lib.mkDefault true;
-  core.shell.enable = lib.mkDefault true;
-  core.ssh.enable = lib.mkDefault true;
-  core.gnupg.enable = lib.mkDefault true;
-  core.tools.enable = lib.mkDefault true;
-  core.virtualisation.docker.enable = lib.mkDefault true;
-  core.user-management.enable = lib.mkDefault true;
-  core.locale.enable = lib.mkDefault true;
-  core.sudo.enable = lib.mkDefault true;
-  core.udev.enable = lib.mkDefault true;
-  core.tmp.enable = lib.mkDefault true;
 }

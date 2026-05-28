@@ -1,15 +1,8 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
+# Docker + podman + libvirtd. Not imported by the core bundle's default.nix
+# on headless hosts (hetzner-k8s uses `disabledModules` to opt out).
 {
-  options = {
-    core.virtualisation.docker.enable = lib.mkEnableOption "Enable docker.";
-  };
-
-  config = lib.mkIf config.core.virtualisation.docker.enable {
-    virtualisation = {
+  virtualisation = {
       docker = {
         enable = true;
         # NOTE: When using rootless Docker, I cannot make it work with GPU, such
@@ -40,8 +33,7 @@
         };
       };
     };
-    # Trust local bridge used for VMs
-    # Ref: https://www.reddit.com/r/NixOS/comments/18qtsoz/no_internet_in_virtmanagerkvm_guest/
-    networking.firewall.trustedInterfaces = [ "virbr0" ];
-  };
+  # Trust local bridge used for VMs
+  # Ref: https://www.reddit.com/r/NixOS/comments/18qtsoz/no_internet_in_virtmanagerkvm_guest/
+  networking.firewall.trustedInterfaces = [ "virbr0" ];
 }

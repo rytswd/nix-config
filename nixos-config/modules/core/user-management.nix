@@ -1,18 +1,7 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
 {
-  options = {
-    core.user-management.enable = lib.mkEnableOption "Enable basic user management settings.";
-  };
+  # Ensure password can be changed with `passwd`.
+  users.mutableUsers = true;
 
-  config = lib.mkIf config.core.user-management.enable {
-    # Ensure password can be changed with `passwd`.
-    users.mutableUsers = true;
-
-    # Don't require password for sudo
-    security.sudo.wheelNeedsPassword = false;
-  };
+  # Don't require password for sudo
+  security.sudo.wheelNeedsPassword = false;
 }

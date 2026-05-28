@@ -1,18 +1,12 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
+# NVIDIA offload setup — use the built-in GPU for most tasks, the NVIDIA GPU
+# for offloading. This module is hardware-specific (the host must actually
+# have an NVIDIA dGPU), so it lives under `devices/` alongside other
+# opt-in hardware leaves. NOT imported by the devices bundle's default.nix —
+# import this leaf directly from a host config.
 {
-  options = {
-    graphics.nvidia-offload.enable = lib.mkEnableOption "Set up NVIDIA GPU with offloading.";
-  };
-
-  # NOTE: This setup is to use built-in GPU for most tasks, and NVIDIA GPU can
-  # be used for offloading.
-  config = lib.mkIf config.graphics.nvidia-offload.enable {
-    # Ref https://nixos.wiki/wiki/Nvidia
-    hardware.nvidia = {
+  # Ref https://nixos.wiki/wiki/Nvidia
+  hardware.nvidia = {
       modesetting.enable = true;
       powerManagement.enable = false;
       powerManagement.finegrained = false;
@@ -50,8 +44,7 @@
     # Ensure Docker can make use of GPU.
     hardware.nvidia-container-toolkit.enable = true;
 
-    environment.systemPackages = [
-      pkgs.nvitop       # https://github.com/XuehaiPan/nvitop
-    ];
-  };
+  environment.systemPackages = [
+    pkgs.nvitop       # https://github.com/XuehaiPan/nvitop
+  ];
 }

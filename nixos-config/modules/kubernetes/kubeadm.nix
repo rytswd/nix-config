@@ -1,10 +1,6 @@
-{ pkgs
-, lib
-, config
-, ...}:
+{ pkgs, config, ... }:
 
 let
-  cfg = config.kubernetes.kubeadm;
   version = config.kubernetes.common.version;
 
   kubeadm = pkgs.stdenv.mkDerivation {
@@ -34,23 +30,20 @@ let
   };
 in
 {
-  options = {
-    kubernetes.kubeadm.enable = lib.mkEnableOption "Enable kubeadm and kubectl.";
-  };
+  environment.systemPackages = [
+    kubeadm
+    kubectl
+  ];
 
-  config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ kubeadm kubectl ];
+  # kubeadm needs these directories to exist.
+  systemd.tmpfiles.rules = [
+    "d /etc/kubernetes 0755 root root -"
+    "d /etc/kubernetes/manifests 0755 root root -"
+    "d /etc/kubernetes/pki 0700 root root -"
+  ];
 
-    # kubeadm needs these directories to exist.
-    systemd.tmpfiles.rules = [
-      "d /etc/kubernetes 0755 root root -"
-      "d /etc/kubernetes/manifests 0755 root root -"
-      "d /etc/kubernetes/pki 0700 root root -"
-    ];
-
-    # Shell completion for kubectl.
-    programs.bash.interactiveShellInit = ''
-      source <(${kubectl}/bin/kubectl completion bash)
-    '';
-  };
+  # Shell completion for kubectl.
+  programs.bash.interactiveShellInit = ''
+    source <(${kubectl}/bin/kubectl completion bash)
+  '';
 }

@@ -1,15 +1,6 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
 {
-  options = {
-    appearance.font.enable = lib.mkEnableOption "Enable additional fonts.";
-  };
-
-  config = lib.mkIf config.appearance.font.enable {
-    fonts = {
+  fonts = {
       fontDir.enable = true;
 
       packages = [
@@ -42,6 +33,5 @@
         pkgs.nacelle
         pkgs.route159
       ];
-    };
   };
 }

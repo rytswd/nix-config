@@ -1,15 +1,6 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
 {
-  options = {
-    appearance.font.enable = lib.mkEnableOption "Enable additional fonts.";
-  };
-
-  config = lib.mkIf config.appearance.font.enable {
-    fonts = {
+  fonts = {
       # TODO: Probably not needed for macOS?
       # fontDir.enable = true;
 
@@ -42,7 +33,6 @@
         pkgs.fa_1
         pkgs.nacelle
         pkgs.route159
-      ];
-    };
+    ];
   };
 }

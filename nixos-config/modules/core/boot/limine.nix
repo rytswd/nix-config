@@ -1,25 +1,8 @@
+# Limine boot loader. Not imported by the core boot bundle's default.nix —
+# bootloaders are mutually exclusive, so hosts import the one they want.
 {
-  pkgs,
-  lib,
-  config,
-  ...
-}:
-
-{
-  options = {
-    core.boot.limine.enable = lib.mkEnableOption "Enable limine boot loader.";
-  };
-
-  config = lib.mkIf config.core.boot.limine.enable {
-    boot.loader = {
-      # Only one can be enabled at a time. Others that are not enabled are
-      # there only for reference.
-
-      limine = {
-        enable = true;
-
-        style.wallpapers = [ ./hasliberg.jpg ];
-      };
-    };
+  boot.loader.limine = {
+    enable = true;
+    style.wallpapers = [ ./hasliberg.jpg ];
   };
 }

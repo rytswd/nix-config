@@ -1,19 +1,8 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+# Bootloaders are mutually exclusive — the bundle only imports common.nix
+# (shared boot.loader setup). Hosts pick one of ./grub.nix, ./limine.nix,
+# ./systemd-boot.nix and import it directly.
 {
   imports = [
-    ./common.nix # No flag to enable / disable
-
-    ./grub.nix
-    ./limine.nix
-    ./systemd-boot.nix
+    ./common.nix
   ];
-
-  # Explicitly disabling all. Only one can be enabled at a time.
-  core.boot.limine.enable = lib.mkDefault false;
-  core.boot.grub.enable = lib.mkDefault false;
-  core.boot.systemd-boot.enable = lib.mkDefault false;
 }

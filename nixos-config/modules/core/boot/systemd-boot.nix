@@ -1,28 +1,13 @@
+# systemd-boot boot loader. Not imported by the core boot bundle's default.nix
+# — bootloaders are mutually exclusive, so hosts import the one they want.
 {
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+  # The systemd-boot seems to be the standard, but I didn't like how it
+  # looked (and the screen resolution was sort of bugging out).
+  # Ref: https://www.freedesktop.org/software/systemd/man/latest/loader.conf.html
+  boot.loader.systemd-boot = {
+    enable = true;
 
-{
-  options = {
-    core.boot.systemd-boot.enable = lib.mkEnableOption "Enable systemd-boot boot loader.";
-  };
-
-  config = lib.mkIf config.core.boot.systemd-boot.enable {
-    boot.loader = {
-      # Only one can be enabled at a time. Others that are not enabled are
-      # there only for reference.
-      systemd-boot = {
-        # The systemd-boot seems to be the standard, but I didn't like how it
-        # looked (and the screen resolution was sort of bugging out).
-        # Ref: https://www.freedesktop.org/software/systemd/man/latest/loader.conf.html
-        enable = true;
-
-        editor = true;
-        consoleMode = "auto";
-      };
-    };
+    editor = true;
+    consoleMode = "auto";
   };
 }

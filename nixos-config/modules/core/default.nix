@@ -1,18 +1,15 @@
+# Truly cross-host system config. Anything specific to a workstation/laptop
+# environment (NetworkManager, geoclue + locale, docker stack, nix-ld,
+# system gpg-agent, Dropbox firewall, xremap uinput rule) lives in
+# `../workstation` instead so headless hosts don't drag it in.
 {
   imports = [
     ./boot
-    ./nix.nix
-    ./network.nix
-    ./firewall.nix
     ./shell.nix
     ./ssh.nix
-    ./gnupg.nix
+    ./sudo.nix
+    ./tmp.nix
     ./tools.nix
     ./user-management.nix
-    ./virtualisation.nix
-    ./locale.nix
-    ./sudo.nix
-    ./udev.nix
-    ./tmp.nix
   ];
 }

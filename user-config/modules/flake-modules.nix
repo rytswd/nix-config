@@ -25,6 +25,7 @@
   browser         = ./browser;
   clipboard       = ./clipboard;
   communication   = ./communication;
+  database        = ./database;
   dictionary      = ./dictionary;
   editor          = ./editor;
   file-management = ./file-management;
@@ -41,7 +42,6 @@
   programming     = ./programming;
   screenshot      = ./screenshot;
   security        = ./security;
-  service         = ./service;
   session-lock    = ./session-lock;
   shell           = ./shell;
   terminal        = ./terminal;

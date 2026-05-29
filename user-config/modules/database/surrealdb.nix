@@ -1,18 +1,8 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
-# Ref: https://surrealdb.com/
-
+{ pkgs, ... }:
+# https://surrealdb.com/ — not imported by the service bundle's default.nix.
+# Import this leaf directly from a host config if you actually want it.
 {
-  options = {
-    service.surrealdb.enable = lib.mkEnableOption "Enable SurrealDB related tooling.";
-  };
-
-  config = lib.mkIf config.service.surrealdb.enable {
-    home.packages = [
-      pkgs.surrealdb
-    ];
-  };
+  home.packages = [
+    pkgs.surrealdb
+  ];
 }

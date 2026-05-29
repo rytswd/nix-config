@@ -1,14 +1,7 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+# Open / self-hosted file-sync tooling. Vendor file-sync clients (Dropbox
+# via Maestral) live in `../product/file-management/`.
 {
   imports = [
-    ./dropbox.nix
     ./syncthing.nix
   ];
-
-  rytswd.file-management.dropbox.enable = lib.mkDefault true;
-  rytswd.file-management.syncthing.enable = lib.mkDefault true;
 }

@@ -1,19 +1,17 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
 {
-  options = {
-    rytswd.file-management.syncthing.enable = lib.mkEnableOption "Enable Dropbox.";
-  };
+  services.syncthing = {
+    enable = true;
 
+    settings = {
+      options = {
+        # Private only — no external discovery or relay servers
+        globalAnnounceEnabled = false;
+        localAnnounceEnabled = false;
+        relaysEnabled = false;
+        natEnabled = false;
+        urAccepted = -1;
+      };
 
-  config = lib.mkIf config.rytswd.file-management.syncthing.enable {
-    services.syncthing = {
-      enable = true;
-      # group = "users";
-      guiAddress = "0.0.0.0:8384";
     };
   };
 }

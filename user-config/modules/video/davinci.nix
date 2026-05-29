@@ -1,16 +1,8 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
+# DaVinci Resolve — not imported by the video bundle's default.nix. Import
+# this leaf directly from a host config when I want it.
 {
-  options = {
-    video.davinci.enable = lib.mkEnableOption "Enable DaVinci Resolve.";
-  };
-
-  config = lib.mkIf config.video.davinci.enable {
-    home.packages = [
-      pkgs.davinci-resolve
-    ];
-  };
+  home.packages = [
+    pkgs.davinci-resolve
+  ];
 }

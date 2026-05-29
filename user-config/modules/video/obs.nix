@@ -1,20 +1,14 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
 {
-  options = {
-    video.obs.enable = lib.mkEnableOption "Enable OBS.";
-  };
-
-  config = lib.mkIf config.video.obs.enable {
-    programs.obs-studio = {
-      enable = true;
-      plugins = let
-        # Pending PR https://github.com/NixOS/nixpkgs/pull/360018
+  programs.obs-studio = {
+    enable = true;
+    plugins =
+      let
+        # NOTE: I used to have the below custom setup before this PR was merged:
+        # https://github.com/NixOS/nixpkgs/pull/391725
         # obs-advanced-masks = pkgs.callPackage ./obs-advanced-masks.nix {};
-      in [
+      in
+      [
         pkgs.obs-studio-plugins.obs-gradient-source
         pkgs.obs-studio-plugins.obs-composite-blur
         pkgs.obs-studio-plugins.obs-3d-effect
@@ -25,6 +19,5 @@
         # Custom
         # obs-advanced-masks
       ];
-    };
   };
 }

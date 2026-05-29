@@ -1,14 +1,4 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
 {
-  options = {
-    video.wf-recorder.enable = lib.mkEnableOption "Enable wf-recorder.";
-  };
-
-  config = lib.mkIf config.video.wf-recorder.enable {
-    home.packages = [ pkgs.wf-recorder ];
-  };
+  home.packages = [ pkgs.wf-recorder ];
 }

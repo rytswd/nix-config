@@ -40,7 +40,7 @@ let
           exit 0
         else
           echo "GPG card detected but signing key ${allKeys.gpg-key-id} not in keyring."
-          echo "Import your public key first with: gpg --card-edit -> fetch"
+          echo "Import the public key first with: gpg --card-edit -> fetch"
         fi
       fi
     fi
@@ -64,83 +64,78 @@ let
     truncate -s 0 "${statusFile}"
   '';
 in
+# Assumes the git, sops-nix, and security bundles are imported by the host
+# (originally this module was gated on `vcs.git.enable && vcs.git.yubikey.enable
+# && security.sops-nix.enable` — all three are now "imported = on").
 {
-  options = {
-    vcs.git.yubikey.enable = lib.mkEnableOption "Enable Git setup using YubiKey.";
-  };
+  # Set up directory structure for the rest.
+  home.activation.ensureGitDirectories = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    mkdir -p "$(dirname "${statusFile}")"
+    touch "${statusFile}"
+  '';
 
-  config =
-    lib.mkIf (config.vcs.git.enable && config.vcs.git.yubikey.enable && config.security.sops-nix.enable)
-      {
-        # Set up directory structure for the rest.
-        home.activation.ensureGitDirectories = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-          mkdir -p "$(dirname "${statusFile}")"
-          touch "${statusFile}"
-        '';
+  # Configure public key details in git directory.
+  home.file = lib.mapAttrs' (serial: data: {
+    name = ".ssh/id_yubikey_${serial}_sign.pub";
+    value = {
+      text = data.sign.publicKey;
+    };
+  }) keys;
 
-        # Configure public key details in git directory.
-        home.file = lib.mapAttrs' (serial: data: {
-          name = ".ssh/id_yubikey_${serial}_sign.pub";
-          value = {
-            text = data.sign.publicKey;
-          };
-        }) keys;
+  # This places the file in ~/.ssh/id_yubikey_<SERIAL> with 600 permissions.
+  sops.secrets = lib.mkMerge (
+    lib.mapAttrsToList (serial: data: {
+      "yubikey_stub_${serial}/auth" = {
+        sopsFile = "${private-repo}/keys/ssh/yubikey-stub.yaml";
+        path = "${config.home.homeDirectory}/.ssh/id_yubikey_${serial}_auth";
+        mode = "0600";
+      };
+      "yubikey_stub_${serial}/sign" = {
+        sopsFile = "${private-repo}/keys/ssh/yubikey-stub.yaml";
+        path = "${config.home.homeDirectory}/.ssh/id_yubikey_${serial}_sign";
+        mode = "0600";
+      };
+    }) keys
+  );
 
-        # This places the file in ~/.ssh/id_yubikey_<SERIAL> with 600 permissions.
-        sops.secrets = lib.mkMerge (lib.mapAttrsToList (serial: data: {
-          "yubikey_stub_${serial}/auth" = {
-            sopsFile = "${private-repo}/keys/ssh/yubikey-stub.yaml";
-            path = "${config.home.homeDirectory}/.ssh/id_yubikey_${serial}_auth";
-            mode = "0600";
-          };
-          "yubikey_stub_${serial}/sign" = {
-            sopsFile = "${private-repo}/keys/ssh/yubikey-stub.yaml";
-            path = "${config.home.homeDirectory}/.ssh/id_yubikey_${serial}_sign";
-            mode = "0600";
-          };
-        }) keys);
+  # Configure Git to include the dynamic status file.
+  programs.git.includes = [
+    { path = statusFile; }
+  ];
 
-        # Configure Git to include the dynamic status file.
-        programs.git.includes = [
-          { path = statusFile; }
-        ];
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    # Priority: GPG-based SSH auth (first), then FIDO2 SSH keys (fallback)
+    matchBlocks = {
+      "github.com" = {
+        user = "git";
+        # Try GPG-based SSH first (shares cache with GPG signing), then FIDO2 SSH keys
+        identityFile =
+          # Note: GPG-based SSH keys are managed by gpg-agent via enableSshSupport
+          # The agent automatically provides the key when available. We list the
+          # FIDO2 resident keys as fallback when GPG is not set up.
+          lib.mapAttrsToList (serial: _: "${config.home.homeDirectory}/.ssh/id_yubikey_${serial}_auth") keys;
+      };
+      # Add gitlab or others if needed
 
-        programs.ssh = {
-          enable = true;
-          enableDefaultConfig = false;
-          # Priority: GPG-based SSH auth (first), then FIDO2 SSH keys (fallback)
-          matchBlocks = {
-            "github.com" = {
-              user = "git";
-              # Try GPG-based SSH first (shares cache with GPG signing), then FIDO2 SSH keys
-              identityFile =
-                # Note: GPG-based SSH keys are managed by gpg-agent via enableSshSupport
-                # The agent automatically provides the key when available. We list the
-                # FIDO2 resident keys as fallback when GPG is not set up.
-                lib.mapAttrsToList (serial: _:
-                  "${config.home.homeDirectory}/.ssh/id_yubikey_${serial}_auth"
-                ) keys;
-            };
-            # Add gitlab or others if needed
-
-            # Suppress warnings from trying multiple keys
-            "*" = {
-              extraOptions = {
-                LogLevel = "ERROR";
-              };
-            };
-          };
-        };
-
-        # The Systemd Service (Triggered by Udev)
-        systemd.user.services.yk-git-update = {
-          Unit = {
-            Description = "Dynamic Git Signing Config (GPG or YubiKey SSH)";
-          };
-          Service = {
-            Type = "oneshot";
-            ExecStart = "${gitWithYubikeyScript}/bin/git-signing-yubikey";
-          };
+      # Suppress warnings from trying multiple keys
+      "*" = {
+        extraOptions = {
+          LogLevel = "ERROR";
         };
       };
+    };
+  };
+
+  # The Systemd Service (Triggered by Udev)
+  systemd.user.services.yk-git-update = {
+    Unit = {
+      Description = "Dynamic Git Signing Config (GPG or YubiKey SSH)";
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${gitWithYubikeyScript}/bin/git-signing-yubikey";
+    };
+  };
 }

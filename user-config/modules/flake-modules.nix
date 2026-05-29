@@ -42,7 +42,6 @@
   programming     = ./programming;
   screenshot      = ./screenshot;
   security        = ./security;
-  session-lock    = ./session-lock;
   shell           = ./shell;
   terminal        = ./terminal;
   vcs             = ./vcs;

@@ -1,18 +1,7 @@
-{ pkgs
-, lib
-, config
-, inputs
-, ...}:
-
+{ pkgs, ... }:
+# NOTE: SOPS setup here does not use SOPS Nix, check sops-nix.nix instead.
 {
-  options = {
-    security.sops.enable = lib.mkEnableOption "Enable SOPS setup.";
-  };
-
-  # NOTE: SOPS setup here does not use SOPS Nix, check sops-nix.nix instead.
-  config = lib.mkIf config.security.sops.enable {
-    home.packages = [
-      pkgs.sops
-    ];
-  };
+  home.packages = [
+    pkgs.sops
+  ];
 }

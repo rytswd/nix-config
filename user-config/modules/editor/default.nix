@@ -1,21 +1,10 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
 {
   imports = [
     ./emacs.nix
     ./neovim
     ./helix.nix
     ./vscode.nix
-    ./zed.nix
+    # NOTE: ./zed.nix is intentionally NOT imported here — build is broken
+    # with the current flake input. Import the leaf directly if you want it.
   ];
-
-  editor.emacs.enable = lib.mkDefault true;
-  editor.neovim.enable = lib.mkDefault true;
-  editor.helix.enable = lib.mkDefault true;
-  editor.vscode.enable = lib.mkDefault true;
-  # TODO: The build failure with the latest flake input, disabling it.
-  # editor.zed.enable = lib.mkDefault true;
 }

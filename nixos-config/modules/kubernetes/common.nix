@@ -75,7 +75,7 @@ in
     # silently overriding it.
     assertions = [{
       assertion = config.swapDevices == [];
-      message = "Kubernetes nodes must not have swap enabled. Remove swapDevices from your configuration.";
+      message = "Kubernetes nodes must not have swap enabled. Remove swapDevices from the configuration.";
     }];
 
     # Ensure cgroup v2 unified hierarchy is used. Kubernetes v1.35 removed

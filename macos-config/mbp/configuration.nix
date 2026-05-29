@@ -188,7 +188,7 @@ in {
     pam.services.sudo_local.touchIdAuth = true;
   };
 
-  # NOTE: For retrieving the existing setting, you can run the following:
+  # NOTE: For retrieving the existing setting, I can run the following:
   #
   #     defaults read NSGlobalDomain.
   #

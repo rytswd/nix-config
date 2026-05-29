@@ -29,7 +29,7 @@
   services.pcscd.enable = true;
 
   # Ensure the CCID driver is picked up automatically
-  # (avoids the manual PCSCLITE_HP_DROPDIR trick from your README)
+  # (avoids the manual PCSCLITE_HP_DROPDIR trick from the README)
   services.pcscd.plugins = [ pkgs.ccid ];
 
   # Enable flakes on the live ISO

@@ -1,5 +1,5 @@
 # wofi — not imported by the launcher bundle's default.nix. Import this leaf
-# directly from a host config if you actually want wofi.
+# directly from a host config when I want wofi.
 {
   programs.wofi = {
     enable = true;

@@ -91,7 +91,7 @@
               options.mountpoint = "legacy";
               options."com.sun:auto-snapshot" = "true";
               mountpoint = "/home";
-              # Snapshot blank if you want ephemeral home too
+              # Snapshot blank if I want ephemeral home too
               postCreateHook = "zfs snapshot zroot/store/home@blank";
             };
           };

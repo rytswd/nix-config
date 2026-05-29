@@ -39,7 +39,7 @@
 
     #       # Move the current state to a backup
     #       # Note: We rollback to @blank immediately after, creating a fresh slate.
-    #       # If you strictly want 'rolling' backups accessible:
+    #       # If I strictly want 'rolling' backups accessible:
     #       zfs rename "$dataset" "$dataset-old-$timestamp"
 
     #       # clone the blank snapshot to create the new active root

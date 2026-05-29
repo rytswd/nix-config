@@ -21,6 +21,6 @@
     ./yaml.nix
     ./zig.nix
     # NOTE: ./roc.nix is intentionally NOT imported here — build is currently
-    # broken. Import the leaf directly if you want to try.
+    # broken. Import the leaf directly when I want to try.
   ];
 }

@@ -5,7 +5,7 @@
   ...
 }:
 # swaync — SwayNotificationCenter. Not imported by the notification bundle's
-# default.nix; import this leaf directly from a host config if you want it.
+# default.nix; import this leaf directly from a host config when I want it.
 {
   services.swaync.enable = true;
   xdg.configFile = {

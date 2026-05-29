@@ -27,7 +27,7 @@
 
         The default assumes the conventional location
         `$HOME/Coding/github.com/rytswd/nix-config`. Override per-host if
-        your checkout lives elsewhere.
+        my checkout lives elsewhere.
       '';
       example = "/srv/nix-config";
     };

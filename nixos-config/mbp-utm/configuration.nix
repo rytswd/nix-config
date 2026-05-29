@@ -15,7 +15,7 @@ let linuxGnome = true; in {
     kernelPackages = pkgs.linuxPackages_latest;
 
     # TODO: Check if this is necessary for UTM.
-    # VMware, Parallels both only support this being 0 otherwise you see
+    # VMware, Parallels both only support this being 0 otherwise I see
     # "error switching console mode" on boot.
     loader.systemd-boot.consoleMode = "0";
   };

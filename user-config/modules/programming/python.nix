@@ -1,27 +1,19 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
 {
-  options = {
-    programming.python.enable = lib.mkEnableOption "Enable Python development related tools.";
-  };
+  home.packages = [
+    pkgs.uv # https://github.com/astral-sh/uv
+    pkgs.poetry # https://python-poetry.org/
 
-  config = lib.mkIf config.programming.python.enable {
-    home.packages = [
-      pkgs.uv       # https://github.com/astral-sh/uv
-      pkgs.poetry   # https://python-poetry.org/
-
-      # Packages that I want to ensure is available all the time.
-      (pkgs.python3.withPackages (ps: with ps; [
+    # Packages that I want to ensure is available all the time.
+    (pkgs.python3.withPackages (
+      ps: with ps; [
         pyyaml
         pandas
-      ]))
-      pkgs.python314.pkgs.pip
-
-      # TODO: Check what the use case with this is.
-      pkgs.python3.pkgs.diagrams
-    ];
-  };
+        requests   # HTTP client — default in ad-hoc scripts
+        rich       # pretty terminal output (tables, tracebacks, progress)
+        ipython    # nicer REPL than the default `python`
+      ]
+    ))
+    pkgs.python3.pkgs.pip
+  ];
 }

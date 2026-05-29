@@ -1,16 +1,4 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
 {
-  options = {
-    programming.toml.enable = lib.mkEnableOption "Enable TOML related tools.";
-  };
-
-  config = lib.mkIf config.programming.toml.enable {
-    home.packages = [
-      pkgs.taplo
-    ];
-  };
+  home.packages = [ pkgs.taplo ];
 }

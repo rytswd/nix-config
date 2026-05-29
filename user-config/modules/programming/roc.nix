@@ -1,16 +1,8 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
+# Roc — not imported by the programming bundle's default.nix (build currently
+# broken). Import this leaf directly from a host config if you want to try.
 {
-  options = {
-    programming.roc.enable = lib.mkEnableOption "Enable Roc development related tools.";
-  };
-
-  config = lib.mkIf config.programming.roc.enable {
-    home.packages = [
-      pkgs.rocpkgs.cli
-    ];
-  };
+  home.packages = [
+    pkgs.rocpkgs.cli
+  ];
 }

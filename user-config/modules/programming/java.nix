@@ -1,16 +1,4 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
 {
-  options = {
-    programming.java.enable = lib.mkEnableOption "Enable Java development related tools.";
-  };
-
-  config = lib.mkIf config.programming.java.enable {
-    home.packages = [
-      pkgs.jdk
-    ];
-  };
+  home.packages = [ pkgs.jdk ];
 }

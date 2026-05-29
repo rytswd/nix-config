@@ -1,26 +1,17 @@
-{ pkgs
-, lib
-, config
-, inputs
-, ...}:
-
+{ pkgs, ... }:
 {
-  options = {
-    programming.zig.enable = lib.mkEnableOption "Enable Zig development related tools.";
-  };
-
-  config = lib.mkIf config.programming.zig.enable {
-    home.packages = let
+  home.packages =
+    let
       # NOTE: Based on https://github.com/mitchellh/zig-overlay
       zig = pkgs.zigpkgs.master;
       # zls = inputs.zls.packages.${pkgs.stdenv.hostPlatform.system}.zls.overrideAttrs (_: {
       #   nativeBuildInputs = [ zig ];
       # });
       zls = pkgs.zls; # NOTE: This is older than zig itself.
-    in [
+    in
+    [
       # pkgs.zig
       zig
       zls
     ];
-  };
 }

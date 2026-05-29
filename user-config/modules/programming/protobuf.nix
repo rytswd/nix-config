@@ -1,16 +1,4 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
 {
-  options = {
-    programming.protobuf.enable = lib.mkEnableOption "Enable Protobuf related tools.";
-  };
-
-  config = lib.mkIf config.programming.protobuf.enable {
-    home.packages = [
-      pkgs.buf
-    ];
-  };
+  home.packages = [ pkgs.buf ];
 }

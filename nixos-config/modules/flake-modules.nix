@@ -21,6 +21,7 @@
   ##   Bundles
   #------------------------------------------
   appearance                = ./appearance;
+  boot                      = ./boot;
   core                      = ./core;
   desktop-environment       = ./desktop-environment;
   devices                   = ./devices;

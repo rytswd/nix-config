@@ -35,7 +35,6 @@
   vpn                       = ./vpn;
   window-manager            = ./window-manager;
   workstation               = ./workstation;
-  x11                       = ./x11;
 
   ###----------------------------------------
   ##   machine-specific

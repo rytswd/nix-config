@@ -1,14 +1,11 @@
 {
   config,
-  lib,
-  pkgs,
   inputs,
   self,
   ...
 }:
 
 let
-  cfg = config.appearance.noctalia;
   # Live, out-of-store path so the Noctalia UI can write to settings.json.
   # `config.local.repoPath` is declared in `user-config/modules/lib/paths.nix`
   # and defaults to the conventional checkout location; override per-host
@@ -19,10 +16,6 @@ let
   settingsPath = "${config.local.repoPath}/user-config/modules/appearance/noctalia/settings.json";
 in
 {
-  options.appearance.noctalia = {
-    enable = lib.mkEnableOption "Noctalia shell";
-  };
-
   imports = [
     # `local.repoPath` is declared here. The module system deduplicates
     # this import with any caller that also pulls it in directly.
@@ -30,22 +23,20 @@ in
     inputs.noctalia.homeModules.default
   ];
 
-  config = lib.mkIf cfg.enable {
-    programs.noctalia-shell = {
-      enable = true;
-      systemd.enable = true;
-      # NOTE: `settings` is intentionally omitted here.
-      # Setting it would make ~/.config/noctalia/settings.json a read-only
-      # Nix store symlink, preventing the Noctalia UI from saving changes.
-    };
+  programs.noctalia-shell = {
+    enable = true;
+    systemd.enable = true;
+    # NOTE: `settings` is intentionally omitted here.
+    # Setting it would make ~/.config/noctalia/settings.json a read-only
+    # Nix store symlink, preventing the Noctalia UI from saving changes.
+  };
 
-    # NOTE: plugins are manually handled at the moment, I should fix it.
+  # NOTE: plugins are manually handled at the moment, I should fix it.
 
-    # Use the same xdg.configFile attr that the upstream module uses,
-    # but point it to a mutable out-of-store symlink instead.
-    # This avoids duplicate definition conflicts with the module's own entry.
-    xdg.configFile."noctalia/settings.json" = {
-      source = config.lib.file.mkOutOfStoreSymlink settingsPath;
-    };
+  # Use the same xdg.configFile attr that the upstream module uses,
+  # but point it to a mutable out-of-store symlink instead.
+  # This avoids duplicate definition conflicts with the module's own entry.
+  xdg.configFile."noctalia/settings.json" = {
+    source = config.lib.file.mkOutOfStoreSymlink settingsPath;
   };
 }

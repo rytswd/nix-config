@@ -1,12 +1,3 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
-{
-  imports = [
-    ./zfs.nix
-  ];
-
-  filesystem.zfs.enable = lib.mkDefault false; # Being explicit
-}
+# The filesystem bundle is empty by design — host-specific filesystem leaves
+# (./zfs.nix, future btrfs.nix, ...) are imported per host.
+{ }

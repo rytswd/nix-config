@@ -1,9 +1,4 @@
-{ pkgs, ... }:
 {
-  home.packages = [
-    pkgs.spotify
-  ];
-
   # MPRIS "last-active player" router used by `playerctl` when a single key
   # (e.g. XF86AudioPlay) should target whatever's playing now. Noctalia,
   # waybar, swaync and AGS all read MPRIS directly and don't need this; only

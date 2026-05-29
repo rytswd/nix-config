@@ -1,17 +1,8 @@
-{ pkgs
-, lib
-, config
-, inputs
-, ...}:
-
+{ pkgs, ... }:
+# mpvpaper — not imported by the wallpaper bundle's default.nix. Import this
+# leaf directly from a host config when I want mpv-based animated wallpapers.
 {
-  options = {
-    wallpaper.mpvpaper.enable = lib.mkEnableOption "Enable mpvpaper.";
-  };
-
-  config = lib.mkIf config.wallpaper.mpvpaper.enable {
-    home.packages = [
-      pkgs.mpvpaper
-    ];
-  };
+  home.packages = [
+    pkgs.mpvpaper
+  ];
 }

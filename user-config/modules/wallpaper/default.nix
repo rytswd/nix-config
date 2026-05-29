@@ -1,14 +1,6 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
 {
   imports = [
     ./awww.nix
-    ./mpvpaper.nix
+    # NOTE: ./mpvpaper.nix is intentionally NOT imported here — opt-in per host.
   ];
-
-  wallpaper.awww.enable = lib.mkDefault true;
-  wallpaper.mpvpaper.enable = lib.mkDefault false;
 }

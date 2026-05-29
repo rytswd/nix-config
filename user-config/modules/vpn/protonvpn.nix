@@ -1,16 +1,6 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
 {
-  options = {
-    vpn.protonvpn.enable = lib.mkEnableOption "Enable ProtonVPN.";
-  };
-
-  config = lib.mkIf config.vpn.protonvpn.enable {
-    home.packages = [
-      pkgs.proton-vpn
-    ];
-  };
+  home.packages = [
+    pkgs.proton-vpn
+  ];
 }

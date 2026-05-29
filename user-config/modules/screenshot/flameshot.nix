@@ -1,22 +1,15 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+# Flameshot — https://github.com/flameshot-org/flameshot
+#
+# NOTE: Wayland support is limited. Not imported by the bundle's default.nix;
+# import this leaf directly from a host config when needed.
 {
-  options = {
-    screenshot.flameshot.enable = lib.mkEnableOption "Enable Flameshot.";
-  };
-
-  config = lib.mkIf config.screenshot.flameshot.enable {
-    services.flameshot = {
-      enable = true;
-      # Ref: https://github.com/flameshot-org/flameshot/blob/master/flameshot.example.ini
-      settings = {
-        General = {
-          disabledTrayIcon = true;
-          showStartupLaunchMessage = false;
-        };
+  services.flameshot = {
+    enable = true;
+    # Ref: https://github.com/flameshot-org/flameshot/blob/master/flameshot.example.ini
+    settings = {
+      General = {
+        disabledTrayIcon = true;
+        showStartupLaunchMessage = false;
       };
     };
   };

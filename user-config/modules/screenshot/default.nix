@@ -1,16 +1,8 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
 {
   imports = [
-    ./flameshot.nix
+    # NOTE: ./flameshot.nix is intentionally NOT imported here — limited Wayland
+    # support, so it's opt-in per host. Import the leaf directly when needed.
     ./grim.nix
     ./swappy.nix
   ];
-
-  screenshot.flameshot.enable = lib.mkDefault false; # Being explicit, limited wayland support
-  screenshot.grim.enable = lib.mkDefault true;
-  screenshot.swappy.enable = lib.mkDefault true;
 }

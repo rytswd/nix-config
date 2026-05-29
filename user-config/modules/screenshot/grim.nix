@@ -1,17 +1,7 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
 {
-  options = {
-    screenshot.grim.enable = lib.mkEnableOption "Enable Grim.";
-  };
-
-  config = lib.mkIf config.screenshot.grim.enable {
-    home.packages = [
-      pkgs.grim     # https://sr.ht/~emersion/grim/
-      pkgs.slurp    # https://github.com/emersion/slurp
-    ];
-  };
+  home.packages = [
+    pkgs.grim     # Wayland screenshot grabber. https://sr.ht/~emersion/grim/
+    pkgs.slurp    # Region selector — typically piped into grim. https://github.com/emersion/slurp
+  ];
 }

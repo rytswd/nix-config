@@ -8,26 +8,32 @@
 
 {
   imports = [
-    "${self}/nixos-config/modules/core"
+    "${self}/nixos-config/modules/boot"
+    "${self}/nixos-config/modules/boot/limine.nix"
     "${self}/nixos-config/modules/filesystem"
-    "${self}/nixos-config/modules/graphics"
-    "${self}/nixos-config/modules/media"
-    "${self}/nixos-config/modules/devices"
-    "${self}/nixos-config/modules/window-manager"
+    "${self}/nixos-config/modules/filesystem/zfs.nix"
     "${self}/nixos-config/modules/login-manager"
+    "${self}/nixos-config/modules/login-manager/sddm"
+    "${self}/nixos-config/modules/window-manager"
     "${self}/nixos-config/modules/desktop-environment"
-    "${self}/nixos-config/modules/input"
-    "${self}/nixos-config/modules/vpn"
-    "${self}/nixos-config/modules/x11"
+    "${self}/nixos-config/modules/desktop-environment/dconf.nix"
+
+    "${self}/nixos-config/modules/core"
+    "${self}/nixos-config/modules/workstation"
     "${self}/nixos-config/modules/appearance"
+    "${self}/nixos-config/modules/media"
     "${self}/nixos-config/modules/security"
+    "${self}/nixos-config/modules/vpn"
     "${self}/nixos-config/modules/flatpak"
 
-    # Some machine specific configurations.
-    "${self}/nixos-config/modules/machine-specific/asus.nix"
-    # Only to register systemd service for manual kick.
-    "${self}/nixos-config/modules/machine-specific/asus-webcam.nix"
+    # Devices
+    "${self}/nixos-config/modules/devices"
+    "${self}/nixos-config/modules/devices/yubikey.nix"
+
+    # Other machine specific setup
     "${self}/nixos-config/modules/machine-specific/laptop.nix"
+    "${self}/nixos-config/modules/machine-specific/asus.nix"
+    "${self}/nixos-config/modules/machine-specific/asus-webcam.nix"
   ];
 
   core.boot.limine.enable = true;

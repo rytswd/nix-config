@@ -1,19 +1,9 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
 {
-  options = {
-    browser.vivaldi.enable = lib.mkEnableOption "Enable Vivaldi.";
-  };
-
-  config = lib.mkIf config.browser.vivaldi.enable {
-    home.packages = [
-     (pkgs.vivaldi.override {
-       proprietaryCodecs = true;
-       enableWidevine    = true;
-     })
-    ];
-  };
+  home.packages = [
+    (pkgs.vivaldi.override {
+      proprietaryCodecs = true;
+      enableWidevine    = true;
+    })
+  ];
 }

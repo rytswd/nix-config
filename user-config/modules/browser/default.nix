@@ -1,25 +1,12 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+# NOTE: The browsers are assumed to be the setup for NixOS. This is because
+# some of the packages are not packaged up for macOS.
 {
   imports = [
     ./brave.nix
     ./vivaldi.nix
-    ./chromium.nix
     ./firefox.nix
     ./zen.nix
-    # TODO: Nyxt build fails, and thus disabling it for now.
-    # ./nyxt.nix
+    # NOTE: ./chromium.nix and ./nyxt.nix are opt-in — import directly from
+    # the host config when needed. nyxt build is currently broken.
   ];
-
-  # NOTE: The browsers are assumed to be the setup for NixOS. This is because
-  # some of the packages are not packaged up for macOS.
-  browser.brave.enable = lib.mkDefault true;
-  browser.vivaldi.enable = lib.mkDefault true;
-  # browser.chromium.enable = lib.mkDefault true;
-  browser.firefox.enable = lib.mkDefault true;
-  # browser.nyxt.enable = lib.mkDefault true;
-  browser.zen.enable = lib.mkDefault true;
 }

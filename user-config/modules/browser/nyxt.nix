@@ -1,14 +1,6 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
+# Nyxt — not imported by the browser bundle's default.nix (build currently
+# fails). Import this leaf directly from a host config if you want to try.
 {
-  options = {
-    browser.nyxt.enable = lib.mkEnableOption "Enable Nyxt.";
-  };
-
-  config = lib.mkIf config.browser.nyxt.enable {
-    home.packages = [ pkgs.nyxt ];
-  };
+  home.packages = [ pkgs.nyxt ];
 }

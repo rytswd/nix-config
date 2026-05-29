@@ -1,16 +1,8 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
+# Chromium — not imported by the browser bundle's default.nix. Import this
+# leaf directly from a host config if you actually want it.
 {
-  options = {
-    browser.chromium.enable = lib.mkEnableOption "Enable Chromium.";
-  };
-
-  config = lib.mkIf config.browser.chromium.enable {
-    # TODO: Check if this is all I need.
-    # TODO: Check puppetteer and other tools
-    home.packages = [ pkgs.chromium ];
-  };
+  # TODO: Check if this is all I need.
+  # TODO: Check puppetteer and other tools
+  home.packages = [ pkgs.chromium ];
 }

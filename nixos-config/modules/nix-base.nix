@@ -1,4 +1,9 @@
-{ pkgs, overlays, ... }:
+{
+  pkgs,
+  inputs,
+  overlays,
+  ...
+}:
 
 {
   nixpkgs = {
@@ -11,6 +16,18 @@
 
   nix = {
     package = pkgs.nixVersions.stable;
+
+    # Pin the `nixpkgs` flake-registry alias to THIS flake's pinned
+    # `nixpkgs-unstable` input. With this, `nix shell nixpkgs#hello`,
+    # `nix run nixpkgs#…` and `nix build nixpkgs#…` resolve to the exact
+    # revision the system was built from — not whatever
+    # `github:NixOS/nixpkgs/nixpkgs-unstable` is at HEAD when the command
+    # runs. Reproducible ad-hoc shells, no surprise version drift.
+    #
+    # Affects flake-style commands only. Legacy `<nixpkgs>` /
+    # `nix-shell -p` / Nixd lookup go through `$NIX_PATH` instead — see
+    # the home-manager `programming/nix.nix` module for that side.
+    registry.nixpkgs.flake = inputs.nixpkgs-unstable;
 
     gc = {
       automatic = true;

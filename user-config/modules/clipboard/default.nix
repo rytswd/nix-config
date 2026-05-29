@@ -1,15 +1,6 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, lib, ... }:
 {
   imports = [
     ./clipse
-    ./wayland.nix
-  ];
-
-  clipboard.clipse.enable = lib.mkDefault true;
-  # For Linux, enable by default.
-  clipboard.wayland.enable = lib.mkDefault pkgs.stdenv.isLinux;
+  ] ++ lib.optional pkgs.stdenv.isLinux ./wayland.nix;
 }

@@ -1,17 +1,9 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
+# Wayland-only — the bundle's default.nix imports this conditionally on
+# `pkgs.stdenv.isLinux`. Don't import this leaf on darwin.
 {
-  options = {
-    clipboard.wayland.enable = lib.mkEnableOption "Enable clipboard for Wayland environment.";
-  };
-
-  config = lib.mkIf config.clipboard.wayland.enable {
-    home.packages = [
-      pkgs.wl-clipboard
-      pkgs.cliphist
-    ];
-  };
+  home.packages = [
+    pkgs.wl-clipboard
+    pkgs.cliphist
+  ];
 }

@@ -1,16 +1,7 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
 {
   imports = [
     ./kubernetes.nix
-    ./kubernetes-extra.nix
     ./cncf.nix
+    # NOTE: ./kubernetes-extra.nix is intentionally NOT imported here — opt-in per host.
   ];
-
-  kubernetes.basic.enable = lib.mkDefault true;
-  kubernetes.extra.enable = lib.mkDefault false; # Being explicit
-  kubernetes.cncf.enable = lib.mkDefault true;
 }

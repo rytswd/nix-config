@@ -1,17 +1,12 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
+# Extra tooling for operating Kubernetes clusters (vs. just talking to one).
+# Not imported by the kubernetes bundle's default.nix — opt-in per host.
 {
-  options = {
-    kubernetes.extra.enable = lib.mkEnableOption "Enable extra tools for Kubernetes, such as operating Kubernetes.";
-  };
-
-  config = lib.mkIf config.kubernetes.extra.enable {
-    home.packages = let
-      mirrord = pkgs.callPackage ./mirrord/package.nix {};
-    in [
+  home.packages =
+    let
+      mirrord = pkgs.callPackage ./mirrord/package.nix { };
+    in
+    [
       pkgs.talosctl
       pkgs.vcluster
       pkgs.kubevirt
@@ -19,5 +14,4 @@
       pkgs.mirrord
       # mirrord
     ];
-  };
 }

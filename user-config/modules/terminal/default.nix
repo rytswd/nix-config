@@ -1,16 +1,7 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
 {
   imports = [
     ./ghostty
     ./alacritty
-    ./kitty.nix
+    # NOTE: ./kitty.nix is intentionally NOT imported here — opt-in per host.
   ];
-
-  terminal.ghostty.enable = lib.mkDefault true;
-  terminal.alacritty.enable = lib.mkDefault true;
-  terminal.kitty.enable = lib.mkDefault false; # Being explicit
 }

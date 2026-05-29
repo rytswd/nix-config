@@ -1,22 +1,13 @@
-{ pkgs
-, lib
-, config
-, inputs
-, ...}:
-
+{ pkgs, inputs, ... }:
 {
-  options = {
-    terminal.ghostty.enable = lib.mkEnableOption "Enable Ghostty.";
-  };
-
-  config = lib.mkIf config.terminal.ghostty.enable {
-    home.packages =
-      if pkgs.stdenv.isDarwin
-      then [
+  home.packages =
+    if pkgs.stdenv.isDarwin then
+      [
         # NOTE: Ghostty cannot be built using Nix only for macOS, and thus this is
         # only built in NixOS.
       ]
-      else [
+    else
+      [
         # pkgs.ghostty
 
         # NOTE: At times I hit the OpenGL context issue:
@@ -25,11 +16,10 @@
         inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default
       ];
 
-    xdg.configFile = {
-      "ghostty/config".source =
-        if pkgs.stdenv.isDarwin
-        then ./macos.conf
-        else ./nixos.conf;
-    };
+  xdg.configFile = {
+    "ghostty/config".source =
+      if pkgs.stdenv.isDarwin
+      then ./macos.conf
+      else ./nixos.conf;
   };
 }

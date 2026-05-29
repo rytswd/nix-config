@@ -1,16 +1,5 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+# Kitty — not imported by the terminal bundle's default.nix. Import this leaf
+# directly from a host config when I want it.
 {
-  options = {
-    terminal.kitty.enable = lib.mkEnableOption "Enable Kitty.";
-  };
-
-  config = lib.mkIf config.terminal.kitty.enable {
-    programs.kitty = {
-      enable = true;
-    };
-  };
+  programs.kitty.enable = true;
 }

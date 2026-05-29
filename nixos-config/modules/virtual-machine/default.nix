@@ -1,16 +1,10 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+# Base "this NixOS instance is a VM guest" setup. Hypervisor-specific
+# extras (UTM, …) are opt-in leaves that hosts import directly.
 {
   imports = [
-    ./spice.nix
-    ./file-sharing.nix
-    ./misc.nix
+    ./common.nix
+    # NOTE: ./utm.nix is intentionally NOT imported here — hosts running
+    # under UTM import the leaf directly. Add other hypervisor leaves
+    # (e.g. ./vmware.nix) here as siblings if/when needed.
   ];
-
-  virtual-machine.spice.enable = lib.mkDefault true;
-  virtual-machine.file-sharing.enable = lib.mkDefault true;
-  virtual-machine.misc.enable = lib.mkDefault true;
 }

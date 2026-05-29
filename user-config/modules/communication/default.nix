@@ -1,7 +1,8 @@
+# Open-protocol communication — currently just email. Vendor chat / video-
+# conf clients (Slack, Discord, Signal, Telegram, Zoom) live in
+# `../product/collaboration/`.
 {
   imports = [
     ./email.nix
-    # NOTE: ./slack.nix, ./signal.nix, ./discord.nix, ./telegram.nix,
-    # ./zoom.nix are intentionally NOT imported here — opt-in per host.
   ];
 }

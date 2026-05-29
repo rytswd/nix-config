@@ -1,21 +1,12 @@
-{ pkgs
-, lib
-, config
-, inputs
-, ...}:
-
+{ pkgs, inputs, ... }:
+# AGS-based notification handling. Not imported by the bundle's default.nix;
+# import this leaf directly from a host config if you want it.
 {
-  options = {
-    notification.ags-notification.enable = lib.mkEnableOption "Enable notification handling based on AGS (Aylur's GTK Shell).";
-  };
-
-  config = lib.mkIf config.notification.ags-notification.enable {
-    home.packages = [
-      inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ];
-    xdg.configFile = {
-      "ags-notification".source = ./ags-notification;
-      "ags-notification".recursive = true;
-    };
+  home.packages = [
+    inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.default
+  ];
+  xdg.configFile = {
+    "ags-notification".source = ./ags-notification;
+    "ags-notification".recursive = true;
   };
 }

@@ -1,18 +1,8 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
 {
-  options = {
-    linux-widget.password.enable = lib.mkEnableOption "Enable password related tools.";
-  };
-
-  config = lib.mkIf config.linux-widget.password.enable {
-    home.packages = [
-      # NOTE: Seahorse is "Passwords and Keys" app from GNOME. It used to be a
-      # part of pkgs.gnome, but now it's a top-level application from Nix 24.11.
-      pkgs.seahorse
-    ];
-  };
+  home.packages = [
+    # NOTE: Seahorse is "Passwords and Keys" app from GNOME. It used to be a
+    # part of pkgs.gnome, but now it's a top-level application from Nix 24.11.
+    pkgs.seahorse
+  ];
 }

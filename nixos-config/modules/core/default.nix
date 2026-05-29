@@ -4,7 +4,6 @@
 # `../workstation` instead so headless hosts don't drag it in.
 {
   imports = [
-    ./boot
     ./shell.nix
     ./ssh.nix
     ./sudo.nix

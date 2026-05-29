@@ -1,18 +1,8 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
 {
-  options = {
-    virtualisation.qemu.enable = lib.mkEnableOption "Enable QEMU.";
-  };
-
-  config = lib.mkIf config.virtualisation.qemu.enable {
-    home.packages = [
-      pkgs.qemu
-      pkgs.virt-manager
-      pkgs.virt-viewer
-    ];
-  };
+  home.packages = [
+    pkgs.qemu
+    pkgs.virt-manager
+    pkgs.virt-viewer
+  ];
 }

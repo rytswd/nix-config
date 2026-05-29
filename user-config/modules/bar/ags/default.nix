@@ -1,19 +1,11 @@
-{ pkgs
-, lib
-, config
-, inputs
-, ...}:
-
+{ inputs, ... }:
+# AGS (Aylur's GTK Shell) — not imported by the bar bundle's default.nix.
+# Import this leaf directly from a host config if you actually want it.
 {
   imports = [ inputs.ags.homeManagerModules.default ];
-  options = {
-    bar.ags.enable = lib.mkEnableOption "Enable AGS (Aylur's GTK Shell).";
-  };
 
-  config = lib.mkIf config.bar.ags.enable {
-    programs.ags = {
-      enable = true;
-      configDir = ./config;
-    };
+  programs.ags = {
+    enable = true;
+    configDir = ./config;
   };
 }

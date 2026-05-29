@@ -1,15 +1,6 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, config, ... }:
 {
-  options = {
-    bar.waybar.enable = lib.mkEnableOption "Enable Waybar.";
-  };
-
-  config = lib.mkIf config.bar.waybar.enable {
-    programs.waybar = {
+  programs.waybar = {
       enable = true;
 
       # I'm making an explicit systemd entry as per below.
@@ -76,7 +67,6 @@
         };
 
         Install.WantedBy = [ "default.target" ];
-      };
     };
   };
 }

@@ -1,12 +1,6 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
 {
   imports = [
     ./tailscale.nix
+    # ./wireguard.nix  # opt-in.
   ];
-
-  vpn.tailscale.enable = lib.mkDefault true;
 }

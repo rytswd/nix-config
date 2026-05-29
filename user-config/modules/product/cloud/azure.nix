@@ -1,16 +1,8 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
+# Azure CLI — not imported by the service bundle's default.nix. Import this
+# leaf directly from a host config if you actually want it.
 {
-  options = {
-    service.azure.enable = lib.mkEnableOption "Enable Azure related tooling.";
-  };
-
-  config = lib.mkIf config.service.azure.enable {
-    home.packages = [
-      pkgs.azure-cli
-    ];
-  };
+  home.packages = [
+    pkgs.azure-cli
+  ];
 }

@@ -1,17 +1,9 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
+# Telegram — not imported by the communication bundle's default.nix. Import
+# this leaf directly from a host config if you actually want it.
 {
-  options = {
-    communication.telegram.enable = lib.mkEnableOption "Enable Telegram.";
-  };
-
-  config = lib.mkIf config.communication.telegram.enable {
-    home.packages = [
-      pkgs.telegram-desktop
-      pkgs.tg
-    ];
-  };
+  home.packages = [
+    pkgs.telegram-desktop
+    pkgs.tg
+  ];
 }

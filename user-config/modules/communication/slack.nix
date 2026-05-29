@@ -1,14 +1,6 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
+# Slack — not imported by the communication bundle's default.nix. Import
+# this leaf directly from a host config if you actually want it.
 {
-  options = {
-    communication.slack.enable = lib.mkEnableOption "Enable Slack.";
-  };
-
-  config = lib.mkIf config.communication.slack.enable {
-    home.packages = [ pkgs.slack ];
-  };
+  home.packages = [ pkgs.slack ];
 }

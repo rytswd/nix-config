@@ -1,22 +1,7 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
 {
   imports = [
     ./email.nix
-    ./slack.nix
-    ./signal.nix
-    ./discord.nix
-    ./telegram.nix
-    ./zoom.nix
+    # NOTE: ./slack.nix, ./signal.nix, ./discord.nix, ./telegram.nix,
+    # ./zoom.nix are intentionally NOT imported here — opt-in per host.
   ];
-
-  communication.email.enable = lib.mkDefault true;
-  communication.slack.enable = lib.mkDefault false; # Being explicit
-  communication.signal.enable = lib.mkDefault false; # Being explicit
-  communication.discord.enable = lib.mkDefault false; # Being explicit
-  communication.telegram.enable = lib.mkDefault false; # Being explicit
-  communication.zoom.enable = lib.mkDefault false; # Being explicit
 }

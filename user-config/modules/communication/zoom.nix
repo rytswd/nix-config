@@ -1,24 +1,14 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
+# Zoom — not imported by the communication bundle's default.nix. Import this
+# leaf directly from a host config if you actually want it.
 {
-  options = {
-    communication.zoom.enable = lib.mkEnableOption "Enable Zoom.";
-  };
+  home.packages = [ pkgs.zoom-us ];
 
-  config = lib.mkIf config.communication.zoom.enable {
-    # Instead of using the official Discord app, I'm making use of Vesktop.
-    # Discord seems to have less support around Wayland environment.
-    home.packages = [ pkgs.zoom-us ];
-
-    xdg.configFile."zoomus.conf" = {
-      text = ''
-        [General]
-        xwayland=false
-        enableWaylandShare=true
-      '';
-    };
+  xdg.configFile."zoomus.conf" = {
+    text = ''
+      [General]
+      xwayland=false
+      enableWaylandShare=true
+    '';
   };
 }

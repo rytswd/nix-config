@@ -1,23 +1,8 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
 {
+  # The bundle only pulls in shared notification client tooling (libnotify).
+  # The notification *daemon* is host-specific — hosts import one of
+  # ./swaync, ./dunst, or ./ags-notification.nix directly.
   imports = [
     ./standard.nix
-    ./swaync
-
-    # More for references
-    ./dunst.nix
-    # NOTE: AGS (Aylur's GTK Shell) can provide notification handling. While I
-    # could bundle all the AGS modules into a single setup, I'm purposely making
-    # each module as a separate entry for now.
-    ./ags-notification.nix
   ];
-
-  notification.standard.enable = lib.mkDefault true;
-  notification.swaync.enable = lib.mkDefault false; # Being explicit
-  notification.dunst.enable = lib.mkDefault false; # Being explicit
-  notification.ags-notification.enable = lib.mkDefault false; # Being explicit
 }

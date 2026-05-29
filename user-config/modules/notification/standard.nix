@@ -1,14 +1,5 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
 {
-  options = {
-    notification.standard.enable = lib.mkEnableOption "Enable libnotify and other standard setup.";
-  };
-
-  config = lib.mkIf config.notification.standard.enable {
-    home.packages = [ pkgs.libnotify ];
-  };
+  # libnotify — provides `notify-send` and the client library used by app code.
+  home.packages = [ pkgs.libnotify ];
 }

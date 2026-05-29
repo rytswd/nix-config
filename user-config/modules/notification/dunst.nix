@@ -1,14 +1,6 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+# dunst — minimal notification daemon. Kept as a reference setup; not imported
+# by the bundle's default.nix. Import this leaf directly from a host config
+# if you actually want dunst as the notification daemon.
 {
-  options = {
-    notification.dunst.enable = lib.mkEnableOption "Enable dunst.";
-  };
-
-  config = lib.mkIf config.notification.dunst.enable {
-    services.dunst.enable = true;
-  };
+  services.dunst.enable = true;
 }

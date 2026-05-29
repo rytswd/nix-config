@@ -1,15 +1,6 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
 {
-  options = {
-    login-manager.sddm.enable = lib.mkEnableOption "Enable sddm.";
-  };
-
-  config = lib.mkIf config.login-manager.sddm.enable {
-    environment.systemPackages = let
+  environment.systemPackages = let
       # Custom Taketomi theme - self-contained Qt6 theme with modern effects.
       # In order to get the theme change to take effect, cache directory
       # may need to be cleared up with:
@@ -29,9 +20,8 @@
       # swish
       # bluish
     ];
-    services.displayManager.sddm = {
-      enable = true;
-      theme = "taketomi-theme";
-    };
+  services.displayManager.sddm = {
+    enable = true;
+    theme = "taketomi-theme";
   };
 }

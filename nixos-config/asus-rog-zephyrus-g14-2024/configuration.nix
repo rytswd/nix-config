@@ -36,10 +36,7 @@
     "${self}/nixos-config/modules/machine-specific/asus.nix"
   ];
 
-  core.boot.limine.enable = true;
 
-  desktop-environment.gnome.dconf.enable = true;
-  devices.yubikey.enable = true;
 
   # NOTE: This should match the name used for nixosConfigurations, so that nh
   # tool can automatically find the right target.

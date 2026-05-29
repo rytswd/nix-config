@@ -36,7 +36,6 @@
     "${self}/nixos-config/modules/machine-specific/asus-webcam.nix"
   ];
 
-  core.boot.limine.enable = true;
   # Dual-boot workaround: Limine's efibootmgr detection breaks with ZFS root
   # + separate Windows ESP. Skip efibootmgr and install to UEFI fallback path.
   boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
@@ -57,18 +56,11 @@
   # NOTE: This needs to be set to false upon the initial setup.
   boot.loader.limine.secureBoot.enable = true;
 
-  filesystem.zfs.enable = true;
-
-  desktop-environment.gnome.dconf.enable = true;
-
   # GNOME defaults i18n.inputMethod to ibus, which sets GTK_IM_MODULE=ibus
   # and QT_IM_MODULE=ibus in /etc/set-environment. This conflicts with
   # fcitx5 configured via home-manager. Disable the system-level input method.
   i18n.inputMethod.enable = lib.mkForce false;
-  devices.yubikey.enable = true;
 
-  # Flow Z13 does not have NVidia GPU.
-  graphics.nvidia-offload.enable = false;
   # Webcam sometimes fails to come up.
   # Webcam address on this device is taken by
   #

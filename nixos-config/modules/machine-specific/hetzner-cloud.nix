@@ -37,10 +37,11 @@ in
   boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
 
   # --- Networking: systemd-networkd, not NetworkManager ---
-  # Headless servers have no use for NetworkManager. core/network.nix
-  # enables it by default, so we force it off and use systemd-networkd
-  # which is simpler for static/DHCP-only setups.
-  networking.networkmanager.enable = lib.mkForce false;
+  # Headless servers have no use for NetworkManager. NetworkManager moved
+  # out of `core` into `workstation`, so we no longer need to fight it with
+  # `mkForce` — just be defensive in case a future host accidentally drags
+  # `workstation` in alongside this module.
+  networking.networkmanager.enable = lib.mkDefault false;
   networking.useDHCP = false;
   networking.useNetworkd = true;
 

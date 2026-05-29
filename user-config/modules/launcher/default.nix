@@ -1,20 +1,9 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
 {
   imports = [
     ./anyrun.nix
     ./fuzzel.nix
     ./rofi.nix
     ./walker.nix
-    ./wofi.nix
+    # NOTE: ./wofi.nix is intentionally NOT imported here — opt-in per host.
   ];
-
-  launcher.anyrun.enable = lib.mkDefault true;
-  launcher.fuzzel.enable = lib.mkDefault true;
-  launcher.rofi.enable = lib.mkDefault true;
-  launcher.walker.enable = lib.mkDefault true;
-  launcher.wofi.enable = lib.mkDefault false; # Being explicit
 }

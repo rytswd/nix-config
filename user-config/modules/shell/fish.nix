@@ -1,33 +1,22 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
 {
-  options = {
-    shell.fish.enable = lib.mkEnableOption "Enable Fish.";
-  };
+  programs.fish = {
+    enable = true;
+    shellAliases = (import ./aliases-ls.nix { withEza = true; }) // {
+      # Any aliases specific for fish can be defined here.
+    };
+    shellAbbrs = {
+      tm = "tmux new-session -A -D -s main";
+      ec = "emacsclient -n";
+      flake = "nix flake";
+    };
 
-  config = lib.mkIf config.shell.fish.enable {
-    programs.fish = {
-      enable = true;
-      shellAliases = (import ./aliases-ls.nix { withEza = true; }) //
-        {
-          # Any aliases specific for fish can be defined here.
-        };
-      shellAbbrs = {
-        tm = "tmux new-session -A -D -s main";
-        ec = "emacsclient -n";
-        flake = "nix flake";
-      };
-
-      # Disable greeting by setting `fish_greeting` with empty value.
-      interactiveShellInit = ''
+    # Disable greeting by setting `fish_greeting` with empty value.
+    interactiveShellInit = ''
         set fish_greeting
 
         # Adjust alt+backspace behaviour
-        bind alt-backspace backward-kill-path-component
-      '';
-    };
+      bind alt-backspace backward-kill-path-component
+    '';
   };
 }

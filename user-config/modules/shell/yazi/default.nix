@@ -1,28 +1,17 @@
-{ pkgs
-, lib
-, config
-, inputs
-, ...}:
-
 {
-  options = {
-    shell.yazi.enable = lib.mkEnableOption "Enable Yazi.";
+  programs.yazi = {
+    enable = true;
+    shellWrapperName = "y";
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+    enableFishIntegration = true;
+    enableNushellIntegration = true;
   };
 
-  config = lib.mkIf config.shell.yazi.enable {
-    programs.yazi = {
-      enable = true;
-      shellWrapperName = "y";
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-      enableFishIntegration = true;
-      enableNushellIntegration = true;
-    };
-
-    # Because of the limitation around Zoxide not handling the argument cleanly,
-    # I'm adding an extra function to work out the change directory logic with
-    # Yazi for each shell.
-    programs.zsh.initContent = ''
+  # Because of the limitation around Zoxide not handling the argument cleanly,
+  # I'm adding an extra function to work out the change directory logic with
+  # Yazi for each shell.
+  programs.zsh.initContent = ''
       function yy() {
         local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
         yazi "$@" --cwd-file="$tmp"
@@ -31,8 +20,8 @@
         fi
         rm -f -- "$tmp"
     }
-    '';
-    programs.fish.interactiveShellInit = ''
+  '';
+  programs.fish.interactiveShellInit = ''
       function yy -d "Run Yazi wrapper for Zoxide"
         set -l tmp "$(mktemp -t "yazi-cwd.XXXXXX")"
         command yazi --cwd-file=$tmp
@@ -41,8 +30,8 @@
         end
         rm -f -- "$tmp"
     end
-    '';
-    programs.bash.initExtra = ''
+  '';
+  programs.bash.initExtra = ''
       function yy() {
         local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
         yazi "$@" --cwd-file="$tmp"
@@ -51,11 +40,10 @@
         fi
         rm -f -- "$tmp"
     }
-    '';
+  '';
 
-    xdg.configFile = {
-      "yazi/yazi.toml".source = ./yazi.toml;
-      "yazi/keymap.toml".source = ./keymap.toml;
-    };
+  xdg.configFile = {
+    "yazi/yazi.toml".source = ./yazi.toml;
+    "yazi/keymap.toml".source = ./keymap.toml;
   };
 }

@@ -1,16 +1,6 @@
-{ pkgs
-, lib
-, config
-, ...}:
-
+{ pkgs, ... }:
 {
-  options = {
-    media.sound.enable = lib.mkEnableOption "Enable sound related tools.";
-  };
-
-  config = lib.mkIf config.media.sound.enable {
-    environment.systemPackages = [
-      pkgs.sox
-    ];
-  };
+  environment.systemPackages = [
+    pkgs.sox
+  ];
 }

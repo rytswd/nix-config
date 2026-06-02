@@ -18,16 +18,11 @@
     "${self}/nixos-config/modules/machine-specific/hetzner-cloud.nix"
   ];
 
-  # --- Kubernetes modules: enable all ---
-  kubernetes.common.enable     = true;
-  kubernetes.containerd.enable = true;
-  kubernetes.kubelet.enable    = true;
-  kubernetes.kubeadm.enable    = true;
-  kubernetes.networking.enable = true;
+  # --- Kubernetes modules ---
+  # kubernetes.common keeps its `enable` flag (other tunables remain on the
+  # module). The rest are now "imported = enabled" via the kubernetes bundle.
+  kubernetes.common.enable = true;
 
-  # --- Core module overrides for headless server ---
-  # Disable desktop-oriented defaults that don't apply to a K8s node.
-  core.virtualisation.docker.enable = false;
 
   # --- Users ---
   # The admin user is created by the shared user-config module (imported

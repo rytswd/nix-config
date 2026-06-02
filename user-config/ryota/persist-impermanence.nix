@@ -30,6 +30,10 @@
       ".local/share/direnv"
       ".local/share/fonts"
       ".local/state/nix"
+      # Home Manager generation gcroots — required for standalone
+      # `hm switch` state to survive across reboot / `nix-collect-garbage`;
+      # harmless when only embedded HM is in use.
+      ".local/state/home-manager"
       # Extra application entries to be persisted, mainly for Emacs related
       # entries for outside Emacs interactions.
       ".local/share/applications"

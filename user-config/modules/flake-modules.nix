@@ -14,6 +14,8 @@
   ###----------------------------------------
   ##   Helpers
   #------------------------------------------
+  # Home-manager bootstrap (CLI install + release-check suppression).
+  home-manager    = ./home-manager;
   # Shared option declarations like `local.repoPath`.
   lib-paths       = ./lib/paths.nix;
 
@@ -21,11 +23,9 @@
   ##   Bundles
   #------------------------------------------
   appearance      = ./appearance;
-  bar             = ./bar;
   browser         = ./browser;
   clipboard       = ./clipboard;
   communication   = ./communication;
-  database        = ./database;
   dictionary      = ./dictionary;
   editor          = ./editor;
   file-management = ./file-management;
@@ -48,6 +48,4 @@
   video           = ./video;
   virtualisation  = ./virtualisation;
   vpn             = ./vpn;
-  wallpaper       = ./wallpaper;
-  window-manager  = ./window-manager;
 }

@@ -63,8 +63,8 @@ in
       "fs.inotify.max_user_watches"   = 524288;
       "fs.inotify.max_user_instances" = 8192;
 
-      # Conntrack table size -- each active connection (pod↔service,
-      # pod↔external) consumes one entry. The default 65536 can be
+      # Conntrack table size -- each active connection (pod<->service,
+      # pod<->external) consumes one entry. The default 65536 can be
       # exhausted quickly on a busy node, causing new connections to drop.
       "net.netfilter.nf_conntrack_max" = 131072;
     };

@@ -29,10 +29,10 @@
 // How the custom type works:
 //   XKB resolves each keypress by looking at the active modifiers to pick
 //   a "level" from the key's symbol list. Our custom type defines:
-//     Level 1: no modifier     → Dvorak symbol
-//     Level 2: Shift           → Dvorak shifted symbol
-//     Level 3: Super (Mod4)    → QWERTY symbol
-//     Level 4: Shift+Super     → QWERTY shifted symbol
+//     Level 1: no modifier     -> Dvorak symbol
+//     Level 2: Shift           -> Dvorak shifted symbol
+//     Level 3: Super (Mod4)    -> QWERTY symbol
+//     Level 4: Shift+Super     -> QWERTY shifted symbol
 //   The `preserve[Super] = Super` line means Super is NOT consumed by the
 //   level selection -- it's still visible to niri for keybinding matching.
 //   Ctrl and Alt are NOT in the type's `modifiers`, so they don't affect

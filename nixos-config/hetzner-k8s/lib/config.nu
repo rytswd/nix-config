@@ -18,7 +18,7 @@ export const CILIUM_VERSION = "1.18.7"
 # works regardless of the caller's working directory.
 const SELF      = path self
 const SELF_DIR  = ($SELF | path dirname)
-# Repository root: lib/ → hetzner-k8s/ → nixos-config/ → repo root
+# Repository root: lib/ -> hetzner-k8s/ -> nixos-config/ -> repo root
 const REPO_ROOT = ($SELF_DIR | path join "../../.." | path expand)
 
 # Return the repository root (where flake.nix lives).

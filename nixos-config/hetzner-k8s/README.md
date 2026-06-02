@@ -121,11 +121,11 @@ runtime -- there is no duplicated version constant.
 
 ```bash
 # 1. Update the version in Nix
-#    Edit: modules/kubernetes/common.nix  →  default = "1.36.0";
+#    Edit: modules/kubernetes/common.nix  ->  default = "1.36.0";
 
 # 2. Update binary hashes (build will fail with correct hashes)
-#    Edit: modules/kubernetes/kubelet.nix  →  hash = "sha256-...";
-#    Edit: modules/kubernetes/kubeadm.nix  →  hash = "sha256-..."; (×2)
+#    Edit: modules/kubernetes/kubelet.nix  ->  hash = "sha256-...";
+#    Edit: modules/kubernetes/kubeadm.nix  ->  hash = "sha256-..."; (×2)
 
 # 3. Rolling upgrade -- rebuilds all nodes, then upgrades one at a time
 nu deploy.nu k8s-upgrade
@@ -135,7 +135,7 @@ The `k8s-upgrade` command:
 1. Rebuilds all nodes (deploys new kubeadm/kubelet/kubectl binaries)
 2. On cp-1: `kubeadm upgrade apply vX.Y.Z`
 3. On cp-2, cp-3: `kubeadm upgrade node`
-4. Each node is drained → upgraded → kubelet restarted → uncordoned
+4. Each node is drained -> upgraded -> kubelet restarted -> uncordoned
 5. Fetches updated kubeconfig
 
 ## Key Decisions

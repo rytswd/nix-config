@@ -18,8 +18,8 @@
   };
   services = {
     logind.settings.Login = {
-      HandleLidSwitch = "suspend"; # on battery → sleep
-      HandleLidSwitchExternalPower = "ignore"; # on AC → do nothing (keep running)
+      HandleLidSwitch = "suspend"; # on battery -> sleep
+      HandleLidSwitchExternalPower = "ignore"; # on AC -> do nothing (keep running)
     };
     thermald.enable = true;
     power-profiles-daemon.enable = false;

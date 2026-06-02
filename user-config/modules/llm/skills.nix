@@ -44,8 +44,8 @@
         my-workflow = "${rytswd-root}/nix-config/user-config/modules/llm/my-context/my-workflow.md";
       };
 
-    pi.enable = true; # → ~/.agents/skills/
-    claude.enable = true; # → ~/.claude/skills/
-    gemini.enable = true; # → ~/.gemini/extensions/skills/
+    pi.enable = true;     # ~/.agents/skills/
+    claude.enable = true; # ~/.claude/skills/
+    gemini.enable = true; # ~/.gemini/extensions/skills/
   };
 }

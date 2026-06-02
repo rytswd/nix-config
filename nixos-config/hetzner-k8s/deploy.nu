@@ -180,7 +180,7 @@ def "main rebuild" [] {
 #   a. Rebuild all nodes (deploys new kubeadm/kubelet/kubectl binaries)
 #   b. On cp-1: kubeadm upgrade apply vX.Y.Z
 #   c. On cp-2, cp-3: kubeadm upgrade node
-#   d. Each node is drained → upgraded → restarted → uncordoned
+#   d. Each node is drained -> upgraded -> restarted -> uncordoned
 #
 def "main k8s-upgrade" [] {
   let ips = $config.NODES | each { |n| hcloud get-ip $n }

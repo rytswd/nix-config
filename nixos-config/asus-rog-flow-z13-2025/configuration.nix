@@ -40,6 +40,13 @@
     "${self}/nixos-config/modules/machine-specific/asus-webcam.nix"
   ];
 
+  ###========================================
+  ##   Other specific configurations
+  #==========================================
+
+  ###----------------------------------------
+  ##   Dual boot
+  #------------------------------------------
   # Dual-boot workaround: Limine's efibootmgr detection breaks with ZFS root
   # + separate Windows ESP. Skip efibootmgr and install to UEFI fallback path.
   boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
@@ -55,11 +62,15 @@
   #   image_path: hdd(1:1):/EFI/Microsoft/Boot/bootmgfw.efi
   # '';
 
+  ###----------------------------------------
+  ##   Machine specific
+  #------------------------------------------
   # Webcam sometimes fails to come up.
   # Webcam address on this device is taken by
   #
   #     readlink -f /sys/bus/usb/devices/usb1 | xargs dirname | xargs basename
   rytswd.services.fix-webcam-resume.pciAddress = "0000:c4:00.4";
+
   # Replace Copilot key to act as right ctrl key. Note how this does replace
   # the key F23 to Ctrl_R, but the Copilot key also has extra modifiers
   # associated. Binding any Copilot key associated mapping needs to specify all
@@ -75,6 +86,9 @@
      KEYBOARD_KEY_70072=rightctrl
   '';
 
+  ###----------------------------------------
+  ##   Other
+  #------------------------------------------
   # NOTE: This should match the name used for nixosConfigurations, so that nh
   # tool can automatically find the right target.
   networking.hostName = "asus-rog-flow-z13-2025";

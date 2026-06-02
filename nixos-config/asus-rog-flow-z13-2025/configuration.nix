@@ -54,11 +54,6 @@
   # NOTE: This needs to be set to false upon the initial setup.
   boot.loader.limine.secureBoot.enable = true;
 
-  # GNOME defaults i18n.inputMethod to ibus, which sets GTK_IM_MODULE=ibus
-  # and QT_IM_MODULE=ibus in /etc/set-environment. This conflicts with
-  # fcitx5 configured via home-manager. Disable the system-level input method.
-  i18n.inputMethod.enable = lib.mkForce false;
-
   # Webcam sometimes fails to come up.
   # Webcam address on this device is taken by
   #

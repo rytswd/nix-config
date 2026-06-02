@@ -18,6 +18,9 @@ let
 in
 {
   imports = [
+    # Home-manager bootstrap (CLI install + release-check suppression).
+    "${self}/user-config/modules/home-manager"
+
     # The shell setup defines some aliases, and in order to allow overriding,
     # calling this earlier than other modules.
     # The rest of the module call order is rather arbitrary, just in order of
@@ -25,15 +28,16 @@ in
     "${self}/user-config/modules/shell"
     "${self}/user-config/modules/key-remap/xremap"
     "${self}/user-config/modules/appearance"
-    "${self}/user-config/modules/window-manager"
     "${self}/user-config/modules/launcher"
-    "${self}/user-config/modules/bar"
+    # Bar leaf — the bar bundle is empty (implementation-agnostic).
+    "${self}/user-config/modules/bar/waybar"
     "${self}/user-config/modules/clipboard"
     "${self}/user-config/modules/notification"
+    # swaync as the notification daemon (opt-in leaf).
+    "${self}/user-config/modules/notification/swaync"
     "${self}/user-config/modules/terminal"
     "${self}/user-config/modules/vcs"
     "${self}/user-config/modules/wallpaper"
-    "${self}/user-config/modules/session-lock"
     "${self}/user-config/modules/browser"
     "${self}/user-config/modules/editor"
     "${self}/user-config/modules/vpn"
@@ -50,31 +54,17 @@ in
   ###----------------------------------------
   ##   Module related options
   #------------------------------------------
-  bar.waybar.enable = true;
-  editor.helix.enable = false;
-  editor.vscode.enable = false;
-  notification.swaync.enable = true;
 
-  programming.nix.enable = true;
-
-  ###----------------------------------------
-  ##   Other Home Manager Setup
-  #------------------------------------------
-  programs.home-manager.enable = true;
-  xdg.enable = true;
+  # Opt out of helix and vscode (default-on once imported, after the
+  # mkEnableOption refactor).
+  disabledModules = [
+    "${self}/user-config/modules/editor/helix.nix"
+    "${self}/user-config/modules/editor/vscode.nix"
+  ];
 
   home = {
-    # I specifically use different version for system and home.
-    enableNixpkgsReleaseCheck = false;
-
     username = "${username}";
     homeDirectory = "/home/${username}";
-
-    packages = [
-      # Utility
-      pkgs.mesa-demos # For OpenGL etc.
-    ];
-
     stateVersion = "24.05";
   };
 }

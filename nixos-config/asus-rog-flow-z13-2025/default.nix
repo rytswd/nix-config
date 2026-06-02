@@ -47,7 +47,7 @@ nixpkgs.lib.nixosSystem rec {
     ##  Extra configuration
     #------------------------------------------
     # Extra modules based on private setup.
-    # inputs.nix-config-private.nixos-modules.civo
+    # inputs.nix-config-private.nixos-modules.work
 
     ###----------------------------------------
     ##  Main configuration

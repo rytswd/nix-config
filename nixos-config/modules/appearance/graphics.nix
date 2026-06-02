@@ -6,6 +6,7 @@
     # extraPackages = [ pkgs.virglrenderer ];
   };
 
-  # TODO: This may be better left out for VM use cases.
+  # NOTE: Noctalia requires this as dependency. Because of udev rules setup,
+  # this needs to be at NixOS level, not user level.
   environment.systemPackages = [ pkgs.brightnessctl ];
 }

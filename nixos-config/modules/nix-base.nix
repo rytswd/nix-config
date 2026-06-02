@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   inputs,
   overlays,
   ...
@@ -27,7 +28,13 @@
     # Affects flake-style commands only. Legacy `<nixpkgs>` /
     # `nix-shell -p` / Nixd lookup go through `$NIX_PATH` instead — see
     # the home-manager `programming/nix.nix` module for that side.
-    registry.nixpkgs.flake = inputs.nixpkgs-unstable;
+    # NixOS auto-registers `nixpkgs` (via `nixos/modules/misc/nixpkgs-flake.nix`)
+    # to point at whatever `nixpkgs.lib.nixosSystem` was called with (here:
+    # `inputs.nixpkgs`, the stable channel). The `flake = ...` shorthand
+    # expands internally into a `to = { type = "path"; path = ...; }` tree,
+    # so we have to `mkForce` the whole `nixpkgs` entry — forcing just
+    # `.flake` doesn't override the already-defined `.to.path`.
+    registry.nixpkgs = lib.mkForce { flake = inputs.nixpkgs-unstable; };
 
     gc = {
       automatic = true;

@@ -10,6 +10,12 @@
   imports = [
     "${self}/nixos-config/modules/boot"
     "${self}/nixos-config/modules/boot/limine.nix"
+    # Secure Boot is wired via `nixos-config/modules/boot/secure-boot.nix`.
+    # On a fresh install, comment that import out for the first boot so keys
+    # can be enrolled with the firmware in Setup Mode (see the header of
+    # secure-boot.nix), then re-add it.
+    "${self}/nixos-config/modules/boot/secure-boot.nix"
+
     "${self}/nixos-config/modules/filesystem/zfs.nix"
     "${self}/nixos-config/modules/login-manager/sddm"
     "${self}/nixos-config/modules/window-manager"
@@ -48,11 +54,6 @@
   #   # Windows is on partition 1, Limine is on partition 7.
   #   image_path: hdd(1:1):/EFI/Microsoft/Boot/bootmgfw.efi
   # '';
-
-  # Secure Boot
-  environment.systemPackages = [ pkgs.sbctl ];
-  # NOTE: This needs to be set to false upon the initial setup.
-  boot.loader.limine.secureBoot.enable = true;
 
   # Webcam sometimes fails to come up.
   # Webcam address on this device is taken by

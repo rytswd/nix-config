@@ -45,6 +45,13 @@
   #==========================================
 
   ###----------------------------------------
+  ##   YubiKey setup
+  #------------------------------------------
+  # Re-run the home-manager `yk-git-update.service` for this user when a
+  # YubiKey is plugged/unplugged.
+  devices.yubikey.user = "ryota";
+
+  ###----------------------------------------
   ##   Dual boot
   #------------------------------------------
   # Dual-boot workaround: Limine's efibootmgr detection breaks with ZFS root

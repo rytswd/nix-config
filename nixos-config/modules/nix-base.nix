@@ -20,7 +20,7 @@
 
     # Pin the `nixpkgs` flake-registry alias to THIS flake's pinned
     # `nixpkgs-unstable` input. With this, `nix shell nixpkgs#hello`,
-    # `nix run nixpkgs#…` and `nix build nixpkgs#…` resolve to the exact
+    # `nix run nixpkgs#...` and `nix build nixpkgs#...` resolve to the exact
     # revision the system was built from -- not whatever
     # `github:NixOS/nixpkgs/nixpkgs-unstable` is at HEAD when the command
     # runs. Reproducible ad-hoc shells, no surprise version drift.

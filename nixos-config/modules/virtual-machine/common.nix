@@ -1,11 +1,11 @@
 { modulesPath, ... }:
 # Base "this NixOS instance runs as a guest in a VM" setup that applies to
 # any QEMU-flavoured hypervisor (plain QEMU/KVM, virt-manager, GNOME Boxes,
-# UTM on macOS, …). Hypervisor-specific extras live in sibling leaves
+# UTM on macOS, ...). Hypervisor-specific extras live in sibling leaves
 # (e.g. ./utm.nix).
 {
   imports = [
-    # Adds virtio kernel modules (virtio_blk, virtio_scsi, virtio_net, …)
+    # Adds virtio kernel modules (virtio_blk, virtio_scsi, virtio_net, ...)
     # to the initrd. Without these, the kernel cannot find the root disk
     # on QEMU/KVM guests and the system will not boot.
     "${modulesPath}/profiles/qemu-guest.nix"

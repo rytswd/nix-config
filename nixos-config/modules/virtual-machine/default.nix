@@ -1,5 +1,5 @@
 # Base "this NixOS instance is a VM guest" setup. Hypervisor-specific
-# extras (UTM, …) are opt-in leaves that hosts import directly.
+# extras (UTM, ...) are opt-in leaves that hosts import directly.
 {
   imports = [
     ./common.nix

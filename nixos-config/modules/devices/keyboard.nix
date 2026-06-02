@@ -4,7 +4,11 @@
   # libinput.
   environment.etc."libinput/local-overrides.quirks".text =
     ''
-      [xremap]
+      # Only the xremap virtual keyboard -- not every keyboard on the system.
+      # Tagging all keyboards as `internal` caused libinput to suspend the
+      # Bluetooth keyboard when SW_TABLET_MODE fires on Z13 keyboard detach.
+      [xremap virtual keyboard]
+      MatchName=xremap
       MatchUdevType=keyboard
       AttrKeyboardIntegration=internal
     '';

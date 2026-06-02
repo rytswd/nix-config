@@ -25,11 +25,9 @@
   core                      = ./core;
   desktop-environment       = ./desktop-environment;
   devices                   = ./devices;
-  filesystem                = ./filesystem;
   flatpak                   = ./flatpak;
   graphics                  = ./graphics;
   kubernetes                = ./kubernetes;
-  login-manager             = ./login-manager;
   media                     = ./media;
   security                  = ./security;
   virtual-machine           = ./virtual-machine;

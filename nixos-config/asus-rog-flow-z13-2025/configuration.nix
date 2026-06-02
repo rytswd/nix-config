@@ -10,9 +10,7 @@
   imports = [
     "${self}/nixos-config/modules/boot"
     "${self}/nixos-config/modules/boot/limine.nix"
-    "${self}/nixos-config/modules/filesystem"
     "${self}/nixos-config/modules/filesystem/zfs.nix"
-    "${self}/nixos-config/modules/login-manager"
     "${self}/nixos-config/modules/login-manager/sddm"
     "${self}/nixos-config/modules/window-manager"
     "${self}/nixos-config/modules/desktop-environment"

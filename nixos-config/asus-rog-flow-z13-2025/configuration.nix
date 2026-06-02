@@ -8,6 +8,9 @@
 
 {
   imports = [
+    ###----------------------------------------
+    ##  Boot
+    #------------------------------------------
     "${self}/nixos-config/modules/boot"
     "${self}/nixos-config/modules/boot/limine.nix"
     # Secure Boot is wired via `nixos-config/modules/boot/secure-boot.nix`.
@@ -16,12 +19,22 @@
     # secure-boot.nix), then re-add it.
     "${self}/nixos-config/modules/boot/secure-boot.nix"
 
+    ###----------------------------------------
+    ##  Filesystem
+    #------------------------------------------
     "${self}/nixos-config/modules/filesystem/zfs.nix"
+
+    ###----------------------------------------
+    ##  Desktop session
+    #------------------------------------------
     "${self}/nixos-config/modules/login-manager/sddm"
     "${self}/nixos-config/modules/window-manager"
     "${self}/nixos-config/modules/desktop-environment"
     "${self}/nixos-config/modules/desktop-environment/dconf.nix"
 
+    ###----------------------------------------
+    ##  Cross-host shared bundles
+    #------------------------------------------
     "${self}/nixos-config/modules/core"
     "${self}/nixos-config/modules/workstation"
     "${self}/nixos-config/modules/appearance"
@@ -30,11 +43,15 @@
     "${self}/nixos-config/modules/vpn"
     "${self}/nixos-config/modules/flatpak"
 
-    # Devices
+    ###----------------------------------------
+    ##  Devices
+    #------------------------------------------
     "${self}/nixos-config/modules/devices"
     "${self}/nixos-config/modules/devices/yubikey.nix"
 
-    # Other machine specific setup
+    ###----------------------------------------
+    ##  Machine specific
+    #------------------------------------------
     "${self}/nixos-config/modules/machine-specific/laptop.nix"
     "${self}/nixos-config/modules/machine-specific/asus.nix"
     "${self}/nixos-config/modules/machine-specific/asus-webcam.nix"

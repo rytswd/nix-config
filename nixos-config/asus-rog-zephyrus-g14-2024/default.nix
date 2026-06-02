@@ -25,14 +25,15 @@ nixpkgs.lib.nixosSystem rec {
     ###----------------------------------------
     ##  Disk setup
     #------------------------------------------
-    inputs.disko.nixosModules.disko
     # disko defines the partition and filesystem setup.
-    # NOTE: disko isn't used for this machine.
+    # NOTE: disko isn't used for this machine -- partitions and filesystems
+    # are managed by hardware.nix's fileSystems entries directly.
+    # inputs.disko.nixosModules.disko
     # ./disko.nix
 
-    # NOTE: This is not using impermanence.
+    # NOTE: This machine doesn't use impermanence.
     # inputs.impermanence.nixosModules.impermanence
-    # ../modules/nix-impermanence.nix
+    # "${self}/nixos-config/modules/nix-impermanence.nix"
 
     ###----------------------------------------
     ##  Third party solutions
@@ -42,11 +43,17 @@ nixpkgs.lib.nixosSystem rec {
     # inputs.cosmic.nixosModules.default
 
     ###----------------------------------------
+    ##  Extra configuration
+    #------------------------------------------
+    # Extra modules based on private setup.
+    # inputs.nix-config-private.nixos-modules.work
+
+    ###----------------------------------------
     ##  Main configuration
     #------------------------------------------
     # Adjust Nix and Nixpkgs related flags before proceeding.
     "${self}/nixos-config/modules/nix-base.nix"
-    # hardware.nix has some hardware specific configurations.
+    # hardware.nix has some hardware specific configuration for this device.
     ./hardware.nix
     # configuration.nix pulls in various modules to achieve similar
     # configuration across machines.
@@ -89,9 +96,16 @@ nixpkgs.lib.nixosSystem rec {
         # Each user needs to be set up separately.
         # Because home-manager needs to know where the home directory is,
         # I need to specify the username again.
-        users = {
-          admin = { imports = [ "${self}/user-config/admin/nixos.nix" ]; };
-          ryota = { imports = [ "${self}/user-config/ryota/nixos.nix" ]; };
+
+        users.admin = {
+          imports = [
+            "${self}/user-config/admin/nixos.nix"
+          ];
+        };
+        users.ryota =  {
+          imports = [
+            "${self}/user-config/ryota/nixos.nix"
+          ];
         };
       };
     }

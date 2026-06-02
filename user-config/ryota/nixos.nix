@@ -14,8 +14,9 @@ let
 in
 {
   imports = [
-    # Shared machine-local values (e.g. `local.repoPath`).
+    # Shared machine-local values (`local.repoPath`, `local.availablePackages`).
     "${self}/user-config/modules/lib/paths.nix"
+    "${self}/user-config/modules/lib/pkgs.nix"
     # Home-manager bootstrap (CLI install + release-check suppression).
     "${self}/user-config/modules/home-manager"
 

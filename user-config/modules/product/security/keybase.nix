@@ -1,5 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, ... }:
 {
-  home.packages =
-    lib.optionals (lib.meta.availableOn pkgs.stdenv.hostPlatform pkgs.keybase) [ pkgs.keybase ];
+  home.packages = config.local.availablePackages [ pkgs.keybase ];
 }

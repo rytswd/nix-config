@@ -29,13 +29,25 @@
     "${self}/nixos-config/modules/devices/nvidia.nix"
     "${self}/nixos-config/modules/devices/yubikey.nix"
 
-    # Other specific modules
+    # Other machine specific setup
     "${self}/nixos-config/modules/machine-specific/laptop.nix"
     "${self}/nixos-config/modules/machine-specific/asus.nix"
   ];
 
+  ###========================================
+  ##   Other specific configurations
+  #==========================================
 
+  ###----------------------------------------
+  ##   YubiKey setup
+  #------------------------------------------
+  # Re-run the home-manager `yk-git-update.service` for this user when a
+  # YubiKey is plugged/unplugged.
+  devices.yubikey.user = "ryota";
 
+  ###----------------------------------------
+  ##   Other
+  #------------------------------------------
   # NOTE: This should match the name used for nixosConfigurations, so that nh
   # tool can automatically find the right target.
   networking.hostName = "asus-rog-zephyrus-g14-2024";

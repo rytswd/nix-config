@@ -1,5 +1,17 @@
 { config, ... }:
 {
+  # Export XDG base-directory environment variables ($XDG_CONFIG_HOME,
+  # $XDG_DATA_HOME, $XDG_STATE_HOME, $XDG_CACHE_HOME) into the shell
+  # session. Without this, home-manager still writes to the right paths,
+  # but apps querying the env vars get empty strings and fall back to
+  # their own defaults.
+  #
+  # NOTE: home-manager defaults this to `false` on darwin (Apple convention
+  # is `~/Library/...`), but we want consistent cross-platform paths for
+  # the cross-platform tools (fish, nvim, git, ...). Native macOS apps
+  # continue using `~/Library` regardless.
+  xdg.enable = true;
+
   home.sessionPath = [
     # Rarely used path for making some items to be executable without full
     # path. This is only used in some experiments, but still useful to keep.

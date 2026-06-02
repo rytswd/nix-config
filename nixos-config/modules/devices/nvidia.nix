@@ -14,7 +14,7 @@
       open = true;
       nvidiaSettings = true;
 
-      # NOTE: .stable with ‘nvidia-x11-560.35.03-6.12.1’ was marked broken with
+      # NOTE: .stable with 'nvidia-x11-560.35.03-6.12.1' was marked broken with
       # Linux kernel 6.12.
       # I fell back to production version which was working correctly.
       # https://github.com/NixOS/nixpkgs/pull/358235

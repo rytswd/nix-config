@@ -2,7 +2,9 @@
 {
   hardware.graphics = {
     enable = true;
-    enable32Bit = true;
+    # 32-bit GL libs are useful for Steam / Wine on x86_64 desktops; the
+    # option is rejected on aarch64 (no multilib).
+    enable32Bit = pkgs.stdenv.hostPlatform.isx86_64;
     # extraPackages = [ pkgs.virglrenderer ];
   };
 

@@ -1,5 +1,5 @@
 { pkgs, lib, config, ... }:
-# UEFI Secure Boot. Not imported by the core boot bundle's default.nix —
+# UEFI Secure Boot. Not imported by the core boot bundle's default.nix --
 # Secure Boot is host-specific (the machine has to be enrolled and the
 # firmware put into setup mode first), so hosts opt in by importing this
 # leaf directly.
@@ -7,7 +7,7 @@
 # Bootloader coverage:
 #   - Limine: fully wired here (sets `boot.loader.limine.secureBoot.enable`).
 #   - systemd-boot: needs `lanzaboote` (separate flake input + its own module
-#     wiring). Intentionally not done here — add it alongside this leaf when
+#     wiring). Intentionally not done here -- add it alongside this leaf when
 #     a host actually needs it.
 #   - GRUB: out of scope.
 #
@@ -30,7 +30,7 @@
   # it whenever this module is imported.
   environment.systemPackages = [ pkgs.sbctl ];
 
-  # Limine has first-class Secure Boot support — it self-signs its own EFI
+  # Limine has first-class Secure Boot support -- it self-signs its own EFI
   # files at build time using the keys under `/var/lib/sbctl`. Only flip the
   # option when Limine is actually the chosen bootloader; otherwise the
   # option doesn't exist and evaluation would fail.

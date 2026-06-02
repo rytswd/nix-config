@@ -1,5 +1,5 @@
 { config, ... }:
-# WireGuard — not imported by the vpn bundle's default.nix. Import this leaf
+# WireGuard -- not imported by the vpn bundle's default.nix. Import this leaf
 # directly from a host config when I want it.
 {
   networking.wireguard.interfaces = {

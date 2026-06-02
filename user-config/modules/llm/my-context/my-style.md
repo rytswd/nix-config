@@ -22,9 +22,9 @@ description: >-
 
 ## PR descriptions
 - Three implicit sections, in order:
-  1. **Why** — the problem this solves.
-  2. **What** — the high-level shape of the change.
-  3. **How to verify** — concrete commands or steps a reviewer can run.
+  1. **Why** -- the problem this solves.
+  2. **What** -- the high-level shape of the change.
+  3. **How to verify** -- concrete commands or steps a reviewer can run.
 - Link to issues / Air docs by relative path when applicable.
 - No screenshots-by-default; add only when the change is visual.
 
@@ -36,11 +36,11 @@ description: >-
 - Tables, lists, and short paragraphs over long prose.
 - Cross-link related docs by relative path; avoid duplicating content.
 
-## Code comments — section header blocks
+## Code comments -- section header blocks
 
 When a file benefits from clear visual structure (long flake configs,
 multi-section modules, large config files), use boxed section headers.
-Not used everywhere — reserved for spots where the visual cue helps a
+Not used everywhere -- reserved for spots where the visual cue helps a
 reader scan the structure.
 
 Two levels: `=` for top-level sections, `-` for subsections.
@@ -112,5 +112,5 @@ the leading-marker count is meaningful.
   reasoning or trade-offs.
 - When proposing options, name them clearly and give a one-line
   recommendation rather than presenting equal alternatives.
-- Surface tradeoffs and uncertainty explicitly — don't hedge with
+- Surface tradeoffs and uncertainty explicitly -- don't hedge with
   "perhaps" or "maybe" when a definitive statement is possible.

@@ -1,11 +1,11 @@
 # Home Manager module flake outputs.
 #
 # Lists what gets exposed as `<flake>.homeModules.<name>`. Adding a new
-# module file does NOT automatically expose it — add a line below.
+# module file does NOT automatically expose it -- add a line below.
 # Commenting / removing a line hides the module from downstream consumers.
 #
 # We list bundles + helpers only. Sub-features within a bundle are
-# reachable via their bundle's `mkEnableOption` flags — consumers import
+# reachable via their bundle's `mkEnableOption` flags -- consumers import
 # the bundle and toggle what they want, so there's no need to expose
 # every leaf as a separate flake output.
 #

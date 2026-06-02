@@ -4,7 +4,7 @@
   config,
   ...
 }:
-# YubiKey support — not imported by the devices bundle's default.nix. Import
+# YubiKey support -- not imported by the devices bundle's default.nix. Import
 # this leaf directly from a host config if the host actually has YubiKey.
 let
   cfg = config.devices.yubikey;

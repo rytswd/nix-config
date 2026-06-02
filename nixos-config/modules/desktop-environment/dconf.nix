@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 # GNOME dconf overrides. Not imported by the desktop-environment bundle's
-# default.nix — dconf-driven defaults are host-specific.
+# default.nix -- dconf-driven defaults are host-specific.
 {
   # Ensure dconf is taken into account from NixOS startup.
   programs.dconf = {

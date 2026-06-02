@@ -9,7 +9,7 @@
       ps: with ps; [
         pyyaml
         pandas
-        requests   # HTTP client — default in ad-hoc scripts
+        requests   # HTTP client -- default in ad-hoc scripts
         rich       # pretty terminal output (tables, tracebacks, progress)
         ipython    # nicer REPL than the default `python`
       ]

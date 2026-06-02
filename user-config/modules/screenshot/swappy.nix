@@ -1,5 +1,5 @@
 { pkgs, ... }:
-# Swappy — https://github.com/jtheoof/swappy. Screenshot annotator, typically
+# Swappy -- https://github.com/jtheoof/swappy. Screenshot annotator, typically
 # fed from `grim -g "$(slurp)" - | swappy -f -`.
 {
   home.packages = [

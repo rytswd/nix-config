@@ -35,7 +35,7 @@ let
       '';
 in
 {
-  # Do NOT use virtualisation.containerd — the nixpkgs module still
+  # Do NOT use virtualisation.containerd -- the nixpkgs module still
   # targets containerd 1.x (config version 2, old plugin paths).
   # We define the service and config ourselves for containerd 2.x.
 

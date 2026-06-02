@@ -30,7 +30,7 @@
       ".local/share/direnv"
       ".local/share/fonts"
       ".local/state/nix"
-      # Home Manager generation gcroots — required for standalone
+      # Home Manager generation gcroots -- required for standalone
       # `hm switch` state to survive across reboot / `nix-collect-garbage`;
       # harmless when only embedded HM is in use.
       ".local/state/home-manager"

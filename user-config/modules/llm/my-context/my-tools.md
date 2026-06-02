@@ -11,7 +11,7 @@ description: >-
 # My Tools
 
 ## Package managers in use
-- **Nixpkgs only** — system and user packages.
+- **Nixpkgs only** -- system and user packages.
 - System config via NixOS modules in `~/Coding/github.com/rytswd/nix-config`.
   - Do NOT update any of the configuration in my system config unless explicitly requested
 - User config via home-manager (same repo, `user-config/`).

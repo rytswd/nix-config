@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# `hm` dispatcher — resolves which Home Manager profile applies on the
+# `hm` dispatcher -- resolves which Home Manager profile applies on the
 # current host/user and forwards to `home-manager <cmd> --flake <dir>#<profile>`.
 #
 # Edit the case statements in `resolve_profile` to add a new host or
@@ -34,7 +34,7 @@ resolve_profile() {
         *-devspace-*) echo ""; return 1 ;;  # TODO: devspace profile
         *-utm)        echo ""; return 1 ;;  # TODO: utm profile
     esac
-    # No common fallback yet — explicit unknown.
+    # No common fallback yet -- explicit unknown.
     return 1
 }
 

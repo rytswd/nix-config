@@ -17,7 +17,7 @@
 #     }
 #
 # Packages that aren't buildable on the current `pkgs.stdenv.hostPlatform`
-# are silently dropped from the resulting list — no eval failure.
+# are silently dropped from the resulting list -- no eval failure.
 { lib, pkgs, ... }:
 {
   options.local.availablePackages = lib.mkOption {

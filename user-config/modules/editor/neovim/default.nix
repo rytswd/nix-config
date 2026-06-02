@@ -19,7 +19,7 @@
 
   xdg.configFile = {
     # NvChad-based config → ~/.config/nvim (default)
-    # NvChad and lazy.nvim still manage plugins at runtime — Nix only
+    # NvChad and lazy.nvim still manage plugins at runtime -- Nix only
     # ensures the config files and runtime dependencies are in place.
     # recursive = true symlinks individual files, allowing lazy.nvim to
     # write runtime files (lazy-lock.json, base46 cache) alongside them.

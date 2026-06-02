@@ -24,7 +24,7 @@ in
     # - overlay: OverlayFS used by containerd for container image layers.
     # - nf_tables: The nftables backend, used by kube-proxy's nftables mode
     #   which became GA in Kubernetes v1.33. kube-proxy's legacy iptables
-    #   mode is superseded, and IPVS mode is deprecated as of v1.35 —
+    #   mode is superseded, and IPVS mode is deprecated as of v1.35 --
     #   nftables is the recommended mode going forward.
     # - ip_vs*: IPVS (IP Virtual Server) kernel modules. While kube-proxy's
     #   IPVS mode is deprecated since v1.35, these modules are still used
@@ -44,26 +44,26 @@ in
 
     # Sysctl tunables required (or strongly recommended) by kubelet and CNI.
     boot.kernel.sysctl = {
-      # Let netfilter see bridged (Layer 2) traffic — without this, pod
+      # Let netfilter see bridged (Layer 2) traffic -- without this, pod
       # traffic that crosses a Linux bridge won't hit nftables rules and
       # kube-proxy / CNI policies silently break.
       # NOTE: These sysctls apply regardless of whether the backend is
-      # iptables or nftables — both go through the netfilter framework.
+      # iptables or nftables -- both go through the netfilter framework.
       "net.bridge.bridge-nf-call-iptables"  = 1;
       "net.bridge.bridge-nf-call-ip6tables" = 1;
 
-      # IP forwarding — the node must route packets between pods, services,
+      # IP forwarding -- the node must route packets between pods, services,
       # and the outside world.
       "net.ipv4.ip_forward"          = 1;
       "net.ipv6.conf.all.forwarding" = 1;
 
-      # inotify limits — kubelet, containerd, and various controllers watch
+      # inotify limits -- kubelet, containerd, and various controllers watch
       # many files/dirs. The kernel defaults (8192 watches, 128 instances)
       # are too low and cause "too many open files" under load.
       "fs.inotify.max_user_watches"   = 524288;
       "fs.inotify.max_user_instances" = 8192;
 
-      # Conntrack table size — each active connection (pod↔service,
+      # Conntrack table size -- each active connection (pod↔service,
       # pod↔external) consumes one entry. The default 65536 can be
       # exhausted quickly on a busy node, causing new connections to drop.
       "net.netfilter.nf_conntrack_max" = 131072;
@@ -79,7 +79,7 @@ in
     }];
 
     # Ensure cgroup v2 unified hierarchy is used. Kubernetes v1.35 removed
-    # cgroup v1 support entirely — kubelet will refuse to start on cgroup v1
+    # cgroup v1 support entirely -- kubelet will refuse to start on cgroup v1
     # nodes. NixOS defaults to cgroup v2 on recent kernels, but we make it
     # explicit. The CRI-based cgroup driver auto-detection (GA since v1.34)
     # relies on cgroup v2 to work correctly with containerd.

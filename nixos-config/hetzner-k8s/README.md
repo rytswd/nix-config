@@ -27,13 +27,13 @@
 └─────────────────────────────────────────────────────┘
 ```
 
-- **All 3 nodes are control-plane + worker** (untainted) — etcd quorum + workloads on every node
+- **All 3 nodes are control-plane + worker** (untainted) -- etcd quorum + workloads on every node
 - **Kubernetes v1.35.0** with upstream kubeadm/kubelet/kubectl binaries
 - **Cilium** CNI with VXLAN overlay
 - **kube-proxy in nftables mode** (GA since v1.33, IPVS deprecated in v1.35)
 - **NixOS** with custom modules (not nixpkgs `services.kubernetes`)
 - **containerd 2.x** with config version 3 (self-managed, not nixpkgs module)
-- **ext4** filesystem (no ZFS overhead — more RAM for pods)
+- **ext4** filesystem (no ZFS overhead -- more RAM for pods)
 - **Hybrid BIOS + EFI boot** via GRUB (works on all Hetzner VM generations)
 - **~€22.47/month** total (3× CX33)
 
@@ -72,7 +72,7 @@ kubectl get nodes
 ## Script Structure
 
 ```
-deploy.nu          # Main entry point — thin orchestrator
+deploy.nu          # Main entry point -- thin orchestrator
 lib/
   config.nu        # Constants: location, server type, K8s version, etc.
   ssh.nu           # SSH helpers for ephemeral servers
@@ -110,14 +110,14 @@ Things that differ from a standard kubeadm-on-Ubuntu setup:
   (`--config`, `--kubeconfig`, `--bootstrap-kubeconfig`, `$KUBELET_KUBEADM_ARGS`)
   must be in ExecStart directly.
 - **`networking.useNetworkd = true` is required**: `systemd.network.enable`
-  only creates unit files — it doesn't enable the systemd-networkd service.
+  only creates unit files -- it doesn't enable the systemd-networkd service.
   Without `useNetworkd`, the server has no network after reboot.
 
 ## Upgrading Kubernetes
 
 The Kubernetes version is defined in one place: `modules/kubernetes/common.nix`
 (`kubernetes.common.version`). The deploy scripts read it from the flake at
-runtime — there is no duplicated version constant.
+runtime -- there is no duplicated version constant.
 
 ```bash
 # 1. Update the version in Nix
@@ -127,7 +127,7 @@ runtime — there is no duplicated version constant.
 #    Edit: modules/kubernetes/kubelet.nix  →  hash = "sha256-...";
 #    Edit: modules/kubernetes/kubeadm.nix  →  hash = "sha256-..."; (×2)
 
-# 3. Rolling upgrade — rebuilds all nodes, then upgrades one at a time
+# 3. Rolling upgrade -- rebuilds all nodes, then upgrades one at a time
 nu deploy.nu k8s-upgrade
 ```
 

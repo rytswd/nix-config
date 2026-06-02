@@ -8,6 +8,6 @@
     ./gcp.nix
     ./hetzner.nix
     ./terraform.nix
-    # NOTE: ./azure.nix is intentionally NOT imported here — opt-in per host.
+    # NOTE: ./azure.nix is intentionally NOT imported here -- opt-in per host.
   ];
 }

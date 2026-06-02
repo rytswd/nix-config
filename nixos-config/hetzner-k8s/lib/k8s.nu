@@ -23,7 +23,7 @@ export def gen-cert-key [] {
 # Node lifecycle
 # ---------------------------------------------------------------------------
 
-# Reset kubeadm state on a node (idempotent — safe on a clean node).
+# Reset kubeadm state on a node (idempotent -- safe on a clean node).
 export def reset-node [ip: string] {
   print $"  Resetting kubeadm on ($ip) ..."
   ssh run $ip "

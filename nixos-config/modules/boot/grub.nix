@@ -1,5 +1,5 @@
 { pkgs, ... }:
-# GRUB boot loader. Not imported by the core boot bundle's default.nix —
+# GRUB boot loader. Not imported by the core boot bundle's default.nix --
 # bootloaders are mutually exclusive, so hosts import the one they want.
 {
   # NOTE: I used to have GRUB config at one point, but found it too much

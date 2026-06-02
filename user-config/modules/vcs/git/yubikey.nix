@@ -66,7 +66,7 @@ let
 in
 # Assumes the git, sops-nix, and security bundles are imported by the host
 # (originally this module was gated on `vcs.git.enable && vcs.git.yubikey.enable
-# && security.sops-nix.enable` — all three are now "imported = on").
+# && security.sops-nix.enable` -- all three are now "imported = on").
 {
   # Set up directory structure for the rest.
   home.activation.ensureGitDirectories = lib.hm.dag.entryAfter [ "writeBoundary" ] ''

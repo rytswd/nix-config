@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 # Assumes the security bundle (which always imports sops-nix.nix) is also
-# imported by the host — sops.templates below relies on the sops module.
+# imported by the host -- sops.templates below relies on the sops module.
 {
   # NOTE: I'm not enabling the programs here, as it would not work with the
   # manual configuration with TOML.
@@ -12,7 +12,7 @@
     pkgs.lazyjj
   ];
 
-  # SOPS Nix based secret handling — generate the config with secrets
+  # SOPS Nix based secret handling -- generate the config with secrets
   # substituted in.
   sops.templates."jujutsu-config" = {
     # With file input like this, the file is expected to have the following

@@ -1,5 +1,5 @@
 { pkgs, ... }:
-# bemoji — emoji picker driven by a dmenu-compatible launcher.
+# bemoji -- emoji picker driven by a dmenu-compatible launcher.
 {
   home.packages = [
     pkgs.bemoji

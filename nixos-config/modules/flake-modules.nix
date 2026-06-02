@@ -1,12 +1,12 @@
 # NixOS module flake outputs.
 #
 # Lists what gets exposed as `<flake>.nixosModules.<name>`. Adding a new
-# module file does NOT automatically expose it — add a line below.
+# module file does NOT automatically expose it -- add a line below.
 # Commenting / removing a line hides the module from downstream consumers.
 #
 # We list bundles + standalone modules only. Sub-features (e.g. core/ssh.nix,
 # kubernetes/common.nix) are reachable via their bundle's `mkEnableOption`
-# flags — consumers import the bundle and toggle what they want, so there's
+# flags -- consumers import the bundle and toggle what they want, so there's
 # no need to expose every leaf as a separate flake output.
 #
 # Paths are resolved relative to this file.

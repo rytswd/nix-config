@@ -29,7 +29,7 @@ in
     "${self}/user-config/modules/key-remap/xremap"
     "${self}/user-config/modules/appearance"
     "${self}/user-config/modules/launcher"
-    # Bar leaf — the bar bundle is empty (implementation-agnostic).
+    # Bar leaf -- the bar bundle is empty (implementation-agnostic).
     "${self}/user-config/modules/bar/waybar"
     "${self}/user-config/modules/clipboard"
     "${self}/user-config/modules/notification"

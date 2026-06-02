@@ -7,13 +7,13 @@
     # API, and which means there is no need of token setup.
     pkgs.go-grip
 
-    # https://mermaid.js.org/ — also known as `mmdc`. Renders Mermaid
+    # https://mermaid.js.org/ -- also known as `mmdc`. Renders Mermaid
     # diagrams (typically embedded in fenced ```mermaid blocks in Markdown)
     # into PNG/SVG/PDF as part of doc-conversion workflows alongside pandoc.
     #
     # NOTE: mermaid-cli has a runtime dependency on puppeteer, which in
     # turn needs a Chromium binary on PATH. Chromium installation via Nix
-    # is unresolved here — on macOS the current workaround is to install
+    # is unresolved here -- on macOS the current workaround is to install
     # Chromium via Homebrew Cask. TODO: revisit on NixOS.
     pkgs.mermaid-cli
 

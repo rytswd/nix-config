@@ -27,7 +27,7 @@ export def flake-root [] {
 }
 
 # Read the Kubernetes version from the Nix flake.
-# This is the single source of truth — defined in modules/kubernetes/common.nix.
+# This is the single source of truth -- defined in modules/kubernetes/common.nix.
 export def k8s-version [] {
   let v = (nix eval --raw $"($REPO_ROOT)#nixosConfigurations.($NODES.0).config.kubernetes.common.version")
   $"v($v)"

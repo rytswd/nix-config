@@ -34,7 +34,7 @@
         # Pi specific skill
         crosstalk = "${rytswd-root}/pi-agent-extensions-extra/skills/crosstalk/SKILL.md";
 
-        # User-context suite — machine, tools, prose style, and git/PR
+        # User-context suite -- machine, tools, prose style, and git/PR
         # workflow preferences. Edits to these .md files take effect
         # instantly (out-of-store symlinks). See:
         #   ./my-context/*.md

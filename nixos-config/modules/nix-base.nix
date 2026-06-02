@@ -21,18 +21,18 @@
     # Pin the `nixpkgs` flake-registry alias to THIS flake's pinned
     # `nixpkgs-unstable` input. With this, `nix shell nixpkgs#hello`,
     # `nix run nixpkgs#…` and `nix build nixpkgs#…` resolve to the exact
-    # revision the system was built from — not whatever
+    # revision the system was built from -- not whatever
     # `github:NixOS/nixpkgs/nixpkgs-unstable` is at HEAD when the command
     # runs. Reproducible ad-hoc shells, no surprise version drift.
     #
     # Affects flake-style commands only. Legacy `<nixpkgs>` /
-    # `nix-shell -p` / Nixd lookup go through `$NIX_PATH` instead — see
+    # `nix-shell -p` / Nixd lookup go through `$NIX_PATH` instead -- see
     # the home-manager `programming/nix.nix` module for that side.
     # NixOS auto-registers `nixpkgs` (via `nixos/modules/misc/nixpkgs-flake.nix`)
     # to point at whatever `nixpkgs.lib.nixosSystem` was called with (here:
     # `inputs.nixpkgs`, the stable channel). The `flake = ...` shorthand
     # expands internally into a `to = { type = "path"; path = ...; }` tree,
-    # so we have to `mkForce` the whole `nixpkgs` entry — forcing just
+    # so we have to `mkForce` the whole `nixpkgs` entry -- forcing just
     # `.flake` doesn't override the already-defined `.to.path`.
     registry.nixpkgs = lib.mkForce { flake = inputs.nixpkgs-unstable; };
 

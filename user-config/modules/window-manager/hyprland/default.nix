@@ -1,5 +1,5 @@
 { pkgs, ... }:
-# Hyprland — not imported by the window-manager bundle's default.nix. Import
+# Hyprland -- not imported by the window-manager bundle's default.nix. Import
 # this leaf directly from a host config when I want it.
 {
   wayland.windowManager.hyprland = {

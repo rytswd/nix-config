@@ -1,8 +1,8 @@
 { pkgs, ... }:
-# NVIDIA offload setup — use the built-in GPU for most tasks, the NVIDIA GPU
+# NVIDIA offload setup -- use the built-in GPU for most tasks, the NVIDIA GPU
 # for offloading. This module is hardware-specific (the host must actually
 # have an NVIDIA dGPU), so it lives under `devices/` alongside other
-# opt-in hardware leaves. NOT imported by the devices bundle's default.nix —
+# opt-in hardware leaves. NOT imported by the devices bundle's default.nix --
 # import this leaf directly from a host config.
 {
   # Ref https://nixos.wiki/wiki/Nvidia

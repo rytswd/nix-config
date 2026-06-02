@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }:
-# `zoom-us` is built only for x86_64-linux and {x86_64,aarch64}-darwin —
+# `zoom-us` is built only for x86_64-linux and {x86_64,aarch64}-darwin --
 # importing this leaf on aarch64-linux (e.g. UTM VM) would otherwise fail
 # evaluation. `config.local.availablePackages` drops it silently when the
 # host can't build it. The zoomus.conf drop-in is harmless to leave in

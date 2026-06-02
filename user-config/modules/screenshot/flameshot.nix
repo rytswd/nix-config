@@ -1,4 +1,4 @@
-# Flameshot — https://github.com/flameshot-org/flameshot
+# Flameshot -- https://github.com/flameshot-org/flameshot
 #
 # NOTE: Wayland support is limited. Not imported by the bundle's default.nix;
 # import this leaf directly from a host config when needed.

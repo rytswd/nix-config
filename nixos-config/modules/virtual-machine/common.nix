@@ -11,10 +11,10 @@
     "${modulesPath}/profiles/qemu-guest.nix"
   ];
 
-  # SPICE guest agent — clipboard sync between host and guest, dynamic
+  # SPICE guest agent -- clipboard sync between host and guest, dynamic
   # display resize on host-window resize. Works whenever the host exposes
   # SPICE (QEMU `-spice`, UTM "Display: VirtIO-GPU + SPICE", virt-manager
-  # default). Harmless on hosts that don't expose SPICE — the agent just
+  # default). Harmless on hosts that don't expose SPICE -- the agent just
   # idles waiting for a channel.
   services.spice-vdagentd.enable = true;
 }

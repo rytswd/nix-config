@@ -1,4 +1,4 @@
-# `hm` flake app — standalone Home Manager dispatcher.
+# `hm` flake app -- standalone Home Manager dispatcher.
 #
 # Lets any host bootstrap or update its standalone Home Manager profile
 # without needing a system rebuild, via

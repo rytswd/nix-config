@@ -4,6 +4,6 @@
 # host).
 #
 # The bundle exists so hosts can keep a uniform `./login-manager` import line
-# alongside the per-implementation path — today it's a no-op; future shared
+# alongside the per-implementation path -- today it's a no-op; future shared
 # login-manager setup (greetd theme defaults, etc.) would land here.
 { }

@@ -26,7 +26,7 @@
   #     doing `import <nixpkgs> {}`.
   #
   # Does NOT affect flake-style commands (`nix shell nixpkgs#…`,
-  # `nix run nixpkgs#…`, `nix build nixpkgs#…`) — those go through the
+  # `nix run nixpkgs#…`, `nix build nixpkgs#…`) -- those go through the
   # flake registry. That side is pinned to the same `nixpkgs-unstable`
   # input by `nixos-config/modules/nix-base.nix`
   # (`nix.registry.nixpkgs.flake`), so the two stay aligned.

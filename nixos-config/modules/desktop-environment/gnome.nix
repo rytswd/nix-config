@@ -15,7 +15,7 @@
 
   # Use `pass-secret-service` (home-manager) as the sole provider of
   # `org.freedesktop.secrets`. The GNOME desktop module defaults
-  # gnome-keyring on, so force-disable it here — otherwise both daemons
+  # gnome-keyring on, so force-disable it here -- otherwise both daemons
   # race for the D-Bus name and one of them silently loses.
   services.gnome.gnome-keyring.enable = lib.mkForce false;
 

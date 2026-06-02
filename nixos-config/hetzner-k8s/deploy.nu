@@ -20,7 +20,7 @@ use lib/hcloud.nu
 use lib/k8s.nu
 
 # ---------------------------------------------------------------------------
-# create — provision servers and install NixOS
+# create -- provision servers and install NixOS
 # ---------------------------------------------------------------------------
 def "main create" [] {
   print "==> Creating Hetzner Cloud servers ..."
@@ -46,7 +46,7 @@ def "main create" [] {
 }
 
 # ---------------------------------------------------------------------------
-# install — (re)install NixOS on existing servers via nixos-anywhere
+# install -- (re)install NixOS on existing servers via nixos-anywhere
 # ---------------------------------------------------------------------------
 def "main install" [] {
   let root = config flake-root
@@ -77,7 +77,7 @@ def "main install" [] {
 }
 
 # ---------------------------------------------------------------------------
-# k8s-init — bootstrap Kubernetes cluster with kubeadm + Cilium
+# k8s-init -- bootstrap Kubernetes cluster with kubeadm + Cilium
 # ---------------------------------------------------------------------------
 def "main k8s-init" [] {
   let ips = $config.NODES | each { |n| hcloud get-ip $n }
@@ -95,7 +95,7 @@ def "main k8s-init" [] {
   print "==> Waiting for all nodes ..."
   for ip in $ips { ssh wait $ip }
 
-  # Clean slate — idempotent even on a first run.
+  # Clean slate -- idempotent even on a first run.
   print "==> Resetting kubeadm state on all nodes ..."
   for ip in $ips { k8s reset-node $ip }
 
@@ -141,7 +141,7 @@ def "main k8s-init" [] {
 }
 
 # ---------------------------------------------------------------------------
-# rebuild — apply NixOS config changes on running servers
+# rebuild -- apply NixOS config changes on running servers
 # ---------------------------------------------------------------------------
 def "main rebuild" [] {
   let root = config flake-root
@@ -168,7 +168,7 @@ def "main rebuild" [] {
 }
 
 # ---------------------------------------------------------------------------
-# k8s-upgrade — rolling Kubernetes upgrade
+# k8s-upgrade -- rolling Kubernetes upgrade
 # ---------------------------------------------------------------------------
 #
 # Workflow:
@@ -231,7 +231,7 @@ def "main k8s-upgrade" [] {
 }
 
 # ---------------------------------------------------------------------------
-# destroy — delete all Hetzner Cloud servers
+# destroy -- delete all Hetzner Cloud servers
 # ---------------------------------------------------------------------------
 def "main destroy" [] {
   print "==> Destroying Hetzner Cloud servers ..."
@@ -248,7 +248,7 @@ def "main destroy" [] {
 }
 
 # ---------------------------------------------------------------------------
-# default — print help
+# default -- print help
 # ---------------------------------------------------------------------------
 def main [] {
   print "Usage: nu deploy.nu <command>"

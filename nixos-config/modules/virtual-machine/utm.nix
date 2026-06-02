@@ -1,9 +1,9 @@
 # UTM-specific guest tweaks. NOT imported by the virtual-machine bundle's
-# default.nix — import this leaf directly when the host hypervisor is UTM.
+# default.nix -- import this leaf directly when the host hypervisor is UTM.
 #
 # Ref: https://docs.getutm.app/guest-support/linux/
 {
-  # SPICE WebDAV channel — exposes the UTM host's "Shared Directory" as a
+  # SPICE WebDAV channel -- exposes the UTM host's "Shared Directory" as a
   # WebDAV mount inside the guest (e.g. via `gio mount sftp://...` from a
   # file manager, or by reading `/run/user/$UID/gvfs/dav:host=...`).
   #

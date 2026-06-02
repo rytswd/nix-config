@@ -1,4 +1,4 @@
-# yabai — not imported by the window-manager bundle's default.nix. Import
+# yabai -- not imported by the window-manager bundle's default.nix. Import
 # this leaf directly from a host config when I want it.
 {
   # Because the config is quite lengthy, I'm simply mapping a file into the

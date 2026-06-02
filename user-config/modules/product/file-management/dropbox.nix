@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 # Assumes the security bundle (which always imports sops-nix.nix) is also
-# imported by the host — sops.templates below relies on the sops module.
+# imported by the host -- sops.templates below relies on the sops module.
 {
   home.packages =
     if pkgs.stdenv.isDarwin then

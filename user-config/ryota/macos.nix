@@ -15,45 +15,35 @@ in
   imports = [
     # Shared machine-local values (e.g. `local.repoPath`).
     "${self}/user-config/modules/lib/paths.nix"
+    # Home-manager bootstrap (CLI install + release-check suppression).
+    "${self}/user-config/modules/home-manager"
 
     # The shell setup defines some aliases, and in order to allow overriding,
     # calling this earlier than other modules.
     "${self}/user-config/modules/shell"
+
     # "${self}/user-config/modules/git-clone"  # TODO: module path does not exist; private?
     "${self}/user-config/modules/key-remap/skhd"
+    "${self}/user-config/modules/window-manager/yabai"
 
     "${self}/user-config/modules/terminal"
-    "${self}/user-config/modules/bar"
-    "${self}/user-config/modules/window-manager"
     "${self}/user-config/modules/vcs"
     "${self}/user-config/modules/editor"
     "${self}/user-config/modules/programming"
     "${self}/user-config/modules/security"
-    "${self}/user-config/modules/kubernetes"
-    "${self}/user-config/modules/service"
+    # Extra tooling for operating clusters (opt-in leaf).
     "${self}/user-config/modules/dictionary"
     "${self}/user-config/modules/communication"
     "${self}/user-config/modules/image"
+
+    "${self}/user-config/modules/kubernetes"
+    "${self}/user-config/modules/kubernetes/kubernetes-extra.nix"
+
+    "${self}/user-config/modules/product/cloud"
+    "${self}/user-config/modules/product/security"
+    "${self}/user-config/modules/product/vcs"
+    "${self}/user-config/modules/product/collaboration"
   ];
-  ###----------------------------------------
-  ##   Module related options
-  #------------------------------------------
-  kubernetes.extra.enable = true;
-  communication.slack.enable = true;
-
-  # macOS specific ones
-  # bar.sketchybar.enable = true; # Changing since macOS Tahoe
-  editor.zed.enable = false; # Known issue with macOS
-  window-manager.yabai.enable = true;
-
-  ###----------------------------------------
-  ##   Other Home Manager Setup
-  #------------------------------------------
-  programs.home-manager.enable = true;
-  xdg.enable = true;
-
-  # TODO: Move this somewhere.
-  programs.gpg.enable = true;
 
   home = {
     username = "${username}";
@@ -61,11 +51,9 @@ in
 
     packages = [
       ###------------------------------
-      ##   UI Tools
-      #--------------------------------
-      pkgs.discord
-      pkgs.zoom-us
-
+      # NOTE: Slack, Discord, Telegram, Zoom (and Signal, where it builds)
+      # now come in via product/collaboration. They used to be listed
+      # directly here.
       ###------------------------------
       ##   macOS Specific
       #--------------------------------

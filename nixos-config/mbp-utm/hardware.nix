@@ -8,35 +8,45 @@
 #
 # Other configurations for this machine can be found in other files.
 
-{ config
-, lib
-, pkgs
-, modulesPath
-, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "uhci_hcd" "virtio_pci" "usbhid" "usb_storage" "sr_mod" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "uhci_hcd"
+    "virtio_pci"
+    "virtio_blk"
+    "virtio_scsi"
+    "usbhid"
+    "usb_storage"
+    "sr_mod"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  # By default, NixOS uses 'by-uuid', but label is more convenient.
-  fileSystems."/" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "ext4";
-    };
+  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-label/boot";
-      fsType = "vfat";
-    };
+  # By default, NixOS uses 'by-uuid', but label is more convenient.
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "ext4";
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/boot";
+    fsType = "vfat";
+  };
 
   swapDevices = [ ];
-
-  # NOTE: useDHCP is a part of the generated config, but not using it.
-  # networking.useDHCP = lib.mkDefault true;
 }

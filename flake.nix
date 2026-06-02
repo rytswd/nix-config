@@ -254,13 +254,13 @@
         system = "x86_64-linux";
       });
 
-      # TODO: Fix this based on the new setup.
-      # mbp-2021-utm = (import ./nixos-config/mbp-utm {
-      #   inherit (nixpkgs-unstable) lib;
-      #   inherit (nixpkgs-unstable.lib) nixosSystem;
-      #   inherit nixpkgs nixpkgs-unstable home-manager inputs overlays;
-      #   system = "${mbp-arch}-linux";
-      # });
+      # Apple Silicon UTM VM -- mirrors `asus-rog-flow-z13-2025` (same
+      # shared module set, niri + hyprland + GNOME), minus disko /
+      # impermanence / ZFS / asus-specific quirks.
+      nixos-utm = (import ./nixos-config/mbp-utm {
+        inherit self nixpkgs nixpkgs-unstable home-manager inputs overlays;
+        system = "aarch64-linux";
+      });
     };
 
     ###----------------------------------------

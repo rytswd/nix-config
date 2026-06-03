@@ -1,83 +1,62 @@
-{ pkgs
-, lib
-, config
-, inputs
-, osConfig ? {}
-, ...}:
-
-let
-  # Map hostname to output config file
-  outputConfigByHostname = {
-    "asus-rog-flow-z13-2025" = ./output-asus-rog-flow-z13-2025.kdl;
-    "asus-rog-zephyrus-g14-2024" = ./output-asus-rog-zephyrus-g14-2024.kdl;
-  };
-
-  # Determine default output config based on hostname
-  defaultOutputConfig =
-    if osConfig ? networking.hostName
-    then outputConfigByHostname.${osConfig.networking.hostName} or ./output-asus-rog-zephyrus-g14-2024.kdl
-    else ./output-asus-rog-zephyrus-g14-2024.kdl;
-in
 {
-  options = {
-    window-manager.niri.enable = lib.mkEnableOption "Enable Niri user settings.";
+  pkgs,
+  osConfig,
+  ...
+}:
 
-    window-manager.niri.outputConfig = lib.mkOption {
-      type = lib.types.path;
-      default = defaultOutputConfig;
-      description = "Path to the output.kdl file for device-specific display configuration";
-      example = lib.literalExpression "./output-asus-rog-flow-z13-2025.kdl";
-    };
+# Per-host display layout lives in `./output-<hostname>.kdl` (e.g.
+# `output-asus-rog-flow-z13-2025.kdl`). Adding a new host = drop a new
+# file next to its siblings. Forgetting to add it -> eval fails clearly
+# (`path '/nix/store/.../output-foo.kdl' does not exist`) instead of
+# silently using some other host's layout.
+{
+  home.packages = [
+    pkgs.xwayland-satellite
+
+    # NOTE: A bit of hack but this allows toggling fcitx and xkb at the same
+    # time. When things got stuck in a strange state, I can do:
+    #
+    #     fcitx5-remote -g "Main"
+    #     niir msg action switch-layout 0
+    #
+    (pkgs.writeShellScriptBin "niri-toggle-input-method" ''
+      current=$(${pkgs.fcitx5}/bin/fcitx5-remote -q)
+      if [ "$current" = "Main" ]; then
+        niri msg action switch-layout 1
+        ${pkgs.fcitx5}/bin/fcitx5-remote -g "JP"
+      else
+        niri msg action switch-layout 0
+        ${pkgs.fcitx5}/bin/fcitx5-remote -g "Main"
+      fi
+    '')
+  ];
+  home.shellAliases = {
+    "nirimvw" = "niri msg action move-window-to-workspace";
   };
 
-  config = lib.mkIf config.window-manager.niri.enable {
-    # Because the config is quite lengthy, I'm simply mapping a file into the
-    # XDG directory. All the code is generated with the Org Mode tangle.
-    xdg.configFile = {
-      "niri/config.kdl".source = ./config.kdl;
-      # "niri/keymap.xkb".source = ./dvorak-customised-keymap.xkb;
-      "niri/output.kdl".source = config.window-manager.niri.outputConfig;
-    };
-    home.packages = [
-      pkgs.xwayland-satellite
-
-      # NOTE: A bit of hack but this allows toggling fcitx and xkb at the same
-      # time. When things got stuck in a strange state, I can do:
-      #
-      #     fcitx5-remote -g "Main"
-      #     niir msg action switch-layout 0
-      #
-      (pkgs.writeShellScriptBin "niri-toggle-input-method" ''
-        current=$(${pkgs.fcitx5}/bin/fcitx5-remote -q)
-        if [ "$current" = "Main" ]; then
-          niri msg action switch-layout 1
-          ${pkgs.fcitx5}/bin/fcitx5-remote -g "JP"
-        else
-          niri msg action switch-layout 0
-          ${pkgs.fcitx5}/bin/fcitx5-remote -g "Main"
-        fi
-      '')
+  # Because the config is quite lengthy, I'm simply mapping a file into the
+  # XDG directory. All the code is generated with the Org Mode tangle.
+  xdg.configFile = {
+    "niri/config.kdl".source = ./config.kdl;
+    # "niri/keymap.xkb".source = ./dvorak-customised-keymap.xkb;
+    "niri/output.kdl".source = ./. + "/output-${osConfig.networking.hostName}.kdl";
+  };
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+      # niri needs this for screen cast.
+      pkgs.xdg-desktop-portal-gnome
+      pkgs.xdg-desktop-portal-gtk
     ];
-    home.shellAliases = {
-      "nirimvw" = "niri msg action move-window-to-workspace";
-    };
-    xdg.portal = {
-      enable = true;
-      extraPortals = [
-        # niri needs this for screen cast.
-        pkgs.xdg-desktop-portal-gnome
-        pkgs.xdg-desktop-portal-gtk
-      ];
-      config = {
-        common = {
-          default = ["gtk"];
-        };
-        niri =  {
-          default = ["gtk"];
-          "org.freedesktop.impl.portal.ScreenCast" = ["gnome"];
-          "org.freedesktop.impl.portal.Screenshot" = ["gnome"];
-          "org.freedesktop.impl.portal.RemoteDesktop" = ["gnome"];
-        };
+    config = {
+      common = {
+        default = [ "gtk" ];
+      };
+      niri = {
+        default = [ "gtk" ];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
+        "org.freedesktop.impl.portal.Screenshot" = [ "gnome" ];
+        "org.freedesktop.impl.portal.RemoteDesktop" = [ "gnome" ];
       };
     };
   };

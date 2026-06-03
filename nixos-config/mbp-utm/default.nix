@@ -121,6 +121,7 @@ nixpkgs.lib.nixosSystem rec {
           disabledModules = [
             "${self}/user-config/modules/product/vcs"
             "${self}/user-config/modules/product/collaboration"
+            "${self}/user-config/modules/product/music"
           ];
         };
       };

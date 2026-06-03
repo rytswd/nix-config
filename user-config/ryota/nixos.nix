@@ -63,6 +63,7 @@ in
     "${self}/user-config/modules/product/security"
     "${self}/user-config/modules/product/vcs"
     "${self}/user-config/modules/product/collaboration"
+    "${self}/user-config/modules/product/music"
 
     # Extra modules based on private setup.
     inputs.nix-config-private.homeManagerModules.sops-nix

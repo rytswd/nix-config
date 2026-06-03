@@ -10,7 +10,7 @@ in
     agents.claudebox
     agents.codex
     # agents.code
-    agents.gemini-cli
+    # agents.gemini-cli
     agents.opencode
     agents.pi
   ];

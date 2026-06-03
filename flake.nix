@@ -301,5 +301,15 @@
       system = "x86_64-linux";
     });
     packages.x86_64-linux.installer-iso = self.nixosConfigurations.installer-iso.config.system.build.isoImage;
+
+    ###----------------------------------------
+    ##   Checks (CI-friendly per-host derivations)
+    #------------------------------------------
+    # Logic lives in ./checks.nix to keep this file readable. See that
+    # file's header for the full rationale, system list, and blacklist.
+    checks = import ./checks.nix {
+      inherit self;
+      lib = nixpkgs.lib;
+    };
   };
 }

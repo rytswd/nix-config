@@ -73,5 +73,5 @@
   networking.useDHCP = lib.mkDefault true;
 
   # Fresh VM install -- start at current.
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }

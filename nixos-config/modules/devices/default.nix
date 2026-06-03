@@ -2,9 +2,10 @@
   imports = [
     ./bluetooth.nix
     ./keyboard.nix
-    ./librepods.nix
     ./trackpad.nix
-    # NOTE: ./nvidia.nix and ./yubikey.nix are intentionally NOT imported
-    # here -- they're host-specific hardware leaves (import directly).
+    # NOTE: ./librepods.nix, ./nvidia.nix, and ./yubikey.nix are intentionally
+    # NOT imported here -- they're host-specific leaves (only the machines
+    # that actually pair with AirPods / have an NVIDIA GPU / use a YubiKey
+    # want them). Import directly from the host config.
   ];
 }

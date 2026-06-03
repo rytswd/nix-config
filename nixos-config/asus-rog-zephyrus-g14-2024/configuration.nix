@@ -42,6 +42,7 @@
     ##  Devices
     #------------------------------------------
     "${self}/nixos-config/modules/devices"
+    "${self}/nixos-config/modules/devices/librepods.nix"
     "${self}/nixos-config/modules/devices/nvidia.nix"
     "${self}/nixos-config/modules/devices/yubikey.nix"
 

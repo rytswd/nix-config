@@ -311,5 +311,14 @@
       inherit self;
       lib = nixpkgs.lib;
     };
+
+    ###----------------------------------------
+    ##   Flake apps
+    #------------------------------------------
+    apps = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ] (system: {
+      hm = import ./apps/hm {
+        pkgs = nixpkgs-unstable.legacyPackages.${system};
+      };
+    });
   };
 }

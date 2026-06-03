@@ -16,12 +16,6 @@
 #
 # Pattern borrowed from Mic92/dotfiles' `checks/flake-module.nix`, written
 # imperatively here (no flake-parts dependency).
-#
-# Speed note: each host's target system is read via
-# `cfg.config.nixpkgs.hostPlatform.system` rather than
-# `cfg.pkgs.stdenv.hostPlatform.system`. The cheap path goes through the
-# already-defined module option; the latter forces a full `import nixpkgs`
-# per host just to answer the same question.
 let
   systems = [
     "x86_64-linux"
@@ -33,11 +27,9 @@ let
     "installer-iso" # heavy build, pre-existing eval conflict
   ];
 
-  systemOf = cfg: cfg.config.nixpkgs.hostPlatform.system or null;
-
   filterBySystem =
     system: configs:
-    lib.filterAttrs (_n: cfg: systemOf cfg == system) configs;
+    lib.filterAttrs (_n: cfg: (cfg.pkgs.stdenv.hostPlatform.system or null) == system) configs;
 
   mkChecksForSystem =
     system:

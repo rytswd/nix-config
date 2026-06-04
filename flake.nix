@@ -64,8 +64,14 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    # Zig
-    zig-overlay.url = "github:mitchellh/zig-overlay";
+    # Zig – zignix exposes `packages.<system>.zig-{master,0_16}` and
+    # `lib.<system>.withName` so each version coexists on PATH under a
+    # custom command name. Consumed directly from HM (no overlay).
+    # See ./user-config/modules/programming/zig.nix.
+    zignix = {
+      url = "github:withre/zignix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     zls.url = "github:zigtools/zls";
 
     ###----------------------------------------
@@ -150,7 +156,6 @@
     # + Overlays
 
     # Language related overlays
-    zigOverlay = inputs.zig-overlay.overlays.default;
     rocOverlay = (final: prev: {
       rocpkgs = inputs.roc.packages.${prev.stdenv.hostPlatform.system};
     });
@@ -167,7 +172,6 @@
     overlays = [
       # rustOverlay
       # fenixOverlay
-      zigOverlay
       rocOverlay
 
       # emacsOverlay

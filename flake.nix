@@ -215,7 +215,11 @@
     # `./user-config/<username>/macos.nix`. Note that the user configuration
     # could be different from NixOS setup, and uses a separate file.
     darwinConfigurations = {
-      ryota-mbp = (import ./macos-config/mbp {
+      ryota-mbp-m1-max = (import ./macos-config/hosts/mbp-m1-max {
+        inherit self nixpkgs nixpkgs-unstable darwin home-manager inputs overlays;
+        system = "aarch64-darwin";
+      });
+      ryota-mbp-m5-max = (import ./macos-config/hosts/mbp-m5-max {
         inherit self nixpkgs nixpkgs-unstable darwin home-manager inputs overlays;
         system = "aarch64-darwin";
       });

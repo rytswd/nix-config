@@ -31,19 +31,16 @@
       # Use latest unstable for home-manager.
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-
     darwin = {
       url = "github:lnl7/nix-darwin/master";
       # Use latest unstable for macOS.
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-
     sops-nix = {
       url = "github:Mic92/sops-nix";
       # url = "github:rytswd/sops-nix/add-yubikey-age-support";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-
     srvos = {
       url = "github:nix-community/srvos";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -63,12 +60,6 @@
     ###----------------------------------------
     ##  Language related flakes
     #------------------------------------------
-    # Roc
-    roc = {
-      url = "github:roc-lang/roc";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
     # Zig – zignix exposes `packages.<system>.zig-{master,0_16}` and
     # `lib.<system>.withName` so each version coexists on PATH under a
     # custom command name. Consumed directly from HM (no overlay).
@@ -78,6 +69,12 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     zls.url = "github:zigtools/zls";
+
+    # Roc
+    roc = {
+      url = "github:roc-lang/roc";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     ###----------------------------------------
     ##  Tools
@@ -95,12 +92,12 @@
       flake = false;
     };
 
-    librepods.url = "github:kavishdevar/librepods/linux/rust";
-
     # With own binary cache (and thus no nixpkgs following)
     ghostty.url = "github:ghostty-org/ghostty";
     llm-agents.url = "github:numtide/llm-agents.nix";
     noctalia.url = "github:noctalia-dev/noctalia-shell";
+
+    librepods.url = "github:kavishdevar/librepods/linux/rust";
 
     # Personal ones
     swapdir.url = "git+ssh://git@github.com/rytswd/swapdir";
@@ -146,7 +143,8 @@
     # };
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
-    # NOTE: With noctalia, awww isn't needed.
+
+    # NOTE: With noctalia in place, awww isn't needed.
     awww.url = "git+https://codeberg.org/LGFae/awww";
   };
 

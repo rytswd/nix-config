@@ -43,6 +43,11 @@
       # url = "github:rytswd/sops-nix/add-yubikey-age-support";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    srvos = {
+      url = "github:nix-community/srvos";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";

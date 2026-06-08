@@ -67,26 +67,27 @@ in
       ###----------------------------------------
       ##   For macOS
       #------------------------------------------
-      inherited = {
-        inherit (pkgs.darwin) sigtool;
-        inherit (pkgs.darwin.apple_sdk_) llvmPackages_14;
-        inherit (pkgs.darwin.apple_sdk_11_0.frameworks)
-          Accelerate
-          AppKit
-          Carbon
-          Cocoa
-          GSS
-          ImageCaptureCore
-          ImageIO
-          IOKit
-          OSAKit
-          Quartz
-          QuartzCore
-          UniformTypeIdentifiers
-          WebKit
-          ;
-      };
-      emacs-30-plus =
+      # Bare Emacs 30 (Cocoa/NS) for macOS. Base is upstream-stable `emacs30`
+      # from nixpkgs -- the 30.x release, NOT master. On top of it we layer
+      # the curated emacs-plus patch set: this is the deliberate "in-between"
+      # of the now-unmaintained Mac port and a full emacs-plus build -- plain
+      # upstream plus only the patches I actually want, all owned here.
+      #
+      # No Elisp is bundled (Elpaca manages packages at runtime), so this is
+      # just the editor binary.
+      #
+      # Patches are pinned to a homebrew-emacs-plus commit for
+      # reproducibility -- bump `emacsPlusPatchRev` to pull newer revisions.
+      # If a hash ever mismatches after a bump, replace it with the `got:`
+      # value Nix prints.
+      emacsPlusPatchRev = "714f6b0c443012281ad055947e2c96ae3761e0e1";
+      emacsPlusPatch =
+        path: hash:
+        pkgs.fetchpatch {
+          url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/${emacsPlusPatchRev}/patches/${path}";
+          sha256 = hash;
+        };
+      emacs-30-macos =
         (pkgs.emacs30.override {
           withNativeCompilation = true;
           withNS = true;
@@ -97,60 +98,33 @@ in
         }).overrideAttrs
           (oldAttrs: {
             pname = "emacs-plus";
-            configureFlags = (oldAttrs.configureFlags or [ ]) ++ [
-              "--with-xwidgets" # withXwidgets flag is somehow disabled for darwin.
-            ];
-            buildInputs = (oldAttrs.buildInputs or [ ]) ++ [
-              inherited.WebKit # webkit is required for Emacs, and this adds Apple WebKit.
-            ];
+            # NOTE: `--with-xwidgets` (in-Emacs WebKit) was previously enabled
+            # here alongside a manual `WebKit` buildInput pulled from
+            # `darwin.apple_sdk_11_0.frameworks`. nixpkgs removed that API,
+            # which is what broke this build. Modern nixpkgs supplies the SDK
+            # automatically, but xwidgets on darwin still needs extra wiring,
+            # so it's left off to keep the base build reliable. To re-enable,
+            # append `configureFlags = (oldAttrs.configureFlags or []) ++
+            # [ "--with-xwidgets" ];` and verify it builds.
             patches = (oldAttrs.patches or [ ]) ++ [
               # Don't raise another frame when closing a frame
-              (pkgs.fetchpatch {
-                url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-28/no-frame-refocus-cocoa.patch";
-                sha256 = "QLGplGoRpM4qgrIAJIbVJJsa4xj34axwT3LiWt++j/c=";
-              })
-              # Fix OS window role so that yabai can pick up Emacs
-              (pkgs.fetchpatch {
-                # Emacs 29 uses the same patch as 28
-                url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-28/fix-window-role.patch";
-                sha256 = "+z/KfsBm1lvZTZNiMbxzXQGRTjkCFO4QPlEK35upjsE=";
-              })
-              # Use poll instead of select to get file descriptors
-              (pkgs.fetchpatch {
-                url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-29/poll.patch";
-                sha256 = "jN9MlD8/ZrnLuP2/HUXXEVVd6A+aRZNYFdZF8ReJGfY=";
-              })
-              # Add setting to enable rounded window with no decoration (still
-              # have to alter default-frame-alist)
-              (pkgs.fetchpatch {
-                url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-30/round-undecorated-frame.patch";
-                sha256 = "uYIxNTyfbprx5mCqMNFVrBcLeo+8e21qmBE3lpcnd+4=";
-              })
-              # Make Emacs aware of OS-level light/dark mode
-              # https://github.com/d12frosted/homebrew-emacs-plus#system-appearance-change
-              (pkgs.fetchpatch {
-                url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-28/system-appearance.patch";
-                sha256 = "oM6fXdXCWVcBnNrzXmF0ZMdp8j0pzkLE66WteeCutv8=";
-              })
+              (emacsPlusPatch "emacs-28/no-frame-refocus-cocoa.patch"
+                "QLGplGoRpM4qgrIAJIbVJJsa4xj34axwT3LiWt++j/c=")
+              # Fix OS window role so yabai can pick up Emacs (29 reuses 28's)
+              (emacsPlusPatch "emacs-28/fix-window-role.patch"
+                "+z/KfsBm1lvZTZNiMbxzXQGRTjkCFO4QPlEK35upjsE=")
+              # Rounded, undecorated frame (also needs default-frame-alist tweak)
+              (emacsPlusPatch "emacs-30/round-undecorated-frame.patch"
+                "fesZ0H3LO6T2AiRV8ASozKxZBpvVzwLEcLDy6rctR6c=")
+              # Track OS-level light/dark mode
+              (emacsPlusPatch "emacs-28/system-appearance.patch"
+                "oM6fXdXCWVcBnNrzXmF0ZMdp8j0pzkLE66WteeCutv8=")
             ];
           });
-
-      # in {
-      #   enable = true;
-      #   package =
-      #     if pkgs.stdenv.isDarwin
-      #     then emacs-30-plus
-      #     else
-      #         # emacs-latest-nixos # latest uses the master branch
-      #         emacs-30-nixos
-      #   ;
-      #   extraPackages = packages;
-      # };
     in
     if pkgs.stdenv.isDarwin then
-      [
-        emacs-30-plus
-      ]
+      # Bare Emacs 30 (Cocoa) -- Elisp managed at runtime via Elpaca.
+      [ emacs-30-macos ]
     else
       [
         emacs-unstable-nixos

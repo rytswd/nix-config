@@ -1,14 +1,24 @@
-{
-  pkgs,
-  osConfig,
-  ...
-}:
-
 # Per-host display layout lives in `./output-<hostname>.kdl` (e.g.
 # `output-asus-rog-flow-z13-2025.kdl`). Adding a new host = drop a new
 # file next to its siblings. Forgetting to add it -> eval fails clearly
 # (`path '/nix/store/.../output-foo.kdl' does not exist`) instead of
 # silently using some other host's layout.
+#
+# Hostname resolution: embedded HM provides `osConfig.networking.hostName`;
+# standalone HM passes `hostname` via specialArgs (see flake.nix#mkHome).
+{
+  pkgs,
+  osConfig ? null,
+  hostname ? null,
+  ...
+}:
+
+let
+  resolvedHostname =
+    if osConfig != null && osConfig ? networking then osConfig.networking.hostName
+    else if hostname != null then hostname
+    else throw "window-manager/niri: needs `osConfig.networking.hostName` (embedded HM) or `specialArgs.hostname` (standalone HM)";
+in
 {
   home.packages = [
     pkgs.xwayland-satellite
@@ -39,7 +49,7 @@
   xdg.configFile = {
     "niri/config.kdl".source = ./config.kdl;
     # "niri/keymap.xkb".source = ./dvorak-customised-keymap.xkb;
-    "niri/output.kdl".source = ./. + "/output-${osConfig.networking.hostName}.kdl";
+    "niri/output.kdl".source = ./. + "/output-${resolvedHostname}.kdl";
   };
   xdg.portal = {
     enable = true;

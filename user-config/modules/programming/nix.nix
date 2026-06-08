@@ -8,7 +8,7 @@
     pkgs.nixpkgs-review # PR review utility
     pkgs.alejandra # Formatting
     pkgs.nixfmt # Formatting
-    pkgs.nh # Nix helper; cross-platform (NixOS + Darwin)
+    pkgs.nh # Nix helper
   ];
   home.shellAliases = {
     flakeinit = "nix flake init -t \"github:rytswd/nix-direnv-template\" --refresh";

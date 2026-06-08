@@ -28,6 +28,7 @@ in
     "${self}/user-config/modules/window-manager/yabai"
 
     "${self}/user-config/modules/terminal"
+    "${self}/user-config/modules/clipboard/macos.nix"
     "${self}/user-config/modules/vcs"
     "${self}/user-config/modules/editor"
     "${self}/user-config/modules/programming"

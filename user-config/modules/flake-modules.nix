@@ -23,6 +23,15 @@
   ##   Bundles
   #------------------------------------------
   appearance      = ./appearance;
+  darwin-defaults = ./darwin-defaults;
+
+  ###----------------------------------------
+  ##   Standalone (cross-platform-relevant)
+  #------------------------------------------
+  # Fonts via HM – useful on darwin where there's no NixOS system-level
+  # font module to take care of it. Linux hosts already get fonts from
+  # `nixos-config/modules/appearance/font.nix` at system level.
+  appearance-font = ./appearance/font.nix;
   browser         = ./browser;
   clipboard       = ./clipboard;
   communication   = ./communication;

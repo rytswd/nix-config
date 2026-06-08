@@ -8,12 +8,7 @@
     pkgs.nixpkgs-review # PR review utility
     pkgs.alejandra # Formatting
     pkgs.nixfmt # Formatting
-  ]
-  ++ [
-    # Because of Darwin support provided by a separate flake, this ensures
-    # there is no conflicting package on macOS. NixOS technically doesn't need
-    # this setup if nh is made available on NixOS level.
-    (if pkgs.stdenv.isDarwin then { } else pkgs.nh)
+    pkgs.nh # Nix helper; cross-platform (NixOS + Darwin)
   ];
   home.shellAliases = {
     flakeinit = "nix flake init -t \"github:rytswd/nix-direnv-template\" --refresh";

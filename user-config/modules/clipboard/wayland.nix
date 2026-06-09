@@ -1,21 +1,20 @@
 # Wayland clipboard tools (Linux-only).
 #
-# The guard keys off `system` rather than `pkgs.stdenv`. `system` is passed
-# in from outside (a specialArg), so it's known up front. `pkgs` is instead
-# produced by evaluating the modules, so it isn't available yet while the
-# import list is still being computed -- reading it here would loop forever.
+# Gated in `config` via `pkgs.stdenv`, never in `imports`: `pkgs` is produced
+# by evaluating the modules, so reading it while the import list is still
+# being computed loops forever. `system` can't stand in for it either -- it's
+# a specialArg only in the standalone home-manager setup, not when
+# home-manager runs as a NixOS module.
+{ pkgs, lib, ... }:
 {
-  pkgs,
-  lib,
-  system,
-  ...
-}:
-lib.throwIf (!lib.hasInfix "linux" system) ''
-  user-config/modules/clipboard is Linux-only; import its macos.nix on Darwin.
-''
-  {
-    home.packages = [
-      pkgs.wl-clipboard
-      pkgs.cliphist
-    ];
-  }
+  home.packages = lib.optionals pkgs.stdenv.isLinux [
+    pkgs.wl-clipboard
+    pkgs.cliphist
+  ];
+  assertions = [
+    {
+      assertion = pkgs.stdenv.isLinux;
+      message = "user-config/modules/clipboard is Linux-only; import its macos.nix on Darwin.";
+    }
+  ];
+}

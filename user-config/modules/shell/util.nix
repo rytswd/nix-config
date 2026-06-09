@@ -39,7 +39,6 @@
     pkgs.htop         # https://github.com/htop-dev/htop
     pkgs.bottom       # https://github.com/ClementTsang/bottom
     pkgs.hyperfine    # https://github.com/sharkdp/hyperfine
-    pkgs.powertop     # https://github.com/fenrus75/powertop
 
     ###------------------------------
     ##   Process related

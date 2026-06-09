@@ -16,6 +16,10 @@
     powertop.enable = true;
     cpuFreqGovernor = "powersave";
   };
+  # `powertop.enable` only wires the boot-time auto-tune service; it doesn't
+  # put the binary on PATH. Add it here (laptop-only, sudo-reachable) for
+  # interactive use.
+  environment.systemPackages = [ pkgs.powertop ];
   services = {
     logind.settings.Login = {
       HandleLidSwitch = "suspend"; # on battery -> sleep

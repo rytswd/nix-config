@@ -30,6 +30,7 @@
         # Combination of all the above
         ace-stack = "${withre-root}/ace-stack/SKILL.md";
         ace-supervisor = "${withre-root}/ace-stack/skills/ace-supervisor/SKILL.md";
+        ace-support = "${withre-root}/ace-stack/skills/ace-support/SKILL.md";
 
         # Pi specific skill
         crosstalk = "${rytswd-root}/pi-agent-extensions-extra/skills/crosstalk/SKILL.md";

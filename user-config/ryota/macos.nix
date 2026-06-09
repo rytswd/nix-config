@@ -25,6 +25,7 @@ in
 
     # "${self}/user-config/modules/git-clone"  # TODO: module path does not exist; private?
     "${self}/user-config/modules/key-remap/skhd"
+    "${self}/user-config/modules/key-remap/karabiner"
     "${self}/user-config/modules/window-manager/yabai"
 
     "${self}/user-config/modules/terminal"

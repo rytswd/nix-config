@@ -9,8 +9,9 @@
     "${self}/macos-config/modules/homebrew.nix"
     "${self}/macos-config/modules/security.nix"
 
-    # Per-cask opt-ins go here. Default: none, MBP stays minimal.
-    # Examples (uncomment to enable):
+    # Per-cask opt-ins go here. Keep this minimal.
+    "${self}/macos-config/modules/input/karabiner-elements.nix"
+    # More examples (uncomment to enable):
     # "${self}/macos-config/modules/utility/orbstack.nix"
     # "${self}/macos-config/modules/browser/zen.nix"
     # "${self}/macos-config/modules/product/collaboration/signal.nix"

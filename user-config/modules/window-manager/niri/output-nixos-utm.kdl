@@ -1,0 +1,20 @@
+// UTM-hosted aarch64 NixOS VM (host = nixos-utm).
+//
+// UTM's virtio-gpu exposes the guest display as "Virtual-1" (a second one
+// would be "Virtual-2"). The window/resolution is driven by the UTM window
+// size + spice-vdagent, so we don't pin a fixed `mode` -- niri picks the
+// preferred mode and follows host resizes. scale 1 since the VM has no HiDPI
+// panel of its own.
+//
+// niri silently ignores output blocks for connectors that aren't present,
+// so listing both virtual outputs is harmless on a single-display VM.
+output "Virtual-1" {
+    scale 1
+    transform "normal"
+}
+
+output "Virtual-2" {
+    scale 1
+    transform "normal"
+    position x=1920 y=0
+}

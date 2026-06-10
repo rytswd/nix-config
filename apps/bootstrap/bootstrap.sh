@@ -22,7 +22,7 @@ flake_ref="${FLAKE_REF:?bootstrap: FLAKE_REF not set (run via the flake app)}"
 # NIX_CONFIG is read by every nix process in this environment, so setting it
 # here enables flakes (and the flake's binary caches) for the whole tree of
 # nested invocations. Append any pre-set NIX_CONFIG so we don't clobber it.
-NIX_CONFIG="experimental-features = nix-command flakes
+NIX_CONFIG="experimental-features = nix-command flakes pipe-operators
 accept-flake-config = true
 ${NIX_CONFIG:-}"
 export NIX_CONFIG
@@ -69,7 +69,7 @@ fi
 # `-b backup` renames any pre-existing, unmanaged dotfiles that would
 # otherwise make the first activation fail on a fresh workspace.
 exec nix \
-    --extra-experimental-features 'nix-command flakes' \
+    --extra-experimental-features 'nix-command flakes pipe-operators' \
     --accept-flake-config \
     run home-manager/master -- switch \
         --flake "$flake_ref#$profile" \

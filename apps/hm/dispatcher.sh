@@ -70,7 +70,7 @@ case "$cmd" in
         printf 'flake:   %s\n' "$flake_dir"
         ;;
     switch|build|news|generations|packages)
-        exec nix --extra-experimental-features 'nix-command flakes' \
+        exec nix --extra-experimental-features 'nix-command flakes pipe-operators' \
             run home-manager/master -- "$cmd" \
                 --flake "$flake_dir#$profile" "$@"
         ;;

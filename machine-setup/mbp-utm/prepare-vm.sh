@@ -44,7 +44,7 @@ ssh -o PubkeyAuthentication=no \
 		mount /dev/disk/by-label/boot /mnt/boot; \
 		nixos-generate-config --root /mnt; \
 		sed --in-place '/system\.stateVersion = .*/a \
-			nix.settings.experimental-features = [ \"nix-command\" \"flakes\" ];\n \
+			nix.settings.experimental-features = [ \"nix-command\" \"flakes\" \"pipe-operators\" ];\n \
 			services.openssh.enable = true;\n \
 			services.openssh.settings.PasswordAuthentication = true;\n \
 			services.openssh.settings.PermitRootLogin = \"yes\";\n \

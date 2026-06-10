@@ -11,6 +11,23 @@ set -euo pipefail
 flake_ref="${FLAKE_REF:?bootstrap: FLAKE_REF not set (run via the flake app)}"
 
 ###----------------------------------------
+##  Nix config for nested invocations
+#------------------------------------------
+# `home-manager switch` spawns its own child `nix` processes for the build
+# and activation. CLI flags like `--extra-experimental-features` only apply
+# to the process they're passed to -- they do NOT propagate to children, so
+# a nested build fails with "experimental Nix feature 'flakes' is disabled"
+# even when the outer command had the flag.
+#
+# NIX_CONFIG is read by every nix process in this environment, so setting it
+# here enables flakes (and the flake's binary caches) for the whole tree of
+# nested invocations. Append any pre-set NIX_CONFIG so we don't clobber it.
+NIX_CONFIG="experimental-features = nix-command flakes
+accept-flake-config = true
+${NIX_CONFIG:-}"
+export NIX_CONFIG
+
+###----------------------------------------
 ##  Resolve profile
 #------------------------------------------
 # Arch decides the coder profile. An explicit profile can be passed as the

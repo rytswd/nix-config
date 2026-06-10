@@ -46,10 +46,9 @@ darwin.lib.darwinSystem {
     ##  Home Manager
     #------------------------------------------
     home-manager.darwinModules.home-manager
+    "${self}/shared/home-manager.nix"
     {
       home-manager = {
-        useGlobalPkgs = true;
-        useUserPackages = true;
         extraSpecialArgs = { inherit self inputs; };
 
         users.ryota = {

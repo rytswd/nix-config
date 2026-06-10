@@ -71,19 +71,9 @@ nixpkgs.lib.nixosSystem rec {
 
     # Set up home-manager and users.
     home-manager.nixosModules.home-manager
+    "${self}/shared/home-manager.nix"
     {
       home-manager = {
-        # NOTE: Without this, I get an error applying home-manager updates
-        # (following the addition of GTK config).
-        backupFileExtension = "backup";
-
-        # Because of pkgs shadowing below, we technically don't need any
-        # extra adjustment to global pkgs. Keeping this to true is
-        # slightly cleaner.
-        useGlobalPkgs = true;
-        # Set to true for using /etc/profiles/per-user/username/ path.
-        useUserPackages = true;
-
         # Update pkgs to point to nixpkgs-unstable.
         extraSpecialArgs = {
           inherit self inputs;

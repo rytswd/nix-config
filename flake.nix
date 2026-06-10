@@ -402,11 +402,25 @@
       ###----------------------------------------
       ##   Flake apps
       #------------------------------------------
-      apps = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ] (system: {
-        hm = import ./apps/hm {
+      # `hm`        -- standalone Home Manager dispatcher (host/arch -> profile).
+      # `bootstrap` -- one-shot coder/devspace setup (also `default`), so a
+      #                fresh workspace comes up with a single command:
+      #
+      #                    nix run github:rytswd/nix-config
+      #
+      # aarch64-linux is included so aarch64 coder workspaces can bootstrap.
+      apps = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ] (
+        system:
+        let
           pkgs = nixpkgs-unstable.legacyPackages.${system};
-        };
-      });
+          bootstrap = import ./apps/bootstrap { inherit pkgs self; };
+        in
+        {
+          hm = import ./apps/hm { inherit pkgs; };
+          inherit bootstrap;
+          default = bootstrap;
+        }
+      );
     };
 
   # Per-flake substituters -- only queried while this flake is in scope.

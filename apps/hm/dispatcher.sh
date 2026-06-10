@@ -12,24 +12,26 @@ set -euo pipefail
 host="$(hostname -s)"
 user="$(id -un)"
 
-###--- Profile map ------------------------------------------------------
+###----------------------------------------
+##  Profile map
+#------------------------------------------
 # First match wins. Add new hosts here as their homeConfigurations land.
 # Entries marked TODO refer to homeConfigurations that do not yet exist.
 resolve_profile() {
     local target="$1"
     case "$target" in
-        # --- Exact <user>-<host> / <host>-<user> matches ---
+        # Exact <user>-<host> / <host>-<user> matches
         ryota-asus-rog-zephyrus-g14-2024) echo "ryota@asus-rog-zephyrus-g14-2024"; return 0 ;;
         # TODO: ryota-asus-rog-flow-z13-2025) echo "ryota@asus-rog-flow-z13-2025"; return 0 ;;
         # TODO: ryota-mbp-m1-max)              echo "ryota@mbp-m1-max"; return 0 ;;
         # TODO: ryota-mbp-m5-max)              echo "ryota@mbp-m5-max"; return 0 ;;
     esac
     case "$target" in
-        # --- Host-only matches ---
+        # Host-only matches
         asus-rog-zephyrus-g14-2024) echo "ryota@asus-rog-zephyrus-g14-2024"; return 0 ;;
     esac
     case "$target" in
-        # --- Glob fallbacks ---
+        # Glob fallbacks
         # Coder / devspace workspaces: arch picked by the workspace
         # itself. The x86_64 profile is the default; aarch64 workspaces
         # should override via `home-manager switch --flake .#ryota@coder-aarch64`.

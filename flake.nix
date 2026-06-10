@@ -165,6 +165,8 @@
           rocpkgs = inputs.roc.packages.${prev.stdenv.hostPlatform.system};
         }
       );
+      # Track a Go version newer than nixpkgs currently ships.
+      goOverlay = (import ./overlays/go.nix);
 
       # Editor related overlays
       # emacsOverlay = inputs.emacs-overlay.overlays.default;
@@ -179,6 +181,7 @@
         # rustOverlay
         # fenixOverlay
         rocOverlay
+        goOverlay
 
         # emacsOverlay
         # vscodeOverlay

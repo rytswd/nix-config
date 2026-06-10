@@ -1969,11 +1969,11 @@
         "workmux-src": "workmux-src"
       },
       "locked": {
-        "lastModified": 1777587781,
-        "narHash": "sha256-lrzxK+7gzGHlnYggdScCviuetarFYVYXoI9CrskuybU=",
+        "lastModified": 1781107501,
+        "narHash": "sha256-uHbVN/cVMZxUD+qlKdYbbme7TdS1u0h2LqOS67+pkrw=",
         "owner": "rytswd",
         "repo": "skills.nix",
-        "rev": "1047528b911cf61b3a1c4cfc0e5f1b5d3b9779ee",
+        "rev": "ec40fe49b214375c7ac7c64eeb42cfb74faa03db",
         "type": "github"
       },
       "original": {

@@ -107,9 +107,10 @@ in
             # append `configureFlags = (oldAttrs.configureFlags or []) ++
             # [ "--with-xwidgets" ];` and verify it builds.
             patches = (oldAttrs.patches or [ ]) ++ [
-              # Don't raise another frame when closing a frame
-              (emacsPlusPatch "emacs-28/no-frame-refocus-cocoa.patch"
-                "QLGplGoRpM4qgrIAJIbVJJsa4xj34axwT3LiWt++j/c=")
+              # NOTE: emacs-28/no-frame-refocus-cocoa.patch removed -- the change
+              # is already present in the nixpkgs emacs30 (30.2) source, so
+              # re-applying it fails patchPhase with "Reversed (or previously
+              # applied) patch detected" and aborts the build.
               # Fix OS window role so yabai can pick up Emacs (29 reuses 28's)
               (emacsPlusPatch "emacs-28/fix-window-role.patch"
                 "+z/KfsBm1lvZTZNiMbxzXQGRTjkCFO4QPlEK35upjsE=")

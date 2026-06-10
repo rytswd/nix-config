@@ -132,14 +132,13 @@ This step is only to test the SSH works as expectedly. I can simply exit once SS
 
 
 ** Prepare VM
-TODO: Create the ~prepare-vm.sh~ file from Org Mode tangle. 
-
 Before using Nix configurations such as Flake to rebuild, I need to ensure that the disks are configured so that I can boot up NixOS correctly.
 
-I have created a simple shell script to SSH into it and sets up the basic disk partition etc.
+I have a simple shell script (~machine-setup/mbp-utm/prepare-vm.sh~) that SSHs into the VM and sets up the basic disk partition, a minimal flake-enabled ~configuration.nix~ seed (root password + SSH), and runs ~nixos-install~. Run it from this directory:
 #+begin_src bash
   ./prepare-vm.sh
 #+end_src
+It prompts for the VM IP if ~NIXOS_IP~ isn't already exported (see "Check IP Address" above).
 
 Once the setup is complete, I can shut down the VM, remove the original boot image of NixOS.iso from UTM, and reboot. With that, I should have a fully operational NixOS ready to be used (although really vanilla setup).
 
@@ -176,7 +175,7 @@ With all the configuration files in place, I can rebuild NixOS using Nix Flake.
       -o UserKnownHostsFile=/dev/null \
       -o StrictHostKeyChecking=no \
       "root@${NIXOS_IP}" \
-      "sudo NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild switch --flake \"/nix-config#mbp-2021-utm\""
+      "sudo nixos-rebuild switch --flake \"/nix-config#nixos-utm\""
 #+end_src
 
 
@@ -223,11 +222,11 @@ Now, I can run ~sudo fdisk /dev/vda~ to start updating the partition interactive
   d (follow prompts) # i.e. Partition number: 2
 
   # Use 'n' command to create new partition 1
-  d (follow prompts) # i.e. Partition number: 1
+  n (follow prompts) # i.e. Partition number: 1
                      #      -> First sector: (keep empty and use default)
                      #      -> Last sector: -8G (keep 8G for the next partition)
   # Use 'n' command to create new partition 2
-  d (follow prompts) # i.e. Partition number: 2
+  n (follow prompts) # i.e. Partition number: 2
                      #      -> First sector: (keep empty and use default)
                      #      -> Last sector: (keep empty and use default)
   t (follow prompts) # i.e. Partition number: 2

@@ -23,7 +23,8 @@ in
     # calling this earlier than other modules.
     "${self}/user-config/modules/shell"
 
-    # "${self}/user-config/modules/git-clone"  # TODO: module path does not exist; private?
+    # Declarative git/jj repo clones (same as NixOS).
+    ./home-git-clone.nix
     "${self}/user-config/modules/key-remap/skhd"
     "${self}/user-config/modules/key-remap/karabiner"
     "${self}/user-config/modules/window-manager/yabai"
@@ -46,6 +47,10 @@ in
     "${self}/user-config/modules/product/security"
     "${self}/user-config/modules/product/vcs"
     "${self}/user-config/modules/product/collaboration"
+
+    # LLM coding agents (pi, claude-code, codex, ...). ollama is gated to
+    # Linux inside the module, so this is darwin-safe.
+    "${self}/user-config/modules/llm"
   ];
 
   home = {

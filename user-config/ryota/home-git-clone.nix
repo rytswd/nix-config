@@ -16,6 +16,8 @@
   ##   Active Projects
   #------------------------------------------
   home.jjClone = {
+    "Coding/github.com/withre/zig-cli-kit".url = "git@github.com:withre/zig-cli-kit.git";
+    "Coding/github.com/withre/zignix".url = "git@github.com:withre/zignix.git";
   };
 
   ###----------------------------------------

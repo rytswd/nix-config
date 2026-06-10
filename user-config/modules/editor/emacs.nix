@@ -117,9 +117,10 @@ in
               # Rounded, undecorated frame (also needs default-frame-alist tweak)
               (emacsPlusPatch "emacs-30/round-undecorated-frame.patch"
                 "fesZ0H3LO6T2AiRV8ASozKxZBpvVzwLEcLDy6rctR6c=")
-              # Track OS-level light/dark mode
-              (emacsPlusPatch "emacs-28/system-appearance.patch"
-                "oM6fXdXCWVcBnNrzXmF0ZMdp8j0pzkLE66WteeCutv8=")
+              # Track OS-level light/dark mode -- emacs-30 variant (the emacs-28
+              # one calls the removed `safe_call2`, breaking nsterm.m on 30.2).
+              (emacsPlusPatch "emacs-30/system-appearance.patch"
+                "3QLq91AQ6E921/W9nfDjdOUWR8YVsqBAT/W9c1woqAw=")
             ];
           });
     in

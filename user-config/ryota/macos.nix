@@ -50,7 +50,7 @@ in
 
     # LLM coding agents (pi, claude-code, codex, ...). ollama is gated to
     # Linux inside the module, so this is darwin-safe.
-    "${self}/user-config/modules/llm"
+    "${self}/user-config/modules/llm/macos.nix"
   ];
 
   home = {

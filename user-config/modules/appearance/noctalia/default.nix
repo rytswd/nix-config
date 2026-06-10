@@ -25,7 +25,10 @@ in
 
   programs.noctalia-shell = {
     enable = true;
-    systemd.enable = true;
+    # Autostart is handled by the compositor (niri spawn-at-startup /
+    # hyprland exec-once running `noctalia-shell`); the systemd service is
+    # deprecated upstream.
+    #
     # NOTE: `settings` is intentionally omitted here.
     # Setting it would make ~/.config/noctalia/settings.json a read-only
     # Nix store symlink, preventing the Noctalia UI from saving changes.

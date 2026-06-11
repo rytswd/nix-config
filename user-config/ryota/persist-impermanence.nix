@@ -69,7 +69,9 @@
       #------------------------------------------
       ".cache/awww"
       ".cache/noctalia"
-      ".cache/noctalia-qs"
+      # Noctalia v5: GUI-written settings + UI state, and installed plugins.
+      ".local/state/noctalia"
+      ".local/share/noctalia"
       ".cache/starship"
       ".local/share/atuin"
       ".local/share/docker"

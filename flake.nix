@@ -95,7 +95,9 @@
     # With own binary cache (and thus no nixpkgs following)
     ghostty.url = "github:ghostty-org/ghostty";
     llm-agents.url = "github:numtide/llm-agents.nix";
-    noctalia.url = "github:noctalia-dev/noctalia-shell";
+    # v5 alpha (C++/OpenGL ES rewrite). v4 lived at `noctalia-shell`; the
+    # repo renamed to `noctalia` and v4 now lives on the `legacy-v4` branch.
+    noctalia.url = "github:noctalia-dev/noctalia";
 
     librepods.url = "github:kavishdevar/librepods/linux/rust";
 

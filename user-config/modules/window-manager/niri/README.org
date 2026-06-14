@@ -610,6 +610,11 @@ Use Noctalia shell for most of the setup. Noctalia is made available via home-ma
   spawn-at-startup "noctalia-shell"
 #+end_src
 
+NOTE: Noctalia v5 (alpha) renamed the binary from ~noctalia-shell~ to ~noctalia~. Kept here untangled (=:tangle no=) until v5 is ready for daily use; swap the two blocks when migrating.
+#+begin_src kdl :tangle no
+  spawn-at-startup "noctalia"
+#+end_src
+
 **** Other
 NOTE: This is old setup.
 For wallpaper setup using ~awww~, I need the daemon to be running.
@@ -702,6 +707,14 @@ Noctalia based commands
   Super+Shift+F12   { spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
   Super+Alt+Backslash { spawn "noctalia-shell" "ipc" "call" "launcher" "emoji"; }
   Super+Shift+Backslash { spawn "noctalia-shell" "ipc" "call" "notifications" "toggleHistory"; }
+#+end_src
+
+NOTE: Noctalia v5 (alpha) replaced the ~ipc call~ interface with ~noctalia msg ...~. Kept untangled until v5 is ready -- the explicit =:noweb-ref v5-archive= keeps it out of the tangled =<<key-bindings-commands>>= expansion (otherwise it would inherit this section's =:noweb-ref key-bindings-commands=). v5 has no documented dedicated emoji / notification-history panel command yet, so those map to the nearest equivalents.
+#+begin_src kdl :tangle no :noweb-ref v5-archive
+  Alt+Space         { spawn-sh "noctalia msg panel-toggle launcher"; }
+  Super+Shift+F12   { spawn-sh "noctalia msg panel-toggle clipboard"; }
+  Super+Alt+Backslash { spawn-sh "noctalia msg panel-toggle launcher"; }
+  Super+Shift+Backslash { spawn-sh "noctalia msg panel-toggle control-center"; }
 #+end_src
 
 +I use ~fuzzel~ for my launcher.+

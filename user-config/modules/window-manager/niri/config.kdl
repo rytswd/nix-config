@@ -246,7 +246,7 @@ recent-windows {
     }
 }
 
-spawn-at-startup "noctalia"
+spawn-at-startup "noctalia-shell"
 
 spawn-at-startup "sh" "-c" "clipse -listen"
 
@@ -256,13 +256,10 @@ environment {
 }
 
 binds {
-    Alt+Space         { spawn-sh "noctalia msg panel-toggle launcher"; }
-    Super+Shift+F12   { spawn-sh "noctalia msg panel-toggle clipboard"; }
-    // TODO(noctalia v5): no documented dedicated emoji / notification-history
-    // panel command yet -- mapped to the nearest equivalents. Verify against
-    // `noctalia msg` once the v5 IPC reference is complete.
-    Super+Alt+Backslash { spawn-sh "noctalia msg panel-toggle launcher"; }
-    Super+Shift+Backslash { spawn-sh "noctalia msg panel-toggle control-center"; }
+    Alt+Space         { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+    Super+Shift+F12   { spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
+    Super+Alt+Backslash { spawn "noctalia-shell" "ipc" "call" "launcher" "emoji"; }
+    Super+Shift+Backslash { spawn "noctalia-shell" "ipc" "call" "notifications" "toggleHistory"; }
     XF86Launch1 { spawn "ghostty"; }
     Super+Shift+M { quit; }
     Super+Apostrophe { close-window; } // Super + Q on Dvorak

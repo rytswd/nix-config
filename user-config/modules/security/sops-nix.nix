@@ -1,6 +1,11 @@
 { lib, inputs, ... }:
 {
-  imports = [ inputs.sops-nix.homeManagerModules.sops ];
+  imports = [
+    inputs.sops-nix.homeManagerModules.sops
+    # `local.secrets.enable` lives here so it is in scope on every host
+    # that imports the security bundle (alongside the `sops.*` options).
+    ../lib/secrets.nix
+  ];
 
   sops = {
     # Dummy data, this definition is actually provided by module definition

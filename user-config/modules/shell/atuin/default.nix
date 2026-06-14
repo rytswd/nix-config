@@ -1,6 +1,10 @@
-{ config, ... }:
+{ config, lib, ... }:
 # Assumes the security bundle (which always imports sops-nix.nix) is also
 # imported by the host -- sops.templates below relies on the sops module.
+#
+# When `local.secrets.enable` is false (e.g. SSH-only coder workspaces) the
+# sync config can't be decrypted, so we write a plain local-only config
+# instead and skip atuin sync entirely.
 {
   programs.atuin = {
     enable = true;
@@ -31,7 +35,7 @@
 
   # SOPS Nix based secret handling -- generate the config with secrets
   # substituted in.
-  sops.templates."atuin-config" = {
+  sops.templates."atuin-config" = lib.mkIf config.local.secrets.enable {
     # With file input like this, the file is expected to have the following
     # placeholder string:
     #
@@ -44,5 +48,16 @@
     #
     file = ./config.toml;
     path = "${config.xdg.configHome}/atuin/config.toml";
+  };
+
+  # Keyless fallback (no sync server address to decrypt) -- local history
+  # only. Same target path as the sops template above; mutually exclusive.
+  xdg.configFile."atuin/config.toml" = lib.mkIf (!config.local.secrets.enable) {
+    text = ''
+      auto_sync = false
+      enter_accept = false
+      filter_mode_shell_up_key_binding = "session"
+      search_mode = "fuzzy"
+    '';
   };
 }

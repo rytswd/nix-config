@@ -10,13 +10,13 @@
 #     pointless over SSH). tmux still comes in via the `shell` bundle.
 #   - Editors: terminal neovim + helix only. No vscode / zed (GUI) and no
 #     emacs (heavy build, opt-in if needed).
-#   - `vcs` leaves imported directly (git + jj) so the YubiKey module is
-#     skipped -- no YubiKey in a container.
+#   - git / jj: only the binaries are provided. Their config is managed
+#     separately in this env (outside home-manager), so the shared
+#     `vcs/git` + `vcs/jj` modules -- which write opinionated config, wire
+#     up signing, and pull in the YubiKey module -- are NOT imported.
 #   - `local.secrets.enable = false`: no sops decryption key here, so
 #     secret-defining modules use their non-secret fallbacks instead of
 #     failing at activation.
-#   - `commit.gpgsign` forced off: no signing key, so signing every commit
-#     would otherwise make `git commit` fail.
 #
 # Activated via standalone HM:
 #   - `nix run github:rytswd/nix-config` (the bootstrap app), or
@@ -54,14 +54,6 @@
     "${self}/user-config/modules/shell"
 
     ###----------------------------------------
-    ##  Version control
-    #------------------------------------------
-    # Leaves imported directly (not the `vcs` bundle) to skip the YubiKey
-    # signing module, which has no purpose in a keyless container.
-    "${self}/user-config/modules/vcs/git"
-    "${self}/user-config/modules/vcs/jj"
-
-    ###----------------------------------------
     ##  Editors (terminal only)
     #------------------------------------------
     "${self}/user-config/modules/editor/neovim"
@@ -90,8 +82,9 @@
     ##  Intentionally excluded on coder workspaces
     #------------------------------------------
     # terminal/ (GUI emulators), editor/{vscode,zed,emacs}, security/{gpg,
-    # pass,age,pam-u2f}, vcs/git/yubikey.nix, and all desktop / windowing /
-    # media / sync concerns. Re-add per-workspace by direct import if needed.
+    # pass,age,pam-u2f}, the whole vcs/ bundle (git + jj config managed
+    # separately here), and all desktop / windowing / media / sync
+    # concerns. Re-add per-workspace by direct import if needed.
   ];
 
   ###----------------------------------------
@@ -100,13 +93,6 @@
   # SSH-only workspace with no decryption key -- secret-defining modules
   # fall back to non-secret config (see user-config/modules/lib/secrets.nix).
   local.secrets.enable = false;
-
-  ###----------------------------------------
-  ##  Git: no signing key in a container
-  #------------------------------------------
-  # The shared git module sets `commit.gpgsign = true`; without a key every
-  # commit would fail, so force it off here.
-  programs.git.settings.commit.gpgsign = lib.mkForce false;
 
   ###----------------------------------------
   ##  Identity defaults

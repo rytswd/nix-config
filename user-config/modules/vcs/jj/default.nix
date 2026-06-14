@@ -1,6 +1,8 @@
 { pkgs, config, ... }:
 # Assumes the security bundle (which always imports sops-nix.nix) is also
 # imported by the host -- sops.templates below relies on the sops module.
+# Keyless hosts (e.g. coder) manage jj config separately and don't import
+# this module.
 {
   # NOTE: I'm not enabling the programs here, as it would not work with the
   # manual configuration with TOML.

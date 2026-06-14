@@ -1,0 +1,109 @@
+[bar]
+order = [ "default", "Main" ]
+
+    [bar.Main]
+    background_opacity = 0.45999998971819878
+    capsule_opacity = 0.39999999105930328
+    center = [ "active_window", "media" ]
+    enabled = true
+    end = [
+        "tray",
+        "caffeine",
+        "wallpaper",
+        "network",
+        "bluetooth",
+        "volume",
+        "battery",
+        "date",
+        "clock",
+        "control-center",
+        "notifications"
+    ]
+    font_weight = 400
+    margin_edge = 0
+    margin_ends = 0
+    padding = 18
+    radius = 4
+    radius_bottom_left = 0
+    radius_bottom_right = 0
+    radius_top_left = 0
+    radius_top_right = 0
+    scale = 0.80000000000000004
+    start = [ "launcher", "session", "workspaces" ]
+    thickness = 24
+
+    [bar.default]
+    enabled = false
+
+[dock]
+auto_hide = true
+background_opacity = 0.35999999999999999
+cross_axis_padding = 4
+enabled = true
+icon_size = 24
+magnification_scale = 1.2000000029802322
+
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+widget_order = [ "lockscreen-login-box@eDP-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 864.0
+    cy = 957.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        input_opacity = 1.0
+        input_radius = 6.0
+        show_login_button = true
+
+[shell]
+settings_show_advanced = true
+
+[theme]
+source = "wallpaper"
+wallpaper_scheme = "m3-rainbow"
+
+[wallpaper]
+directory = "/home/ryota/Pictures/Wallpapers"
+
+    [wallpaper.automation]
+    enabled = true
+
+    [wallpaper.default]
+    path = "/home/ryota/Pictures/Wallpapers/maldives-sea.png"
+
+    [wallpaper.last]
+    path = "/home/ryota/Pictures/Wallpapers/maldives-sea.png"
+
+    [wallpaper.monitors.eDP-1]
+    path = "/home/ryota/Pictures/Wallpapers/maldives-sea.png"
+
+[widget.battery]
+display_mode = "graphic"
+
+[widget.clock]
+format = "{:%H:%M:%S}"
+
+[widget.launcher]
+glyph = "rocket"
+
+[widget.media]
+hide_when_no_media = true
+title_scroll = "on_hover"
+
+[widget.tray]
+drawer = true

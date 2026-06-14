@@ -35,6 +35,12 @@ description: >-
   that aren't .org-aware, NPM/PyPI READMEs, agent skill `SKILL.md`).
 - Tables, lists, and short paragraphs over long prose.
 - Cross-link related docs by relative path; avoid duplicating content.
+- **Org Mode prose: never hard-wrap at a fixed column (no 80/72-char
+  line breaks).** Write each paragraph as one continuous logical line
+  and let the consuming system (editor soft-wrap, exporter) handle
+  rendering. Line breaks in the source are content, not layout. This
+  applies to Org body text; code blocks and the boxed comment headers
+  keep their own formatting. (Markdown prose may still wrap normally.)
 
 ## Code comments -- section header blocks
 

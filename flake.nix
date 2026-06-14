@@ -95,9 +95,12 @@
     # With own binary cache (and thus no nixpkgs following)
     ghostty.url = "github:ghostty-org/ghostty";
     llm-agents.url = "github:numtide/llm-agents.nix";
-    # v5 alpha (C++/OpenGL ES rewrite). v4 lived at `noctalia-shell`; the
-    # repo renamed to `noctalia` and v4 now lives on the `legacy-v4` branch.
-    noctalia.url = "github:noctalia-dev/noctalia";
+    # Pinned to v4 (the `legacy-v4` branch) -- v5 alpha (C++/OpenGL ES
+    # rewrite) isn't ready for my use cases yet. The repo was renamed
+    # `noctalia-shell` -> `noctalia`; the old name now redirects to the v5
+    # default branch, so v4 must be tracked via the `legacy-v4` branch
+    # explicitly. Switch back to `github:noctalia-dev/noctalia` for v5.
+    noctalia.url = "github:noctalia-dev/noctalia/legacy-v4";
 
     librepods.url = "github:kavishdevar/librepods/linux/rust";
 
@@ -430,7 +433,19 @@
   # parser rejects `import` / `inherit (import ...) ...` / `let`. See
   # `nixos-config/modules/nix-base.nix` for the layered cache model.
   nixConfig = {
+    # These caches are queried by *any* `nix run/build github:rytswd/nix-config`
+    # on a fresh machine (e.g. a coder workspace bootstrap), so anything a
+    # standalone invocation needs must be listed here -- the system-level
+    # `nixos-config/modules/nix-base.nix` substituters do NOT apply when the
+    # flake is consumed remotely. Kept roughly in "most likely to hit" order.
     extra-substituters = [
+      # Pull-through mirror of cache.nixos.org (Numtide). Same upstream NARs,
+      # closer/faster; served with the cache.nixos.org-1 key (no new key).
+      "https://hetzner-cache.numtide.com"
+      # Numtide cache -- hosts the `llm-agents` builds (codex, claude-code,
+      # opencode, pi, ...). Without this, those rebuild from source.
+      "https://cache.numtide.com"
+      "https://nix-community.cachix.org"
       "https://rytswd-nix-config.cachix.org"
       "https://ghostty.cachix.org"
       "https://niri.cachix.org"
@@ -440,6 +455,11 @@
       "https://noctalia.cachix.org"
     ];
     extra-trusted-public-keys = [
+      # cache.nixos.org-1 is a built-in default, but list it explicitly so
+      # the hetzner pull-through is trusted even where defaults were dropped.
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "rytswd-nix-config.cachix.org-1:fpZQ465aGF2LYQ8oKOrd5c8kxaNmD7wBEK/yyhSQozo="
       "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
       "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="

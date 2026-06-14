@@ -88,6 +88,11 @@
         "https://nix-community.cachix.org"
       ];
       extra-substituters = [
+        # Numtide pull-through mirror of cache.nixos.org -- same NARs as
+        # upstream (cache.nixos.org-1 key, no extra key needed), just kept
+        # closer for lower latency / egress. Listed first so common nixpkgs
+        # paths are fetched from here instead of the upstream CDN.
+        "https://hetzner-cache.numtide.com"
         "https://cache.numtide.com"
         "https://cache.thalheim.io"
       ];

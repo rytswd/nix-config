@@ -9,6 +9,17 @@ description: >-
 
 # My Style
 
+## Lead with *why* (and *why not*)
+
+The single most important thing across everything I write -- commit
+messages, code comments, docs, plans, PR descriptions -- is the
+reasoning: *why* something is done, and just as importantly *why not*
+the obvious alternative. The *what* is usually already visible (in the
+diff, the code, the result); the intent and the rejected paths are not,
+and they're what a future reader actually needs. Lead with the why
+before the what, and record the why-not whenever a non-obvious decision
+was made. The sections below are specific applications of this.
+
 ## Commit messages
 - Unless the repo already uses Conventional Commits, I want to keep the commit message simple:
   - Examples: "Support new subcommand airctl context"
@@ -42,7 +53,17 @@ description: >-
   applies to Org body text; code blocks and the boxed comment headers
   keep their own formatting. (Markdown prose may still wrap normally.)
 
-## Code comments -- section header blocks
+## Code comments
+
+Comment when there is inherent complexity, or to record *why* a decision
+was made (and *why not* the obvious alternative), or to flag where the
+code treats something in a general way vs. a project-specific way. Don't
+comment merely to restate what the code plainly does. (Narrow exception:
+when a project deliberately keeps its rationale elsewhere -- e.g. a
+literate source whose prose surrounds each block -- write it there
+instead of duplicating it into the code.)
+
+### Section header blocks
 
 When a file benefits from clear visual structure (long flake configs,
 multi-section modules, large config files), use boxed section headers.

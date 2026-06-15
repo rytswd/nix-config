@@ -95,6 +95,19 @@
         file = "p10k.zsh";
       }
     ];
+
+    # Source a machine-local ZSH config when present.
+    #
+    # WHY this is needed: `dotDir` causes HM to write `ZDOTDIR` into
+    # `~/.config/zsh/.zshenv`, so ZSH loads `~/.config/zsh/.zshrc` (this
+    # file) as the interactive config and never reads `~/.zshrc`. Any
+    # machine-local setup that previously lived in `~/.zshrc` (extra PATH
+    # entries, work-specific aliases, org tooling bootstrap, etc.) should
+    # be placed in `~/.config/zsh/local.zsh` instead.
+    initExtra = ''
+      [[ -f "${config.xdg.configHome}/zsh/local.zsh" ]] \
+        && source "${config.xdg.configHome}/zsh/local.zsh"
+    '';
   };
   xdg.configFile = {
     # ZSH abbreviation with https://github.com/olets/zsh-abbr needs a

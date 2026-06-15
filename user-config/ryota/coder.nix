@@ -95,12 +95,26 @@
   local.secrets.enable = false;
 
   ###----------------------------------------
-  ##  Identity defaults
+  ##  Identity -- follow whoever runs the switch
   #------------------------------------------
-  # mkDefault so the actual workspace can override without forking the
-  # profile (e.g., Coder images that run as `coder` or `root`).
-  home.username = lib.mkDefault "ryota";
-  home.homeDirectory = lib.mkDefault "/home/${config.home.username}";
+  # The workspace user is out of our control (Coder images may run as
+  # `coder`, `root`, `argocd`, ...), and home-manager asserts that
+  # `home.username` matches $USER at activation. So read the real user/home
+  # from the environment instead of hardcoding a name.
+  #
+  # `builtins.getEnv` only sees real values under `--impure` (the bootstrap
+  # app passes it). Under pure eval -- e.g. `nix flake check` -- getEnv
+  # returns "", so we fall back to `ryota` / `/home/<user>` to keep the
+  # `ryota@coder` output evaluable.
+  #
+  # mkDefault so a specific workspace can still override if needed.
+  home.username = lib.mkDefault (
+    let u = builtins.getEnv "USER"; in if u != "" then u else "ryota"
+  );
+  home.homeDirectory = lib.mkDefault (
+    let h = builtins.getEnv "HOME"; in
+    if h != "" then h else "/home/${config.home.username}"
+  );
 
   # Cross-cycle stability: bump only when consciously migrating.
   home.stateVersion = "25.11";

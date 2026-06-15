@@ -68,10 +68,16 @@ fi
 #------------------------------------------
 # `-b backup` renames any pre-existing, unmanaged dotfiles that would
 # otherwise make the first activation fail on a fresh workspace.
+#
+# `--impure` lets the profile read the real $USER / $HOME via
+# `builtins.getEnv`, so the config follows whichever user runs it instead
+# of a hardcoded name (see user-config/ryota/coder.nix). home-manager
+# forwards unknown flags like this through to its underlying nix build.
 exec nix \
     --extra-experimental-features 'nix-command flakes pipe-operators' \
     --accept-flake-config \
     run home-manager/master -- switch \
         --flake "$flake_ref#$profile" \
         -b backup \
+        --impure \
         "${@:2}"

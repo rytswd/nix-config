@@ -25,6 +25,30 @@ flake_ref="${FLAKE_REF:?bootstrap: FLAKE_REF not set (run via the flake app)}"
 NIX_CONFIG="experimental-features = nix-command flakes pipe-operators
 accept-flake-config = true
 ${NIX_CONFIG:-}"
+
+###----------------------------------------
+##  GitHub auth for nix's fetchers (best-effort)
+#------------------------------------------
+# On a shared coder/devspace workspace the egress IP can hit GitHub's
+# unauthenticated API rate limit during a cold bootstrap (many `github:`
+# inputs), and any *private* flake input (e.g. nix-config-private, or
+# swapdir while its repo is private) needs a credential to fetch over HTTPS
+# -- there is no SSH key here. `gh` is authenticated as the workspace owner,
+# so reuse its token via nix's `access-tokens`. This is the per-machine
+# selectivity knob: laptops keep `git+ssh` (their SSH keys); only this
+# coder entrypoint switches private fetches to authenticated HTTPS.
+#
+# Entirely best-effort: if `gh` is absent or logged out the token is empty
+# and we proceed unauthenticated -- public inputs still resolve.
+if command -v gh >/dev/null 2>&1 && gh_token="$(gh auth token 2>/dev/null)" \
+    && [ -n "$gh_token" ]; then
+    NIX_CONFIG="access-tokens = github.com=$gh_token
+${NIX_CONFIG}"
+    printf 'bootstrap: using gh auth token for github.com fetches\n'
+else
+    printf 'bootstrap: no gh token; proceeding unauthenticated (public inputs only)\n'
+fi
+
 export NIX_CONFIG
 
 ###----------------------------------------

@@ -105,12 +105,15 @@
     librepods.url = "github:kavishdevar/librepods/linux/rust";
 
     # Personal ones
-    swapdir.url = "git+ssh://git@github.com/rytswd/swapdir";
-    # swapdir.url = "github:rytswd/swapdir";
+    swapdir.url = "github:rytswd/swapdir";
     home-git-clone.url = "github:rytswd/home-git-clone";
     pi-agent-extensions.url = "github:rytswd/pi-agent-extensions/add-nix-module";
     skills.url = "github:rytswd/skills.nix";
-    treesitter-grammars.url = "git+ssh://git@github.com/0-re/treesitter-grammars.nix";
+    # Public mirror is fetched over the GitHub tarball API (no SSH), so this
+    # resolves on machines without an SSH key to GitHub -- e.g. coder /
+    # devspace workspaces bootstrapping via `nix run github:rytswd/nix-config`,
+    # where `editor/neovim` forces this input. The `git+ssh` form blocked that.
+    treesitter-grammars.url = "github:0-re/treesitter-grammars.nix";
 
     ###----------------------------------------
     ##  NixOS Specific

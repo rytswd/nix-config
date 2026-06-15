@@ -16,17 +16,46 @@
 { config, lib, ... }:
 {
   options.local = {
+    codeRoot = lib.mkOption {
+      type = lib.types.str;
+      default = "${config.home.homeDirectory}/Coding";
+      description = ''
+        Base directory under which all my source checkouts live, grouped
+        by forge below it (`<codeRoot>/github.com/...`, with room for other
+        forges later). `local.ghRoot` is derived from this.
+
+        Defaults to `$HOME/Coding`. Override per-host where checkouts live
+        elsewhere -- e.g. coder/devspace workspaces use `$HOME/src` (a
+        persistent volume), since the rest of `$HOME` is wiped on restart.
+      '';
+      example = "/root/src";
+    };
+    ghRoot = lib.mkOption {
+      type = lib.types.str;
+      default = "${config.local.codeRoot}/github.com";
+      description = ''
+        Directory holding GitHub-hosted checkouts, laid out as
+        `<ghRoot>/<owner>/<repo>` (e.g. `<ghRoot>/rytswd/nix-config`,
+        `<ghRoot>/withre/air`). `local.repoPath` and the local-skill paths
+        in `llm/skills.nix` derive from this.
+
+        Split out from `local.codeRoot` because most of my repos live on
+        GitHub today, but could move to another forge later without
+        disturbing the `codeRoot` base or per-host overrides.
+      '';
+      example = "/root/src/github.com";
+    };
     repoPath = lib.mkOption {
       type = lib.types.str;
-      default = "${config.home.homeDirectory}/Coding/github.com/rytswd/nix-config";
+      default = "${config.local.ghRoot}/rytswd/nix-config";
       description = ''
         Absolute filesystem path to the nix-config repo checkout on this
         machine. Used as the base for `mkOutOfStoreSymlink` targets and
         any other module that needs to reach back into the repo as a
         live (mutable) path rather than via the Nix store.
 
-        The default assumes the conventional location
-        `$HOME/Coding/github.com/rytswd/nix-config`. Override per-host if
+        Derived from `local.ghRoot` by default (the conventional
+        `$HOME/Coding/github.com/rytswd/nix-config`). Override per-host if
         my checkout lives elsewhere.
       '';
       example = "/srv/nix-config";

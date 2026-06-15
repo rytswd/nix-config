@@ -12,7 +12,6 @@
     ./fish.nix
     ./nushell.nix
     ./zsh.nix
-
     ./swapdir.nix
 
     ./direnv

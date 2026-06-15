@@ -19,6 +19,21 @@
           }
       );
 
+    # TRAMP (Emacs remote editing) sets TERM=dumb so the rc file can detect it
+    # and bail out before any fancy interactive setup runs. The `return` exits
+    # the sourced .zshrc entirely, skipping p10k, plugins, direnv, local.zsh —
+    # everything below. Placement via initExtraFirst ensures this guard is the
+    # very first thing in the generated .zshrc.
+    initExtraFirst = ''
+      if [[ "$TERM" == "dumb" ]]; then
+        unsetopt zle
+        unsetopt prompt_cr prompt_sp
+        PROMPT='$ '
+        unset RPROMPT
+        return
+      fi
+    '';
+
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     history.size = 100000;

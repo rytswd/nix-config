@@ -13,10 +13,17 @@
 
     # Disable greeting by setting `fish_greeting` with empty value.
     interactiveShellInit = ''
-        set fish_greeting
+      set fish_greeting
 
-        # Adjust alt+backspace behaviour
+      # Adjust alt+backspace behaviour
       bind alt-backspace backward-kill-path-component
+
+      # Source machine-local fish config when present (for org-specific
+      # tooling, extra PATH adjustments, etc. that don't belong in the
+      # public repo).
+      if test -f "$HOME/.config/fish/local.fish"
+          source "$HOME/.config/fish/local.fish"
+      end
     '';
   };
 }

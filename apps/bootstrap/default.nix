@@ -34,6 +34,10 @@ let
     runtimeInputs = [
       pkgs.coreutils
       pkgs.nix
+      # For the best-effort `gh auth token` lookup in bootstrap.sh. Reads the
+      # workspace owner's existing gh auth (shared config dir + keyring), so no
+      # extra login needed; harmless when gh is logged out.
+      pkgs.gh
     ];
     # Inject the flake's own store path so the script switches against the
     # same revision it was built from.

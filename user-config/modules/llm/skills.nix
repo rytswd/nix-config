@@ -19,8 +19,11 @@
 
     localSkills =
       let
-        rytswd-root = "${config.home.homeDirectory}/Coding/github.com/rytswd";
-        withre-root = "${config.home.homeDirectory}/Coding/github.com/withre";
+        # Derived from `local.ghRoot` (see lib/paths.nix) so a host whose
+        # checkouts live off-$HOME -- e.g. coder, on the persistent
+        # `$HOME/src` volume -- resolves these without editing this file.
+        rytswd-root = "${config.local.ghRoot}/rytswd";
+        withre-root = "${config.local.ghRoot}/withre";
       in
       {
         air = "${withre-root}/air/skills/air/SKILL.md";

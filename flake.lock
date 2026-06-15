@@ -193,6 +193,29 @@
     "blueprint_6": {
       "inputs": {
         "nixpkgs": [
+          "swapdir",
+          "zignix",
+          "nixpkgs"
+        ],
+        "systems": "systems_12"
+      },
+      "locked": {
+        "lastModified": 1776249299,
+        "narHash": "sha256-Dt9t1TGRmJFc0xVYhttNBD6QsAgHOHCArqGa0AyjrJY=",
+        "owner": "numtide",
+        "repo": "blueprint",
+        "rev": "56131e8628f173d24a27f6d27c0215eff57e40dd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "blueprint",
+        "type": "github"
+      }
+    },
+    "blueprint_7": {
+      "inputs": {
+        "nixpkgs": [
           "treesitter-grammars",
           "nixpkgs"
         ],
@@ -212,7 +235,7 @@
         "type": "github"
       }
     },
-    "blueprint_7": {
+    "blueprint_8": {
       "inputs": {
         "nixpkgs": [
           "zignix",
@@ -538,22 +561,6 @@
         "type": "github"
       }
     },
-    "flake-compat_6": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1696426674,
-        "narHash": "sha256-kvjfFW7WAETZlt09AgDn1MrtKzP7t90Vf7vypd3OL1U=",
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "rev": "0f9255e01c2351cc7d116c072cb317785dd33b33",
-        "type": "github"
-      },
-      "original": {
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "type": "github"
-      }
-    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -639,24 +646,6 @@
         "owner": "numtide",
         "repo": "flake-utils",
         "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "flake-utils_2": {
-      "inputs": {
-        "systems": "systems_12"
-      },
-      "locked": {
-        "lastModified": 1705309234,
-        "narHash": "sha256-uNRRNRKmJyCRC/8y1RqBkqWBLM034y4qN7EprSdmgyA=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "1ef2e671c3b0c19053962c07dbda38332dcebf26",
         "type": "github"
       },
       "original": {
@@ -1917,7 +1906,7 @@
         "treesitter-grammars": "treesitter-grammars",
         "xremap": "xremap",
         "zen-browser": "zen-browser",
-        "zignix": "zignix",
+        "zignix": "zignix_2",
         "zls": "zls"
       }
     },
@@ -2027,20 +2016,20 @@
       "inputs": {
         "blueprint": "blueprint_5",
         "nixpkgs": "nixpkgs_14",
-        "zig-overlay": "zig-overlay"
+        "zignix": "zignix"
       },
       "locked": {
-        "lastModified": 1768301368,
-        "narHash": "sha256-XjnVkewacqI/nbbXJt5PVhhOs8RI7E+LTMRfjKEbcH8=",
-        "ref": "refs/heads/main",
-        "rev": "4ba43bbb2fb4d1c6173265a40a8545c07b17ef72",
-        "revCount": 13,
-        "type": "git",
-        "url": "ssh://git@github.com/rytswd/swapdir"
+        "lastModified": 1781529702,
+        "narHash": "sha256-zHUaQdC++E64vtZNrGGoMjIGGFwde8SF1lt8Golo+N4=",
+        "owner": "rytswd",
+        "repo": "swapdir",
+        "rev": "3327722910650cb16a1f7474c9ad0810ccd01a35",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/rytswd/swapdir"
+        "owner": "rytswd",
+        "repo": "swapdir",
+        "type": "github"
       }
     },
     "systems": {
@@ -2339,7 +2328,7 @@
     },
     "treesitter-grammars": {
       "inputs": {
-        "blueprint": "blueprint_6",
+        "blueprint": "blueprint_7",
         "nixpkgs": "nixpkgs_15"
       },
       "locked": {
@@ -2556,29 +2545,6 @@
         "type": "github"
       }
     },
-    "zig-overlay": {
-      "inputs": {
-        "flake-compat": "flake-compat_6",
-        "flake-utils": "flake-utils_2",
-        "nixpkgs": [
-          "swapdir",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1764072906,
-        "narHash": "sha256-y2OcxuDPvpkvwr7ia2znxhUgehcQi+IuMoBlyubX9l4=",
-        "owner": "mitchellh",
-        "repo": "zig-overlay",
-        "rev": "b8bb28cfa24041a478a93b0b142f088033569d53",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mitchellh",
-        "repo": "zig-overlay",
-        "type": "github"
-      }
-    },
     "zig_2": {
       "inputs": {
         "nixpkgs": [
@@ -2603,7 +2569,29 @@
     },
     "zignix": {
       "inputs": {
-        "blueprint": "blueprint_7",
+        "blueprint": "blueprint_6",
+        "nixpkgs": [
+          "swapdir",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1781491408,
+        "narHash": "sha256-qVoRbXbkmvi0jeUDJzYd4UE0WW8OF6nEZOGtjQiBhEI=",
+        "owner": "withre",
+        "repo": "zignix",
+        "rev": "124039d77aac07fbbbc011e5d4d66a3d26f7deea",
+        "type": "github"
+      },
+      "original": {
+        "owner": "withre",
+        "repo": "zignix",
+        "type": "github"
+      }
+    },
+    "zignix_2": {
+      "inputs": {
+        "blueprint": "blueprint_8",
         "nixpkgs": [
           "nixpkgs-unstable"
         ]

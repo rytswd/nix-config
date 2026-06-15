@@ -66,18 +66,28 @@ fi
 ###----------------------------------------
 ##  Switch
 #------------------------------------------
-# `-b backup` renames any pre-existing, unmanaged dotfiles that would
-# otherwise make the first activation fail on a fresh workspace.
+# `-b <ext>` renames any pre-existing, unmanaged dotfiles (e.g. the ones a
+# fresh coder image ships) out of the way instead of aborting the first
+# activation.
+#
+# The extension is TIMESTAMPED rather than a fixed "backup": home-manager
+# refuses to back a file up to an extension that already exists, so a fixed
+# extension makes any re-run fail ("Existing file ...backup is in the way")
+# if an earlier run already created `*.backup`. A unique extension per run
+# sidesteps that entirely. Subsequent switches don't re-back-up files HM
+# already manages, so this doesn't accumulate on every run.
 #
 # `--impure` lets the profile read the real $USER / $HOME via
 # `builtins.getEnv`, so the config follows whichever user runs it instead
 # of a hardcoded name (see user-config/ryota/coder.nix). home-manager
 # forwards unknown flags like this through to its underlying nix build.
+backup_ext="hm-bak-$(date +%Y%m%d-%H%M%S)"
+
 exec nix \
     --extra-experimental-features 'nix-command flakes pipe-operators' \
     --accept-flake-config \
     run home-manager/master -- switch \
         --flake "$flake_ref#$profile" \
-        -b backup \
+        -b "$backup_ext" \
         --impure \
         "${@:2}"

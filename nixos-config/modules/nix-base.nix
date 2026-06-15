@@ -98,6 +98,7 @@
       ];
       extra-trusted-substituters = [
         "https://rytswd-nix-config.cachix.org"
+        "https://swapdir.cachix.org"
         "https://ghostty.cachix.org"
         "https://niri.cachix.org"
         "https://cosmic.cachix.org"
@@ -111,6 +112,7 @@
         "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
         "cache.thalheim.io-1:R7msbosLEZKrxk/lKxf9BTjOOH7Ax3H0Qj0/6wiHOgc="
         "rytswd-nix-config.cachix.org-1:fpZQ465aGF2LYQ8oKOrd5c8kxaNmD7wBEK/yyhSQozo="
+        "swapdir.cachix.org-1:AxK+CyOlKSBbZ/O2HhFz4V++zaIP1UqPaRenIbbFpUo="
         "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
         "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
         "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="

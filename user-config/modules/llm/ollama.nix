@@ -14,7 +14,7 @@ let
   #     nix flake update nixpkgs-unstable-fast-track
   #
   pkgs-fast-track = import inputs.nixpkgs-unstable-fast-track {
-    inherit (pkgs) system;
+    inherit (pkgs.stdenv.hostPlatform) system;
     config.allowUnfree = true;
   };
 in

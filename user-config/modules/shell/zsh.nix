@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 {
   programs.zsh = {
     enable = true;
@@ -22,17 +22,33 @@
     # TRAMP (Emacs remote editing) sets TERM=dumb so the rc file can detect it
     # and bail out before any fancy interactive setup runs. The `return` exits
     # the sourced .zshrc entirely, skipping p10k, plugins, direnv, local.zsh —
-    # everything below. Placement via initExtraFirst ensures this guard is the
-    # very first thing in the generated .zshrc.
-    initExtraFirst = ''
-      if [[ "$TERM" == "dumb" ]]; then
-        unsetopt zle
-        unsetopt prompt_cr prompt_sp
-        PROMPT='$ '
-        unset RPROMPT
-        return
-      fi
-    '';
+    # everything below. `mkBefore` places this guard at the very top of the
+    # generated .zshrc; the `mkAfter` block further down sources `local.zsh`
+    # last. Both feed into the single `initContent` option, which HM merges
+    # by priority.
+    initContent = lib.mkMerge [
+      (lib.mkBefore ''
+        if [[ "$TERM" == "dumb" ]]; then
+          unsetopt zle
+          unsetopt prompt_cr prompt_sp
+          PROMPT='$ '
+          unset RPROMPT
+          return
+        fi
+      '')
+      # Source a machine-local ZSH config when present.
+      #
+      # WHY this is needed: `dotDir` causes HM to write `ZDOTDIR` into
+      # `~/.config/zsh/.zshenv`, so ZSH loads `~/.config/zsh/.zshrc` (this
+      # file) as the interactive config and never reads `~/.zshrc`. Any
+      # machine-local setup that previously lived in `~/.zshrc` (extra PATH
+      # entries, work-specific aliases, org tooling bootstrap, etc.) should
+      # be placed in `~/.config/zsh/local.zsh` instead.
+      (lib.mkAfter ''
+        [[ -f "${config.xdg.configHome}/zsh/local.zsh" ]] \
+          && source "${config.xdg.configHome}/zsh/local.zsh"
+      '')
+    ];
 
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
@@ -110,19 +126,6 @@
         file = "p10k.zsh";
       }
     ];
-
-    # Source a machine-local ZSH config when present.
-    #
-    # WHY this is needed: `dotDir` causes HM to write `ZDOTDIR` into
-    # `~/.config/zsh/.zshenv`, so ZSH loads `~/.config/zsh/.zshrc` (this
-    # file) as the interactive config and never reads `~/.zshrc`. Any
-    # machine-local setup that previously lived in `~/.zshrc` (extra PATH
-    # entries, work-specific aliases, org tooling bootstrap, etc.) should
-    # be placed in `~/.config/zsh/local.zsh` instead.
-    initExtra = ''
-      [[ -f "${config.xdg.configHome}/zsh/local.zsh" ]] \
-        && source "${config.xdg.configHome}/zsh/local.zsh"
-    '';
   };
   xdg.configFile = {
     # ZSH abbreviation with https://github.com/olets/zsh-abbr needs a

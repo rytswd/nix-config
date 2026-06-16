@@ -12,9 +12,9 @@
 # `nix run .#bootstrap` from a checkout).
 #
 # What it does, in order:
-#   1. Resolve the HM profile from the CPU arch -- `ryota@coder` on x86_64,
-#      `ryota@coder-aarch64` on aarch64. An explicit profile can be passed
-#      as the first argument to override.
+#   1. Resolve the HM profile from the CPU arch -- `coder` on x86_64,
+#      `coder-aarch64` on aarch64. An explicit profile can be passed as
+#      the first argument to override.
 #   2. Pin any pre-seeded nix profile as its own GC root (coder images ship
 #      a seeded store; this keeps those paths alive through the first GC).
 #      Safe no-op on non-coder hosts.

@@ -34,9 +34,9 @@ resolve_profile() {
         # Glob fallbacks
         # Coder / devspace workspaces: arch picked by the workspace
         # itself. The x86_64 profile is the default; aarch64 workspaces
-        # should override via `home-manager switch --flake .#ryota@coder-aarch64`.
-        coder-*)      echo "ryota@coder"; return 0 ;;
-        *-devspace-*) echo "ryota@coder"; return 0 ;;
+        # should override via `home-manager switch --flake .#coder-aarch64`.
+        coder-*)      echo "coder"; return 0 ;;
+        *-devspace-*) echo "coder"; return 0 ;;
         *-utm)        echo ""; return 1 ;;  # TODO: utm profile
     esac
     # No common fallback yet -- explicit unknown.

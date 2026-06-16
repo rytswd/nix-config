@@ -21,11 +21,12 @@
 # Activated via standalone HM:
 #   - `nix run github:rytswd/nix-config` (the bootstrap app), or
 #   - `nix run .#hm -- switch`, or
-#   - `home-manager switch --flake .#ryota@coder`.
+#   - `home-manager switch --flake .#coder`.
 #
-# Username / home directory default to `ryota` / `/home/ryota` but use
-# `mkDefault` so the actual workspace user (often `coder` or `root`) can
-# override per-workspace without forking the profile.
+# Username / home directory are read from $USER / $HOME at activation
+# (via `--impure`), so this profile works for whichever user runs it;
+# the `ryota` literal below is only the pure-eval fallback for
+# `nix flake check`.
 #
 # ---------------------------------------------------------------------------
 # Pluggable local ("private") overlay
@@ -167,6 +168,21 @@ in
   # NB: cloning the repo to this path is the workspace's responsibility (HM
   # only references it); keep it at `${config.local.repoPath}`.
   local.codeRoot = lib.mkDefault "${config.home.homeDirectory}/src";
+
+  ###----------------------------------------
+  ##  User-level nix.conf
+  #------------------------------------------
+  # The workspace's system `/etc/nix/nix.conf` only enables `nix-command` +
+  # `fetch-tree`, not `flakes` / `pipe-operators`. The bootstrap app papers
+  # over that by exporting NIX_CONFIG, but day-to-day `nix run .#hm` does
+  # not. Write a user-level `~/.config/nix/nix.conf` so the features stick
+  # after the first switch and the env-var prefix is only needed once.
+  nix.package = pkgs.nix;
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+    "pipe-operators"
+  ];
 
   ###----------------------------------------
   ##  Keep the workspace's seeded nix profile intact

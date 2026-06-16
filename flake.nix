@@ -363,8 +363,13 @@
           # Coder / devspace workspaces — two arch variants. `hostname`
           # isn't host-specific here; "coder" is a placeholder used by HM
           # modules that gracefully fall back when no per-host data exists.
-          "ryota@coder" = mkHome "x86_64-linux" "coder" ./user-config/ryota/coder.nix;
-          "ryota@coder-aarch64" = mkHome "aarch64-linux" "coder" ./user-config/ryota/coder.nix;
+          # The profile itself reads $USER / $HOME at activation (--impure),
+          # so the attribute name carries no username — any user can switch
+          # to it. The `ryota@…` aliases are kept for backward compat.
+          "coder" = mkHome "x86_64-linux" "coder" ./user-config/ryota/coder.nix;
+          "coder-aarch64" = mkHome "aarch64-linux" "coder" ./user-config/ryota/coder.nix;
+          "ryota@coder" = self.homeConfigurations."coder";
+          "ryota@coder-aarch64" = self.homeConfigurations."coder-aarch64";
         };
 
       ###----------------------------------------

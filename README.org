@@ -34,7 +34,7 @@ NIX_CONFIG="experimental-features = nix-command flakes pipe-operators" \
     nix run github:rytswd/nix-config
 #+end_src
 
-The bootstrap defaults to the ~ryota@coder~ / ~ryota@coder-aarch64~ profile based on CPU architecture. On any other host, pass the profile explicitly:
+The bootstrap defaults to the ~coder~ / ~coder-aarch64~ profile based on CPU architecture; that profile reads ~$USER~ / ~$HOME~ at activation time, so it works for whichever user runs it. On any other host, pass the profile explicitly:
 
 #+begin_src sh
 NIX_CONFIG="experimental-features = nix-command flakes pipe-operators" \
@@ -55,6 +55,26 @@ nix run .#hm -- switch
 #+end_src
 
 ~switch~ is the default subcommand, so this can be shortened further to just ~nix run .#hm~. Use ~build~ for a dry build, or ~profile~ to print the resolved profile name without applying anything.
+
+#+html:</details>
+
+#+html:<details>
+#+html:<summary><b>Reverting</b></summary>
+#+html:<br>
+
+To undo the standalone setup and return the machine to its pre-bootstrap state:
+
+#+begin_src sh
+# Unlink every HM-managed dotfile and remove the generation history.
+home-manager uninstall
+
+# Drop the side profile that holds HM packages (the host's own default
+# nix profile was never touched, so there is nothing to roll back there).
+rm -f ~/.nix-profile
+rm -f ~/.local/state/nix/profiles/home-manager-packages*
+#+end_src
+
+The first bootstrap renamed any pre-existing dotfiles to ~*.hm-bak-<timestamp>~ rather than deleting them; restore those by hand if wanted.
 
 #+html:</details>
 

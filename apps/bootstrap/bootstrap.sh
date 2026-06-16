@@ -59,11 +59,11 @@ export NIX_CONFIG
 profile="${1:-}"
 if [ -z "$profile" ]; then
     case "$(uname -m)" in
-        x86_64)        profile="ryota@coder" ;;
-        aarch64|arm64) profile="ryota@coder-aarch64" ;;
+        x86_64)        profile="coder" ;;
+        aarch64|arm64) profile="coder-aarch64" ;;
         *)
             printf 'bootstrap: unsupported arch: %s\n' "$(uname -m)" >&2
-            printf 'bootstrap: pass a profile explicitly, e.g. ryota@coder\n' >&2
+            printf 'bootstrap: pass a profile explicitly, e.g. coder\n' >&2
             exit 1
             ;;
     esac

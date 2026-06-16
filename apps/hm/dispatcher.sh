@@ -76,9 +76,19 @@ case "$cmd" in
         printf 'profile: %s\n' "$profile"
         printf 'flake:   %s\n' "$flake_dir"
         ;;
-    switch|build|news|generations|packages)
+    switch)
         # `--impure` so the profile's `builtins.getEnv "USER"/"HOME"` see
         # real values and home.username follows whoever runs the switch.
+        # `-b <ext>` backs up any pre-existing real file (e.g. one the
+        # workspace image shipped) instead of aborting; timestamped so
+        # repeat runs never collide on an existing backup.
+        exec nix run home-manager/master -- switch \
+            --flake "$flake_dir#$profile" \
+            --impure \
+            -b "hm-bak-$(date +%Y%m%d-%H%M%S)" \
+            "$@"
+        ;;
+    build|news|generations|packages)
         exec nix run home-manager/master -- "$cmd" \
             --flake "$flake_dir#$profile" \
             --impure \

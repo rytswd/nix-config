@@ -102,6 +102,15 @@ in
     "${self}/user-config/modules/product/vcs"
 
     ###----------------------------------------
+    ##  Repo cloning
+    #------------------------------------------
+    # Shared with the desktop profiles -- the path prefix is derived from
+    # `local.ghRoot` so the same list lands under `~/src/github.com/...`
+    # here. SSH auth comes from the workspace's own ssh-agent, which
+    # `home-git-clone` discovers if SSH_AUTH_SOCK isn't inherited.
+    "${self}/user-config/ryota/home-git-clone.nix"
+
+    ###----------------------------------------
     ##  Secret handling (no-op without a key)
     #------------------------------------------
     # sops-nix is still imported so the `sops.*` options exist (modules
@@ -168,6 +177,9 @@ in
   # NB: cloning the repo to this path is the workspace's responsibility (HM
   # only references it); keep it at `${config.local.repoPath}`.
   local.codeRoot = lib.mkDefault "${config.home.homeDirectory}/src";
+
+  # Kubernetes contributor repos are personal-only; skip on work machines.
+  local.clone.kubernetes = false;
 
   ###----------------------------------------
   ##  User-level nix.conf

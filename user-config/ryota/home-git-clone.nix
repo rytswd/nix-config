@@ -1,48 +1,86 @@
-{ inputs, ... }:
-
+{
+  config,
+  lib,
+  inputs,
+  ...
+}:
+let
+  # Keys are paths relative to $HOME. Derive the prefix from `local.ghRoot`
+  # (see lib/paths.nix) so the same definition lands under
+  # `~/Coding/github.com/...` on a desktop and `~/src/github.com/...` on a
+  # workspace without per-host edits.
+  ghRel = lib.removePrefix "${config.home.homeDirectory}/" config.local.ghRoot;
+  at = owner: repo: "${ghRel}/${owner}/${repo}";
+  ssh = owner: repo: "git@github.com:${owner}/${repo}.git";
+in
 {
   imports = [ inputs.home-git-clone.homeManagerModules.default ];
 
   ###----------------------------------------
-  ##   Key Repositories
+  ##   Per-host clone toggles
   #------------------------------------------
-  home.gitClone = {
-    "Coding/github.com/rytswd/nix-config".url = "git@github.com:rytswd/nix-config.git";
-    "Coding/github.com/rytswd/nix-config-private".url = "git@github.com:rytswd/nix-config-private.git";
-    "Coding/github.com/rytswd/emacs-config".url = "git@github.com:rytswd/emacs-config.git";
+  # Sections below that are not wanted on every host (e.g. a work
+  # workspace) are gated on these. Defaults match the desktop profiles;
+  # other profiles flip individual flags off.
+  options.local.clone = {
+    kubernetes = lib.mkEnableOption "Kubernetes contributor repo checkouts" // {
+      default = true;
+    };
   };
 
-  ###----------------------------------------
-  ##   Active Projects
-  #------------------------------------------
-  home.jjClone = {
-    "Coding/github.com/withre/zig-cli-kit".url = "git@github.com:withre/zig-cli-kit.git";
-    "Coding/github.com/withre/zignix".url = "git@github.com:withre/zignix.git";
-  };
+  config = lib.mkMerge [
+    ###----------------------------------------
+    ##   Key Repositories
+    #------------------------------------------
+    {
+      home.gitClone = {
+        ${at "rytswd" "nix-config"}.url = ssh "rytswd" "nix-config";
+        ${at "rytswd" "emacs-config"}.url = ssh "rytswd" "emacs-config";
+      };
+      home.jjClone = {
+        ${at "rytswd" "nix-config-private"}.url = ssh "rytswd" "nix-config-private";
+      };
+    }
 
-  ###----------------------------------------
-  ##   Active Personal Projects
-  #------------------------------------------
-  home.gitClone = {
-    # NOTE: These can move to jj once workmux supports jj workspaces.
-    "Coding/github.com/rytswd/skills.nix".url = "git@github.com:rytswd/skills.nix.git";
-  };
-  home.jjClone = {
-    "Coding/github.com/rytswd/home-git-clone".url = "git@github.com:rytswd/home-git-clone.git";
-    "Coding/github.com/rytswd/pi-agent-extensions".url = "git@github.com:rytswd/pi-agent-extensions.git";
-    "Coding/github.com/rytswd/ren".url = "git@github.com:rytswd/ren.git";
-    "Coding/github.com/rytswd/swapdir".url = "git@github.com:rytswd/swapdir.git";
-  };
+    ###----------------------------------------
+    ##   Active Projects
+    #------------------------------------------
+    {
+      home.jjClone = {
+        ${at "withre" "zig-cli-kit"}.url = ssh "withre" "zig-cli-kit";
+        ${at "withre" "zignix"}.url = ssh "withre" "zignix";
+        ${at "withre" "air"}.url = ssh "withre" "air";
+        ${at "withre" "chronoa"}.url = ssh "withre" "chronoa";
+        ${at "withre" "ever"}.url = ssh "withre" "ever";
+        ${at "withre" "ace-stack"}.url = ssh "withre" "ace-stack";
+      };
+    }
 
-  ###----------------------------------------
-  ##   Kubernetes
-  #------------------------------------------
-  home.gitClone = {
-    "Coding/github.com/rytswd/sig-release".url = "git@github.com:rytswd/sig-release.git";
-    "Coding/github.com/rytswd/k8s.io".url = "git@github.com:rytswd/k8s.io.git";
-    "Coding/github.com/rytswd/k8s-enhancements".url = "git@github.com:rytswd/k8s-enhancements.git";
-    "Coding/github.com/rytswd/k8s-org".url = "git@github.com:rytswd/k8s-org.git";
-    "Coding/github.com/rytswd/k8s-website".url = "git@github.com:rytswd/k8s-website.git";
-  };
+    ###----------------------------------------
+    ##   Active Personal Projects
+    #------------------------------------------
+    {
+      home.jjClone = {
+        ${at "rytswd" "skills.nix"}.url = ssh "rytswd" "skills.nix";
+        ${at "rytswd" "home-git-clone"}.url = ssh "rytswd" "home-git-clone";
+        ${at "rytswd" "pi-agent-extensions"}.url = ssh "rytswd" "pi-agent-extensions";
+        ${at "rytswd" "pi-agent-extensions-extra"}.url = ssh "rytswd" "pi-agent-extensions-extra";
+        ${at "rytswd" "ren"}.url = ssh "rytswd" "ren";
+        ${at "rytswd" "swapdir"}.url = ssh "rytswd" "swapdir";
+      };
+    }
 
+    ###----------------------------------------
+    ##   Kubernetes
+    #------------------------------------------
+    (lib.mkIf config.local.clone.kubernetes {
+      home.jjClone = {
+        ${at "rytswd" "sig-release"}.url = ssh "rytswd" "sig-release";
+        ${at "rytswd" "k8s.io"}.url = ssh "rytswd" "k8s.io";
+        ${at "rytswd" "k8s-enhancements"}.url = ssh "rytswd" "k8s-enhancements";
+        ${at "rytswd" "k8s-org"}.url = ssh "rytswd" "k8s-org";
+        ${at "rytswd" "k8s-website"}.url = ssh "rytswd" "k8s-website";
+      };
+    })
+  ];
 }

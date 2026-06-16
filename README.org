@@ -12,12 +12,55 @@ Nix is used for both NixOS and macOS for my configuration. You can check out bot
 For NixOS, I use Nix ecosystem extensively. In order to allow working in various environments, I heavily depend on [[https://github.com/nix-community/home-manager][home-manager]] setup rather than NixOS configuration.
 
 *** For macOS
-NOTE: I rarely use macOS these days, and thus you may find some stale configuration.
-For macOS, I use [[https://github.com/LnL7/nix-darwin][nix-darwin]] and [[https://github.com/nix-community/home-manager][home-manager]] to configure.
+On my personal macOS machine, I use [[https://github.com/LnL7/nix-darwin][nix-darwin]] together with [[https://github.com/nix-community/home-manager][home-manager]] to manage the full system declaratively.
+
+On my work macOS machine, company policy restricts what can be installed at the system level, so nix-darwin is not an option there. In that more restricted environment I skip the system layer and reuse the raw config files from this repository directly (dotfiles, shell config, etc.), applying only the pieces that do not require elevated privileges.
 
 *** For NixOS with UTM (on Mac)
 NOTE: I have not been using this at all, and many of the configurations are broken at this point.
 For the UTM setup for VM on macOS, you can find more in [[machine-setup/mbp-utm/README.org]]. Other VM solutions may also be added as I get to test more.
+
+*** Home Manager Standalone
+Regardless of the underlying OS, the user-level configuration is managed by [[https://github.com/nix-community/home-manager][home-manager]] in *standalone* mode rather than as a NixOS / nix-darwin module. This keeps user settings decoupled from the system, so updating shell, editor, or CLI tooling never requires a system rebuild or ~sudo~.
+
+#+html:<details>
+#+html:<summary><b>First-time bootstrap with <code>nix run</code></b></summary>
+#+html:<br>
+
+The flake's default app is a one-shot bootstrap that resolves the right ~homeConfigurations~ entry, backs up any conflicting dotfiles, and runs ~home-manager switch~. It assumes only a bare Nix install, so the required experimental features are passed via ~NIX_CONFIG~ (which, unlike the ~--extra-experimental-features~ flag, also propagates to the child ~nix~ processes that ~home-manager~ spawns):
+
+#+begin_src sh
+NIX_CONFIG="experimental-features = nix-command flakes pipe-operators" \
+nix \
+    run \
+    github:rytswd/nix-config
+#+end_src
+
+The bootstrap defaults to the ~ryota@coder~ / ~ryota@coder-aarch64~ profile based on CPU architecture. On any other host, pass the profile explicitly:
+
+#+begin_src sh
+NIX_CONFIG="experimental-features = nix-command flakes pipe-operators" \
+nix \
+    run \
+    github:rytswd/nix-config \
+    -- ryota@asus-rog-zephyrus-g14-2024
+#+end_src
+
+#+html:</details>
+
+#+html:<details>
+#+html:<summary><b>Day-to-day updates with <code>hm</code></b></summary>
+#+html:<br>
+
+After the first bootstrap the experimental features are configured permanently, so the ~NIX_CONFIG~ prefix is no longer needed. From a local clone of this repository, the lighter ~hm~ dispatcher resolves the profile from the current user and hostname:
+
+#+begin_src sh
+nix run .#hm -- switch
+#+end_src
+
+~switch~ is the default subcommand, so this can be shortened further to just ~nix run .#hm~. Use ~build~ for a dry build, or ~profile~ to print the resolved profile name without applying anything.
+
+#+html:</details>
 
 ** 📜 Configuration Details
 The idea is to ensure I have all the ~$HOME~ setup defined declaratively, while allowing some imperative adjustments when and if necessary. Also, it is designed to work with various machines and environments, so that most of the configurations can be shared among the different environments, but still there would be some additional configurations made possible. (Or simply duplicating some resources.)

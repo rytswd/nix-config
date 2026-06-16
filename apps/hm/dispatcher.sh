@@ -62,6 +62,13 @@ shift || true
 
 flake_dir="${FLAKE_DIR:-${PRJ_ROOT:-$PWD}}"
 
+# Ensure flakes/pipe-operators are enabled for the *child* nix processes
+# that home-manager spawns -- the CLI flag does not propagate. Append to
+# any caller-supplied NIX_CONFIG rather than clobbering it.
+NIX_CONFIG="experimental-features = nix-command flakes pipe-operators
+${NIX_CONFIG:-}"
+export NIX_CONFIG
+
 case "$cmd" in
     profile)
         printf 'host:    %s\n' "$host"
@@ -70,9 +77,12 @@ case "$cmd" in
         printf 'flake:   %s\n' "$flake_dir"
         ;;
     switch|build|news|generations|packages)
-        exec nix --extra-experimental-features 'nix-command flakes pipe-operators' \
-            run home-manager/master -- "$cmd" \
-                --flake "$flake_dir#$profile" "$@"
+        # `--impure` so the profile's `builtins.getEnv "USER"/"HOME"` see
+        # real values and home.username follows whoever runs the switch.
+        exec nix run home-manager/master -- "$cmd" \
+            --flake "$flake_dir#$profile" \
+            --impure \
+            "$@"
         ;;
     *)
         printf 'hm: unknown subcommand: %s\n' "$cmd" >&2

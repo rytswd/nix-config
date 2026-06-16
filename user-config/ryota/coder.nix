@@ -169,6 +169,34 @@ in
   local.codeRoot = lib.mkDefault "${config.home.homeDirectory}/src";
 
   ###----------------------------------------
+  ##  Keep the workspace's seeded nix profile intact
+  #------------------------------------------
+  # The workspace image ships `~/.local/state/nix/profiles/profile` as a
+  # direct symlink to a raw `dev-env` store path (no manifest.nix /
+  # manifest.json). Standalone HM's default `installPackages` step runs
+  # `nix-env -i <home-manager-path>` against that same default profile;
+  # with no manifest to merge into, nix-env builds a fresh user-environment
+  # containing ONLY home-manager-path -- silently dropping every seeded
+  # tool (git, aws, kubectl, ...) and requiring a `nix profile rollback`
+  # to recover.
+  #
+  # Override that step to install into a dedicated side-profile instead,
+  # and point `~/.nix-profile` at it. The seeded default profile is never
+  # touched, and HM packages still appear on PATH via `~/.nix-profile/bin`
+  # (which is what `home.profileDirectory` resolves to here).
+  home.activation.installPackages =
+    let
+      sideProfile = "\${XDG_STATE_HOME:-$HOME/.local/state}/nix/profiles/home-manager-packages";
+    in
+    lib.mkForce (
+      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        run mkdir -p "$(dirname "${sideProfile}")"
+        run nix-env --profile "${sideProfile}" --set ${config.home.path}
+        run ln -sfn "${sideProfile}" "$HOME/.nix-profile"
+      ''
+    );
+
+  ###----------------------------------------
   ##  Persist volatile state across restarts
   #------------------------------------------
   # $HOME is on an ephemeral overlay; `/root/home` is a persistent volume

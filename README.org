@@ -30,14 +30,16 @@ Regardless of the underlying OS, the user-level configuration is managed by [[ht
 The flake's default app is a one-shot bootstrap that resolves the right ~homeConfigurations~ entry, backs up any conflicting dotfiles, and runs ~home-manager switch~. It assumes only a bare Nix install, so the required experimental features are passed via ~NIX_CONFIG~ (which, unlike the ~--extra-experimental-features~ flag, also propagates to the child ~nix~ processes that ~home-manager~ spawns):
 
 #+begin_src sh
-NIX_CONFIG="experimental-features = nix-command flakes pipe-operators" \
+NIX_CONFIG="experimental-features = nix-command flakes pipe-operators
+accept-flake-config = true" \
     nix run github:rytswd/nix-config
 #+end_src
 
 The bootstrap defaults to the ~coder~ / ~coder-aarch64~ profile based on CPU architecture; that profile reads ~$USER~ / ~$HOME~ at activation time, so it works for whichever user runs it. On any other host, pass the profile explicitly:
 
 #+begin_src sh
-NIX_CONFIG="experimental-features = nix-command flakes pipe-operators" \
+NIX_CONFIG="experimental-features = nix-command flakes pipe-operators
+accept-flake-config = true" \
     nix run github:rytswd/nix-config \
     -- ryota@asus-rog-zephyrus-g14-2024
 #+end_src

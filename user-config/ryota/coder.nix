@@ -202,11 +202,18 @@ in
   # not. Write a user-level `~/.config/nix/nix.conf` so the features stick
   # after the first switch and the env-var prefix is only needed once.
   nix.package = pkgs.nix;
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-    "pipe-operators"
-  ];
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+      "pipe-operators"
+    ];
+    # The flake's `nixConfig` lists every substituter / public key in use,
+    # so there is nothing to review interactively -- accept it instead of
+    # prompting (and instead of relying on ~/.local/share/nix/trusted-settings.json,
+    # which lives on the ephemeral part of $HOME).
+    accept-flake-config = true;
+  };
 
   ###----------------------------------------
   ##  Keep the workspace's seeded nix profile intact

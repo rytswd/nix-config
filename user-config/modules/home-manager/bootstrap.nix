@@ -18,6 +18,12 @@
   # as a glob operator when the alias expands.
   home.shellAliases.hm-switch = "nix run '${config.local.repoPath}#hm' -- switch";
 
+  # Let `nh home switch` / `nh home build` find this flake without an
+  # explicit ref. Profile selection still needs `-c <name>` (nh's default
+  # of <user>@<host> won't match here), which is why `hm-switch` above
+  # remains the primary entry point.
+  home.sessionVariables.NH_HOME_FLAKE = config.local.repoPath;
+
   # Suppress the "Home Manager release X.YY does not match nixpkgs release
   # Y.ZZ" warning that fires at activation. I intentionally pin
   # home-manager and the system to different nixpkgs channels, so the

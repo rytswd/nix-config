@@ -76,19 +76,33 @@ case "$cmd" in
         printf 'profile: %s\n' "$profile"
         printf 'flake:   %s\n' "$flake_dir"
         ;;
-    switch)
+    switch|build)
         # `--impure` so the profile's `builtins.getEnv "USER"/"HOME"` see
         # real values and home.username follows whoever runs the switch.
         # `-b <ext>` backs up any pre-existing real file (e.g. one the
         # workspace image shipped) instead of aborting; timestamped so
         # repeat runs never collide on an existing backup.
-        exec nix run home-manager/master -- switch \
+        #
+        # Prefer `nh` when available (nom build output + nvd diff of what
+        # changed); fall back to plain home-manager when `nh` isn't on
+        # PATH yet (first run before any HM packages exist).
+        backup_ext="hm-bak-$(date +%Y%m%d-%H%M%S)"
+        if command -v nh >/dev/null 2>&1; then
+            set -- "$@"
+            [ "$cmd" = switch ] && set -- -b "$backup_ext" "$@"
+            exec nh home "$cmd" "$flake_dir" \
+                -c "$profile" \
+                --impure \
+                "$@"
+        fi
+        set -- "$@"
+        [ "$cmd" = switch ] && set -- -b "$backup_ext" "$@"
+        exec nix run home-manager/master -- "$cmd" \
             --flake "$flake_dir#$profile" \
             --impure \
-            -b "hm-bak-$(date +%Y%m%d-%H%M%S)" \
             "$@"
         ;;
-    build|news|generations|packages)
+    news|generations|packages)
         exec nix run home-manager/master -- "$cmd" \
             --flake "$flake_dir#$profile" \
             --impure \

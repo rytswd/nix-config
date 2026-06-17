@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 {
   programs.zsh = {
     enable = true;
@@ -127,6 +132,7 @@
       }
     ];
   };
+
   xdg.configFile = {
     # ZSH abbreviation with https://github.com/olets/zsh-abbr needs a
     # dedicated configuration file.

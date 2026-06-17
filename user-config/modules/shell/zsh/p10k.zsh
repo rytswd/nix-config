@@ -33,9 +33,11 @@
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
     os_icon                 # os identifier
-    user
+    host_label              # $P10K_HOST_LABEL — blank chevron when unset
+    user_label              # $P10K_USER_LABEL — blank chevron when unset
     dir                     # current directory
     vcs                     # git status
+    auth_status             # $P10K_AUTH_STATUS — hidden when unset
     # =========================[ Line #2 ]=========================
     newline                 # \n
     prompt_char             # prompt symbol
@@ -181,8 +183,11 @@
 
   #################################[ os_icon: os identifier ]##################################
   # OS identifier color.
-  typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=232
-  typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=7
+  # Left-prompt palette mirrors starship.toml's blue gradient:
+  #   #444444 -> #181D38 -> #0F3457 -> #123F68 -> #18548B
+  #   (os -> host_label -> user_label -> dir -> vcs)
+  typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND='#EBEBEB'
+  typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND='#444444'
   # Custom icon.
   # typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='⭐'
 
@@ -211,19 +216,20 @@
 
   ##################################[ dir: current directory ]##################################
   # Current directory background color.
-  typeset -g POWERLEVEL9K_DIR_BACKGROUND=237 # rytswd custom
-  # Default current directory foreground color.
-  typeset -g POWERLEVEL9K_DIR_FOREGROUND=39  # rytswd custom
+  typeset -g POWERLEVEL9K_DIR_BACKGROUND='#123F68' # rytswd custom — matches starship [directory]
+  # Default current directory foreground color — light grey for parent path
+  # components; the anchor (repo root / final component) is brightened below.
+  typeset -g POWERLEVEL9K_DIR_FOREGROUND='#AAAAAA' # rytswd custom
   # If directory is too long, shorten some of its segments to the shortest possible unique
   # prefix. The shortened directory can be tab-completed to the original.
   typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_unique
   # Replace removed segment suffixes with this symbol.
   typeset -g POWERLEVEL9K_SHORTEN_DELIMITER=
   # Color of the shortened directory segments.
-  typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=103
+  typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND='#AAAAAA'
   # Color of the anchor directory segments. Anchor segments are never shortened. The first
   # segment is always an anchor.
-  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=45
+  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND='#9DD1F1'
   # Display anchor directory segments in bold.
   typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
   # Don't shorten directories that contain any of these files. They are anchors.
@@ -350,11 +356,12 @@
 
   #####################################[ vcs: git status ]######################################
   # Version control system colors.
-  typeset -g POWERLEVEL9K_VCS_CLEAN_BACKGROUND=2
-  typeset -g POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=3
-  typeset -g POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND=2
-  typeset -g POWERLEVEL9K_VCS_CONFLICTED_BACKGROUND=3
-  typeset -g POWERLEVEL9K_VCS_LOADING_BACKGROUND=8
+  # Single background for every VCS state — matches starship [git_branch]/[git_status].
+  typeset -g POWERLEVEL9K_VCS_CLEAN_BACKGROUND='#18548B'
+  typeset -g POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='#18548B'
+  typeset -g POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='#18548B'
+  typeset -g POWERLEVEL9K_VCS_CONFLICTED_BACKGROUND='#18548B'
+  typeset -g POWERLEVEL9K_VCS_LOADING_BACKGROUND='#18548B'
 
   # Branch icon. Set this parameter to '\uF126 ' for the popular Powerline branch icon.
   typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 '
@@ -382,11 +389,11 @@
     fi
 
     # Styling for different parts of Git status.
-    local       meta='%7F' # white foreground
-    local      clean='%0F' # black foreground
-    local   modified='%0F' # black foreground
-    local  untracked='%0F' # black foreground
-    local conflicted='%1F' # red foreground
+    local       meta='%F{#85B9EA}' # light-blue accents — matches starship fill
+    local      clean='%F{#EBEBEB}' # light foreground — matches starship [git_*]
+    local   modified='%F{#EBEBEB}'
+    local  untracked='%F{#EBEBEB}'
+    local conflicted='%F{red}'
 
     local res
 
@@ -1636,6 +1643,31 @@
   # typeset -g POWERLEVEL9K_TIME_VISUAL_IDENTIFIER_EXPANSION='⭐'
   # Custom prefix.
   # typeset -g POWERLEVEL9K_TIME_PREFIX='at '
+
+  #####################[ host_label / user_label / auth_status ]#####################
+  # Generic, env-var-driven identity segments. They occupy the #181D38 and
+  # #0F3457 stops in the starship gradient. When the env vars are unset
+  # (e.g. on a personal machine) the segments render a single space, so the
+  # gradient stays continuous without showing any text. A host that wants
+  # them populated sets the vars from its untracked `~/.config/zsh/local.zsh`:
+  #
+  #   export P10K_HOST_LABEL=...   # e.g. a workspace name
+  #   export P10K_USER_LABEL=...   # e.g. the workspace owner
+  #   P10K_AUTH_STATUS=...         # set by a precmd when re-auth is due
+  #
+  # Nothing environment-specific is referenced here.
+  function prompt_host_label() {
+    p10k segment -b '#181D38' -f '#EBEBEB' -t "${P10K_HOST_LABEL:- }"
+  }
+  function prompt_user_label() {
+    p10k segment -b '#0F3457' -f '#EBEBEB' -t "${P10K_USER_LABEL:- }"
+  }
+  function prompt_auth_status() {
+    [[ -n ${P10K_AUTH_STATUS:-} ]] || return
+    p10k segment -b '#7C2D12' -f '#FDE68A' -i '⚠' -t "$P10K_AUTH_STATUS"
+  }
+  function instant_prompt_host_label() { prompt_host_label; }
+  function instant_prompt_user_label() { prompt_user_label; }
 
   # Example of a user-defined prompt segment. Function prompt_example will be called on every
   # prompt if `example` prompt segment is added to POWERLEVEL9K_LEFT_PROMPT_ELEMENTS or

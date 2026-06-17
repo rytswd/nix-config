@@ -224,6 +224,30 @@ in
   # and point `~/.nix-profile` at it. The seeded default profile is never
   # touched, and HM packages still appear on PATH via `~/.nix-profile/bin`
   # (which is what `home.profileDirectory` resolves to here).
+  ###----------------------------------------
+  ##  Clear foreign symlinks before HM's collision check
+  #------------------------------------------
+  # The workspace image ships several `~/.config/...` entries as symlinks
+  # into its own dotfiles (e.g. `~/.config/nvim/init.lua`). HM's
+  # `checkLinkTargets` only backs up *regular* files via `-b`; an existing
+  # symlink that doesn't point at HM's store falls through to "would be
+  # clobbered" and aborts activation. Symlinks carry no data, so remove
+  # any that sit at a path HM is about to manage; regular files are left
+  # for `-b` to back up.
+  home.activation.clearForeignSymlinks = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
+    cd "${config.home-files}"
+    find . -type l -print0 | while IFS= read -r -d "" rel; do
+      target="$HOME/''${rel#./}"
+      if [[ -L "$target" ]]; then
+        case "$(readlink "$target")" in
+          /nix/store/*-home-manager-files/*) ;;   # already ours
+          *) run rm -f -- "$target" ;;
+        esac
+      fi
+    done
+    cd "$OLDPWD"
+  '';
+
   home.activation.installPackages =
     let
       sideProfile = "\${XDG_STATE_HOME:-$HOME/.local/state}/nix/profiles/home-manager-packages";

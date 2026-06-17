@@ -181,6 +181,18 @@ in
   # Kubernetes contributor repos are personal-only; skip on work machines.
   local.clone.kubernetes = false;
 
+  # Prompt identity: the stock p10k.zsh carries `host_label` / `user_label`
+  # / `auth_status` segments that read generic P10K_* env vars (blank when
+  # unset). Map the workspace's own values onto them in the untracked
+  # `~/.config/zsh/local.zsh`, e.g.:
+  #
+  #   export P10K_HOST_LABEL="$SOME_WORKSPACE_NAME"
+  #   export P10K_USER_LABEL="$SOME_OWNER_VAR"
+  #   _p10k_auth_status() { needs_reauth && P10K_AUTH_STATUS="re-auth" || P10K_AUTH_STATUS=; }
+  #   precmd_functions+=(_p10k_auth_status)
+  #
+  # so no environment-specific names appear in this repo.
+
   ###----------------------------------------
   ##  User-level nix.conf
   #------------------------------------------
@@ -223,6 +235,13 @@ in
         run ln -sfn "${sideProfile}" "$HOME/.nix-profile"
       ''
     );
+
+  # The workspace's nix profile hook only adds the XDG-style
+  # `~/.local/state/nix/profile/bin` to PATH, not `~/.nix-profile/bin`, so
+  # the side profile created above would be invisible. Add it explicitly --
+  # this lands in `hm-session-vars.sh`, which `.zshenv` sources for every
+  # shell.
+  home.sessionPath = [ "$HOME/.nix-profile/bin" ];
 
   ###----------------------------------------
   ##  Persist volatile state across restarts

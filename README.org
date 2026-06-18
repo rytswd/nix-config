@@ -47,10 +47,18 @@ accept-flake-config = true" \
 #+html:</details>
 
 #+html:<details>
-#+html:<summary><b>Day-to-day updates with <code>hm</code></b></summary>
+#+html:<summary><b>Day-to-day updates</b></summary>
 #+html:<br>
 
-After the first bootstrap the experimental features are configured permanently, so the ~NIX_CONFIG~ prefix is no longer needed. From a local clone of this repository, the lighter ~hm~ dispatcher resolves the profile from the current user and hostname:
+After the first bootstrap the experimental features are configured permanently, so the ~NIX_CONFIG~ prefix is no longer needed. The first switch also installs a couple of shell entry points so subsequent updates don't need to be run from inside the repo clone:
+
+| Command | Where it works | What it does |
+|---+---+---|
+| ~hm-switch~ | everywhere | Shell alias for ~nix run '<repo>#hm' -- switch~. The ~hm~ dispatcher resolves the profile from the current user/hostname, prefers ~nh~ when available, falls back to plain ~home-manager~, and timestamps the backup extension. This is the portable entry point. |
+| ~nh home switch~ | personal machines | ~$NH_HOME_FLAKE~ points at the repo and the flake exposes ~homeConfigurations."ryota@<hostname>"~, which is exactly what ~nh~ auto-probes -- so no flake path or ~-c~ is needed. |
+| ~nhs~ | coder / devspace | Shell alias for ~nh home switch -c <coder profile> -b … -- --impure~. ~nh~ has no env var for ~-c~ or ~--impure~, and the workspace's ~$USER~ / hostname are not knowable at flake-authoring time, so a bare ~nh home switch~ cannot resolve there -- hence the alias. |
+
+From inside a local clone the dispatcher can also be invoked directly:
 
 #+begin_src sh
 nix run .#hm -- switch
@@ -102,6 +110,6 @@ Here is the list of other tools I use for the key components of each OS.
 |-------------------+---------------+-------------|
 | Window Management | [[https://github.com/koekeishiya/yabai][yabai]]         | [[https://github.com/YaLTeR/niri][niri]]        |
 | Shortcut          | [[https://github.com/koekeishiya/skhd][skhd]]          | [[https://github.com/xremap/xremap][Xremap]]      |
-| Toolbar           | macOS default | [[https://github.com/Alexays/Waybar][Waybar]]      |
-| App Launcher      | [[https://www.raycast.com/][Raycast]]       | [[https://github.com/davatorium/rofi][rofi]]        |
+| Toolbar           | macOS default | [[https://github.com/noctalia-dev/noctalia][noctalia]]    |
+| App Launcher      | [[https://www.raycast.com/][Raycast]]       | [[https://github.com/noctalia-dev/noctalia][noctalia]]    |
 | Browser           | [[https://zen-browser.app/][Zen Browser]]   | [[https://zen-browser.app/][Zen Browser]] |

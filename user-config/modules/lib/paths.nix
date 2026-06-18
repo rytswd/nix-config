@@ -30,6 +30,22 @@
       '';
       example = "/root/src";
     };
+    binRoot = lib.mkOption {
+      type = lib.types.str;
+      default = "${config.local.codeRoot}/bin";
+      description = ''
+        Directory of ad-hoc personal executables to put on PATH (scripts /
+        one-off binaries that are NOT managed by Nix). Derived from
+        `local.codeRoot` so the default follows wherever source checkouts
+        live (`$HOME/Coding/bin` on personal machines).
+
+        Override per-host where the persistent scratch area differs --
+        e.g. coder workspaces keep `$HOME` ephemeral but mount a
+        persistent volume at `$HOME/home`, so `binRoot` becomes
+        `$HOME/home/bin` there.
+      '';
+      example = "/root/home/bin";
+    };
     ghRoot = lib.mkOption {
       type = lib.types.str;
       default = "${config.local.codeRoot}/github.com";

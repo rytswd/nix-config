@@ -18,10 +18,18 @@
   # as a glob operator when the alias expands.
   home.shellAliases.hm-switch = "nix run '${config.local.repoPath}#hm' -- switch";
 
-  # Let `nh home switch` / `nh home build` find this flake without an
-  # explicit ref. Profile selection still needs `-c <name>` (nh's default
-  # of <user>@<host> won't match here), which is why `hm-switch` above
-  # remains the primary entry point.
+  # `nh home switch` with no args: nh reads `$NH_HOME_FLAKE` for the flake
+  # path, then probes `homeConfigurations."$USER@$HOSTNAME"` and
+  # `homeConfigurations."$USER"` for the output. On the personal machines
+  # those outputs exist (`ryota@<hostname>`), so this env var is the only
+  # thing needed.
+  #
+  # On coder/devspace it is NOT enough: $USER/$HOSTNAME are decided by the
+  # workspace image so no flake output can match, and the profile also needs
+  # `--impure` for its `builtins.getEnv` calls. nh exposes neither `-c` nor
+  # `--impure` via env vars, so coder defines an explicit `nhs` alias
+  # instead (see user-config/ryota/coder.nix). `hm-switch` above remains
+  # the portable entry point.
   home.sessionVariables.NH_HOME_FLAKE = config.local.repoPath;
 
   # Suppress the "Home Manager release X.YY does not match nixpkgs release

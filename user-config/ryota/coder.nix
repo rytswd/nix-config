@@ -178,6 +178,28 @@ in
   # only references it); keep it at `${config.local.repoPath}`.
   local.codeRoot = lib.mkDefault "${config.home.homeDirectory}/src";
 
+  # Personal scratch executables: `$HOME` is ephemeral, but `$HOME/home` is
+  # the persistent volume the env already symlinks state into (see
+  # `coder-persist` below). Put non-Nix one-off binaries there so they
+  # survive a workspace recycle. On personal machines this defaults to
+  # `$HOME/Coding/bin` via `local.codeRoot`.
+  local.binRoot = "${config.home.homeDirectory}/home/bin";
+
+  # `nhs` -- direct `nh home switch` for this workspace. A bare
+  # `nh home switch` can't work here: nh auto-probes
+  # `homeConfigurations."$USER@$HOSTNAME"`/`"$USER"`, but both are decided
+  # by the workspace image so no flake output can match, and nh has no env
+  # var for `-c` or for `--impure` (which the `builtins.getEnv` calls above
+  # require). So bake the profile name + `--impure` into an alias instead
+  # of pretending the bare form works. `NH_HOME_FLAKE` (set in
+  # bootstrap.nix) supplies the flake path; a timestamped `-b` avoids the
+  # "existing file would be clobbered" abort on image-shipped dotfiles.
+  home.shellAliases.nhs =
+    let
+      profile = if pkgs.stdenv.hostPlatform.isAarch64 then "coder-aarch64" else "coder";
+    in
+    ''nh home switch -c ${profile} -b "hm-bak-$(date +%Y%m%d-%H%M%S)" -- --impure'';
+
   # Kubernetes contributor repos are personal-only; skip on work machines.
   local.clone.kubernetes = false;
 

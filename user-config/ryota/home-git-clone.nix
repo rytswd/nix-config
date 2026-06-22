@@ -36,8 +36,6 @@ in
       home.gitClone = {
         ${at "rytswd" "nix-config"}.url = ssh "rytswd" "nix-config";
         ${at "rytswd" "emacs-config"}.url = ssh "rytswd" "emacs-config";
-      };
-      home.jjClone = {
         ${at "rytswd" "nix-config-private"}.url = ssh "rytswd" "nix-config-private";
       };
     }
@@ -74,7 +72,7 @@ in
     ##   Kubernetes
     #------------------------------------------
     (lib.mkIf config.local.clone.kubernetes {
-      home.jjClone = {
+      home.gitClone = {
         ${at "rytswd" "sig-release"}.url = ssh "rytswd" "sig-release";
         ${at "rytswd" "k8s.io"}.url = ssh "rytswd" "k8s.io";
         ${at "rytswd" "k8s-enhancements"}.url = ssh "rytswd" "k8s-enhancements";

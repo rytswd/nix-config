@@ -86,6 +86,17 @@
             # Snapshot blank if I want ephemeral home too
             postCreateHook = "zfs snapshot zroot/store/home@blank";
           };
+
+          # User cache -- own dataset, NOT snapshotted and NOT persisted.
+          # Keeps churny, regenerable cache out of the snapshot history so a
+          # corrupted cache block can never get pinned into snapshots (which
+          # previously made a bad file un-deletable across scrub + reboot).
+          "store/cache" = {
+            type = "zfs_fs";
+            options.mountpoint = "legacy";
+            options."com.sun:auto-snapshot" = "false";
+            mountpoint = "/home/ryota/.cache";
+          };
         };
       };
     };

@@ -94,6 +94,20 @@
               # Snapshot blank if I want ephemeral home too
               postCreateHook = "zfs snapshot zroot/store/home@blank";
             };
+
+            # User cache -- deliberately on its own dataset, NOT snapshotted
+            # and NOT persisted. Churny, regenerable cache must never be
+            # captured by auto-snapshots: a corrupted noctalia wallpaper-cache
+            # block once got pinned into 10 hourly/frequent snapshots of
+            # `store/home` and could not be freed by delete + scrub + reboot
+            # until every snapshot referencing it was destroyed. Isolating
+            # cache here keeps that class of problem out of the home history.
+            "store/cache" = {
+              type = "zfs_fs";
+              options.mountpoint = "legacy";
+              options."com.sun:auto-snapshot" = "false";
+              mountpoint = "/home/ryota/.cache";
+            };
           };
         };
       };

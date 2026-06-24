@@ -1,0 +1,120 @@
+#+title: ryota-aws-ec2-devbox
+
+AWS EC2 bare-metal NixOS dev box. Gives working =/dev/kvm= and FUSE passthrough -- NixOS VM tests hard-fail without RDWR =/dev/kvm= (TCG emulation has different timing and produces false results), and FUSE-backed store work needs a real kernel. Neither is available in virtualised EC2 or most container runtimes.
+
+* Bring-up model
+
+There is deliberately *no IaC for the instance itself* -- it's a hand-launched EC2 box; only the OS config lives in this flake. The flow is:
+
+1. =aws ec2 run-instances= (or console) into any account/VPC you have admin on.
+2. =nixos-anywhere --flake .#ryota-aws-ec2-devbox root@<ip>= applies the disko layout + NixOS config in one shot, repartitioning the stock-AMI root in place.
+3. Day-2 changes: =nixos-rebuild switch --flake .#ryota-aws-ec2-devbox= on the box (or =--target-host= from a laptop).
+4. =aws ec2 stop-instances= when idle. The disk layout is *designed for stop/start*: all durable state lives on EBS; instance-store NVMe is only ever disposable L2ARC, re-attached on each boot by =zpool-l2arc-ensure=. Nothing is lost across a stop.
+
+This host does *not* use =${modulesPath}/virtualisation/amazon-image.nix= -- disko owns the disk layout, so EC2-metadata root-key injection is absent by design. The =--key-name= passed to =run-instances= is only used by the temporary stock AMI during step 2; after install, access is =ssh ryota@...= (keys from =shared/keys.nix=) + =sudo=, reached via Tailscale / =et= rather than the public IP.
+
+Disk layout: ZFS striped across 6× io2 EBS (durable tier) with the instance-store NVMe attached as L2ARC at boot. Nix builds land on a RAM-backed tmpfs so the durable pool only sees finished store paths.
+
+* Prerequisites
+
+- AWS credentials with EC2 + EBS + IAM permissions in the target account, and =AWS_REGION= exported.
+- An SSH public key to authorize on the box.
+
+* Launch
+
+** 1. SSH keypair
+
+The stock NixOS AMI injects this into root's =authorized_keys=; it's only needed until nixos-anywhere installs the real config (which authorizes the keys from =shared/keys.nix=).
+
+#+begin_src bash
+aws ec2 import-key-pair --key-name ryota \
+  --public-key-material fileb://$HOME/.ssh/id_ed25519.pub
+#+end_src
+
+** 2. Networking
+
+Any VPC/subnet with an internet route works. Create a security group allowing SSH (22) and Eternal Terminal (2022):
+
+#+begin_src bash
+VPC=...        # e.g. the account's default VPC
+PUBSUBNET=...  # a public subnet in $VPC
+
+SG=$(aws ec2 create-security-group --group-name ryota-devbox \
+  --description "ryota metal devbox" --vpc-id $VPC \
+  --query GroupId --output text)
+aws ec2 authorize-security-group-ingress --group-id $SG --protocol tcp --port 22   --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-id $SG --protocol tcp --port 2022 --cidr 0.0.0.0/0
+#+end_src
+
+** 3. Instance + volumes
+
+=r8idn.metal-96xl= (Intel, 384 vCPU, ~3 TiB RAM, instance-store NVMe). Metal boots take 5-10 min. Boot off the stock NixOS AMI on a small gp3 root -- nixos-anywhere repartitions everything via disko anyway.
+
+Look up the current NixOS x86_64 AMI for your region: [[https://nixos.org/download/#nixos-amazon]] (owner =427812963091=).
+
+#+begin_src bash
+AMI=...   # NixOS x86_64 AMI for $AWS_REGION
+
+IID=$(aws ec2 run-instances \
+  --image-id $AMI \
+  --instance-type r8idn.metal-96xl \
+  --key-name ryota \
+  --subnet-id $PUBSUBNET \
+  --security-group-ids $SG \
+  --associate-public-ip-address \
+  --block-device-mappings '[{"DeviceName":"/dev/xvda","Ebs":{"VolumeSize":4,"VolumeType":"gp3"}}]' \
+  --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=ryota-aws-ec2-devbox},{Key=owner,Value=ryota}]' \
+  --query 'Instances[0].InstanceId' --output text)
+
+aws ec2 wait instance-running --instance-ids $IID
+AZ=$(aws ec2 describe-instances --instance-ids $IID \
+  --query 'Reservations[0].Instances[0].Placement.AvailabilityZone' --output text)
+IP=$(aws ec2 describe-instances --instance-ids $IID \
+  --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
+
+# 6× io2 data volumes for the striped zroot.
+for i in $(seq 1 6); do
+  V=$(aws ec2 create-volume --availability-zone $AZ \
+    --volume-type io2 --size 2000 --iops 5000 \
+    --tag-specifications "ResourceType=volume,Tags=[{Key=Name,Value=ryota-devbox-ebs$i}]" \
+    --query VolumeId --output text)
+  aws ec2 wait volume-available --volume-ids $V
+  aws ec2 attach-volume --instance-id $IID --volume-id $V --device /dev/sd$(printf '%b' "\x$(printf %x $((97+i)))")
+done
+#+end_src
+
+Optionally attach an instance profile with =AmazonSSMManagedInstanceCore= so =aws ssm start-session --target $IID= works as a fallback when SSH is broken (=services.amazon-ssm-agent= is enabled in the config).
+
+** 4. Fill in disko.nix
+
+On the running AMI:
+
+#+begin_src bash
+ssh root@$IP 'ls -l /dev/disk/by-id/ | grep Amazon_Elastic_Block_Store'
+#+end_src
+
+Copy each =vol0...= id into =disko.nix= (the 4G gp3 → =boot=, the six io2 → =ebs1..6=), commit, push.
+
+** 5. Install with nixos-anywhere
+
+#+begin_src bash
+nix run github:nix-community/nixos-anywhere -- \
+  --flake github:rytswd/nix-config#ryota-aws-ec2-devbox \
+  root@$IP
+#+end_src
+
+After reboot: =ssh ryota@$IP=, then =sudo tailscale up= and switch to the Tailscale name / =et <host>= for day-to-day use (the public IP + SG ingress are only needed for this first provision). Verify:
+
+#+begin_src bash
+ls -l /dev/kvm && lsmod | grep kvm   # kvm_intel present
+zpool status                          # 6 striped vdevs + cache devices
+#+end_src
+
+* Cost hygiene
+
+=r8idn.metal-96xl= is expensive. Stop it when idle -- EBS state persists, instance-store (L2ARC) is wiped and re-attached on next boot by =zpool-l2arc-ensure=.
+
+#+begin_src bash
+aws ec2 stop-instances  --instance-ids $IID
+aws ec2 start-instances --instance-ids $IID   # 5-10 min to come back
+#+end_src

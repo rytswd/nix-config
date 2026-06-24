@@ -295,6 +295,17 @@
           }
         );
 
+        # AWS EC2 bare-metal dev box (Intel r8idn.metal-96xl, ZFS striped
+        # io2 + instance-store L2ARC) for KVM-gated NixOS VM tests. See
+        # nixos-config/ryota-aws-ec2-devbox/README.org for the launch +
+        # nixos-anywhere bring-up.
+        ryota-aws-ec2-devbox = (
+          import ./nixos-config/ryota-aws-ec2-devbox {
+            inherit self nixpkgs nixpkgs-unstable inputs overlays;
+            system = "x86_64-linux";
+          }
+        );
+
         # Apple Silicon UTM VM -- mirrors `asus-rog-flow-z13-2025` (same
         # shared module set, niri + hyprland + GNOME), minus disko /
         # impermanence / ZFS / asus-specific quirks.

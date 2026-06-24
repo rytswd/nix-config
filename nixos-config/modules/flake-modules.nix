@@ -41,6 +41,7 @@
   # No bundle default.nix here; standalone modules only, kept exposed
   # because consumers with the same hardware can borrow them directly.
   machine-specific-asus           = ./machine-specific/asus.nix;
+  machine-specific-aws-ec2-metal  = ./machine-specific/aws-ec2-metal.nix;
   machine-specific-asus-webcam    = ./machine-specific/asus-webcam.nix;
   machine-specific-hetzner-cloud  = ./machine-specific/hetzner-cloud.nix;
   machine-specific-laptop         = ./machine-specific/laptop.nix;

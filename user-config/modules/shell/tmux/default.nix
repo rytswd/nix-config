@@ -41,6 +41,11 @@
       ];
     extraConfig = builtins.readFile ./tmux.conf;
   };
+  home.shellAliases = {
+    # Pipe stdin into the tmux paste buffer and the system clipboard.
+    #   cat file | tmuxcopy
+    tmuxcopy = "tmux load-buffer -w -";
+  };
   xdg.configFile = {
     # Providing the below config via programs.tmux instead.
     # "tmux/tmux.conf".source           = ./tmux.conf;

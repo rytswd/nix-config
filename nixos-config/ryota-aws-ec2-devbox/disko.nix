@@ -37,7 +37,7 @@ in
     disk = {
       boot = {
         type = "disk";
-        device = "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol0xxxxxxxxxxxxxxxx"; # TODO: 4G gp3 boot vol
+        device = "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol0d2750faaf4149976";
         content = {
           type = "gpt";
           partitions = {
@@ -56,13 +56,12 @@ in
           };
         };
       };
-      # TODO: replace each volume id after attaching the io2 volumes.
-      ebs1 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol0xxxxxxxxxxxxxxxx";
-      ebs2 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol0xxxxxxxxxxxxxxxx";
-      ebs3 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol0xxxxxxxxxxxxxxxx";
-      ebs4 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol0xxxxxxxxxxxxxxxx";
-      ebs5 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol0xxxxxxxxxxxxxxxx";
-      ebs6 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol0xxxxxxxxxxxxxxxx";
+      ebs1 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol05aec827e21e769c6";
+      ebs2 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol0c71d3960182cd6ba";
+      ebs3 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol0ca40cf4d6afd680b";
+      ebs4 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol0e2437fd162d4fee7";
+      ebs5 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol084076fdbb0d3ae86";
+      ebs6 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol06a337733a0f62ecd";
     };
 
     zpool.zroot = {

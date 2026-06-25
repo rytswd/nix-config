@@ -136,7 +136,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id="Slack"
+    match app-id="slack"
     match app-id="vesktop"
     match app-id="signal"
     open-on-workspace "communication"

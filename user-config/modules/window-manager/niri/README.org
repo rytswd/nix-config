@@ -439,7 +439,7 @@ The title is manually set by ~(set-frame-name TITLE)~ in my Emacs code.
 For some communication related apps such as Slack, Vesktop (i.e. Discord), I assign it to a dedicated workspace.
 #+begin_src kdl
   window-rule {
-      match app-id="Slack"
+      match app-id="slack"
       match app-id="vesktop"
       match app-id="signal"
       open-on-workspace "communication"

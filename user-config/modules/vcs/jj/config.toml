@@ -26,6 +26,9 @@ la = ["log", "-r", "all()"]
 tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
 gp = ["git", "push"]
 retrunk = ["rebase", "-d", "trunk()"]
+gpa = ["util", "exec", "--", "bash", "-c",
+       "jj git push --remote origin \"$@\" && jj git push --remote forge \"$@\"",
+       "gpa"]
 
 [revset-aliases]
 "closest_bookmark(to)" = "heads(::to & bookmarks())"

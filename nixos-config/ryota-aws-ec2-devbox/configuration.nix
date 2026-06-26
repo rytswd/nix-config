@@ -222,7 +222,7 @@ in
   users.users.ryota = {
     extraGroups = [ "kvm" ];
     openssh.authorizedKeys.keys =
-      [ allKeys.gpg-ssh ] ++
+      [ allKeys.gpg-ssh allKeys.secretive ] ++
       (lib.mapAttrsToList (_: k: k.auth) allKeys.yubikey);
   };
   security.sudo.wheelNeedsPassword = false;

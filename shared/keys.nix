@@ -8,6 +8,10 @@
   # Used for SSH authentication when GPG is available
   gpg-ssh = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILX+wxTLnIemOShAhsDgBpst0X/Ybu7SGZChaLSX/e7B";
 
+  # macOS Secure Enclave key (Secretive) — for hosts where neither gpg-agent
+  # nor a YubiKey is at hand.
+  secretive = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGuUsjNsC6WDL6TB58uWH69vjHBLg/lOqyzyMc5ctvNRcIP0tqU9gmODTSd1hY9X/bjKhWF1xTdUDrd8UCw0wGo=";
+
   # FIDO2 resident keys - one auth + one signing key per YubiKey serial
   # Generated with: ssh-keygen -t ed25519-sk -O resident -C "YubiKey <serial> <purpose>"
   yubikey = {

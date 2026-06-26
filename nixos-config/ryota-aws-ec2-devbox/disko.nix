@@ -6,13 +6,11 @@
 # serials each time.
 #
 # ---------------------------------------------------------------------------
-# !! The /dev/disk/by-id/... paths below are PLACEHOLDERS. !!
-# Fill them in after `aws ec2 run-instances` + `aws ec2 create-volume` /
-# `attach-volume`, then on the target host:
-#
-#     ls -l /dev/disk/by-id/ | grep Amazon_Elastic_Block_Store
-#
-# and replace each `vol0xxxxxxxxxxxxxxxx` accordingly. See README.org.
+# The /dev/disk/by-id/... paths below are pinned to specific EBS volumes.
+# After (re)provisioning, refresh them from the OpenTofu outputs
+# `disko_boot_device` / `disko_ebs_devices` of the infra config that owns
+# this box. AWS volume id `vol-0abc...` surfaces as `..._vol0abc...`
+# (hyphen dropped).
 # ---------------------------------------------------------------------------
 let
   zfsDisk = device: {
@@ -37,7 +35,7 @@ in
     disk = {
       boot = {
         type = "disk";
-        device = "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol0d2750faaf4149976";
+        device = "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol096792c1d0d5c737a"; # 8G gp3 root
         content = {
           type = "gpt";
           partitions = {
@@ -56,12 +54,12 @@ in
           };
         };
       };
-      ebs1 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol05aec827e21e769c6";
-      ebs2 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol0c71d3960182cd6ba";
-      ebs3 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol0ca40cf4d6afd680b";
-      ebs4 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol0e2437fd162d4fee7";
-      ebs5 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol084076fdbb0d3ae86";
-      ebs6 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol06a337733a0f62ecd";
+      ebs1 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol05142f283f103a3be";
+      ebs2 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol04c47ae4d6e8698cd";
+      ebs3 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol08dccddf479f284b3";
+      ebs4 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol0081133e669c8e0a8";
+      ebs5 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol0eb55a9495a68beb1";
+      ebs6 = zfsDisk "/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_vol0ba38a65620a9e155";
     };
 
     zpool.zroot = {

@@ -12,6 +12,10 @@
   # nor a YubiKey is at hand.
   secretive = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGuUsjNsC6WDL6TB58uWH69vjHBLg/lOqyzyMc5ctvNRcIP0tqU9gmODTSd1hY9X/bjKhWF1xTdUDrd8UCw0wGo=";
 
+  # Provisioning host key — the box that runs tofu/nixos-anywhere and acts
+  # as the Nix remote-build client for hosts in this flake.
+  provisioner = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIXRBFY4eBm4pTMABFNIH42q/WC1kcZH6xztPCQa3BIT";
+
   # FIDO2 resident keys - one auth + one signing key per YubiKey serial
   # Generated with: ssh-keygen -t ed25519-sk -O resident -C "YubiKey <serial> <purpose>"
   yubikey = {

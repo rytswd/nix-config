@@ -20,7 +20,8 @@ in
 {
   imports = [
     "${self}/nixos-config/modules/core"
-    "${self}/nixos-config/modules/vpn"               # tailscale
+    # No modules/vpn here — this host is reached over its public address
+    # (and SSM as fallback), not via the personal tailnet.
     "${self}/nixos-config/modules/filesystem/zfs.nix"
 
     # EC2 .metal overrides (ssm-agent, eternal-terminal, tmpfs build dir,
@@ -222,7 +223,7 @@ in
   users.users.ryota = {
     extraGroups = [ "kvm" ];
     openssh.authorizedKeys.keys =
-      [ allKeys.gpg-ssh allKeys.secretive ] ++
+      [ allKeys.gpg-ssh allKeys.secretive allKeys.provisioner ] ++
       (lib.mapAttrsToList (_: k: k.auth) allKeys.yubikey);
   };
   security.sudo.wheelNeedsPassword = false;

@@ -64,7 +64,7 @@ in
   # hetzner-cloud.nix. The host config additionally creates the `ryota`
   # normal user; root + sudo is the recovery path.
   users.users.root.openssh.authorizedKeys.keys =
-    [ allKeys.gpg-ssh ] ++
+    [ allKeys.gpg-ssh allKeys.secretive allKeys.provisioner ] ++
     (lib.mapAttrsToList (_: k: k.auth) allKeys.yubikey);
 
   # --- Reachability when SSH is unconfigured / broken ---

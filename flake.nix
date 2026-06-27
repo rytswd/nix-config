@@ -301,7 +301,7 @@
         # nixos-anywhere bring-up.
         ryota-aws-ec2-devbox = (
           import ./nixos-config/ryota-aws-ec2-devbox {
-            inherit self nixpkgs nixpkgs-unstable inputs overlays;
+            inherit self nixpkgs nixpkgs-unstable inputs overlays home-manager;
             system = "x86_64-linux";
           }
         );
@@ -370,6 +370,12 @@
           # Apple Silicon MBPs
           "ryota@mbp-m1-max" = mkHome "aarch64-darwin" "mbp-m1-max" ./user-config/ryota/macos.nix;
           "ryota@mbp-m5-max" = mkHome "aarch64-darwin" "mbp-m5-max" ./user-config/ryota/macos.nix;
+
+          # Headless servers — same profile as the integrated hm wiring in
+          # the host's default.nix, so standalone switches stay in lockstep.
+          "ryota@ryota-aws-ec2-devbox" =
+            mkHome "x86_64-linux" "ryota-aws-ec2-devbox"
+              ./user-config/ryota/server.nix;
 
           # Coder / devspace workspaces — two arch variants. `hostname`
           # isn't host-specific here; "coder" is a placeholder used by HM

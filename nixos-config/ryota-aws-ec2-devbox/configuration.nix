@@ -220,7 +220,13 @@ in
   # `ryota` comes from user-config/ryota/create.nix (wheel + initial pw).
   # Add the kvm group and authorize the same YubiKey set as root so direct
   # `ssh ryota@…` works without going via root + sudo.
+  # zsh as login shell on this host only — create.nix's nushell default is
+  # for interactive desktops; a build box wants the shell that remote-exec
+  # tooling (nixos-rebuild --target-host, ssh one-liners, nix remote
+  # builders) assumes.
+  programs.zsh.enable = true;
   users.users.ryota = {
+    shell = lib.mkForce pkgs.zsh;
     extraGroups = [ "kvm" ];
     openssh.authorizedKeys.keys =
       [ allKeys.gpg-ssh allKeys.secretive allKeys.provisioner ] ++

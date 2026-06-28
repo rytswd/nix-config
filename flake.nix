@@ -433,6 +433,12 @@
       ##   Flake apps
       #------------------------------------------
       # `hm`        -- standalone Home Manager dispatcher (host/arch -> profile).
+      # `install`   -- guided bare-metal installer for nixosConfigurations
+      #                hosts, runnable from the custom or a stock installer
+      #                ISO (docs/runbooks/bare-metal-install.org):
+      #
+      #                    nix run github:rytswd/nix-config#install -- [<host>]
+      #
       # `bootstrap` -- one-shot coder/devspace setup (also `default`), so a
       #                fresh workspace comes up with a single command:
       #
@@ -455,6 +461,7 @@
         in
         {
           hm = import ./apps/hm { inherit pkgs; };
+          install = import ./apps/install { inherit pkgs self; };
           inherit bootstrap;
           inherit (secrets) secrets-enroll secrets-revoke;
           default = bootstrap;

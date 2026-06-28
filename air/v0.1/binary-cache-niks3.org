@@ -28,8 +28,8 @@ Why this matters beyond speed: with no build server (a deliberate choice for now
 * Proposal
 Phased, smallest-thing-first:
 
-1. *Storage + server* (private infrastructure): R2 bucket + API credentials, Postgres, niks3 service on the chosen write-path host. Outcome consumed here: =https://cache.<domain>= (R2/CDN read endpoint) + =cache.<domain>-1:<pubkey>=. A clan-managed host is a natural candidate once [[file:clan-adoption.org]] lands -- clan's own infra runs niks3, so reference configuration exists.
-2. *Keys*: generate the signing keypair (=nix key generate-secret --key-name cache.<domain>-1=); secret into the private repo via sops (YubiKey recipients, per [[file:secrets-host-enrolment.org]] scoping); public key into =nixConfig.extra-trusted-public-keys=.
+1. *Storage + server* (private infrastructure): R2 bucket + API credentials, Postgres, niks3 service on the chosen write-path host. Outcome consumed here: =https://cache.re.dev= (R2/CDN read endpoint) + =cache.re.dev-1:<pubkey>=. A clan-managed host is a natural candidate once [[file:clan-adoption.org]] lands -- clan's own infra runs niks3, so reference configuration exists.
+2. *Keys*: generate the signing keypair (=nix key generate-secret --key-name cache.re.dev-1=); secret into the private repo via sops (YubiKey recipients, per [[file:secrets-host-enrolment.org]] scoping); public key into =nixConfig.extra-trusted-public-keys=.
 3. *Client wiring* (this repo): swap substituter entries in =flake.nix=; system-level substituters in =nixos-config/modules/nix-base.nix= follow the same layered-cache model already documented there.
 4. *Push path*: =cache-push= app wrapping the niks3 upload client (presigned-URL flow), with the signing key sourced from the sops-managed location. Document push-after-build as a provisioner habit in the remote-provision runbook.
 5. *Retirement*: drop cachix substituter + key once the new cache has the hot set (a few days of normal pushes).
@@ -41,6 +41,7 @@ Contingency: because reads go straight to R2, a niks3 server outage only pauses 
 - Anything evaluated by =nix run github:rytswd/nix-config= on fresh machines only sees the flake-level =nixConfig=, so the new substituter must be there (same constraint as today, noted in =flake.nix= comments).
 - Push credentials (S3/API token for niks3) are provisioner-class secrets: YubiKey-recipient sops file, never on thin machines.
 - darwin closures: the MBPs build their own darwin parts and can push them too -- the cache is multi-arch by nature; no special handling beyond signing.
+- Postgres is write-path bookkeeping only (in-flight transactional uploads + the reference graph for GC); reads never touch it, the workload is single-instance tiny, and the data is largely reconstructible from narinfos in the bucket. Hosting: co-located =services.postgresql= on the write-path host as target state; a managed Postgres is acceptable as a stopgap while that host remains unmanaged, at the cost of one more external credential.
 
 ** Test Plan
 - Round-trip: push a small derivation from a laptop, garbage-collect it locally, rebuild via substitution only (=--max-jobs 0=).
@@ -65,6 +66,7 @@ Contingency: because reads go straight to R2, a niks3 server outage only pauses 
 * History
 - 2026-06-28: Initial draft from the repo setup review. niks3 chosen over alternatives on trust + FOSS grounds; provisioner-first (no dedicated builder yet) recorded.
 - 2026-06-28: Storage decided: Cloudflare R2 per niks3 documentation recommendation. Recorded the read-path/write-path split (reads never depend on the server). Write-path hosting + domain still open -- implementation held until confirmed.
+- 2026-06-28: Domain + key name decided: =https://cache.re.dev= with signing key =cache.re.dev-1= (domain-coupled key accepted knowingly -- renaming the domain later would mean re-signing the bucket). Postgres role clarified (write-path/GC bookkeeping; co-located target, SaaS acceptable stopgap). Remaining blockers: R2 bucket creation, signing keypair generation, write-path host.
 
 * References
 - https://github.com/Mic92/niks3

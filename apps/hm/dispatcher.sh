@@ -13,6 +13,54 @@ host="$(hostname -s)"
 user="$(id -un)"
 
 ###----------------------------------------
+##  Local profile override
+#------------------------------------------
+# Some machine classes have hostname patterns that should not be encoded
+# in a public repo. Those machines pin their profile locally instead --
+# the same seam philosophy as the local.nix / local.zsh overlays
+# described in user-config/ryota/coder.nix. Two sources, env var first:
+#
+#     NIXCFG_HM_PROFILE=coder hm switch
+#     echo coder > ~/.config/nix-config/hm-profile
+#
+# The override is consulted before any host matching, but the value must
+# name a profile the dispatcher knows about -- anything else warns and
+# falls through to normal resolution, so a stale pin cannot brick the
+# dispatcher.
+known_profile() {
+    case "$1" in
+        ryota@asus-rog-zephyrus-g14-2024 | \
+        ryota@asus-rog-flow-z13-2025 | \
+        ryota@mbp-m1-max | \
+        ryota@mbp-m5-max | \
+        ryota@ryota-aws-ec2-devbox | \
+        coder | coder-aarch64 | \
+        ryota@coder | ryota@coder-aarch64)
+            return 0 ;;
+    esac
+    return 1
+}
+
+local_profile_override() {
+    if [ -n "${NIXCFG_HM_PROFILE:-}" ]; then
+        echo "$NIXCFG_HM_PROFILE"
+        return 0
+    fi
+    local pin="${XDG_CONFIG_HOME:-$HOME/.config}/nix-config/hm-profile"
+    local line=""
+    if [ -r "$pin" ]; then
+        # First line only; `read` exits non-zero on a missing trailing
+        # newline but still populates the variable.
+        read -r line < "$pin" || true
+    fi
+    if [ -n "$line" ]; then
+        echo "$line"
+        return 0
+    fi
+    return 1
+}
+
+###----------------------------------------
 ##  Profile map
 #------------------------------------------
 # First match wins. Add new hosts here as their homeConfigurations land.
@@ -44,12 +92,22 @@ resolve_profile() {
 }
 
 profile=""
-for key in "$user-$host" "$host-$user" "$host"; do
-    if profile="$(resolve_profile "$key")"; then
-        break
+if override="$(local_profile_override)"; then
+    if known_profile "$override"; then
+        profile="$override"
+    else
+        printf 'hm: ignoring unknown local profile override: %s\n' "$override" >&2
     fi
-    profile=""
-done
+fi
+
+if [ -z "$profile" ]; then
+    for key in "$user-$host" "$host-$user" "$host"; do
+        if profile="$(resolve_profile "$key")"; then
+            break
+        fi
+        profile=""
+    done
+fi
 
 if [ -z "$profile" ]; then
     printf 'hm: no profile mapped for host=%s user=%s\n' "$host" "$user" >&2

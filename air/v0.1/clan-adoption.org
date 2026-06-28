@@ -12,6 +12,7 @@ Why not Tailscale: proprietary coordination server conflicts with the FOSS / sel
 
 ** Goals
 - Decide the integration shape: clan as a layer in this flake vs a parallel inventory consuming this repo's modules -- without breaking the HM-standalone-first philosophy (user-level switches must keep working without sudo).
+- Enforce the work/personal trust boundary structurally: clan membership (mesh, syncthing, inventory) is personal-class only; see Design Details for the class table.
 - Syncthing as a clan service across the personal machines (and selected servers).
 - Mesh VPN service across laptops + cloud hosts; candidate evaluation (tincr vs alternatives) recorded here before committing.
 - Reconcile overlap with [[file:remote-provisioning.org]]: clan wraps nixos-anywhere for install and has its own update flow, so the thin =provision= / =deploy= apps may eventually be absorbed -- the apps stay deliberately thin so nothing is lost if so.
@@ -19,6 +20,7 @@ Why not Tailscale: proprietary coordination server conflicts with the FOSS / sel
 
 ** Non-Goals
 - Migrating every host into clan on day one; HM-standalone profiles (coder class, restricted machines) stay outside.
+- Work-class machines joining the clan, ever -- not deferred, excluded by policy (see Design Details).
 - Replacing the existing tailscale usage history on hosts before the mesh candidate is validated (the devbox already dropped tailscale; its README still references =sudo tailscale up= -- stale, clean up here when the mesh lands, or sooner if the README is touched first).
 - Deciding niks3 server placement here -- that stays in [[file:binary-cache-niks3.org]]; a clan-managed host is merely a candidate.
 
@@ -26,7 +28,30 @@ Why not Tailscale: proprietary coordination server conflicts with the FOSS / sel
 To be drafted after a spike: stand up clan with two machines (one laptop, one throwaway cloud VM), wire syncthing + the mesh candidate, and evaluate (a) inventory ergonomics vs this repo's host layout, (b) vars vs the sops setup in the private repo, (c) update flow vs =deploy=. The spike outcome decides the integration shape and promotes this doc.
 
 * Design Details
-TBD with the spike. Constraints already known: public-repo hygiene applies to inventory data (machine names/addresses likely belong in the private layer); FOSS-only services; everything must keep working for hosts that never join the clan.
+Spike fills in the mechanics; the boundaries below are fixed inputs to it, not outcomes of it.
+
+** Machine classes and the trust boundary
+Clan membership is a trust statement -- mesh VPN and file sync create data paths between members -- so the inventory follows the work/personal split, not convenience:
+
+| Class | Machines | Clan membership |
+|---+---+---|
+| Work | =mbp-m5-max=, coder-class workspaces, =ryota-aws-ec2-devbox= | Never. No mesh, no syncthing, no inventory entry -- a tunnel between employer context and personal infra is a data path neither side should have. The devbox already dropped tailscale (dee1ff1), consistent with this. Work machines keep their current management: nix-darwin + HM for the MBP, HM-standalone for workspaces, =provision= / =deploy= for the devbox. |
+| Personal | =mbp-m1-max=, =asus-rog-zephyrus-g14-2024=, =asus-rog-flow-z13-2025=, =nixos-utm= | Yes -- this is the clan: mesh + syncthing + inventory. |
+| Project | =hetzner-k8s-cp-{1..3}= today; future project-specific hosts | Per-project decision at creation: typically mesh-reachable from personal machines but in their own service scopes (no personal syncthing folders on project hosts). |
+
+Coder-class workspaces are additionally excluded mechanically -- HM-standalone, no system layer for clan to manage. The work MBP holding personal-identity material (YubiKey use for personal git) is a user-level choice outside clan's scope; the boundary here is about infrastructure membership, not identity.
+
+** Where machine definitions live
+Three layers, with a decision rule per machine:
+
+1. /This repo (public)/: the reusable module library (=nixosModules= / =homeModules= / =darwinModules= are already exported for exactly this), the generic apps, and machines whose entire configuration is public-safe -- the current host set.
+2. /A private infrastructure repo/ -- the clan root. Holds the inventory (machine names/addresses are precisely the data that must not be public), project-specific hosts, the cache write-path host, and the mesh/syncthing service wiring. Consumes this repo as a flake input for all shared modules.
+3. /Per-project repos/: only when a project's collaborators need to operate its infra; same consumption pattern.
+
+Rule: public repo = library + public-safe long-lived machines; private infra repo = anything whose addresses, ownership, or project lifecycle is private; per-project repo = when someone else operates it too. =hetzner-k8s= is grandfathered here in public; whether it migrates to the private infra repo is a spike question, decided by whichever location makes its (currently inactive) revival cheaper.
+
+** Other constraints carried into the spike
+FOSS-only services; everything must keep working for hosts that never join the clan; clan vars must not displace the YubiKey-primary policy from [[file:secrets-host-enrolment.org]].
 
 * Drawbacks
 - A second orchestration philosophy in the repo (clan inventory vs this flake's hand-rolled host wiring) risks split-brain; the spike must produce a clear "which layer owns what" answer before adoption.
@@ -40,6 +65,7 @@ TBD with the spike. Constraints already known: public-repo hygiene applies to in
 
 * History
 - 2026-06-28: Created as draft from review follow-up: clan planned for syncthing + tailscale-like mesh VPN (tincr-class, not Tailscale); interplay with provisioning, secrets, and cache docs recorded. Spike pending.
+- 2026-06-28: Boundaries fixed ahead of the spike: work/personal machine-class table added (work machines excluded from clan by policy, not deferral), and the three-layer repo rule recorded -- this repo stays the public library + public-safe hosts, a private infrastructure repo becomes the clan root and home for project-specific machines, per-project repos only for collaborator-operated infra.
 
 * References
 - https://clan.lol -- inventory, services, vars.

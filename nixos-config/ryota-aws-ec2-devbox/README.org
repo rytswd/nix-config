@@ -7,8 +7,8 @@ AWS EC2 bare-metal NixOS dev box. Gives working =/dev/kvm= and FUSE passthrough 
 There is deliberately *no IaC for the instance itself* -- it's a hand-launched EC2 box; only the OS config lives in this flake. The flow is:
 
 1. =aws ec2 run-instances= (or console) into any account/VPC you have admin on.
-2. =nixos-anywhere --flake .#ryota-aws-ec2-devbox root@<ip>= applies the disko layout + NixOS config in one shot, repartitioning the stock-AMI root in place.
-3. Day-2 changes: =nixos-rebuild switch --flake .#ryota-aws-ec2-devbox= on the box (or =--target-host= from a laptop).
+2. =nix run .#provision -- ryota-aws-ec2-devbox root@<ip>= applies the disko layout + NixOS config in one shot, repartitioning the stock-AMI root in place. This is the standard remote-provision flow -- see [[file:../../docs/runbooks/remote-provision.org]] for who needs what and the decision points.
+3. Day-2 changes: =nix run .#deploy -- ryota-aws-ec2-devbox ryota@<host>= from any credentialed machine (or =nixos-rebuild switch --flake .#ryota-aws-ec2-devbox= on the box itself); same runbook.
 4. =aws ec2 stop-instances= when idle. The disk layout is *designed for stop/start*: all durable state lives on EBS; instance-store NVMe is only ever disposable L2ARC, re-attached on each boot by =zpool-l2arc-ensure=. Nothing is lost across a stop.
 
 This host does *not* use =${modulesPath}/virtualisation/amazon-image.nix= -- disko owns the disk layout, so EC2-metadata root-key injection is absent by design. The =--key-name= passed to =run-instances= is only used by the temporary stock AMI during step 2; after install, access is =ssh ryota@...= (keys from =shared/keys.nix=) + =sudo=, reached via Tailscale / =et= rather than the public IP.
@@ -95,12 +95,12 @@ ssh root@$IP 'ls -l /dev/disk/by-id/ | grep Amazon_Elastic_Block_Store'
 
 Copy each =vol0...= id into =disko.nix= (the 4G gp3 → =boot=, the six io2 → =ebs1..6=), commit, push.
 
-** 5. Install with nixos-anywhere
+** 5. Install
+
+Standard remote-provision flow ([[file:../../docs/runbooks/remote-provision.org]]), run from any machine with a checkout of this flake and private-input access:
 
 #+begin_src bash
-nix run github:nix-community/nixos-anywhere -- \
-  --flake github:rytswd/nix-config#ryota-aws-ec2-devbox \
-  root@$IP
+nix run .#provision -- ryota-aws-ec2-devbox root@$IP
 #+end_src
 
 After reboot: =ssh ryota@$IP=, then =sudo tailscale up= and switch to the Tailscale name / =et <host>= for day-to-day use (the public IP + SG ingress are only needed for this first provision). Verify:

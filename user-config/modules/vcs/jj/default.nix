@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 # Assumes the security bundle (which always imports sops-nix.nix) is also
 # imported by the host -- sops.templates below relies on the sops module.
 # Keyless hosts (e.g. coder) manage jj config separately and don't import
@@ -16,7 +21,13 @@
 
   # SOPS Nix based secret handling -- generate the config with secrets
   # substituted in.
-  sops.templates."jujutsu-config" = {
+  #
+  # Core-class template: gated on `coreAvailable` so ephemeral-tier hosts
+  # (per-instance key, no YubiKey -- see lib/secrets.nix) that import the
+  # vcs bundle simply get no jj config instead of failing at activation.
+  # No fallback on purpose: hosts without core secrets manage jj config by
+  # hand if they need one, same as keyless hosts always have.
+  sops.templates."jujutsu-config" = lib.mkIf config.local.secrets.coreAvailable {
     # With file input like this, the file is expected to have the following
     # placeholder string:
     #

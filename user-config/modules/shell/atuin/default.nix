@@ -2,9 +2,12 @@
 # Assumes the security bundle (which always imports sops-nix.nix) is also
 # imported by the host -- sops.templates below relies on the sops module.
 #
-# When `local.secrets.enable` is false (e.g. SSH-only coder workspaces) the
-# sync config can't be decrypted, so we write a plain local-only config
-# instead and skip atuin sync entirely.
+# The sync config is the canonical ephemeral-class secret (see
+# user-config/modules/lib/secrets.nix): hosts enrolled with a per-instance
+# key (`local.secrets.tier = "ephemeral"`) get sync just like YubiKey
+# hosts. When ephemeral-class secrets aren't available at all (e.g.
+# SSH-only coder workspaces) the sync config can't be decrypted, so we
+# write a plain local-only config instead and skip atuin sync entirely.
 {
   programs.atuin = {
     enable = true;
@@ -35,7 +38,7 @@
 
   # SOPS Nix based secret handling -- generate the config with secrets
   # substituted in.
-  sops.templates."atuin-config" = lib.mkIf config.local.secrets.enable {
+  sops.templates."atuin-config" = lib.mkIf config.local.secrets.ephemeralAvailable {
     # With file input like this, the file is expected to have the following
     # placeholder string:
     #
@@ -52,7 +55,7 @@
 
   # Keyless fallback (no sync server address to decrypt) -- local history
   # only. Same target path as the sops template above; mutually exclusive.
-  xdg.configFile."atuin/config.toml" = lib.mkIf (!config.local.secrets.enable) {
+  xdg.configFile."atuin/config.toml" = lib.mkIf (!config.local.secrets.ephemeralAvailable) {
     text = ''
       auto_sync = false
       enter_accept = false

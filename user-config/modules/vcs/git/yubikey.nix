@@ -83,19 +83,28 @@ in
   }) keys;
 
   # This places the file in ~/.ssh/id_yubikey_<SERIAL> with 600 permissions.
-  sops.secrets = lib.mkMerge (
-    lib.mapAttrsToList (serial: data: {
-      "yubikey_stub_${serial}/auth" = {
-        sopsFile = "${private-repo}/keys/ssh/yubikey-stub.yaml";
-        path = "${config.home.homeDirectory}/.ssh/id_yubikey_${serial}_auth";
-        mode = "0600";
-      };
-      "yubikey_stub_${serial}/sign" = {
-        sopsFile = "${private-repo}/keys/ssh/yubikey-stub.yaml";
-        path = "${config.home.homeDirectory}/.ssh/id_yubikey_${serial}_sign";
-        mode = "0600";
-      };
-    }) keys
+  #
+  # Core-class secrets: the stubs are YubiKey private-key halves, so they
+  # only make sense where a YubiKey-derived age key can decrypt them. Gated
+  # on `coreAvailable` (not bare `enable`) so hosts on the ephemeral tier
+  # -- or with secrets disabled -- that import the vcs bundle fall back to
+  # the public-key-only config above instead of failing at activation; the
+  # gate also keeps evaluation from forcing the private flake input there.
+  sops.secrets = lib.mkIf config.local.secrets.coreAvailable (
+    lib.mkMerge (
+      lib.mapAttrsToList (serial: data: {
+        "yubikey_stub_${serial}/auth" = {
+          sopsFile = "${private-repo}/keys/ssh/yubikey-stub.yaml";
+          path = "${config.home.homeDirectory}/.ssh/id_yubikey_${serial}_auth";
+          mode = "0600";
+        };
+        "yubikey_stub_${serial}/sign" = {
+          sopsFile = "${private-repo}/keys/ssh/yubikey-stub.yaml";
+          path = "${config.home.homeDirectory}/.ssh/id_yubikey_${serial}_sign";
+          mode = "0600";
+        };
+      }) keys
+    )
   );
 
   # Configure Git to include the dynamic status file.

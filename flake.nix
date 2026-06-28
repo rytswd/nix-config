@@ -447,6 +447,8 @@
       # `provision` -- first install of a remote NixOS host (nixos-anywhere).
       # `deploy`    -- day-2 `nixos-rebuild switch --target-host` for the same
       #                hosts. See docs/runbooks/remote-provision.org.
+      # `cache-push`-- push built closures to the self-hosted binary cache
+      #                (niks3 write path). See docs/runbooks/binary-cache.org.
       # `secrets-enroll` / `secrets-revoke`
       #             -- ephemeral-class recipient lifecycle against a local
       #                private-repo checkout (see apps/secrets/default.nix).
@@ -467,6 +469,7 @@
           default = bootstrap;
           provision = import ./apps/provision { inherit pkgs self; };
           deploy = import ./apps/deploy { inherit pkgs self; };
+          cache-push = import ./apps/cache-push { inherit pkgs; };
         }
       );
     };

@@ -1,0 +1,55 @@
+#+title: Runbook: remote provisioning (build on A, deploy to B)
+
+One machine -- the /provisioner/ -- evaluates and builds a NixOS configuration from this flake; another -- the /target/ -- receives and runs it. The target never needs private-repo access, secrets, or build capacity of its own: any credentialed machine can bring up and maintain any host in =nixosConfigurations= over nothing but SSH. The mechanism is two thin flake apps, =provision= (first install) and =deploy= (day-2); this runbook covers the decision points the apps cannot make. Design rationale lives in [[file:../../air/v0.1/remote-provisioning.org]].
+
+* Who needs what
+
+| Role        | Needs                                                                                                                              | Explicitly does not need                                       |
+|-------------+------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------|
+| Provisioner | a checkout of this flake; SSH access to GitHub for the private input; secrets access if enrolment follows; (future) cache-push key | physical access to the target; the target's own credentials   |
+| Target      | reachable SSH -- root login for first install, a sudo-capable user for day-2                                                       | private-repo access, secrets, a Nix store, build capacity     |
+
+This asymmetry is the point: cloud instances and other thin machines stay credential-free, and everything sensitive stays on the machine you already trust.
+
+* First install vs day-2
+
+Use =provision= exactly once per disk: it runs [[https://github.com/nix-community/nixos-anywhere][nixos-anywhere]], which *repartitions the target's disk via disko and installs from scratch*. Everything after that -- config changes, package bumps, module additions -- is =deploy=, which builds the new system closure and switches the running host to it without touching the disk layout.
+
+If you are unsure which one you need: if the host is already running its NixOS config from this flake, it is =deploy=. =provision= against a live host destroys it.
+
+* First install
+
+#+begin_src bash
+nix run .#provision -- <host> root@<ip>
+#+end_src
+
+=<host>= must be a =nixosConfigurations= attribute name -- the app derives the candidate list from the flake itself and prints it on a mismatch. =root@<ip>= is whatever root-capable SSH access the fresh machine offers (a stock cloud image's injected key, an installer ISO, etc.). The app always prints the fully-resolved nixos-anywhere command before executing, and =--dry-run= prints it without connecting anywhere; any unrecognised flag is passed through to nixos-anywhere verbatim.
+
+Per-host preparation that the app cannot do for you (instance launch, disk ids in =disko.nix=, security groups) stays in the host's own README -- e.g. =nixos-config/ryota-aws-ec2-devbox/README.org= for the EC2 devbox.
+
+* Day-2 changes
+
+#+begin_src bash
+nix run .#deploy -- <host> <user>@<address>
+#+end_src
+
+Wraps =nixos-rebuild switch --flake <self>#<host> --target-host ... --use-remote-sudo=: the build happens on the provisioner, the closure is copied over SSH, and the target's regular sudo-capable user activates it -- root SSH is a first-install-only affordance. Same dry-run and print-before-exec behaviour as =provision=; extra flags pass through to nixos-rebuild.
+
+* Build on local vs remote
+
+Both apps build on the provisioner by default: targets may be much smaller than the provisioner (or too small to build at all), and only the provisioner has the private input and any cache credentials. The cost is shipping the closure over the network.
+
+Build on the target instead when the target is well-resourced *and* the link from the provisioner is the bottleneck (e.g. provisioning a large cloud box from a residential connection): pass =--build-on remote= through =provision=, or =--build-host <ssh-target>= through =deploy=. Note that remote building requires the target to evaluate the flake, which reintroduces the private-input problem -- it only works for hosts whose configuration doesn't force it, so local builds are the right default in this repo.
+
+* Recreated target: host key changed
+
+A recreated cloud instance gets a brand-new SSH host key. Two consequences:
+
+1. Your =known_hosts= entry for the address is now wrong; SSH will refuse to connect until you remove it. Expected -- verify it's a recreation you performed, not an interception.
+2. If the old instance was enrolled as a sops recipient (the age recipient is derived from the host key), the new instance can no longer decrypt its secrets. Two paths, detailed in [[file:secrets-enrolment.org]]:
+   - *Seed the old key*: =nix run .#provision -- <host> root@<ip> --seed-host-key <path>= stages the previous =ssh_host_ed25519_key= via nixos-anywhere's =--extra-files=, so the instance keeps its enrolled identity and no re-encryption is needed. The trade-off: private key material passes through the provisioner.
+   - *Fresh key, re-enrol*: provision without seeding, then revoke the old recipient and enrol the new one. Cleaner, costs one =sops updatekeys= round.
+
+* After the build: push to the cache
+
+Forward note -- once the binary cache lands ([[file:../../air/v0.1/binary-cache-niks3.org]]), make pushing the built closure part of every provision/deploy: the provisioner builds once, pushes, and every subsequent machine (including the target itself on a later self-rebuild) substitutes instead of rebuilding. Until then, the provisioner's local store is the only cache and repeat deploys from other machines rebuild from scratch.

@@ -1,5 +1,5 @@
 #+title: Self-hosted binary cache (niks3)
-#+state: work-in-progress
+#+state: complete
 #+FILETAGS: :infra:
 
 * Summary

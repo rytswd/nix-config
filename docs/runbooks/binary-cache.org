@@ -13,6 +13,30 @@ This flake substitutes from, and pushes to, a self-hosted binary cache. Reads an
 
 Reads never touch the niks3 server: a write-path outage (or the write-path host simply not existing yet) only pauses uploads, never substitution. This is why the substituter could be wired into every consumer before the server endpoint was even decided.
 
+* Geography: one bucket + CDN
+
+There is exactly one bucket, and that is a decision rather than an omission. The custom domain places R2 behind Cloudflare's global CDN, so every read is served from the edge nearest the consumer, and R2-to-edge egress is free -- a cached read costs nothing no matter where it lands. Per-region buckets would mean self-managed replication and geo-routing to solve a problem the CDN already solves. The ecosystem precedent is the same shape: =cache.nixos.org= is a single S3 region behind Fastly, and this flake already consumes that pattern from the read side -- =hetzner-cache.numtide.com= is a mirror serving paths signed with the =cache.nixos.org-1= key.
+
+The edge-cache policy follows directly from how the two object kinds behave:
+
+| Path        | Access pattern                                      | Edge policy                                  |
+|-------------+-----------------------------------------------------+----------------------------------------------|
+| =nar/*=     | content-addressed, immutable                        | long TTL -- cache as aggressively as possible |
+| =*.narinfo= | immutable once written, but probed for every lookup | cacheable; 404s short (<=1 min) or uncached  |
+
+The 404 line is the one that matters operationally: nix probes substituters for paths they mostly don't have, so negative lookups are constant -- and a freshly pushed path must become visible promptly. A long-cached 404 would make a new push invisible until the negative entry expired, which is why misses get a short TTL (or none) while hits on immutable objects get a long one.
+
+** One-time Cloudflare setup
+
+- Bucket location hint near the writer (the provisioner today, the niks3 write-path host when it lands): writes and cold-read fills are the only traffic that reaches the bucket's home region; everything else is edge-served, so the hint optimises for the writer, not the readers.
+- A "cache everything" Cache Rule on the domain: NAR and narinfo paths don't match Cloudflare's default cacheable-extension list, so without this rule nothing is edge-cached at all.
+- Edge TTLs per the table above: long for =nar/*=, modest for =*.narinfo=, short or none for 404s.
+- Smart Tiered Cache on: edge misses fill through the tier nearest the bucket instead of every edge hitting origin independently.
+
+** Regional escape hatch: mirror, never a second bucket
+
+If a region's latency or hit rate ever genuinely hurts, the answer is a pull-through mirror, not another bucket: a box in that region fronting =https://cache.rytswd.com= (the nginx =proxy_cache= shape, the same thing the Numtide hetzner mirror is to =cache.nixos.org=), listed first in that region's substituters. Signatures travel inside the narinfos, so the same =cache.rytswd.com-1= key verifies regardless of which host serves the bytes -- a mirror needs no key material and no trust changes anywhere. A second bucket, by contrast, reintroduces exactly the replication and routing burden the single-bucket decision avoided. The same policy carries over per-tenant to the future multi-tenant cache service: one bucket per tenant, regional needs answered by mirrors.
+
 * Reading from it
 
 Nothing to do. The substituter and public key are wired in the two places that matter: =flake.nix= =nixConfig= (the only configuration a fresh machine running =nix run github:rytswd/nix-config= ever sees) and =nixos-config/modules/nix-base.nix= (the system-level layered cache model for machines built from this flake). Until the first push lands, the bucket serves no =nix-cache-info= and nix logs a "does not appear to be a binary cache" warning -- harmless, it falls through to the other caches.

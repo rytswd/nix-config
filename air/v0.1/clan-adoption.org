@@ -1,0 +1,47 @@
+#+title: Clan adoption: machine inventory, syncthing, mesh VPN
+#+state: draft
+#+FILETAGS: :infra:
+
+* Summary
+Adopt clan (clan.lol) as the machine-inventory and multi-host-services layer for this fleet, initially for two concrete wants: declarative syncthing across machines, and a self-hosted tailscale-like mesh VPN -- explicitly /not/ Tailscale (proprietary control plane); the leading candidate is a tinc-lineage mesh such as Mic92's tincr. Provisioning and secrets keep their own docs; this one tracks the clan layer itself and its interplay with them.
+
+* Motivation
+Several upcoming needs are multi-host /services/, not per-host config: file sync between laptops and servers, a mesh network so cloud instances and laptops reach each other without public ingress, and a growing set of cloud hosts (Kubernetes testing, build experiments) that want inventory-style management. Hand-rolling each of these as modules in this repo is possible, but clan's service modules + inventory are exactly this shape, and the ecosystem alignment is strong: clan vars is sops/age-based (same machinery as [[file:secrets-host-enrolment.org]]), and clan's own infrastructure runs niks3 ([[file:binary-cache-niks3.org]]), so reference configurations exist for the pieces already planned here.
+
+Why not Tailscale: proprietary coordination server conflicts with the FOSS / self-hosted direction (headscale exists but keeps the client/ecosystem coupling). A tinc-lineage mesh is fully self-hosted and clan has prior art for mesh networking services.
+
+** Goals
+- Decide the integration shape: clan as a layer in this flake vs a parallel inventory consuming this repo's modules -- without breaking the HM-standalone-first philosophy (user-level switches must keep working without sudo).
+- Syncthing as a clan service across the personal machines (and selected servers).
+- Mesh VPN service across laptops + cloud hosts; candidate evaluation (tincr vs alternatives) recorded here before committing.
+- Reconcile overlap with [[file:remote-provisioning.org]]: clan wraps nixos-anywhere for install and has its own update flow, so the thin =provision= / =deploy= apps may eventually be absorbed -- the apps stay deliberately thin so nothing is lost if so.
+- Reconcile with [[file:secrets-host-enrolment.org]]: clan vars could subsume the per-instance enrolment mechanics for clan-managed hosts; the YubiKey-primary policy is non-negotiable either way.
+
+** Non-Goals
+- Migrating every host into clan on day one; HM-standalone profiles (coder class, restricted machines) stay outside.
+- Replacing the existing tailscale usage history on hosts before the mesh candidate is validated (the devbox already dropped tailscale).
+- Deciding niks3 server placement here -- that stays in [[file:binary-cache-niks3.org]]; a clan-managed host is merely a candidate.
+
+* Proposal
+To be drafted after a spike: stand up clan with two machines (one laptop, one throwaway cloud VM), wire syncthing + the mesh candidate, and evaluate (a) inventory ergonomics vs this repo's host layout, (b) vars vs the sops setup in the private repo, (c) update flow vs =deploy=. The spike outcome decides the integration shape and promotes this doc.
+
+* Design Details
+TBD with the spike. Constraints already known: public-repo hygiene applies to inventory data (machine names/addresses likely belong in the private layer); FOSS-only services; everything must keep working for hosts that never join the clan.
+
+* Drawbacks
+- A second orchestration philosophy in the repo (clan inventory vs this flake's hand-rolled host wiring) risks split-brain; the spike must produce a clear "which layer owns what" answer before adoption.
+
+* Alternatives
+- /Hand-rolled syncthing + VPN modules in this repo/: viable and dependency-free, but re-implements service coordination clan already provides, and forfeits the vars/niks3 ecosystem alignment.
+- /Tailscale or headscale/: rejected for the control-plane coupling described above.
+
+* Infrastructure Needed
+- One throwaway VM for the spike (any provider; the provisioning apps from [[file:remote-provisioning.org]] apply).
+
+* History
+- 2026-06-28: Created as draft from review follow-up: clan planned for syncthing + tailscale-like mesh VPN (tincr-class, not Tailscale); interplay with provisioning, secrets, and cache docs recorded. Spike pending.
+
+* References
+- https://clan.lol -- inventory, services, vars.
+- https://github.com/Mic92/tincr -- mesh VPN candidate.
+- [[file:remote-provisioning.org]], [[file:secrets-host-enrolment.org]], [[file:binary-cache-niks3.org]]

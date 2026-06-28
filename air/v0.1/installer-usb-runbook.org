@@ -1,0 +1,56 @@
+#+title: Bare-metal install: generic runbook + guided install script
+#+state: ready
+#+FILETAGS: :bootstrap:docs:
+
+* Summary
+Turn the bare-USB-installer → fully-rebuilt-machine path into a generic, machine-independent runbook plus a guided install script fetched at run time (=nix run github:rytswd/nix-config#install=), keeping the custom installer image itself minimal and snapshot-free. Machine READMEs shrink to hardware-specific deltas.
+
+* Motivation
+The flow-z13 README proves the full path works, but it interleaves three different things: the generic install flow (network → credential → clone → disko → =nixos-install=), machine quirks (Windows dual-boot, Secure Boot/Limine), and credential bootstrapping that belongs to [[file:private-input-stub.org]]. Each new machine re-reads 300 lines to extract the ~10 generic steps, and the generic steps drift between machine docs.
+
+Scope clarification from review: the deliverable is for the existing USB installer image (=nixos-config/iso/=), which stays as-is -- minimal plus YubiKey tooling. Embedding a repo snapshot into the image is explicitly not wanted; that only pays off for airgapped installs, which are not a current need. Fetching the script at run time means the image never goes stale.
+
+** Goals
+- Generic runbook (=docs/runbooks/bare-metal-install.org=) shaped as a decision tree: helper machine available? (=ssh -A= + GPG-agent forwarding flow) / YubiKey only? (=ssh-keygen -K= stub-key flow) / neither? (degraded install via the stub input, enrol later).
+- =install= flake app runnable from the custom installer /or/ a stock NixOS ISO: network check → credential preflight (shared with bootstrap, from [[file:private-input-stub.org]]) → repo clone → disko mode selection (per-host) → =nixos-install --flake= → post-install checklist (host-key handover for sops, HM first switch).
+- Machine READMEs reduced to deltas: partition quirks, dual-boot, firmware steps -- with the generic flow linked, not repeated.
+- Once [[file:binary-cache-niks3.org]] lands, the install substitutes rather than builds; the runbook notes the expected difference.
+
+** Non-Goals
+- Embedding the repo or any prebuilt closure in the installer image (airgapped support deferred until actually needed; this doc records that decision).
+- Rewriting the installer image definition beyond possibly adding the script's runtime dependencies (it already carries age/sops/YubiKey tooling).
+- Unattended/fully-automated installs -- disko confirmation and firmware steps are intentionally interactive.
+
+* Proposal
+- =apps/install/= following the existing app structure: a dispatcher that takes a host name (or offers the =nixosConfigurations= list), sources the shared credential-preflight library, and walks the steps with explicit confirmation between phases. Every phase prints the underlying command before running it, so the script doubles as living documentation and remains debuggable when a phase needs manual intervention.
+- Disko handling per host: the app maps host → disko file(s) and mode (the flow-z13 dual-boot vs nixos-only split generalises to "host may offer variants; choose explicitly").
+- The post-install checklist encodes the easy-to-forget tail: copy/seed host key for sops ([[file:secrets-host-enrolment.org]]), bootloader entry verification, first =nixos-rebuild boot= inside =nixos-enter= where applicable.
+- Runbook and script reference each other; the runbook is authoritative for /why/, the script for /how/.
+
+* Design Details
+- The script must work under the stock ISO's default toolset: pass experimental features via =NIX_CONFIG= exactly as =apps/bootstrap/bootstrap.sh= does, assume nothing about flakes being enabled.
+- Credential preflight outcome selects full vs degraded eval (=--override-input nix-config-private ...=); a degraded install is legitimate (machine boots, user exists via public fallbacks) and the runbook covers the upgrade.
+- Keep machine-specific firmware sequences (Secure Boot, sbctl, BIOS steps) entirely in the machine READMEs -- they are not scriptable and not generic.
+
+** Test Plan
+- VM dry-run: stock installer ISO in a VM, =nix run github:rytswd/nix-config#install= against a throwaway disko layout (the UTM host config is a candidate fixture).
+- Real validation deferred to the next physical (re)install; the runbook gets corrections from that run logged in History.
+
+* Drawbacks
+- A guided script that is rarely exercised can rot; printing-before-exec and the VM dry-run check keep it honest, and the runbook remains usable standalone if the script breaks.
+
+* Alternatives
+- /Runbook only/: viable, but the credential/clone/disko phases are exactly the parts people fat-finger under installer-environment stress; cheap to script since bootstrap already established the patterns.
+- /Script baked into the custom image/: stale-by-construction; run-time fetch keeps one source of truth.
+- /Repo snapshot in the image/ (airgapped): deferred, recorded as the known answer if an airgapped need appears.
+
+* Infrastructure Needed
+None.
+
+* History
+- 2026-06-28: Initial draft from the repo setup review; scope corrected to "existing USB installer, no embedded snapshot".
+
+* References
+- =nixos-config/iso/= -- installer image (unchanged).
+- =nixos-config/asus-rog-flow-z13-2025/README.org= -- source material for the generic flow extraction.
+- [[file:private-input-stub.org]] (preflight), [[file:secrets-host-enrolment.org]] (host-key handover), [[file:runbook-consolidation.org]] (where the runbook lives).

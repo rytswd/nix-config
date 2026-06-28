@@ -1,0 +1,41 @@
+#+title: v0.1 — Repo setup review: bootstrap, secrets, cache, delivery
+
+This milestone retrofits Air onto an existing, long-lived repo. It tracks the outcome of the 2026-06 setup review, which examined how this configuration behaves away from the happy path of an already-credentialed personal machine: brand-new hardware, keyless remote workspaces, cloud instances provisioned from another machine, and a managed macOS where nothing can be installed.
+
+Shared constraints across every doc here:
+
+- *Public repo*: no organisation-specific details, ever; environment-specific behaviour goes through the local-overlay seams =coder.nix= established.
+- *FOSS / forge-agnostic*: no required dependence on proprietary services or any one forge's tooling (=gh= stays best-effort; URLs stay =git+ssh=-shaped; CI, where it appears, is optional and portable).
+- *YubiKey-primary*: hardware-bound secrets wherever physically possible; softer mechanisms only where scoped and tracked.
+
+* Documents
+
+| Doc | Concern | Tags |
+|---+---+---|
+| [[file:private-input-stub.org]] | Evaluate/build without private-repo access (stub input + credential preflight) | bootstrap |
+| [[file:remote-provisioning.org]] | Build on machine A, deploy to machine B (runbook + =provision= / =deploy= apps) | infra |
+| [[file:binary-cache-niks3.org]] | Self-hosted binary cache (niks3 on Hetzner; cachix retirement) | infra |
+| [[file:secrets-host-enrolment.org]] | YubiKey-primary secrets with scoped per-instance enrolment + lifecycle runbook | secrets |
+| [[file:installer-usb-runbook.org]] | Bare-USB install: generic runbook + run-time-fetched guided script | bootstrap, docs |
+| [[file:restricted-macos-config-pull.org]] | Managed macOS: config fragments + pull-only delivery (deferred -- stays draft) | macos |
+| [[file:runbook-consolidation.org]] | =docs/runbooks/= structure; machine docs become deltas | docs |
+| [[file:clan-adoption.org]] | Clan for inventory + multi-host services: syncthing, mesh VPN (draft, spike pending) | infra |
+
+* Sequencing
+
+Dependency-driven, not strict:
+
+1. *[[file:private-input-stub.org]]* -- unblocks everything bootstrap-shaped; no external dependencies.
+2. *[[file:binary-cache-niks3.org]]* -- storage decided (Cloudflare R2); write-path hosting + cache domain still being confirmed, so implementation is held despite the ready state. Keystone for 3, 5, 6.
+3. *[[file:remote-provisioning.org]]* -- apps are independent; the runbook gets richer once 2 exists (push-after-build habit).
+4. *[[file:secrets-host-enrolment.org]]* -- needs private-repo =.sops.yaml= restructuring; coordinate with any devbox/workspace recreation to validate the lifecycle for real.
+5. *[[file:installer-usb-runbook.org]]* -- consumes 1's preflight; benefits from 2.
+6. *[[file:restricted-macos-config-pull.org]]* -- deferred; revisit after the cache bucket exists.
+7. *[[file:runbook-consolidation.org]]* -- structure agreed up front; each runbook migrates as its owning doc lands.
+8. *[[file:clan-adoption.org]]* -- spike after the provisioning apps exist (the spike VM uses them).
+
+Small correction queued with the bootstrap work: one persistent-volume workspace class needs the same path handling as coder (=local.binRoot= → =$HOME/home/bin=) but its hostname pattern stays out of this public repo -- it pins its profile through the dispatcher's local override (=NIXCFG_HM_PROFILE= or =~/.config/nix-config/hm-profile=) rather than a new glob in =apps/hm/dispatcher.sh=.
+
+* History
+- 2026-06-28: Milestone created from the setup review; all docs drafted, pending review → ready promotion.
+- 2026-06-28: Review feedback applied: cache storage = Cloudflare R2 (write-path hosting pending); clan adoption planned ([[file:clan-adoption.org]] added); restricted-macOS deferred. Five docs marked ready; stub/provisioning/secrets implementation started (binary-cache held, installer queued behind the stub's preflight).

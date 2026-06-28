@@ -1,0 +1,72 @@
+#+title: Self-hosted binary cache (niks3)
+#+state: ready
+#+FILETAGS: :infra:
+
+* Summary
+Stand up a self-hosted Nix binary cache backed by niks3 with Cloudflare R2 as the storage layer (the niks3 documentation's recommended provider -- zero egress fees), and switch this flake's =nixConfig= from the cachix entries to the new substituter. The cache becomes the keystone for every "thin machine" scenario: fresh installs substitute the whole closure, keyless workspaces pull instead of build, and the provisioner pattern gets its distribution channel.
+
+A structural consequence of niks3's architecture shapes the whole design: the /read path goes directly to R2/ (or a CDN in front of it) -- the niks3 server sits only on the write path (presigned uploads, reference tracking, GC). Substitution availability therefore never depends on the server being up, and the server-hosting decision is low-stakes and deferrable.
+
+* Motivation
+The flake currently trusts =rytswd-nix-config.cachix.org= -- a proprietary service for the one cache that should be fully controlled. niks3 (Mic92) is FOSS, S3-backed, and production-proven (this flake already trusts the =niks3.numtide.com-1= key serving =cache.numtide.com=). It is early-stage software, accepted deliberately: the author is personally trusted, and the failure mode is degraded (rebuild locally / fall back to upstream caches), never data loss of anything unreproducible.
+
+Why this matters beyond speed: with no build server (a deliberate choice for now), the provisioner-pushes/everyone-pulls model is the only way thin machines stay thin. It also collapses the brand-new-machine story to "auth + substitute".
+
+** Goals
+- Cloudflare R2 bucket as the cache storage; the substituter URL in =nixConfig= points at R2 (or a CDN/custom domain in front of it), so reads are server-independent.
+- niks3 server (write path: presigned uploads, Postgres reference tracking, GC) on a small always-on host -- exact hosting to be confirmed; see Infrastructure Needed.
+- Signing key generated and held as a sops secret in the private repo; public key + substituter URL added to =flake.nix= =nixConfig= (safe to expose by design).
+- Push tooling from this repo: =nix run .#cache-push -- <installable...>= for explicit pushes, and a documented optional =post-build-hook= setup for provisioner machines.
+- Cachix entries (=rytswd-nix-config.cachix.org=) retired from =nixConfig=; community caches (ghostty, niri, ...) stay.
+
+** Non-Goals
+- The server deployment itself -- that is private infrastructure, planned and managed outside this repo. This doc defines the /interface/ this repo consumes (URL, public key, push credential shape) and the client-side wiring.
+- An always-on remote builder. Decision recorded here for context: provisioner + cache first; add a small always-on builder (wired via =nix.buildMachines=) only when build waits actually hurt. Nothing in this design is thrown away when that happens -- the builder just becomes another pusher.
+- Hosting on Kubernetes. The hetzner-k8s cluster is inactive and needs reshaping; a plain single-host deployment first, migration to a revived cluster later if ever useful.
+- CI-driven pushes. Later, and forge-agnostic when it comes (=checks.nix= already produces per-host derivations any CI can build and push).
+
+* Proposal
+Phased, smallest-thing-first:
+
+1. *Storage + server* (private infrastructure): R2 bucket + API credentials, Postgres, niks3 service on the chosen write-path host. Outcome consumed here: =https://cache.<domain>= (R2/CDN read endpoint) + =cache.<domain>-1:<pubkey>=. A clan-managed host is a natural candidate once [[file:clan-adoption.org]] lands -- clan's own infra runs niks3, so reference configuration exists.
+2. *Keys*: generate the signing keypair (=nix key generate-secret --key-name cache.<domain>-1=); secret into the private repo via sops (YubiKey recipients, per [[file:secrets-host-enrolment.org]] scoping); public key into =nixConfig.extra-trusted-public-keys=.
+3. *Client wiring* (this repo): swap substituter entries in =flake.nix=; system-level substituters in =nixos-config/modules/nix-base.nix= follow the same layered-cache model already documented there.
+4. *Push path*: =cache-push= app wrapping the niks3 upload client (presigned-URL flow), with the signing key sourced from the sops-managed location. Document push-after-build as a provisioner habit in the remote-provision runbook.
+5. *Retirement*: drop cachix substituter + key once the new cache has the hot set (a few days of normal pushes).
+
+Contingency: because reads go straight to R2, a niks3 server outage only pauses /uploads/. If the server is down for an extended period, =nix copy --to 's3://<bucket>?...'= against a /separate/ bucket works with zero services as a stopgap -- kept as a documented fallback, not layered into the primary design (niks3 owns its bucket layout; mixing the two in one bucket is asking for confusion).
+
+* Design Details
+- Cache priority order in =nixConfig= stays "most likely to hit first": hetzner pull-through mirror, then own cache, then community caches -- measure and adjust once real hit rates are visible.
+- Anything evaluated by =nix run github:rytswd/nix-config= on fresh machines only sees the flake-level =nixConfig=, so the new substituter must be there (same constraint as today, noted in =flake.nix= comments).
+- Push credentials (S3/API token for niks3) are provisioner-class secrets: YubiKey-recipient sops file, never on thin machines.
+- darwin closures: the MBPs build their own darwin parts and can push them too -- the cache is multi-arch by nature; no special handling beyond signing.
+
+** Test Plan
+- Round-trip: push a small derivation from a laptop, garbage-collect it locally, rebuild via substitution only (=--max-jobs 0=).
+- Fresh-machine simulation: coder workspace bootstrap with the new =nixConfig= and cachix entries removed; confirm hit rate on the standard profile.
+
+* Drawbacks
+- Early-stage software on the write path of convenience (not correctness): server outages pause uploads; reads are unaffected by design.
+- Self-hosting burden (Postgres, GC policy, credential rotation) on the write-path host; accepted as the price of full control and FOSS alignment.
+- R2 is a proprietary /service/, accepted deliberately: the storage interface is plain S3, the data is reproducible NARs, and migration to any S3-compatible provider (or self-hosted Garage) is a bucket copy + endpoint change -- no lock-in beyond data gravity.
+
+* Alternatives
+- /attic/: more mature, chunk dedup, multi-cache -- but heavier to operate and no personal-trust advantage.
+- /Harmonia on a builder/: zero storage infra, but requires committing to an always-on builder now, inverting the chosen sequencing.
+- /Plain S3 cache only/: zero services and genuinely tempting as phase 1, but no GC story and no upload coordination; kept as the contingency instead.
+- /Stay on cachix/: against the stated FOSS / full-control direction.
+
+* Infrastructure Needed
+- Cloudflare R2 bucket + access credentials (write credential is provisioner-class; read is public or CDN-fronted).
+- A small always-on host for the niks3 server + Postgres -- *pending decision*: candidates include a clan-managed host ([[file:clan-adoption.org]]). Blocking detail to confirm before implementation starts, along with the cache domain.
+- DNS for the cache endpoint.
+
+* History
+- 2026-06-28: Initial draft from the repo setup review. niks3 chosen over alternatives on trust + FOSS grounds; provisioner-first (no dedicated builder yet) recorded.
+- 2026-06-28: Storage decided: Cloudflare R2 per niks3 documentation recommendation. Recorded the read-path/write-path split (reads never depend on the server). Write-path hosting + domain still open -- implementation held until confirmed.
+
+* References
+- https://github.com/Mic92/niks3
+- =flake.nix= =nixConfig= block, =nixos-config/modules/nix-base.nix= (layered cache model).
+- [[file:remote-provisioning.org]], [[file:secrets-host-enrolment.org]]

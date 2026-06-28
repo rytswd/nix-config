@@ -1,0 +1,59 @@
+#+title: Remote provisioning: build on A, deploy to B
+#+state: work-in-progress
+#+FILETAGS: :infra:
+
+* Summary
+Make "one machine builds, another machine runs it" a first-class, scripted flow: a generic runbook plus thin flake apps wrapping =nixos-anywhere= (first install) and =nixos-rebuild --target-host= (day-2), so any credentialed machine can bring up and maintain hosts that never need private-repo access or secrets of their own.
+
+* Motivation
+The pattern already exists in fragments -- =shared/keys.nix= names a =provisioner= key, the EC2 devbox README walks a one-off =nixos-anywhere= install, and day-2 =--target-host= gets a single line -- but it is not a documented capability. Each new cloud host re-derives the flow by hand. More cloud hosts are planned (Kubernetes cluster testing, build-system experiments), so the per-host cost of an implicit pattern grows.
+
+This also resolves the bootstrap asymmetry: only the /provisioner/ needs private-repo access, secrets, and (later) cache-push rights; targets need nothing but SSH. Combined with [[file:binary-cache-niks3.org]], a provisioner build-and-push means thin machines only ever substitute.
+
+** Goals
+- =nix run .#provision -- <host> <ssh-target>= wrapping =nixos-anywhere= (disko + install in one shot), with optional =--extra-files= seeding for SSH host keys when re-using an enrolled identity (see [[file:secrets-host-enrolment.org]]).
+- =nix run .#deploy -- <host> <ssh-target>= wrapping =nixos-rebuild switch --flake .#<host> --target-host=, building locally on the provisioner by default.
+- One generic runbook (=docs/runbooks/remote-provision.org=, per [[file:runbook-consolidation.org]]) stating who needs what: provisioner requirements vs target requirements.
+- Same flow works for the EC2 devbox, future Hetzner hosts, and any new cloud host added to =nixosConfigurations=.
+
+** Non-Goals
+- Adopting deploy-rs / colmena here. Clan adoption is now /planned/ -- but for inventory + multi-host services (syncthing, mesh VPN), tracked separately in [[file:clan-adoption.org]]. These apps stay deliberately thin so that if clan's install/update flow later absorbs them, nothing of value is lost; until that spike concludes, the thin apps are the provisioning mechanism.
+- Reviving the currently-inactive hetzner-k8s hosts; they simply become consumers of this flow when they return.
+- Remote /builders/ (a machine others offload builds to) -- the provisioner pushes to the cache instead; an always-on builder is a separate, later decision recorded in [[file:binary-cache-niks3.org]].
+
+* Proposal
+Two flake apps under =apps/=, mirroring the existing =bootstrap= / =hm= structure:
+
+- =provision=: resolves =<host>= against =nixosConfigurations=, then runs =nixos-anywhere --flake .#<host> <ssh-target>=. Flags passed through; sensible defaults (=--build-on local=, since targets may be smaller than the provisioner). Optional =--seed-host-key <path>= to inject a pre-enrolled SSH host key via =--extra-files=, so a recreated instance keeps its sops recipient identity.
+- =deploy=: =nixos-rebuild switch --flake .#<host> --target-host <ssh-target> --use-remote-sudo=, with =--build-host= passthrough for the rare case the target should build.
+
+The runbook covers the decision points the apps cannot make: choosing build-on local vs remote (bandwidth vs target capability), first-install vs day-2, what to do when the target's host key changed (recreated instance → re-enrolment, cross-referenced to the secrets runbook), and cache interplay (push after build so the next machine substitutes).
+
+* Design Details
+- Apps are thin: argument parsing + validation + exec, no orchestration state. Anything stateful (instance lifecycles, IPs) stays in per-host READMEs or the cloud repo.
+- =nixos-anywhere= is invoked via =nix run github:nix-community/nixos-anywhere= rather than added as a flake input -- it is a provisioning-time tool, not part of any closure.
+- Host list is derived from =nixosConfigurations= attribute names so the apps need no separate registry.
+- The EC2 devbox README shrinks to: instance lifecycle (launch/stop/start, volumes) + "then use the standard provision/deploy flow".
+
+** Test Plan
+- Dry-run mode (=--dry-run= printing the underlying command) testable anywhere.
+- Real validation against the next devbox bring-up or a throwaway Hetzner cloud VM.
+
+* Drawbacks
+- Thin wrappers can drift from upstream flag changes in nixos-anywhere; mitigated by keeping them genuinely thin and printing the resolved command before exec.
+
+* Alternatives
+- /Runbook only/: smallest change, but the same long commands get retyped and diverge per host -- the current state, just better documented.
+- /Full deploy tool now/: deploy-rs / colmena give rollback orchestration and parallel deploys a single-digit fleet doesn't need. Clan is the live candidate -- but its value here is inventory + services, and its provisioning flow is evaluated in [[file:clan-adoption.org]]'s spike rather than blocking this work.
+
+* Infrastructure Needed
+None new. Uses existing hosts and SSH access; benefits from [[file:binary-cache-niks3.org]] once available.
+
+* History
+- 2026-06-28: Initial draft from the repo setup review. Future cloud hosts (k8s testing, build experiments) noted as upcoming consumers; hetzner-k8s currently inactive.
+- 2026-06-28: Clan adoption planned (see [[file:clan-adoption.org]]); Non-Goals adjusted -- thin apps proceed now, possible later absorption into clan's flow accepted by design.
+
+* References
+- =nixos-config/ryota-aws-ec2-devbox/README.org= -- current manual flow to be absorbed.
+- =shared/keys.nix= -- existing =provisioner= key.
+- [[file:secrets-host-enrolment.org]], [[file:binary-cache-niks3.org]], [[file:runbook-consolidation.org]]

@@ -1,0 +1,63 @@
+#+title: Restricted macOS: layerable config fragments + pull-only delivery
+#+state: draft
+#+FILETAGS: :macos:
+
+* Summary
+Serve managed macOS machines -- where no binaries can be installed (no Nix) and an environment-managed dotfiles set already exists and must remain authoritative -- with a pull-only mechanism: shareable config refactored into additive /fragments/ (git and zsh first), assembled at build time into a published bundle on the same S3 infrastructure as the binary cache, fetched by a plain POSIX puller that never overwrites existing files.
+
+* Motivation
+The README's current answer ("reuse the raw config files directly") only works for configs that exist as raw files; git, zsh and friends are HM-generated, so there is nothing to reuse. And whole-file delivery is wrong anyway: on these machines the environment's own dotfiles must keep working untouched -- only non-conflicting additions may be layered in. That forces a shape change in the configs themselves, not just a delivery mechanism: shared content must become /includable fragments/ (=[include]= for git, =source= for zsh) rather than complete files.
+
+Staleness is explicitly acceptable; the requirement is that pulling the latest is one command. Why build-time assembly rather than pointing the puller at raw repo files: fragments may be composed from multiple modules (aliases from =shell/=, prompt pieces, git identity-independent settings), and assembling them with Nix keeps a single source of truth with the HM modules -- desktop machines and restricted machines consume the very same fragment content, so drift between the two worlds is structural, not disciplined.
+
+Public-repo constraint is hard here: the mechanism, fragment names, and puller are fully generic ("restricted/managed macOS"); anything environment-specific stays in the machine's own untracked local layer -- the same seam =coder.nix= already established (=~/.config/zsh/local.zsh= / local HM overlay).
+
+** Goals
+- Fragment refactor, git + zsh first: shareable settings extracted into fragment files; HM modules on full machines include the same fragments so behaviour is identical there (pure refactor, no visible change).
+- =packages.<system>.dotfiles-bundle=: derivation assembling the fragment set (+ manifest with per-file checksums and a version stamp) into a tarball.
+- =nix run .#publish-dotfiles=: builds the bundle and uploads it to a bucket prefix alongside the cache infra ([[file:binary-cache-niks3.org]]); runnable from any credentialed machine -- no CI required, CI optional later and forge-agnostic.
+- Puller: a single POSIX sh script with no dependencies beyond =curl= + standard system tools; downloads the bundle, verifies checksums, materialises under a dedicated prefix (e.g. =~/.config/pulled-fragments/=), and prints -- but never applies -- the one-time include lines to add to the environment-managed files. Re-running refreshes in place, idempotently.
+- Fragments are self-guarding: feature-detect tools before configuring them (no hard references to Nix store paths or absent binaries).
+
+** Non-Goals
+- Installing any binary, including Nix, on the restricted machine.
+- Managing or modifying the environment-provided dotfiles -- the puller's contract is "add files in my own prefix, tell you what to include, touch nothing else".
+- Full parity with the desktop experience; this is config-only by definition.
+- Extending beyond git + zsh initially -- candidates like tmux/starship/jj follow the same pattern once the seam is proven.
+
+* Proposal
+Three parts, sequenced:
+
+1. *Fragment extraction* (this repo, affects all machines): split e.g. =vcs/git= config into "identity/signing/machine-specific" (stays HM-generated) vs "portable behaviour" (aliases, diff/merge settings, colour, =core.*= prefs) -- the latter into =shared.gitconfig= consumed by HM via =include=. Same for zsh: portable aliases/functions/options into =shared.zsh=, sourced by the generated zshrc. Desktop behaviour must be bit-identical after the refactor; this lands first and alone.
+2. *Bundle + publish*: derivation collecting the fragments + manifest; publish app uploads versioned (=<timestamp>-<rev>/=) plus a =latest= pointer. Bucket prefix is public-read or token-read -- decide during implementation; fragments are by construction non-secret (they live in this public repo), so public-read is acceptable and simplest.
+3. *Puller*: fetched once from the repo (raw URL) or copied manually; thereafter self-contained. =pull-configs= (no args) refreshes; =pull-configs --check= diffs local vs latest without applying.
+
+* Design Details
+- The include wiring on the restricted machine is a one-time manual step by design -- the puller printing exact lines keeps it trivial while guaranteeing the environment's files are never written by tooling from this repo.
+- Conflict policy inside fragments: portable-only content, no =user.name= / =user.email= / signing config in =shared.gitconfig= (identity belongs to whichever layer owns the machine); zsh fragment must not assume the prompt/framework, only add to it.
+- The manifest's version stamp ties a pulled set to a repo revision, so "what am I running" is answerable on a machine with no git clone.
+- Why the cache bucket and not a git clone on the restricted machine: a clone works (git is present) and remains a documented fallback, but the bundle gives atomic versioned sets, checksums, and no need to carry the whole repo history onto a managed machine.
+
+** Test Plan
+- Refactor phase: =nix build= HM activation packages before/after and diff the generated git/zsh outputs on a desktop profile (expect no semantic change).
+- Puller: shellcheck + a scratch-prefix run on any mac/Linux box; verify idempotent re-run and =--check= behaviour.
+
+* Drawbacks
+- Two-phase delivery (publish then pull) means the bundle can lag the repo; acceptable per requirements, and =--check= makes lag visible.
+- Fragment discipline (what is "portable") needs judgement per setting; the refactor doc-comments each exclusion so the boundary stays explainable.
+
+* Alternatives
+- /Files-only HM profile/: cleanest if Nix were installable; it is not, on this machine class.
+- /CI-rendered dotfiles branch/: implied forge-CI dependence; replaced by local =publish-dotfiles= (CI can adopt the same command later, forge-agnostically).
+- /Raw-file puller straight from the repo/: simpler, but only covers configs that are already raw files and duplicates content the moment HM needs the same settings -- the fragment refactor is what actually removes the drift.
+
+* Infrastructure Needed
+- Bucket prefix on the cache storage ([[file:binary-cache-niks3.org]]); nothing else.
+
+* History
+- 2026-06-28: Initial draft from the repo setup review. Constraint set: no binaries installable, environment dotfiles authoritative, additive-only layering, staleness acceptable, pull must be trivial.
+
+* References
+- =user-config/ryota/coder.nix= -- the local-overlay seam this reuses.
+- =user-config/modules/vcs/git/=, =user-config/modules/shell/= -- refactor targets.
+- [[file:binary-cache-niks3.org]] -- shared storage.

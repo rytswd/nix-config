@@ -1,0 +1,56 @@
+#+title: Runbook consolidation: generic flows out of machine docs
+#+state: draft
+#+FILETAGS: :docs:
+
+* Summary
+Consolidate the generic operational flows scattered across =machine-setup/=, per-host READMEs, and the top-level README into a single =docs/runbooks/= set, reduce machine docs to hardware-specific deltas, and retire stale content (notably =machine-setup/mbp/README.org=).
+
+* Motivation
+The same flows -- credential bootstrap, remote provisioning, secret handover, install sequence -- are currently embedded inside machine-specific documents and drift independently (the flow-z13 README carries the best version of several of them; the mbp doc still describes the deprecated =darwin-installer= flow and a =#ryota-mbp= target that no longer exists). Every doc produced by this review cycle ([[file:private-input-stub.org]] through [[file:restricted-macos-config-pull.org]]) needs a home for its runbook; without an agreed structure they would scatter again.
+
+** Goals
+- =docs/runbooks/= with one org file per generic flow: =credential-bootstrap=, =remote-provision=, =bare-metal-install=, =secrets-enrolment=, =restricted-macos=. Each is the single authoritative copy; machine docs link, never restate.
+- =machine-setup/= and per-host READMEs trimmed to genuinely machine-specific content: hardware quirks, partition layouts, firmware/Secure Boot sequences, instance lifecycle commands.
+- =machine-setup/mbp/README.org= rewritten against the current nix-darwin flow (=darwinConfigurations.ryota-mbp-m1-max= / =-m5-max=) or folded into a runbook + delta note.
+- README.org gains a short "runbooks" index section linking the set.
+
+** Non-Goals
+- Writing the runbook /content/ -- each lands with its owning doc's implementation; this doc only fixes structure and ownership.
+- Restructuring module documentation or per-module READMEs (e.g. =user-config/modules/window-manager/niri/README.org=) -- those are reference docs, not flows, and are fine where they are.
+
+* Proposal
+Structure ownership table:
+
+| Runbook | Owning Air doc | Absorbs from |
+|---+---+---|
+| =credential-bootstrap.org= | [[file:private-input-stub.org]] | flow-z13 README (SSH stub / =ssh -A= sections), bootstrap.sh comments |
+| =remote-provision.org= | [[file:remote-provisioning.org]] | devbox README (install + day-2), flow-z13 README (remote access) |
+| =bare-metal-install.org= | [[file:installer-usb-runbook.org]] | flow-z13 README (generic install spine), iso README |
+| =secrets-enrolment.org= | [[file:secrets-host-enrolment.org]] | flow-z13 README (host-key handover), private-repo notes (referenced, not copied) |
+| =restricted-macos.org= | [[file:restricted-macos-config-pull.org]] | README.org work-mac paragraph |
+
+Migration is per-runbook and incremental: when an owning doc's implementation lands, its runbook is written, the source sections in machine docs are replaced with links, and the machine doc keeps only its deltas. No big-bang docs rewrite.
+
+* Design Details
+- Org throughout; prose unwrapped per repo convention.
+- Runbooks state their preconditions explicitly (what machine class, what credentials) so the decision-tree shape stays consistent across the set.
+- Public-repo constraint applies to runbooks doubly, since they describe operational reality: machine classes and generic names only; anything identifying private infrastructure stays in the private repo's own notes, linked by name not content.
+
+** Test Plan
+Doc-only: review pass per migrated runbook confirming the machine doc still stands alone for its hardware steps and the runbook stands alone for its flow.
+
+* Drawbacks
+- Indirection: an install now reads a machine doc + 1-2 runbooks instead of one long file. Accepted -- the long file was only ever correct for one machine.
+
+* Alternatives
+- /Keep everything in machine docs/: status quo; drift demonstrated.
+- /Single mega-runbook/: one file with every branch; harder to keep preconditions clear than five short files.
+
+* Infrastructure Needed
+None.
+
+* History
+- 2026-06-28: Initial draft from the repo setup review.
+
+* References
+- =machine-setup/=, =nixos-config/*/README.org=, README.org -- migration sources.

@@ -1,0 +1,69 @@
+#+title: Private flake input: stub + credential preflight
+#+state: work-in-progress
+#+FILETAGS: :bootstrap:
+
+* Summary
+Make a brand-new machine able to evaluate and build this flake before any GitHub SSH credential exists, by providing a public no-op stub for the =nix-config-private= input, plus a credential preflight step in the bootstrap path that detects what auth is available and picks full vs degraded evaluation accordingly.
+
+* Motivation
+=nix-config-private= is a =git+ssh= flake input, and every full profile (all NixOS hosts, =user-config/ryota/nixos.nix=) imports modules from it. That makes private-repo access an /eval-time/ hard dependency: a fresh machine cannot even run =nix flake check= or a dry build until SSH auth to GitHub works. Today the only escape is the coder profile, which dodges the input by never referencing it (lazy fetch), and the runbooks bury the "get a credential first" step mid-document (e.g. =nixos-config/asus-rog-flow-z13-2025/README.org=).
+
+Why not move private consumption to runtime paths instead: that would drop pinning and purity for every host permanently, to solve a problem that only exists during bootstrap. The wall is worth keeping -- it just needs a documented, scripted way through and a way around.
+
+** Goals
+- A public stub flake satisfying the same module interface as =nix-config-private=, so any host evaluates (degraded) via =--override-input=.
+- A preflight script that detects available auth (ssh-agent key, YubiKey FIDO2 resident key, optional =gh= token) and reports clearly which path is open.
+- A documented degraded-build → full-build upgrade path once credentials are in place.
+- Forge-agnostic shape: everything keyed off the =git+ssh://= URL, nothing requiring the =gh= CLI (it stays best-effort only, as in =apps/bootstrap/bootstrap.sh= today).
+
+** Non-Goals
+- Changing how the private repo is consumed on machines that already have credentials.
+- Migrating the private repo off GitHub (the URL-shaped design keeps that a one-line change later).
+- Secret decryption on keyless machines -- that is [[file:secrets-host-enrolment.org]].
+
+* Proposal
+Two pieces, both in this public repo:
+
+1. *Stub flake* at =stubs/nix-config-private/flake.nix=. It exposes the exact attribute set the real private flake exposes -- currently =nixosModules.users=, =homeManagerModules.sops-nix=, =homeManagerModules.email=, =homeManagerModules.git= -- each as a no-op (or minimal-safe) module. The stub is the single public record of the private flake's interface; when the private repo grows an attribute, the stub grows the matching no-op in the same change.
+
+2. *Credential preflight* shared by the bootstrap app and the install runbook. Detection order: existing ssh-agent identity that can reach the private remote, YubiKey FIDO2 resident keys (offer =ssh-keygen -K=), =gh= auth token (best-effort, never required). Output is a clear verdict: "full eval possible" or "degraded eval -- use the stub override" with the exact command to run.
+
+Degraded usage:
+
+#+begin_src sh
+nixos-rebuild build --flake .#<host> \
+    --override-input nix-config-private path:./stubs/nix-config-private
+#+end_src
+
+The stub can also be referenced without a clone via the GitHub tarball API (=github:rytswd/nix-config?dir=stubs/nix-config-private=), which needs no SSH -- same trick the =treesitter-grammars= input already relies on.
+
+Upgrade path: install the credential (YubiKey stub keys or agent forwarding), then rebuild without the override; nothing else changes.
+
+* Design Details
+- The no-op modules must keep option declarations consistent: e.g. the real =homeManagerModules.sops-nix= presumably sets =sops.age.keyFile= and defines secrets; the stub sets nothing but must not break modules that reference =sops.*= options -- those options come from the public =security/sops-nix.nix= import, so the stub can genuinely be empty (={ }= modules). Verify per attribute.
+- Hosts that hard-require private data to be /correct/ (e.g. =nixosModules.users= attaches =hashedPassword=) must stay bootable under the stub: document that a degraded system build uses whatever fallback the public config defines, and flag any host where that is unsafe.
+- Preflight lives as a small shell library sourced by =apps/bootstrap/bootstrap.sh= and the future install script ([[file:installer-usb-runbook.org]]), not duplicated.
+- Public-repo constraint: the stub contains interface shape only -- attribute names, no values, no organisation-specific anything.
+
+** Test Plan
+- =nix flake check= / per-host =nix build= with the override on a machine with SSH deliberately disabled (e.g. =SSH_AUTH_SOCK= unset, no keys) must succeed.
+- CI check (forge-agnostic, runs in =checks.nix= shape): evaluate one NixOS host and one HM profile with the stub override to catch interface drift between the real private flake and the stub.
+
+* Drawbacks
+- Interface duplication: the stub must track the private flake's attribute surface. The CI drift check reduces this to a mechanical failure rather than a silent one.
+- A degraded system is subtly different (no users module values, no email/git private config); someone could mistake it for the full build. The preflight verdict and a visible warning in the degraded build output mitigate.
+
+* Alternatives
+- /Runtime-path consumption (rejected)/: clone the private repo to a known path and read it impurely. Removes the eval wall entirely but sacrifices pinning for all hosts forever, and makes =nix flake check= environment-dependent.
+- /Credential-first only (rejected as sole answer)/: keep the input mandatory and just document the auth step. Simpler, but leaves "machine that cannot get a credential yet" (e.g. waiting on hardware key delivery) with no build at all.
+
+* Infrastructure Needed
+None. Pure repo changes.
+
+* History
+- 2026-06-28: Initial draft from the repo setup review (options discussed and direction agreed: stub + preflight).
+
+* References
+- [[file:OVERVIEW.org]]
+- =apps/bootstrap/bootstrap.sh= -- existing best-effort =gh= token handling to fold into preflight.
+- [[file:installer-usb-runbook.org]] -- consumes the same preflight.

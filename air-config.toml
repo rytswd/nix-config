@@ -1,0 +1,31 @@
+###========================================
+##   Air Configuration for nix-config
+#==========================================
+# Air is retrofitted onto an existing, already-shipped repo here: the v0.1
+# milestone tracks the 2026 setup review (bootstrap, secrets, cache,
+# provisioning, restricted-macOS), not a from-scratch build. Docs therefore
+# lean on Motivation/why-not sections more than greenfield specs would.
+#
+# Reference for the full option set:
+#     https://air.re.dev/documentation
+
+# Defaults, stated explicitly so the layout is obvious without running airctl.
+main-directory = "./air/"
+context-directory = "./air/context/"
+template-directory = "./air/templates/"
+archive-directory = "./air/archive/"
+
+# Org is the repo-wide prose format (see README.org); md stays supported for
+# tooling-required files only.
+supported-file-types = ["md", "org"]
+default-file-type = "org"
+
+# Narrow taxonomy on purpose -- one tag per concern area, no per-doc tags.
+tags = ["bootstrap", "infra", "secrets", "macos", "docs"]
+
+built-in-templates = ["air-standard"]
+default-template = "air-standard"
+
+[airctl-status]
+show-date = true
+show-tag = true

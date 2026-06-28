@@ -52,6 +52,7 @@ None new. Uses existing hosts and SSH access; benefits from [[file:binary-cache-
 * History
 - 2026-06-28: Initial draft from the repo setup review. Future cloud hosts (k8s testing, build experiments) noted as upcoming consumers; hetzner-k8s currently inactive.
 - 2026-06-28: Clan adoption planned (see [[file:clan-adoption.org]]); Non-Goals adjusted -- thin apps proceed now, possible later absorption into clan's flow accepted by design.
+- 2026-06-28: Implemented: =provision= / =deploy= apps under =apps/=, flake wiring, [[file:../../docs/runbooks/remote-provision.org]], and the devbox README trimmed to AWS-specific content. Deriving the host list via =attrNames= keeps app evaluation free of the private input but also offers =installer-iso= as a candidate -- accepted as the cost of registry-free derivation. Dry-run paths validated against a TEST-NET address; real validation remains pending the next devbox bring-up per the test plan.
 
 * References
 - =nixos-config/ryota-aws-ec2-devbox/README.org= -- current manual flow to be absorbed.

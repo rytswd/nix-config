@@ -1,5 +1,5 @@
 #+title: Self-hosted binary cache (niks3)
-#+state: ready
+#+state: work-in-progress
 #+FILETAGS: :infra:
 
 * Summary
@@ -67,6 +67,7 @@ Contingency: because reads go straight to R2, a niks3 server outage only pauses 
 - 2026-06-28: Initial draft from the repo setup review. niks3 chosen over alternatives on trust + FOSS grounds; provisioner-first (no dedicated builder yet) recorded.
 - 2026-06-28: Storage decided: Cloudflare R2 per niks3 documentation recommendation. Recorded the read-path/write-path split (reads never depend on the server). Write-path hosting + domain still open -- implementation held until confirmed.
 - 2026-06-28: Domain + key name decided: =https://cache.re.dev= with signing key =cache.re.dev-1= (domain-coupled key accepted knowingly -- renaming the domain later would mean re-signing the bucket). Postgres role clarified (write-path/GC bookkeeping; co-located target, SaaS acceptable stopgap). Remaining blockers: R2 bucket creation, signing keypair generation, write-path host.
+- 2026-06-28: Unblocked for the client side: R2 bucket created, =cache.re.dev= mapped, signing key generated -- public key =cache.re.dev-1:QdHy10XRVJsXFQeYMHuok7LAPNkq9Q0QUMCKQz6HURY=. Write-path host still open (acceptable: reads and the =nixConfig= wiring don't depend on it; =cache-push= parameterises the server endpoint). Cachix entries stay until the new cache holds the hot set, per Proposal step 5.
 
 * References
 - https://github.com/Mic92/niks3

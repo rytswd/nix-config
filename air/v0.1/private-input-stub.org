@@ -1,5 +1,5 @@
 #+title: Private flake input: stub + credential preflight
-#+state: work-in-progress
+#+state: complete
 #+FILETAGS: :bootstrap:
 
 * Summary

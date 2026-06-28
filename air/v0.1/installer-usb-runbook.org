@@ -1,5 +1,5 @@
 #+title: Bare-metal install: generic runbook + guided install script
-#+state: ready
+#+state: work-in-progress
 #+FILETAGS: :bootstrap:docs:
 
 * Summary

@@ -15,55 +15,17 @@ Once the NixOS installer is started up, I need some action on device. After this
 ** Network setup
 In order to get the network working, I need to launch ~nmtui~.
 
-** (Optional) Retrieve SSH stub
-In order to use the SSH keys saved under YubiKey, I need to run the following commands:
-#+begin_src bash
-  cd ~/.ssh
-  ssh-keygen -K
-#+end_src
-
-This will ask PIN and potentially touching the key. As this is a temporary setup, we do not need to add passwords to the keys, simply press enter to keep them empty.
-
-After the keys are stored, I need to update ~~/.ssh/config~ with the following entry:
-#+begin_src config
-  Host github.com
-       User git
-       IdentityFile ~/.ssh/id_ed25519_sk_rk_Auth
-#+end_src
+** Credential options
+The credential options -- SSH agent forwarding from a helper machine, pulling the SSH stub keys from YubiKey with ~ssh-keygen -K~, or proceeding degraded with neither -- are covered by [[file:../../docs/runbooks/credential-bootstrap.org]].
 
 
 * Main configuration from NixOS Installer
-From here on, all the operations can happen on the device, or remotely using SSH.
-
-Note that, it's the easiest to manage all the actions using ~root~ rather than ~nixos~. Non-root user can work for most parts, but may see some error towards the end.
-
-** Info: Access remotely
-When it comes to access control, the easiest way is to use an existing machine, and ssh into the new machine with ~ssh -A~. This would allow using the same credential on the host machine, and I can simply run ~git clone~ and other operations without doing much configuration on the device.
-
-With SSH agent forwarding, I can also make sure later steps can use the credential from the other machine. I need to use the following on a host machine I connect from.
+The generic flow -- remote access and credentials, repo clone to ~/tmp/~, disko, ~nixos-install~, and the post-install tail including the host key handover for SOPS Nix -- is covered by [[file:../../docs/runbooks/bare-metal-install.org]], with a guided script for the whole sequence:
 #+begin_src bash
-  export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-  gpg-connect-agent updatestartuptty /bye
+  nix run github:rytswd/nix-config#install -- asus-rog-flow-z13-2025
 #+end_src
 
-With that, I can connect to the machine with ~ssh -A~
-#+begin_src bash
-  ssh -A root@192.168.1.3 # TODO: Correct IP
-#+end_src
-
-Note that this SSHes directly as ~root~. Because of credential forwarding, using ~sudo~ may fail due to missing credentials later on.
-
-If a separate machine is not available, I can use the step above to pull the SSH stub keys from YubiKey instead.
-
-** Getting repositories
-For simplicity, I set up the repository in ~/tmp/~ directory for the initial setup, and create a proper clone later on with ~home-git-clone~.
-#+begin_src bash
-  git clone git@github.com:rytswd/nix-config.git
-  git clone git@github.com:rytswd/nix-config-private.git
-#+end_src
-
-** Ensure host key is available
-The host key is stored in the private repo, which is used during secrets activation using SOPS Nix. Either copy the details using ~scp~ or ~rsync~, or clone the private repo and follow the instruction.
+The sections below are only the deltas for this machine.
 
 ** Windows dual boot
 If I were to drop Windows dual boot, disko can wipe and reconfigure the disk fully declaratively. As of writing in Feb 2026, I'm opting to keep Windows partition. Because of this, there are a few manual actions needed.
@@ -182,31 +144,14 @@ When the disko needs to be run again due to unexpected restarts etc., I would ha
   wipefs -a /dev/disk/by-partlabel/nixos
 #+end_src
 
-** Install NixOS
-With the above partition in place, I can run ~nixos-install~ (not ~nixos-rebuild~ for the first run). There are a few gotchas around this, though.
-#+begin_src bash
-  # From /tmp/nix-config where this repository is copied to:
-  nixos-install --flake .#asus-rog-flow-z13-2025
-#+end_src
-
-After that, I need to make sure that the boot entry is added -- Limine can handle Windows with chainloading.
+** Boot entry for Limine
+After the generic ~nixos-install~ phase from the runbook, I need to make sure that the boot entry is added -- Limine can handle Windows with chainloading.
 #+begin_src bash
   sudo nixos-enter --root /mnt -c "NIXOS_INSTALL_BOOTLOADER=1 /nix/var/nix/profiles/system/bin/switch-to-configuration boot"
   sudo efibootmgr --create --disk /dev/nvme0n1 --part 7 --label "Limine" --loader '\EFI\BOOT\BOOTX64.EFI'
 #+end_src
 
-** Rebuild with chroot
-Before I restart, I should ensure all the configurations including home-manager are all applied.
-#+begin_src bash
-  # Because of nixos-enter chroot, I need to ensure the configuration
-  # is visible from /mnt. With impermanence, I could essentially use
-  # any location.
-  sudo cp -r /tmp/nix-config /mnt/tmp/
-  sudo nixos-enter --root /mnt -c "nixos-rebuild boot --flake /tmp/nix-config#asus-rog-flow-z13-2025"
-#+end_src
-
-** Copy host key over to user profile
-In order to have the smooth startup, I need to ensure SOPS Nix can work out to decrypt all the secrets. I should have the host key from the steps above, and simply copy it over to the target user. I've got more detailed note in my private repo.
+The remaining pre-reboot steps -- the chroot ~nixos-rebuild boot~ and the host key handover for SOPS Nix -- are the generic post-install tail in [[file:../../docs/runbooks/bare-metal-install.org]].
 
 
 * Final configuration from NixOS
@@ -267,52 +212,5 @@ After this step, I should do a ~nixos-rebuild~ to ensure the image is hashed cor
 
 ** Adjust Nix input
 After the Secure Boot setup is fully in place, I can comment-in the Secure Boot flag on Limine in my ~configuration.nix~.
-
-* References
-:PROPERTIES:
-:VISIBILITY: children
-:END:
-The below are what I put together before, so that I could get everything declaratively defined.
-
-** Hardware spec
-Based on the hardware capabilities, Nix can figure out some flags with ~nixos-generate-config~ command. However, when using this, we need to tell it that disko has done the disk partition, and thus should not touch the file system anymore.
-
-#+begin_src bash
-  sudo nixos-generate-config --no-filesystems --root /mnt
-#+end_src
-
-This generates two files:
-- ~/mnt/etc/nixos/hardware-configuration.nix~
-- ~/mnt/etc/nixos/configuration.nix~
-
-The hardware configuration holds onto some hardware specific flags found by Nix. The ~configuration.nix~ is the main configuration for adjusting the system behaviour.
-
-** Copy config over
-If there is a separate local machine I can connect from, simply copy over the git repo using:
-#+begin_src bash
-  rsync -ahvz nix-config nixos@192.168.1.3:/tmp
-#+end_src
-
-(Dummy IP address used)
-
-** Run install
-With that in place, I should be able to simply run ~nixos-rebuild~ -- but with the initial installation, I should use ~nixos-install~. But as I have some private repository in my dependency chain, I need to ensure that the access is established before the rebuild to take place.
-
-With a separate local machine, I can forward the credential by ensuring GPG agent is setup to support forwarding.
-#+begin_src bash
-  export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-  gpg-connect-agent updatestartuptty /bye
-#+end_src
-
-With that set up, I should be able to connect to the local machine with:
-#+begin_src bash
-  ssh -A nixos@<ip-address>
-#+end_src
-Where ~-A~ establishes credential forwarding socket.
-
-#+begin_src bash
-  export NIX_CONFIG="experimental-features = nix-command flakes pipe-operators"
-  nixos-rebuild build --flake .#asus-rog-flow-z13-2025
-#+end_src
 
 

@@ -19,7 +19,7 @@ Why not Tailscale: proprietary coordination server conflicts with the FOSS / sel
 
 ** Non-Goals
 - Migrating every host into clan on day one; HM-standalone profiles (coder class, restricted machines) stay outside.
-- Replacing the existing tailscale usage history on hosts before the mesh candidate is validated (the devbox already dropped tailscale).
+- Replacing the existing tailscale usage history on hosts before the mesh candidate is validated (the devbox already dropped tailscale; its README still references =sudo tailscale up= -- stale, clean up here when the mesh lands, or sooner if the README is touched first).
 - Deciding niks3 server placement here -- that stays in [[file:binary-cache-niks3.org]]; a clan-managed host is merely a candidate.
 
 * Proposal

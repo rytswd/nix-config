@@ -27,6 +27,19 @@ accept-flake-config = true
 ${NIX_CONFIG:-}"
 
 ###----------------------------------------
+##  Credential preflight library
+#------------------------------------------
+# The gh-token lookup below lives in the shared preflight library so this
+# app and the install runbook detect credentials the same way (see
+# air/v0.1/private-input-stub.org). Only the token function is used here:
+# the coder profile never references the private input, so probing the
+# private remote over SSH would just stall every workspace bring-up for
+# nothing. FLAKE_REF is this flake's own source path, so the sourced file
+# is always the same revision this app was built from.
+# shellcheck source=/dev/null
+. "$FLAKE_REF/apps/lib/preflight.sh"
+
+###----------------------------------------
 ##  GitHub auth for nix's fetchers (best-effort)
 #------------------------------------------
 # On a shared coder/devspace workspace the egress IP can hit GitHub's
@@ -40,8 +53,7 @@ ${NIX_CONFIG:-}"
 #
 # Entirely best-effort: if `gh` is absent or logged out the token is empty
 # and we proceed unauthenticated -- public inputs still resolve.
-if command -v gh >/dev/null 2>&1 && gh_token="$(gh auth token 2>/dev/null)" \
-    && [ -n "$gh_token" ]; then
+if gh_token="$(preflight_gh_token)"; then
     NIX_CONFIG="access-tokens = github.com=$gh_token
 ${NIX_CONFIG}"
     printf 'bootstrap: using gh auth token for github.com fetches\n'

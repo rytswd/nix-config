@@ -1,0 +1,89 @@
+#+title: Runbook: Bare-metal install (USB installer to rebuilt machine)
+
+This runbook is the authoritative /why/ for taking a machine from a bare NixOS installer USB to a fully-rebuilt system from this flake; the guided =install= app is the /how/, and the two reference each other by design ([[file:../../air/v0.1/installer-usb-runbook.org]]).
+
+#+begin_src bash
+  nix run github:rytswd/nix-config#install -- [--dry-run] [<host>]
+#+end_src
+
+The app works from the custom installer ISO ([[file:../../nixos-config/iso/README.org]]) or a stock NixOS installer ISO -- it sets =NIX_CONFIG= itself, so the stock image's lack of flake support does not matter. Fetching it at run time keeps the installer image minimal and never stale. Machine-specific content -- dual-boot, manual partition prep, Secure Boot, firmware sequences -- stays in the machine READMEs, linked as deltas at the end; nothing here assumes a particular machine.
+
+* Credential decision
+The first real decision on a fresh machine is whether the build will be /full/ (the =git+ssh= private input is fetchable) or /degraded/ (the public stub substitutes for it), and that is entirely a credential question -- [[file:credential-bootstrap.org]] owns it. The branches, in one line each:
+
+- Helper machine available :: =ssh -A= into the installer with agent forwarding; preflight reports =full=.
+- Only a YubiKey at hand :: =ssh-keygen -K= downloads the resident keys onto the machine; load them and preflight reports =full=.
+- Neither :: install degraded via the stub override -- a legitimate state (the machine boots, the user exists via public fallbacks), upgraded later by rebuilding without the override.
+
+The =install= app runs the same preflight as its second phase and picks the override automatically, so nothing needs deciding up front; the runbook branch matters when working by hand.
+
+* Install spine
+The generic sequence, phase by phase as the app walks it. Every phase prints its exact command before running, so any phase can be done manually when intervention is needed (the printed command is the manual command).
+
+** 1. Boot the installer and bring up the network
+Custom or stock ISO. For Wi-Fi, =nmtui= is the quickest path. Prefer working as =root= (or =ssh root@<installer>=): the later phases need root anyway, and =sudo= drops a forwarded SSH agent socket, which silently turns a would-be-full install degraded.
+
+** 2. Credential preflight
+#+begin_src bash
+  bash apps/lib/preflight.sh
+#+end_src
+
+The app sources the same library. Verdict =full= means no override anywhere; =degraded= adds =--override-input nix-config-private ...= pointing at the public stub for every build below. [[file:credential-bootstrap.org]] covers what degraded concretely means and how to upgrade.
+
+** 3. Clone to /tmp
+#+begin_src bash
+  git clone https://github.com/rytswd/nix-config /tmp/nix-config
+  # with an SSH credential: git clone git@github.com:rytswd/nix-config.git /tmp/nix-config
+#+end_src
+
+=/tmp= by convention: this clone only serves the install, and the durable clone happens post-install via =home-git-clone=. Re-runs (after a mid-install reboot, or a manually-fixed phase) reuse an existing checkout instead of re-cloning.
+
+** 4. Partition with disko
+#+begin_src bash
+  sudo nix run github:nix-community/disko/latest -- --mode <mode> /tmp/nix-config/nixos-config/<host>/<variant>.nix
+#+end_src
+
+Hosts may offer layout variants (e.g. dual-boot vs whole-disk); the file *and* the mode are explicit choices, never defaults:
+
+| Mode | Effect | When |
+|---+---+---|
+| =format,mount= | format only the partitions the file manages, partition table kept | the only sane mode for dual-boot layouts |
+| =destroy,format,mount= | wipe the managed disk(s) | whole-disk layouts on a machine with nothing to keep |
+| =mount= | mount an already-formatted layout | resuming after a reboot mid-install |
+
+The app refuses =destroy= on dual-boot layouts outright -- it would take the foreign OS partitions with it; those layouts depend on manual partition prep documented in the machine README. Verify before continuing: =mount | grep /mnt= and =lsblk=. Hosts without a disko file (e.g. the UTM VM) are partitioned and mounted at =/mnt= manually.
+
+For a brand-new machine that has no configuration in this repo yet, =sudo nixos-generate-config --no-filesystems --root /mnt= produces the starting =hardware-configuration.nix= (=--no-filesystems= because disko owns the filesystem definitions).
+
+** 5. nixos-install
+#+begin_src bash
+  nixos-install --flake /tmp/nix-config#<host>
+  # degraded:
+  nixos-install --flake /tmp/nix-config#<host> \
+      --override-input nix-config-private path:/tmp/nix-config/stubs/nix-config-private
+#+end_src
+
+=nixos-install= forwards =--override-input= to its underlying build, so the degraded path is the same single command rather than a separate closure build. A degraded system announces what is missing via eval warnings at build time.
+
+** 6. Post-install tail
+The easy-to-forget steps, in order -- the app prints these as a checklist and never executes them, because each either needs human judgement or must run inside the new system:
+
+1. Host key handover for sops: the new system's host key must be able to decrypt secrets before first boot completes cleanly. Mechanism in [[file:../../air/v0.1/secrets-host-enrolment.org]]; credential side in [[file:credential-bootstrap.org]]; the concrete key material handling lives in the private repo's notes.
+2. Verify the bootloader entry exists before rebooting (=efibootmgr -v=); entry /creation/ is machine-specific (Limine, dual-boot chainloading -- see deltas).
+3. Where applicable, set the first boot generation from inside the new system so it already matches the full configuration (the copy makes the checkout visible inside the chroot):
+   #+begin_src bash
+     sudo cp -r /tmp/nix-config /mnt/tmp/
+     sudo nixos-enter --root /mnt -c "nixos-rebuild boot --flake /tmp/nix-config#<host>"
+   #+end_src
+4. Reboot into the installed system, then the first Home Manager switch: =nix run github:rytswd/nix-config#hm -- switch= (or =nix run .#hm -- switch= from a fresh clone).
+5. Degraded install only: install a credential and rebuild *without* the stub override ([[file:credential-bootstrap.org]]); nothing else changes.
+
+* Binary cache
+Once the binary cache lands ([[file:../../air/v0.1/binary-cache-niks3.org]]), a host that was built and pushed elsewhere /substitutes/ instead of building -- the =nixos-install= phase gets dramatically shorter, but nothing else in this flow changes.
+
+* Machine deltas
+| Machine | Deltas kept there |
+|---+---|
+| [[file:../../nixos-config/asus-rog-flow-z13-2025/README.org]] | Windows dual-boot, manual partition prep, Limine boot entry, Secure Boot/sbctl + firmware walkthrough |
+| [[file:../../nixos-config/iso/README.org]] | building and flashing the custom installer image |
+| [[file:../../nixos-config/ryota-aws-ec2-devbox/README.org]] | cloud host -- installed via nixos-anywhere, not this flow (see [[file:../../air/v0.1/remote-provisioning.org]]) |

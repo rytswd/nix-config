@@ -1,0 +1,13 @@
+# Placeholder for the private repo's keys/ssh/yubikey-stub.yaml.
+#
+# The public module user-config/modules/vcs/git/yubikey.nix declares sops
+# secrets whose `sopsFile` points into `inputs.nix-config-private` by path,
+# so this file path is part of the consumed private interface. The Home
+# Manager sops-nix module does not currently force the file's existence at
+# eval time (verified: the degraded eval passes without this file), but the
+# NixOS-side sops module does validate eagerly -- this placeholder is cheap
+# insurance for either consumer growing stricter. It is NOT a sops file and
+# cannot be decrypted, so a degraded activation will fail the YubiKey
+# stub-key secrets. That is the expected shape of "degraded": no secret
+# material without the private repo and an age key.
+{}

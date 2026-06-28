@@ -441,6 +441,9 @@
       # `provision` -- first install of a remote NixOS host (nixos-anywhere).
       # `deploy`    -- day-2 `nixos-rebuild switch --target-host` for the same
       #                hosts. See docs/runbooks/remote-provision.org.
+      # `secrets-enroll` / `secrets-revoke`
+      #             -- ephemeral-class recipient lifecycle against a local
+      #                private-repo checkout (see apps/secrets/default.nix).
       #
       # aarch64-linux is included so aarch64 coder workspaces can bootstrap.
       apps = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ] (
@@ -448,10 +451,12 @@
         let
           pkgs = nixpkgs-unstable.legacyPackages.${system};
           bootstrap = import ./apps/bootstrap { inherit pkgs self; };
+          secrets = import ./apps/secrets { inherit pkgs; };
         in
         {
           hm = import ./apps/hm { inherit pkgs; };
           inherit bootstrap;
+          inherit (secrets) secrets-enroll secrets-revoke;
           default = bootstrap;
           provision = import ./apps/provision { inherit pkgs self; };
           deploy = import ./apps/deploy { inherit pkgs self; };

@@ -49,6 +49,7 @@ None.
 
 * History
 - 2026-06-28: Initial draft from the repo setup review; scope corrected to "existing USB installer, no embedded snapshot".
+- 2026-06-28: Implemented: =apps/install/= guided installer wired as the =install= flake app (=nix run github:rytswd/nix-config#install -- [--dry-run] [<host>]=), =docs/runbooks/bare-metal-install.org=, and the flow-z13 README trimmed to machine deltas. The README's gpg-agent forwarding snippet was absorbed into =docs/runbooks/credential-bootstrap.org= (whose link into the README would otherwise have dangled; [[file:runbook-consolidation.org]] names it the absorbing home). Hosts resolve from =nixosConfigurations= attrNames (no registry; =installer-iso= excluded as a non-target); =nixos-install= forwards =--override-input=, so the degraded path stays one command. Validated by targeted =nix eval= (=apps.<system>.install.type= = "app" on x86_64-linux and aarch64-darwin), shellcheck + =bash -n=, a real app build via =nix run .#install -- --help=, and =--dry-run= walks in both verdicts (agent present -> full; =SSH_AUTH_SOCK= masked -> degraded with the stub override printed on the install command). The Test Plan's ISO/VM dry-run is deferred manual validation -- the implementing environment cannot run VMs; corrections from the next physical (re)install land here.
 
 * References
 - =nixos-config/iso/= -- installer image (unchanged).

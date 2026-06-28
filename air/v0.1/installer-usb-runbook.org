@@ -31,6 +31,7 @@ Scope clarification from review: the deliverable is for the existing USB install
 - The script must work under the stock ISO's default toolset: pass experimental features via =NIX_CONFIG= exactly as =apps/bootstrap/bootstrap.sh= does, assume nothing about flakes being enabled.
 - Credential preflight outcome selects full vs degraded eval (=--override-input nix-config-private ...=); a degraded install is legitimate (machine boots, user exists via public fallbacks) and the runbook covers the upgrade.
 - Keep machine-specific firmware sequences (Secure Boot, sbctl, BIOS steps) entirely in the machine READMEs -- they are not scriptable and not generic.
+- Prior art (Mic92/dotfiles): a dedicated =machines/installer= entry whose image clan can flash with embedded vars (credentials, wifi) -- installs become near-zero-interaction because the image itself is personalised. If/when clan lands ([[file:clan-adoption.org]]), clan-managed hosts may prefer that flash flow; this app stays the path for non-clan hosts and as the public-safe baseline, since a personalised image is by construction full of private material and ours must remain shareable (the snapshot-free, fetch-at-runtime decision in this doc is the same posture).
 
 ** Test Plan
 - VM dry-run: stock installer ISO in a VM, =nix run github:rytswd/nix-config#install= against a throwaway disko layout (the UTM host config is a candidate fixture).
@@ -50,6 +51,7 @@ None.
 * History
 - 2026-06-28: Initial draft from the repo setup review; scope corrected to "existing USB installer, no embedded snapshot".
 - 2026-06-28: Implemented: =apps/install/= guided installer wired as the =install= flake app (=nix run github:rytswd/nix-config#install -- [--dry-run] [<host>]=), =docs/runbooks/bare-metal-install.org=, and the flow-z13 README trimmed to machine deltas. The README's gpg-agent forwarding snippet was absorbed into =docs/runbooks/credential-bootstrap.org= (whose link into the README would otherwise have dangled; [[file:runbook-consolidation.org]] names it the absorbing home). Hosts resolve from =nixosConfigurations= attrNames (no registry; =installer-iso= excluded as a non-target); =nixos-install= forwards =--override-input=, so the degraded path stays one command. Validated by targeted =nix eval= (=apps.<system>.install.type= = "app" on x86_64-linux and aarch64-darwin), shellcheck + =bash -n=, a real app build via =nix run .#install -- --help=, and =--dry-run= walks in both verdicts (agent present -> full; =SSH_AUTH_SOCK= masked -> degraded with the stub override printed on the install command). The Test Plan's ISO/VM dry-run is deferred manual validation -- the implementing environment cannot run VMs; corrections from the next physical (re)install land here.
+- 2026-06-28: Prior-art note added: clan's personalised-installer flash flow recorded as the eventual option for clan hosts; this app remains the shareable, private-material-free baseline.
 
 * References
 - =nixos-config/iso/= -- installer image (unchanged).

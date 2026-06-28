@@ -34,6 +34,7 @@ The runbook covers the decision points the apps cannot make: choosing build-on l
 - =nixos-anywhere= is invoked via =nix run github:nix-community/nixos-anywhere= rather than added as a flake input -- it is a provisioning-time tool, not part of any closure.
 - Host list is derived from =nixosConfigurations= attribute names so the apps need no separate registry.
 - The EC2 devbox README shrinks to: instance lifecycle (launch/stop/start, volumes) + "then use the standard provision/deploy flow".
+- Prior art (Mic92/dotfiles): clan inventory expresses the same asymmetry declaratively -- per-machine =deploy.targetHost=, =buildHost= (one host building for another), =forwardAgent= -- confirming both the shape of these apps and their planned absorption into clan ([[file:clan-adoption.org]]). Privacy divergence kept deliberately: his inventory publishes deploy addresses in the public repo; here ssh targets remain CLI arguments or private-layer data, so the public repo never learns where machines live.
 
 ** Test Plan
 - Dry-run mode (=--dry-run= printing the underlying command) testable anywhere.
@@ -53,6 +54,7 @@ None new. Uses existing hosts and SSH access; benefits from [[file:binary-cache-
 - 2026-06-28: Initial draft from the repo setup review. Future cloud hosts (k8s testing, build experiments) noted as upcoming consumers; hetzner-k8s currently inactive.
 - 2026-06-28: Clan adoption planned (see [[file:clan-adoption.org]]); Non-Goals adjusted -- thin apps proceed now, possible later absorption into clan's flow accepted by design.
 - 2026-06-28: Implemented: =provision= / =deploy= apps under =apps/=, flake wiring, [[file:../../docs/runbooks/remote-provision.org]], and the devbox README trimmed to AWS-specific content. Deriving the host list via =attrNames= keeps app evaluation free of the private input but also offers =installer-iso= as a candidate -- accepted as the cost of registry-free derivation. Dry-run paths validated against a TEST-NET address; real validation remains pending the next devbox bring-up per the test plan.
+- 2026-06-28: Prior-art note added (clan =deploy.buildHost= confirms the absorption path); addresses-stay-private divergence recorded.
 
 * References
 - =nixos-config/ryota-aws-ec2-devbox/README.org= -- current manual flow to be absorbed.

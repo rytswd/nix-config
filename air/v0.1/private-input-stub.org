@@ -56,6 +56,7 @@ Upgrade path: install the credential (YubiKey stub keys or agent forwarding), th
 * Alternatives
 - /Runtime-path consumption (rejected)/: clone the private repo to a known path and read it impurely. Removes the eval wall entirely but sacrifices pinning for all hosts forever, and makes =nix flake check= environment-dependent.
 - /Credential-first only (rejected as sole answer)/: keep the input mandatory and just document the auth step. Simpler, but leaves "machine that cannot get a credential yet" (e.g. waiting on hardware key delivery) with no build at all.
+- /No private repo at all (the Mic92/dotfiles posture, rejected deliberately)/: publish everything -- sops ciphertext, user data, addresses -- and the bootstrap wall this doc exists for disappears entirely; his =nix run github:Mic92/dotfiles= needs no stub because nothing is private. Rejected because the wall /is/ the metadata-privacy boundary working as intended (see OVERVIEW); this doc manages the cost of that boundary instead of removing its benefit.
 
 * Infrastructure Needed
 None. Pure repo changes.
@@ -63,6 +64,7 @@ None. Pure repo changes.
 * History
 - 2026-06-28: Initial draft from the repo setup review (options discussed and direction agreed: stub + preflight).
 - 2026-06-28: Implemented (ca3ec4b..HEAD): stub flake with warning-emitting no-op modules, =apps/lib/preflight.sh= sourced by bootstrap, drift guard =checks.<system>.private-stub-interface=, runbook. Validated with the private input fully overridden and =SSH_AUTH_SOCK= masked: g14 standalone HM profile evaluates to a drv in ~64s cold / ~14s warm, g14 nixosConfiguration toplevel in ~82s; all four stub warnings surface at eval; drift check passes on the current tree and fails naming the attr when one is removed from the stub.
+- 2026-06-28: Prior-art contrast recorded in Alternatives: the no-private-repo posture dissolves this problem entirely, and is rejected on purpose.
 
 ** Design Divergence
 - The Test Plan's CI drift check ("evaluate one NixOS host and one HM profile with the stub override") shipped as a cheaper mechanical equivalent instead: the check greps every =inputs.nix-config-private.<attr>= reference in tracked nix files and asserts each exists in the stub's outputs. Why: a full host eval in CI re-pays minutes of eval per system for the same failure class, while the attr-surface comparison pins the actual contract and fails naming the exact missing attr; the full-eval form remains the documented manual command in the stub header and runbook.

@@ -7,6 +7,7 @@ Shared constraints across every doc here:
 - *Public repo*: no organisation-specific details, ever; environment-specific behaviour goes through the local-overlay seams =coder.nix= established.
 - *FOSS / forge-agnostic*: no required dependence on proprietary services or any one forge's tooling (=gh= stays best-effort; URLs stay =git+ssh=-shaped; CI, where it appears, is optional and portable).
 - *YubiKey-primary*: hardware-bound secrets wherever physically possible; softer mechanisms only where scoped and tracked.
+- *Metadata privacy over radical transparency*: the closest reference setup (Mic92/dotfiles, assessed in [[file:clan-adoption.org]]) publishes sops ciphertext, clan inventory, mesh endpoints, and machine addresses in its public repo; this configuration deliberately does not. Ciphertext and =.sops.yaml= (which reveal the secret inventory and recipient churn), network topology and addresses, and the cache write-path endpoint all stay in private layers -- the public repo carries mechanisms and interfaces only. The cost of that posture is exactly the private-input wall [[file:private-input-stub.org]] manages; the trade is intentional, and each affected doc records its own side of it.
 
 * Documents
 
@@ -39,3 +40,4 @@ Small correction queued with the bootstrap work: one persistent-volume workspace
 * History
 - 2026-06-28: Milestone created from the setup review; all docs drafted, pending review → ready promotion.
 - 2026-06-28: Review feedback applied: cache storage = Cloudflare R2 (write-path hosting pending); clan adoption planned ([[file:clan-adoption.org]] added); restricted-macOS deferred. Five docs marked ready; stub/provisioning/secrets implementation started (binary-cache held, installer queued behind the stub's preflight).
+- 2026-06-28: Mic92/dotfiles prior-art learnings propagated across the doc set, and the metadata-privacy constraint stated explicitly above -- each doc now records where it deliberately diverges from his fully-public posture.

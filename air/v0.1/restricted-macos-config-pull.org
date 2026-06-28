@@ -50,6 +50,7 @@ Three parts, sequenced:
 - /Files-only HM profile/: cleanest if Nix were installable; it is not, on this machine class.
 - /CI-rendered dotfiles branch/: implied forge-CI dependence; replaced by local =publish-dotfiles= (CI can adopt the same command later, forge-agnostically).
 - /Raw-file puller straight from the repo/: simpler, but only covers configs that are already raw files and duplicates content the moment HM needs the same settings -- the fragment refactor is what actually removes the drift.
+- /Prior art (Mic92/dotfiles)/: his no-nix answer is homeshick -- plain git clone plus a whole-file symlink farm -- and where nix exists but full management doesn't, single configured tools exported as flake apps (=nix run github:Mic92/dotfiles#nvim=). The fragment puller here is the homeshick idea narrowed to additive fragments, because whole-file symlinks cannot coexist with environment-managed dotfiles that must stay authoritative; the standalone-tool-export trick is worth remembering for nix-present-but-unmanaged environments, which this machine class is not.
 
 * Infrastructure Needed
 - Bucket prefix on the cache storage ([[file:binary-cache-niks3.org]]); nothing else.

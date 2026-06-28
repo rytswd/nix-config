@@ -1,5 +1,5 @@
 #+title: Remote provisioning: build on A, deploy to B
-#+state: work-in-progress
+#+state: complete
 #+FILETAGS: :infra:
 
 * Summary

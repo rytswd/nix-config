@@ -52,4 +52,4 @@ A recreated cloud instance gets a brand-new SSH host key. Two consequences:
 
 * After the build: push to the cache
 
-Forward note -- once the binary cache lands ([[file:../../air/v0.1/binary-cache-niks3.org]]), make pushing the built closure part of every provision/deploy: the provisioner builds once, pushes, and every subsequent machine (including the target itself on a later self-rebuild) substitutes instead of rebuilding. Until then, the provisioner's local store is the only cache and repeat deploys from other machines rebuild from scratch.
+The cache exists now -- [[file:binary-cache.org]] covers the push side (=nix run .#cache-push=) and the custody rules. Make pushing the built closure part of every provision/deploy: the provisioner builds once, pushes, and every subsequent machine (including the target itself on a later self-rebuild) substitutes instead of rebuilding.

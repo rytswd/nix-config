@@ -1,0 +1,53 @@
+#+title: Runbook: self-hosted binary cache (cache.re.dev)
+#+filetags: :runbook:infra:
+
+This flake substitutes from, and pushes to, a self-hosted binary cache. Reads and writes are structurally different paths that fail independently, and that asymmetry drives everything below: the read side is already live and costs nothing to depend on, while the write side is private infrastructure that can lag behind without hurting anyone. Design rationale lives in [[file:../../air/v0.1/binary-cache-niks3.org]].
+
+* The shape
+
+| Concern                 | Value                                                                                                              |
+|-------------------------+--------------------------------------------------------------------------------------------------------------------|
+| Substituter (read path) | =https://cache.re.dev= -- Cloudflare R2 behind a custom domain; no server on this path                            |
+| Write path              | niks3 server (presigned uploads, reference tracking, GC) -- private infrastructure, endpoint via =NIKS3_SERVER_URL= |
+| Signing key             | =cache.re.dev-1:QdHy10XRVJsXFQeYMHuok7LAPNkq9Q0QUMCKQz6HURY=                                                       |
+
+Reads never touch the niks3 server: a write-path outage (or the write-path host simply not existing yet) only pauses uploads, never substitution. This is why the substituter could be wired into every consumer before the server endpoint was even decided.
+
+* Reading from it
+
+Nothing to do. The substituter and public key are wired in the two places that matter: =flake.nix= =nixConfig= (the only configuration a fresh machine running =nix run github:rytswd/nix-config= ever sees) and =nixos-config/modules/nix-base.nix= (the system-level layered cache model for machines built from this flake). Until the first push lands, the bucket serves no =nix-cache-info= and nix logs a "does not appear to be a binary cache" warning -- harmless, it falls through to the other caches.
+
+* Pushing
+
+Provisioner-class machines push -- the ones that already hold private-repo access and build for others (see "Who needs what" in [[file:remote-provision.org]]). They are the only holders of the niks3 API token; thin machines and coder-class workspaces never see it.
+
+#+begin_src bash
+export NIKS3_SERVER_URL=https://<niks3-server>   # write-path endpoint; see "Custody" below
+export NIKS3_AUTH_TOKEN_FILE=/path/to/token      # or place the token at $XDG_CONFIG_HOME/niks3/auth-token
+nix run .#cache-push -- <store-path|installable...>
+#+end_src
+
+The app resolves its arguments to store paths (=./result= links and flake installables both work), always prints the fully-resolved =niks3 push= command before executing -- same contract as =provision= / =deploy= -- and =--dry-run= stops right there. Both variables are the niks3 CLI's own; the app only adds early, pointed failures when they are missing. Any other flag is passed through to =niks3 push= verbatim.
+
+The write-path endpoint is deliberately not recorded in this public repo: the host is still being decided (Air doc History), and it stays private infrastructure once it is. The value belongs with the other provisioner-class material in the private repo.
+
+* Push after build
+
+Make pushing the closing move of every build that another machine might want: after a =provision= or =deploy= ([[file:remote-provision.org]]), push the system closure you just built; the same goes for HM profiles and darwin builds -- the cache is multi-arch by nature and the MBPs push their own closures.
+
+#+begin_src bash
+nix build .#nixosConfigurations.<host>.config.system.build.toplevel
+nix run .#cache-push -- ./result
+#+end_src
+
+The provisioner builds once, pushes once, and every subsequent machine -- including the target itself on a later self-rebuild -- substitutes instead of rebuilding. That habit is what keeps thin machines thin.
+
+* Custody
+
+The =cache.re.dev-1= secret key lives in the private repo as a provisioner-class sops secret with YubiKey-only recipients, and is loaded by the niks3 /server/ (=services.niks3.signKeyFiles= upstream) -- narinfos are signed server-side at upload. Neither =cache-push= nor any pushing machine ever holds signing key material: a pusher carries only the API token, so a leaked token is revoked by a server-side config change while the signing key never leaves the write-path host.
+
+The API token is provisioner-class in the same way: YubiKey-only sops in the private repo, handed only to machines that build for others.
+
+* Cachix retirement
+
+The =rytswd-nix-config.cachix.org= substituter and key stay in =flake.nix= =nixConfig= (plus the matching allow-list entries in =nix-base.nix=) until this cache holds the hot set -- in practice a few days of normal pushes covering the standard profiles: system closures of the active hosts and the coder HM profile. When that holds, remove the two =nixConfig= entries and the =nix-base.nix= pair, and rewrite this section to record the retirement. The community caches (ghostty, niri, ...) are unaffected -- they serve closures this cache never will.

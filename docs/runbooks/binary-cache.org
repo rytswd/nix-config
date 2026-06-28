@@ -1,4 +1,4 @@
-#+title: Runbook: self-hosted binary cache (cache.re.dev)
+#+title: Runbook: self-hosted binary cache (cache.rytswd.com)
 #+filetags: :runbook:infra:
 
 This flake substitutes from, and pushes to, a self-hosted binary cache. Reads and writes are structurally different paths that fail independently, and that asymmetry drives everything below: the read side is already live and costs nothing to depend on, while the write side is private infrastructure that can lag behind without hurting anyone. Design rationale lives in [[file:../../air/v0.1/binary-cache-niks3.org]].
@@ -7,9 +7,9 @@ This flake substitutes from, and pushes to, a self-hosted binary cache. Reads an
 
 | Concern                 | Value                                                                                                              |
 |-------------------------+--------------------------------------------------------------------------------------------------------------------|
-| Substituter (read path) | =https://cache.re.dev= -- Cloudflare R2 behind a custom domain; no server on this path                            |
+| Substituter (read path) | =https://cache.rytswd.com= -- Cloudflare R2 behind a custom domain; no server on this path                        |
 | Write path              | niks3 server (presigned uploads, reference tracking, GC) -- private infrastructure, endpoint via =NIKS3_SERVER_URL= |
-| Signing key             | =cache.re.dev-1:QdHy10XRVJsXFQeYMHuok7LAPNkq9Q0QUMCKQz6HURY=                                                       |
+| Signing key             | =cache.rytswd.com-1:/1R/t3GTiG7HVo2Xpl+f0CBhrZNBwFMQSYfaxd3sSSc=                                                   |
 
 Reads never touch the niks3 server: a write-path outage (or the write-path host simply not existing yet) only pauses uploads, never substitution. This is why the substituter could be wired into every consumer before the server endpoint was even decided.
 
@@ -44,7 +44,7 @@ The provisioner builds once, pushes once, and every subsequent machine -- includ
 
 * Custody
 
-The =cache.re.dev-1= secret key lives in the private repo as a provisioner-class sops secret with YubiKey-only recipients, and is loaded by the niks3 /server/ (=services.niks3.signKeyFiles= upstream) -- narinfos are signed server-side at upload. Neither =cache-push= nor any pushing machine ever holds signing key material: a pusher carries only the API token, so a leaked token is revoked by a server-side config change while the signing key never leaves the write-path host.
+The =cache.rytswd.com-1= secret key lives in the private repo as a provisioner-class sops secret with YubiKey-only recipients, and is loaded by the niks3 /server/ (=services.niks3.signKeyFiles= upstream) -- narinfos are signed server-side at upload. Neither =cache-push= nor any pushing machine ever holds signing key material: a pusher carries only the API token, so a leaked token is revoked by a server-side config change while the signing key never leaves the write-path host.
 
 The API token is provisioner-class in the same way: YubiKey-only sops in the private repo, handed only to machines that build for others.
 

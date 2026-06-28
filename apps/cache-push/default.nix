@@ -1,5 +1,5 @@
 # `cache-push` flake app -- push built closures to the self-hosted binary
-# cache (write path: niks3; read path: https://cache.re.dev straight off R2).
+# cache (write path: niks3; read path: https://cache.rytswd.com straight off R2).
 #
 #     nix run .#cache-push -- <store-path|installable...>
 #
@@ -16,7 +16,7 @@
 # upstream main, 2026-06-28 (CLI v1.7.0).
 #
 # Signing is deliberately not this app's concern: narinfos are signed at
-# upload by the niks3 *server*, which holds the `cache.re.dev-1` secret key
+# upload by the niks3 *server*, which holds the `cache.rytswd.com-1` secret key
 # (`services.niks3.signKeyFiles` upstream) as a provisioner-class sops
 # secret in the private repo, YubiKey-only recipients. No signing key
 # material ever reaches this app or the pushing machine -- the pusher only

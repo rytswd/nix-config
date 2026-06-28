@@ -488,7 +488,15 @@
       # Numtide cache -- hosts the `llm-agents` builds (codex, claude-code,
       # opencode, pi, ...). Without this, those rebuild from source.
       "https://cache.numtide.com"
+      # Self-hosted binary cache (air/v0.1/binary-cache-niks3.org). Reads go
+      # straight to Cloudflare R2 behind this domain -- the niks3 write-path
+      # server is never on the read path, so substitution works even when it
+      # is down. Listed before the community caches because own pushes cover
+      # the closures they don't. See docs/runbooks/binary-cache.org.
+      "https://cache.re.dev"
       "https://nix-community.cachix.org"
+      # Pending retirement: drops once cache.re.dev holds the hot set (see
+      # docs/runbooks/binary-cache.org for the criterion).
       "https://rytswd-nix-config.cachix.org"
       "https://swapdir.cachix.org"
       "https://ghostty.cachix.org"
@@ -503,7 +511,9 @@
       # the hetzner pull-through is trusted even where defaults were dropped.
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+      "cache.re.dev-1:QdHy10XRVJsXFQeYMHuok7LAPNkq9Q0QUMCKQz6HURY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      # Pending retirement together with the cachix substituter above.
       "rytswd-nix-config.cachix.org-1:fpZQ465aGF2LYQ8oKOrd5c8kxaNmD7wBEK/yyhSQozo="
       "swapdir.cachix.org-1:AxK+CyOlKSBbZ/O2HhFz4V++zaIP1UqPaRenIbbFpUo="
       "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="

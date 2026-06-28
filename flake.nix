@@ -425,7 +425,7 @@
       # Logic lives in ./checks.nix to keep this file readable. See that
       # file's header for the full rationale, system list, and blacklist.
       checks = import ./checks.nix {
-        inherit self;
+        inherit self nixpkgs;
         lib = nixpkgs.lib;
       };
 

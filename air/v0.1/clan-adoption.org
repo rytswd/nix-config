@@ -53,6 +53,15 @@ Rule: public repo = library + public-safe long-lived machines; private infra rep
 ** Other constraints carried into the spike
 FOSS-only services; everything must keep working for hosts that never join the clan; clan vars must not displace the YubiKey-primary policy from [[file:secrets-host-enrolment.org]].
 
+** Prior art: Mic92/dotfiles (assessed 2026-06-28)
+The author's own personal clan, public end-to-end (inventory, sops ciphertext, even mesh endpoints) -- a more transparent posture than ours, but structurally the same trust-domain rule: no employer machines in it, org infra lives in the orgs' own repos. Patterns to carry into the spike:
+- Inventory evaluated as a standalone =machines/inventory.nix= feeding =clan-core.lib.clan=; produces nixos /and/ darwin configurations in one inventory (=machineClass = "darwin"= works -- relevant for the personal MBP, irrelevant for the work one which stays out by policy).
+- Tag-driven role assignment (=roles.<r>.tags.<t>=) with tags computed from the machine list -- our personal/project class split maps directly onto tags.
+- =deploy.buildHost= expresses build-on-A-deploy-to-B natively, confirming the planned absorption path for the thin =provision= / =deploy= apps.
+- Mesh reality check: he runs clan's wireguard service (controller/peer with stable-endpoint servers) alongside zerotier and legacy tinc, with tincr only as an experiment -- so the spike evaluates clan's wireguard service first, tincr second.
+- =emergency-access= on every machine and backup-as-a-clan-service (server role + clients by tag) are cheap wins to consider once the base inventory stands.
+Not followed: personal nixpkgs/nix forks as inputs (constant-upstreaming maintenance profile, not ours) and public sops ciphertext/inventory (our split keeps topology private).
+
 * Drawbacks
 - A second orchestration philosophy in the repo (clan inventory vs this flake's hand-rolled host wiring) risks split-brain; the spike must produce a clear "which layer owns what" answer before adoption.
 
@@ -66,8 +75,10 @@ FOSS-only services; everything must keep working for hosts that never join the c
 * History
 - 2026-06-28: Created as draft from review follow-up: clan planned for syncthing + tailscale-like mesh VPN (tincr-class, not Tailscale); interplay with provisioning, secrets, and cache docs recorded. Spike pending.
 - 2026-06-28: Boundaries fixed ahead of the spike: work/personal machine-class table added (work machines excluded from clan by policy, not deferral), and the three-layer repo rule recorded -- this repo stays the public library + public-safe hosts, a private infrastructure repo becomes the clan root and home for project-specific machines, per-project repos only for collaborator-operated infra.
+- 2026-06-28: Mic92/dotfiles assessed as prior art (subsection added): same trust-domain separation in practice, transferable inventory/tag/buildHost patterns captured, and the mesh candidate order revised -- clan's wireguard service first, tincr second.
 
 * References
 - https://clan.lol -- inventory, services, vars.
-- https://github.com/Mic92/tincr -- mesh VPN candidate.
+- https://github.com/Mic92/dotfiles -- prior art: =machines/inventory.nix=, tag-driven services, =deploy.buildHost=.
+- https://github.com/Mic92/tincr -- mesh VPN candidate (now second to clan's wireguard service).
 - [[file:remote-provisioning.org]], [[file:secrets-host-enrolment.org]], [[file:binary-cache-niks3.org]]

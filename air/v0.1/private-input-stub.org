@@ -62,8 +62,14 @@ None. Pure repo changes.
 
 * History
 - 2026-06-28: Initial draft from the repo setup review (options discussed and direction agreed: stub + preflight).
+- 2026-06-28: Implemented (ca3ec4b..HEAD): stub flake with warning-emitting no-op modules, =apps/lib/preflight.sh= sourced by bootstrap, drift guard =checks.<system>.private-stub-interface=, runbook. Validated with the private input fully overridden and =SSH_AUTH_SOCK= masked: g14 standalone HM profile evaluates to a drv in ~64s cold / ~14s warm, g14 nixosConfiguration toplevel in ~82s; all four stub warnings surface at eval; drift check passes on the current tree and fails naming the attr when one is removed from the stub.
+
+** Design Divergence
+- The Test Plan's CI drift check ("evaluate one NixOS host and one HM profile with the stub override") shipped as a cheaper mechanical equivalent instead: the check greps every =inputs.nix-config-private.<attr>= reference in tracked nix files and asserts each exists in the stub's outputs. Why: a full host eval in CI re-pays minutes of eval per system for the same failure class, while the attr-surface comparison pins the actual contract and fails naming the exact missing attr; the full-eval form remains the documented manual command in the stub header and runbook.
+- Stub modules are warning-emitting no-ops rather than literally empty ={ }= so a degraded eval announces itself, and the stub additionally ships =keys/ssh/yubikey-stub.yaml= because =user-config/modules/vcs/git/yubikey.nix= consumes a file path inside the input (=toString inputs.nix-config-private=) -- eval does not currently force the file's existence, but the path is part of the consumed surface and the NixOS sops module validates eagerly.
 
 * References
 - [[file:OVERVIEW.org]]
 - =apps/bootstrap/bootstrap.sh= -- existing best-effort =gh= token handling to fold into preflight.
 - [[file:installer-usb-runbook.org]] -- consumes the same preflight.
+- [[file:../../docs/runbooks/credential-bootstrap.org]] -- operational decision tree (helper machine / YubiKey / degraded) and the degraded-to-full upgrade path.

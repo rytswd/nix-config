@@ -47,34 +47,11 @@ If I can get another machine to configure, this should be just a matter of getti
 If I cannot get any other device to work (and this was the case for me), download Rufus https://rufus.ie/en/ to create a bootable device. In my case, I made a USB device with NixOS GNOME image first.
 
 * Installation
-Once the boot configuration is set up to use a device NixOS image, I can simply load up NixOS from the device, and then head into NixOS installation app. 
+Once the boot configuration is set up to use a device NixOS image, the generic install flow -- network bring-up, credential options, repo clone, partitioning, ~nixos-install~, and the post-install tail -- is covered by [[file:../../docs/runbooks/bare-metal-install.org]], with the credential decision (SSH access to the private repo, or a degraded build without it) in [[file:../../docs/runbooks/credential-bootstrap.org]]. The guided script walks the whole sequence:
 
-** WiFi
-Before going into the NixOS config, I had a best chance of success by setting up WiFi just before that.
+#+begin_src bash
+  nix run github:rytswd/nix-config#install -- asus-rog-zephyrus-g14-2024
+#+end_src
 
-** Install System
-NixOS installer is called Installation System in the dock.
-
-I need to set language setup, desktop choice, unfree software, etc. Most of them can stay with the default.
-
-* Initial Set Up
-While a lot of configurations are in this repository, I need to get some tools for the initial setup.
-
-** WiFi
-I need to get the network configuration first. This needs to be done manually.
-
-** Dark Mode
-While I will be able to adjust later, this makes it easier on my eyes 🫣
-
-** WIP From Terminal
-- install git ~nix-shell -p git~
-- clone this repo
-- ensure ssh tokens are set up so that I can pull private repos from GitHub
-- ~ssh-keygen -t ed25519 -C "me@me.com" -f $HOME/.ssh/github_id_ed25519~
-- Update ~$HOME/.ssh/config~ to include the created SSH key
-- Register the key to GitHub
-- Ensure the keys are copied to the root user (beacues sudo is needed)
-- start rebuild ~sudo nixos-rebuild switch~
-
-
+This host has no disko layout in the repo, so the partitioning phase is manual (partition and mount at ~/mnt~ by hand -- the runbook covers that case); everything else follows the runbook as is.
 

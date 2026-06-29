@@ -19,17 +19,19 @@ The same flows -- credential bootstrap, remote provisioning, secret handover, in
 - Restructuring module documentation or per-module READMEs (e.g. =user-config/modules/window-manager/niri/README.org=) -- those are reference docs, not flows, and are fine where they are.
 
 * Proposal
-Structure ownership table:
+Structure ownership table -- all five runbooks shipped, each landing organically with its owning doc's implementation rather than as a separate migration pass:
 
-| Runbook | Owning Air doc | Absorbs from |
+| Runbook | Owning Air doc | Absorbed from |
 |---+---+---|
 | =credential-bootstrap.org= | [[file:private-input-stub.org]] | flow-z13 README (SSH stub / =ssh -A= sections), bootstrap.sh comments |
 | =remote-provision.org= | [[file:remote-provisioning.org]] | devbox README (install + day-2), flow-z13 README (remote access) |
 | =bare-metal-install.org= | [[file:installer-usb-runbook.org]] | flow-z13 README (generic install spine), iso README |
 | =secrets-enrolment.org= | [[file:secrets-host-enrolment.org]] | flow-z13 README (host-key handover), private-repo notes (referenced, not copied) |
-| =restricted-macos.org= | [[file:restricted-macos-config-pull.org]] | README.org work-mac paragraph |
+| =binary-cache.org= | [[file:binary-cache-niks3.org]] | written fresh with its owning doc -- no prior machine-doc copy existed |
 
-Migration is per-runbook and incremental: when an owning doc's implementation lands, its runbook is written, the source sections in machine docs are replaced with links, and the machine doc keeps only its deltas. No big-bang docs rewrite.
+Migration was per-runbook and incremental: as each owning doc's implementation landed, its runbook was written, the source sections in machine docs were replaced with links, and the machine doc kept only its deltas. No big-bang docs rewrite happened, and none was needed.
+
+The originally planned fifth entry, =restricted-macos.org= (owning doc [[file:restricted-macos-config-pull.org]]), did not ship: its owning doc stayed deferred, so the runbook waits with it and joins the set whenever that implementation lands. =binary-cache.org= took the fifth slot instead.
 
 * Design Details
 - Org throughout; prose unwrapped per repo convention.
@@ -51,6 +53,10 @@ None.
 
 * History
 - 2026-06-28: Initial draft from the repo setup review.
+- 2026-06-29: Close-out. All five runbooks had already shipped organically with their owning docs' implementations; this pass added the README.org runbooks index, rewrote =machine-setup/mbp/README.org= against the current flow (=darwinConfigurations.ryota-mbp-m1-max= / =-m5-max=, standalone HM via the =hm= dispatcher, credential runbook link; the still-valid Non-Nix checklist kept verbatim), and replaced the generic install sections in =machine-setup/asus-rog-zephyrus-g14-2024/README.org= with links to the bare-metal-install and credential-bootstrap runbooks. The remaining machine-setup docs (=windows-machine=, =mbp-utm=, =mbp-nixos=) carry only machine-specific content and were left untouched.
+
+** Design Divergence
+- The shipped runbook set swaps =restricted-macos.org= for =binary-cache.org=: the restricted-macos owning doc ([[file:restricted-macos-config-pull.org]]) stayed deferred, so its runbook never had an implementation to land with, while [[file:binary-cache-niks3.org]] shipped and brought =docs/runbooks/binary-cache.org= with it. The five-file shape and the one-owning-doc-per-runbook rule held; only the membership changed.
 
 * References
 - =machine-setup/=, =nixos-config/*/README.org=, README.org -- migration sources.

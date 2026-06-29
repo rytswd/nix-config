@@ -88,6 +88,15 @@ The first bootstrap renamed any pre-existing dotfiles to ~*.hm-bak-<timestamp>~ 
 
 #+html:</details>
 
+** 📚 Runbooks
+Generic operational flows live in [[docs/runbooks/][docs/runbooks/]] as standalone runbooks, each the single authoritative copy of its flow; machine documents under ~machine-setup/~ and ~nixos-config/~ link to them and keep only their machine-specific deltas.
+
+- [[docs/runbooks/credential-bootstrap.org][Credential bootstrap]] :: Whether a fresh machine builds /full/ (the private input reachable over SSH) or /degraded/ (the public stub substitutes), and how to upgrade later.
+- [[docs/runbooks/bare-metal-install.org][Bare-metal install]] :: From a NixOS installer USB to a fully-rebuilt machine, with the guided ~install~ app walking each phase.
+- [[docs/runbooks/remote-provision.org][Remote provisioning]] :: Build on one machine, deploy to another over SSH -- first install via ~provision~ (nixos-anywhere), day-2 via ~deploy~.
+- [[docs/runbooks/secrets-enrolment.org][Secrets enrolment]] :: Per-instance age recipients for hosts that cannot present a YubiKey -- enrol, use, revoke, with the registry keeping drift visible.
+- [[docs/runbooks/binary-cache.org][Binary cache]] :: The self-hosted cache: reading is wired in for every consumer already, pushing is for provisioner-class machines only.
+
 ** 📜 Configuration Details
 The idea is to ensure I have all the ~$HOME~ setup defined declaratively, while allowing some imperative adjustments when and if necessary. Also, it is designed to work with various machines and environments, so that most of the configurations can be shared among the different environments, but still there would be some additional configurations made possible. (Or simply duplicating some resources.)
 

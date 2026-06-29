@@ -1,5 +1,5 @@
 #+title: Runbook consolidation: generic flows out of machine docs
-#+state: work-in-progress
+#+state: complete
 #+FILETAGS: :docs:
 
 * Summary

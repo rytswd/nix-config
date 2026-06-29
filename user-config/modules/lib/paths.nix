@@ -46,6 +46,26 @@
       '';
       example = "/root/home/bin";
     };
+    goRoot = lib.mkOption {
+      type = lib.types.str;
+      default = "${config.local.codeRoot}/go";
+      description = ''
+        Go workspace root: GOPATH points here, so `go install` artifacts
+        land in `<goRoot>/bin` (which programming/go.nix puts on PATH)
+        and the module cache lives under `<goRoot>/pkg`. Derived from
+        `local.codeRoot` so the default follows wherever source checkouts
+        live (`$HOME/Coding/go` on personal machines, unchanged from
+        before this option existed).
+
+        Split out from `local.codeRoot` because the Go tree is not a
+        forge checkout, so hosts that keep `codeRoot` strictly for
+        checkouts can move it independently -- e.g. coder workspaces keep
+        `$HOME` ephemeral but mount a persistent volume at `$HOME/home`,
+        so `goRoot` becomes `$HOME/home/go` there and installed tools
+        survive a workspace recycle.
+      '';
+      example = "/root/home/go";
+    };
     ghRoot = lib.mkOption {
       type = lib.types.str;
       default = "${config.local.codeRoot}/github.com";

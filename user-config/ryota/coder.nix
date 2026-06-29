@@ -185,6 +185,14 @@ in
   # `$HOME/Coding/bin` via `local.codeRoot`.
   local.binRoot = "${config.home.homeDirectory}/home/bin";
 
+  # Go tree: same reasoning as `binRoot` above. `$HOME/src` is kept
+  # strictly for forge checkouts and the rest of `$HOME` is wiped on
+  # restart, so GOPATH moves to the persistent volume too -- `go install`
+  # artifacts land in `$HOME/home/go/bin` (on PATH via programming/go.nix)
+  # and survive a workspace recycle. On personal machines this defaults to
+  # `$HOME/Coding/go` via `local.codeRoot`.
+  local.goRoot = "${config.home.homeDirectory}/home/go";
+
   # `nhs` -- direct `nh home switch` for this workspace. A bare
   # `nh home switch` can't work here: nh auto-probes
   # `homeConfigurations."$USER@$HOSTNAME"`/`"$USER"`, but both are decided

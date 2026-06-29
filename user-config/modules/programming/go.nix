@@ -7,12 +7,15 @@ let
   # against this module's (unstable) pkgs.
   go-latest = ((import "${self}/overlays/go.nix") pkgs pkgs).go;
 
-  # Derive GOPATH from `local.codeRoot` rather than hard-coding
-  # `$HOME/Coding/go`, so it follows the per-host checkout root
-  # (`$HOME/Coding` on personal machines, `$HOME/src` on coder
-  # workspaces -- see user-config/modules/lib/paths.nix). GOBIN and the
-  # PATH entry below stay in lockstep with this single value.
-  goPath = "${config.local.codeRoot}/go";
+  # GOPATH follows `local.goRoot` (a `local.*` option alongside codeRoot /
+  # binRoot) rather than being derived in this module, so per-host
+  # profiles can move the whole Go tree without touching it -- coder
+  # workspaces point it at their persistent volume so `go install`
+  # artifacts survive a workspace recycle, while the default
+  # (`<codeRoot>/go`, i.e. `$HOME/Coding/go` on personal machines) keeps
+  # existing hosts exactly where they were. See
+  # user-config/modules/lib/paths.nix and user-config/ryota/coder.nix.
+  goPath = config.local.goRoot;
 in
 {
   home.packages = [
@@ -30,6 +33,11 @@ in
     package = go-latest;
     env = {
       GOPATH = goPath;
+      # GOBIN is plain `<GOPATH>/bin` -- exactly what Go would infer if it
+      # were unset. Exported anyway so the `go install` target and the
+      # sessionPath entry below are visibly tied to the same single value,
+      # and so it keeps working should GOPATH ever grow extra entries
+      # (Go refuses to infer GOBIN from a multi-entry GOPATH).
       GOBIN = "${goPath}/bin";
       GOPRIVATE = [
         "github.com/rytswd"

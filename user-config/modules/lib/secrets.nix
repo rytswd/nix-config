@@ -6,8 +6,8 @@
 # or `sops.templates` definition makes activation fail with a decryption
 # error. And some hosts sit in between: trusted enough to hold *some*
 # secrets but physically unable to present a YubiKey (remote workspaces,
-# cloud instances), enrolled with a per-instance key via
-# `nix run .#secrets-enroll`. See air/v0.1/secrets-host-enrolment.org and
+# cloud instances), enrolled with a per-instance key via the enrolment
+# tooling in the private repo. See air/v0.1/secrets-host-enrolment.org and
 # docs/runbooks/secrets-enrolment.org for the full lifecycle.
 #
 # That middle class maps onto the private repo's two secret classes:
@@ -76,8 +76,8 @@
         - "full": a YubiKey-derived age key; every secret class
           decrypts. The default, and what all long-lived personal
           machines use.
-        - "ephemeral": a per-instance key enrolled via
-          `nix run .#secrets-enroll`; only ephemeral-class secrets
+        - "ephemeral": a per-instance key enrolled via the private
+          repo's enrolment tooling; only ephemeral-class secrets
           decrypt, and core-class modules fall back exactly as if
           secrets were disabled.
       '';

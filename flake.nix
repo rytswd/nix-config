@@ -449,9 +449,10 @@
       #                hosts. See docs/runbooks/remote-provision.org.
       # `cache-push`-- push built closures to the self-hosted binary cache
       #                (niks3 write path). See docs/runbooks/binary-cache.org.
-      # `secrets-enroll` / `secrets-revoke`
-      #             -- ephemeral-class recipient lifecycle against a local
-      #                private-repo checkout (see apps/secrets/default.nix).
+      #
+      # Secrets enrolment lifecycle tooling lives in the private repo (run
+      # from its checkout); only the runbook remains here. See
+      # docs/runbooks/secrets-enrolment.org for why it moved.
       #
       # aarch64-linux is included so aarch64 coder workspaces can bootstrap.
       apps = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ] (
@@ -459,13 +460,11 @@
         let
           pkgs = nixpkgs-unstable.legacyPackages.${system};
           bootstrap = import ./apps/bootstrap { inherit pkgs self; };
-          secrets = import ./apps/secrets { inherit pkgs; };
         in
         {
           hm = import ./apps/hm { inherit pkgs; };
           install = import ./apps/install { inherit pkgs self; };
           inherit bootstrap;
-          inherit (secrets) secrets-enroll secrets-revoke;
           default = bootstrap;
           provision = import ./apps/provision { inherit pkgs self; };
           deploy = import ./apps/deploy { inherit pkgs self; };

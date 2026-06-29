@@ -1,8 +1,8 @@
 #+title: Nix with MacBook Pro
 
-This details how I configure my MBP with Nix.
+This details how I configure my MacBook Pro machines with Nix. The flake defines one ~darwinConfigurations~ entry per machine -- ~ryota-mbp-m1-max~ and ~ryota-mbp-m5-max~ (see ~flake.nix~ and ~macos-config/hosts/~) -- and the entry name doubles as the machine's hostname, so the commands below differ only in which attribute they reference.
 
-* Quick Setup
+* System Setup (nix-darwin)
 Firstly, install Nix.
 
 #+begin_src sh
@@ -13,31 +13,35 @@ Firstly, install Nix.
   Ref: https://nixos.org/download.html#nix-install-macos
 #+end_quote
 
-Then, install ~nix-darwin~:
-
-#+begin_src sh
-  nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
-  ./result/bin/darwin-installer
-#+end_src
-
-#+begin_quote
-  Ref: https://github.com/LnL7/nix-darwin/
-#+end_quote
-
-In order to get Homebrew based appliactions installed, I also need to install Homebrew out of Nix setup.
+Homebrew-based applications are managed declaratively through nix-darwin (~macos-config/modules/homebrew.nix~ plus per-cask modules), but Homebrew itself is not installed by Nix, so it needs to be installed separately first:
 
 #+begin_src sh
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 #+end_src
 
+A full build also fetches the private ~nix-config-private~ input over SSH (the macOS user profile pulls in modules such as email and git identity that reference it). The credential decision -- helper machine with agent forwarding, YubiKey resident keys, or a degraded build against the public stub -- is covered by [[file:../../docs/runbooks/credential-bootstrap.org]].
+
 ** Build with Config
-Once all of the above is in place, I can get my config from this repo, and run a rebuild.
-For the initial setup, I don't need to get the repository via ~git~, and simply use a ~curl~ instead.
+From a clone of this repository:
 
 #+begin_src sh
-  darwin-rebuild switch --flake ~/Coding/github.com/rytswd/nix-config#ryota-mbp
+  sudo darwin-rebuild switch --flake .#ryota-mbp-m1-max
 #+end_src
 
+(Or ~#ryota-mbp-m5-max~ accordingly.) On a machine that has never run nix-darwin, ~darwin-rebuild~ is not on PATH yet; bootstrap the very first switch through the nix-darwin flake itself per the upstream instructions (https://github.com/LnL7/nix-darwin -- the flake input this repo pins), after which the command above is available.
+
+NOTE: srvos's darwin mixin sets ~homebrew.onActivation.cleanup~ to ~"uninstall"~, meaning any Homebrew package not declared via the modules under ~macos-config/modules/~ is removed on activation. Audit existing brews before the first switch -- see the note in ~macos-config/modules/homebrew.nix~ for the per-host escape hatch.
+
+* User Config (Home Manager Standalone)
+Day-to-day user-level changes do not need a system rebuild: the flake also defines ~homeConfigurations."ryota@mbp-m1-max"~ / ~"ryota@mbp-m5-max"~ for standalone Home Manager, exactly as on the other machines (see the Home Manager section in the top-level [[file:../../README.org]]).
+
+The ~hm~ dispatcher does not yet auto-resolve the MBP hostnames (the entries are still TODO in ~apps/hm/dispatcher.sh~), so pin the profile locally once and the usual entry points work from then on:
+
+#+begin_src sh
+  mkdir -p ~/.config/nix-config
+  echo 'ryota@mbp-m1-max' > ~/.config/nix-config/hm-profile
+  nix run .#hm -- switch
+#+end_src
 
 * Non-Nix Setup
 While a lot can be achieved with Nix, there are still a few items that are not managed by Nix on macOS. It may be because I have not figured out how to handle them using Nix, but here are the list of items I need to update.

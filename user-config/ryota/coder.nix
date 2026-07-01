@@ -212,8 +212,9 @@ in
   local.clone.kubernetes = false;
 
   # Prompt identity: the stock p10k.zsh carries `host_label` / `user_label`
-  # / `auth_status` segments that read generic P10K_* env vars (blank when
-  # unset). Map the workspace's own values onto them in the untracked
+  # / `auth_status` segments that read generic P10K_* env vars (falling
+  # back to zsh's %m/%n when unset; empty string blanks a segment). Map
+  # the workspace's own values onto them in the untracked
   # `~/.config/zsh/local.zsh`, e.g.:
   #
   #   export P10K_HOST_LABEL="$SOME_WORKSPACE_NAME"

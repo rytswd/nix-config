@@ -33,8 +33,8 @@
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
     os_icon                 # os identifier
-    host_label              # $P10K_HOST_LABEL — blank chevron when unset
-    user_label              # $P10K_USER_LABEL — blank chevron when unset
+    host_label              # $P10K_HOST_LABEL — %m when unset, blank when empty
+    user_label              # $P10K_USER_LABEL — %n when unset, blank when empty
     dir                     # current directory
     vcs                     # git status
     auth_status             # $P10K_AUTH_STATUS — hidden when unset
@@ -81,7 +81,7 @@
     aws_eb_env              # aws elastic beanstalk environment (https://aws.amazon.com/elasticbeanstalk/)
     azure                   # azure account name (https://docs.microsoft.com/en-us/cli/azure)
     google_app_cred         # google application credentials (https://cloud.google.com/docs/authentication/production)
-    # context               # user@hostname — covered by host_label/user_label on the left
+    # context               # user@hostname — host_label/user_label carry %n@%m on the left
     nordvpn                 # nordvpn connection status, linux only (https://nordvpn.com/)
     ranger                  # ranger shell (https://github.com/ranger/ranger)
     nnn                     # nnn shell (https://github.com/jarun/nnn)
@@ -1651,21 +1651,31 @@
 
   #####################[ host_label / user_label / auth_status ]#####################
   # Generic, env-var-driven identity segments. They occupy the #181D38 and
-  # #0F3457 stops in the starship gradient. When the env vars are unset
-  # (e.g. on a personal machine) the segments render a single space, so the
-  # gradient stays continuous without showing any text. A host that wants
-  # them populated sets the vars from its untracked `~/.config/zsh/local.zsh`:
+  # #0F3457 stops in the starship gradient. Machine names must not enter
+  # this public repo, so identity comes from the environment via zsh's
+  # set-vs-unset distinction — three states:
+  #
+  #   unset         -> %m (host) / %n (user): the machine's own short
+  #                    hostname/username, expanded only at prompt time
+  #   set to ''     -> blank chevron — the gradient stop stays, no text;
+  #                    the escape hatch when the hostname is noise
+  #   set non-empty -> the value, verbatim
+  #
+  # A host overrides them from its untracked `~/.config/zsh/local.zsh`:
   #
   #   export P10K_HOST_LABEL=...   # e.g. a workspace name
   #   export P10K_USER_LABEL=...   # e.g. the workspace owner
+  #   export P10K_HOST_LABEL=      # or: explicitly blank a segment
   #   P10K_AUTH_STATUS=...         # set by a precmd when re-auth is due
   #
   # Nothing environment-specific is referenced here.
   function prompt_host_label() {
-    p10k segment -b '#181D38' -f '#EBEBEB' -t "${P10K_HOST_LABEL:- }"
+    # Inner ${-} falls back only when unset; outer ${:- } turns the
+    # explicit empty string into a space so the gradient stays continuous.
+    p10k segment -b '#181D38' -f '#EBEBEB' -t "${${P10K_HOST_LABEL-%m}:- }"
   }
   function prompt_user_label() {
-    p10k segment -b '#0F3457' -f '#EBEBEB' -t "${P10K_USER_LABEL:- }"
+    p10k segment -b '#0F3457' -f '#EBEBEB' -t "${${P10K_USER_LABEL-%n}:- }"
   }
   function prompt_auth_status() {
     [[ -n ${P10K_AUTH_STATUS:-} ]] || return

@@ -1,0 +1,61 @@
+#+title: Work-class identity distribution: declarative git/jj + allowed_signers
+#+state: work-in-progress
+#+FILETAGS: :infra:
+
+* Summary
+Give work-class machines (enrolled remote workspaces, the cloud devbox) a declarative git + jj identity -- name, email, SSH commit signing -- from a per-context identity module in the private repo (values private), consumed through a stable employer-free seam; importing the module is the context selection. Pair it with a single =allowed_signers= verification registry, assembled privately and distributed to *every* machine class, so per-machine signing keys stop multiplying without any way to verify what they sign.
+
+* Motivation
+Work-class machines sit outside both identity sources this pair of repos provides: the public repo cannot carry identity values (they are private), and the private repo has no module shaped for machine classes that consume home-manager keylessly. Nothing declarative owns name, email, or signing configuration on that fleet, so each box's git/jj setup is whatever its environment supplies and per-box drift has no single point of correction.
+
+The signing half is sharper: every work-class box signs commits with its own per-machine SSH key under =~/.ssh/git-commit-signing/<name>= -- keys that exist nowhere else, so no other machine can verify those signatures, and nothing tracks which signing keys are supposed to exist at all. The secrets enrolment work ([[file:../v0.1/secrets-host-enrolment.org]]) built exactly this lifecycle discipline for *decryption* keys (registry, enrol, revoke); signing keys have none.
+
+** Goals
+- One module (private repo) that yields the full git *and* jj identity -- name, email, SSH signing key wiring -- for any machine in the work class, however that machine consumes home-manager (flake profile or local overlay).
+- Existing per-box conventions keep working unchanged: signing key *paths* are per-host input, never renamed or relocated by the module.
+- A verification registry (=allowed_signers=) assembled in the private repo -- YubiKey signing keys mirrored from this repo's =shared/keys.nix= plus one appended line per work-class box -- distributed to every machine class, wired into both git (=gpg.ssh.allowedSignersFile=) and jj (=signing.backends.ssh.allowed-signers=).
+- Keyless profiles in this repo stay keyless-evaluable; degraded (stub-override) evals keep passing.
+
+** Non-Goals
+- Changing full-tier identity or signing flows: YubiKey-based signing (=vcs/git/yubikey.nix=) and the sops-rendered jj config are untouched. Full-tier machines only *gain* the verification registry.
+- Automating the per-machine key append: the public half of a box's signing key still travels by a documented one-liner run on the box, not by tooling (fleet is small; the registry file plus git history is the audit trail, mirroring the enrolment registry's posture).
+- A general machine-class taxonomy. Context selection is the import itself (see Design Details); introducing a class option is deliberately deferred until a real second class exists to justify it.
+
+* Proposal
+Three pieces:
+
+1. *Identity module (private repo)*: a per-context module configuring git and jj -- identity name/email, SSH signing enabled, signing key taken from a new =local.signingKeyPath= option with per-host override and *no default* (each box states its own key path; the module never invents or renames one). The module lives in an employer directory next to its values file, and applies wherever it is imported -- the import is the context selection.
+2. *Verification registry (private repo)*: a hand-assembled =allowed_signers= file -- YubiKey signing public keys mirrored from this repo's =shared/keys.nix=, plus clearly-marked insertion points and a documented one-liner for appending each work-class box's public key from the box itself. A small distribution module writes it to =~/.ssh/allowed_signers= and points git's =gpg.ssh.allowedSignersFile= and jj's =signing.backends.ssh.allowed-signers= at it. Distribution is *ungated*: it rides both the base private git module (full-tier machines) and the identity module (work-class machines), because verification is universal even where signing flows differ.
+3. *Public wiring (this repo)*: the headless-server profile imports the identity module through the employer-free seam (it already consumes the private input) and states its box's key path; the keyless workspace profile stays untouched -- its existing local-overlay seam gains a documented recipe (=~/.config/home-manager/local.nix= imports the context module by plain path from a private checkout and states the key path). The private-input stub grows the matching no-op, including the =local.signingKeyPath= option declaration, since the server profile setting that option makes it part of the consumed interface.
+
+* Design Details
+- *Seam vs binding*: the flake attribute this repo consumes is =homeManagerModules.work-identity= -- a stable, employer-free name, frozen as the public interface -- while the private binding behind it names whichever work context applies today. Context growth is entirely a private-side concern behind the same seam: one employer directory per context, values extending by fields rather than new mechanisms, and a machine-keyed router once contexts run concurrently. The layout, the add-a-context checklist, the router sketch, and the overlay recipe are documentation, not decisions, and live in the private repo's work-contexts README; nothing on the public side changes for context growth.
+- *The import is the context selection -- no internal activation gate*: the module applies unconditionally wherever it is imported. A gate on the secrets tier was considered as a safety net and rejected: it would tie /identity/ to the /secrets key class/, two unrelated concepts (keyless enrolled workspaces would have to set a tier value despite holding no key at all, purely to flip identity on), and its failure mode is a silent no-op when the marker is forgotten -- strictly worse than the module's explicit assertion on the signing key path. Profiles shared across machine classes simply must not import a context module; per-context employer directories exist to keep that choice legible at the import site.
+- *Why the key path is an option, not a convention*: boxes carry differing key names under =~/.ssh/git-commit-signing/=, and imposing a canonical name would force key file renames on running boxes for zero security benefit. The option (set per host, asserted non-null wherever the module is imported) keeps every box as-is.
+- *jj layering*: jj loads every =conf.d/*.toml= after the main config, and on work-class machines no main =config.toml= is rendered at all (the public vcs jj template is core-gated), so the identity drop-in /is/ the jj config there; a machine whose jj config is sops-rendered must simply not import the context module. The registry drop-in is separate and unconditional; on full-tier machines it only adds the verification knob, which is inert under a gpg signing backend. jj's verification knob was confirmed against the jj config documentation (=signing.backends.ssh.allowed-signers=) rather than assumed symmetric with git.
+- *Registry duplication is deliberate*: the YubiKey signing keys already live publicly in =shared/keys.nix=, but the private flake cannot depend on this repo (the dependency points the other way), so the registry mirrors them with an update-together rule noted at both the file and its README. The per-machine halves cannot live publicly at all without naming boxes, so the assembled file is private even though every line in it is public-key material.
+- *Append/remove lifecycle*: per-machine public keys are appended from the box itself with a one-line command documented in the registry; removal is tied to the same teardown step as age-recipient revocation, since a box's signing key and decryption key share a lifecycle even though they are different keys.
+- *Per-directory identity scoping* (git =includeIf= =gitdir= conditions, jj conditional scope tables) is deliberately not used today -- identity is global per machine; if a future context needs mixed identities on one machine, that is the mechanism to reach for.
+- *Stub interface growth*: the stub's =work-identity= no-op must declare =local.signingKeyPath= (option shape is interface, not just attribute names) -- an empty no-op would break degraded evals of the server profile the moment it sets the option. The =private-stub-interface= drift check pins the attribute name itself, so a seam rename that misses the stub fails mechanically; the option shape is covered by the degraded-eval validation.
+
+** Test Plan
+- Server-profile HM eval both ways: real private input via =--override-input= (module composes; identity, signing key, and registry values land) and public stub override with SSH masked (degraded eval passes, warnings only).
+- Keyless workspace profile: pure eval byte-identical before/after (its derivation must not change).
+- Recipe fixture: an impure eval layering a local.nix-shaped module (plain-path import + key path) over the workspace profile yields the expected git and jj identity values.
+- Public-diff hygiene: no organisation-specific values in this repo's diff.
+
+* Drawbacks
+- The YubiKey key block in the registry can drift from =shared/keys.nix= (hand-mirrored). Accepted: rotations are rare, the update rule is written at both ends, and drift only degrades verification, never signing.
+- A context module import applies wholesale -- nothing inside the module protects a machine whose identity comes from elsewhere. The per-context directory layout (the import path names the context) and profile review are the guard.
+- Per-machine registry lines depend on a human running the append one-liner at enrolment time; until run, that box's signatures simply stay unverifiable elsewhere (exactly the status quo, now visible as a TODO marker in the registry).
+
+* Alternatives
+- /Distribute allowed_signers from the public repo/: the YubiKey half is public anyway, but per-machine lines name boxes and their key files -- the same metadata surface the enrolment work deliberately kept private. One private registry beats a split-brain file.
+- /Generate the registry at eval time from shared/keys.nix/: needs the private flake to input the public one (circular) or the public repo to own a private-fed template (wrong direction). Hand-mirroring four stable lines is cheaper than inverting the dependency.
+- /Reuse the sops enrolment tooling for signing keys/: tempting symmetry, but signing public keys are not secrets and need no re-encryption machinery; a text append with git history is the honest version of the same audit trail.
+
+* Infrastructure Needed
+None. Existing private-repo checkout on enrolling machines; no new tooling.
+
+* History
+- 2026-07-03: Initial draft, opening the v0.2 milestone. Direction fixed: per-context identity module + registry in the private repo, context selection by import through a stable employer-free seam (no internal gate -- decision recorded in Design Details), verification distribution to every class, keyless profiles untouched except documentation.

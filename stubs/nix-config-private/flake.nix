@@ -101,6 +101,29 @@
         # empty is safe -- commits made on a degraded machine just lack the
         # private identity bits.
         git = { ... }: stubWarning "homeManagerModules.git" "private git identity/config is absent";
+
+        # Real module: work-class git/jj identity + SSH commit signing +
+        # the allowed_signers verification registry, applied by import
+        # (the private binding behind this employer-free seam selects the
+        # work context). The public headless-server profile SETS
+        # `local.signingKeyPath`, so that option declaration is part of
+        # the consumed interface and must exist here for a degraded eval
+        # to pass; everything else can be a no-op -- a degraded build
+        # simply configures no git/jj identity.
+        work-identity =
+          { lib, ... }:
+          {
+            options.local.signingKeyPath = lib.mkOption {
+              type = lib.types.nullOr lib.types.str;
+              default = null;
+              description = ''
+                Interface stand-in only: path to this machine's SSH
+                commit-signing key. Consumed by the real private module;
+                the stub accepts and ignores it.
+              '';
+            };
+            config = stubWarning "homeManagerModules.work-identity" "no git/jj identity, signing, or allowed_signers registry is configured";
+          };
       };
     };
 }

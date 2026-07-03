@@ -77,6 +77,20 @@
     # the input here costs nothing in practice — and keyless machines still
     # have the stub override (stubs/nix-config-private) for degraded evals.
     inputs.nix-config-private.homeManagerModules.sops-nix
+
+    ###----------------------------------------
+    ##  Work-class identity (values private)
+    #------------------------------------------
+    # Declarative git + jj identity and SSH commit signing for this machine
+    # class, plus distribution of the ~/.ssh/allowed_signers verification
+    # registry. Importing the module IS the context selection -- it applies
+    # unconditionally, which is right here because this profile serves
+    # exactly the boxes that carry that identity. The seam name is
+    # deliberately employer-free; the private repo binds it to whichever
+    # work context applies today and holds all identity values. This
+    # profile only wires the module and points it at the box's signing
+    # key. See air/v0.2/work-identity-distribution.org.
+    inputs.nix-config-private.homeManagerModules.work-identity
   ];
 
   # Enrolled instance: a per-instance age key gives this box the ephemeral
@@ -95,6 +109,11 @@
   # sops-nix default path; mkForce because the private module's definition
   # is a plain (same-priority) assignment.
   sops.age.keyFile = lib.mkForce "${config.xdg.configHome}/sops/age/keys.txt";
+
+  # This box's SSH commit-signing key. The identity module takes the path
+  # as an option instead of imposing a layout, precisely so each box states
+  # its own key name and nothing on disk ever needs renaming.
+  local.signingKeyPath = "${config.home.homeDirectory}/.ssh/git-commit-signing/ec2-devbox";
 
   home = {
     username = "ryota";

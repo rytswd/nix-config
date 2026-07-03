@@ -1353,10 +1353,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1783064952,
-        "narHash": "sha256-1X/vCeoc0ZeZr6ZB9HFH9xZONdywy9Hm4F3IF7ViseM=",
+        "lastModified": 1783067400,
+        "narHash": "sha256-AVxgKqn0M0hg7hyes9J27Nq18o67e7ntoh9fUE8oe1s=",
         "ref": "main",
-        "rev": "760ee86c16b34d4e62f2bc9f803e7356780bb6dc",
+        "rev": "c5c43455782bc0fa8b89f9fc7a3f0b2e774c2f2d",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/rytswd/nix-config-private"

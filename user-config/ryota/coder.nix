@@ -14,6 +14,8 @@
 #     separately in this env (outside home-manager), so the shared
 #     `vcs/git` + `vcs/jj` modules -- which write opinionated config, wire
 #     up signing, and pull in the YubiKey module -- are NOT imported.
+#     Enrolled workspaces can add declarative git/jj identity via the
+#     local-overlay recipe below (seam 1) without touching this profile.
 #   - `local.secrets.enable = false`: no sops decryption key here, so
 #     secret-defining modules use their non-secret fallbacks instead of
 #     failing at activation.
@@ -40,6 +42,27 @@
 #      at one) and it is merged into this profile. Absent -> no-op. Because it
 #      is a plain local path (not a flake input), it needs no SSH and pulls no
 #      sops-nix / secret machinery.
+#
+#      Recipe (enrolled workspaces): declarative git/jj identity + commit
+#      signing comes from the work-class identity module (values private).
+#      Import it by plain path from a local checkout of the private config
+#      repo and point it at this workspace's existing signing key:
+#
+#          { ... }:
+#          {
+#            imports = [
+#              # The company directory names the work context on purpose
+#              # -- importing a context's git.nix IS the context
+#              # selection; there is no separate toggle.
+#              /path/to/private-config/user-modules/work/<company>/git.nix
+#            ];
+#            # The box's own key; the module never imposes or renames key
+#            # names, each host states its path.
+#            local.signingKeyPath = "/home/me/.ssh/git-commit-signing/<name>";
+#          }
+#
+#      The module also distributes the ~/.ssh/allowed_signers verification
+#      registry. See air/v0.2/work-identity-distribution.org.
 #
 #   2. Shell layer -- `~/.config/zsh/local.zsh`, sourced last by the generated
 #      zshrc (see user-config/modules/shell/zsh.nix). This restores the

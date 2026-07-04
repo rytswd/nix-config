@@ -38,6 +38,11 @@
     # zsh/bash/fish/nushell, starship, atuin, direnv, tmux, yazi, etc.
     "${self}/user-config/modules/shell"
 
+    # Ghostty terminfo only (not the app): these boxes are ssh'd into from
+    # Ghostty terminals; without the entry, TERM=xterm-ghostty degrades the
+    # remote line editor (duplicated echo, broken backspace).
+    "${self}/user-config/modules/terminal/ghostty/terminfo.nix"
+
     ###----------------------------------------
     ##  Editors (terminal only)
     #------------------------------------------

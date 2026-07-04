@@ -1,5 +1,8 @@
 { pkgs, inputs, ... }:
 {
+  # Terminfo split out so headless hosts can import it without the app.
+  imports = [ ./terminfo.nix ];
+
   home.packages =
     if pkgs.stdenv.isDarwin then
       [

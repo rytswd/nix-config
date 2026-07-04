@@ -1,5 +1,5 @@
 #+title: Work-class identity distribution: declarative git/jj + allowed_signers
-#+state: work-in-progress
+#+state: complete
 #+FILETAGS: :infra:
 
 * Summary

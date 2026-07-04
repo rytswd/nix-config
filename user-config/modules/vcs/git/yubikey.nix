@@ -117,7 +117,14 @@ in
     enableDefaultConfig = false;
     # Priority: GPG-based SSH auth (first), then FIDO2 SSH keys (fallback)
     matchBlocks = {
-      "github.com" = {
+      # Core-class only: every identityFile listed here is a YubiKey stub
+      # whose private half comes from core-class sops secrets. On hosts
+      # without core access (ephemeral tier) the files never exist, and --
+      # because specifying IdentityFile suppresses ssh's default identity
+      # list -- the block would make ssh offer NOTHING, breaking auth even
+      # when a perfectly good ~/.ssh/id_ed25519 is present. Gating the
+      # block restores ssh's defaults on those hosts.
+      "github.com" = lib.mkIf config.local.secrets.coreAvailable {
         user = "git";
         # Try GPG-based SSH first (shares cache with GPG signing), then FIDO2 SSH keys
         identityFile =

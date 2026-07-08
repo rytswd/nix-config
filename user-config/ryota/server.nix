@@ -63,6 +63,15 @@
     #------------------------------------------
     "${self}/user-config/modules/vcs"
 
+    # jj base UX (aliases/ui/revsets), stated explicitly even though the
+    # bundle above already carries it: base UX belongs on every machine
+    # class, and on this class it is the ONLY public jj config that lands
+    # -- the identity template stays core-gated off at the ephemeral tier,
+    # with identity coming from the work-identity drop-ins below. The
+    # duplicate import is free (same path, deduplicated) and keeps that
+    # dependency legible if the bundle's composition ever changes.
+    "${self}/user-config/modules/vcs/jj/base.nix"
+
     ###----------------------------------------
     ##  Repo cloning
     #------------------------------------------

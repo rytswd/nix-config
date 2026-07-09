@@ -1,0 +1,59 @@
+#+title: Parallels Setup on MacBook Pro
+
+This document is about how to set up Parallels Desktop on my macOS machine for NixOS. The overall flow is nearly identical to the UTM setup in [[../mbp-utm/README.org]] -- both hypervisors consume the same shared config directory (~nixos-config/mbp-vm~), differing only in the guest-tools leaf and the hostname. This doc covers only the Parallels-specific deltas; refer to the UTM doc for the shared steps (root password, IP address, SSH, rsync, disk resize, etc.).
+
+* Why Parallels alongside UTM
+My work machine may only allow Parallels (company-provided), while my personal machines use UTM. Rather than maintaining two configs, ~nixos-config/mbp-vm/default.nix~ takes a ~variant~ argument and the flake exposes both:
+
+| Flake target       | Hostname          | Guest-tools leaf                                 |
+|--------------------+-------------------+--------------------------------------------------|
+| ~#nixos-utm~       | ~nixos-utm~       | ~virtual-machine/utm.nix~ (spice-webdavd, etc.)  |
+| ~#nixos-parallels~ | ~nixos-parallels~ | ~virtual-machine/parallels.nix~ (prl-tools)      |
+
+The hostname must match the flake attribute name (~nh~ finds the rebuild target by hostname, and niri picks ~output-<hostname>.kdl~ from ~user-config~), so don't rename one without the other.
+
+* Constraint: no Nix on the host
+On the work machine there is no ~nix~ binary on macOS, and installing extra binaries is restricted. This changes nothing fundamental: the existing flow never needed Nix on the host anyway -- disk prep, config transfer, and rebuild all run over plain ~ssh~ / ~rsync~ (both ship with macOS). Everything Nix-related happens inside the guest VM, which has Nix by definition.
+
+If even ~rsync~ from the host is not workable, the fallback is to clone the repo from inside the VM instead:
+#+begin_src bash
+  # Inside the VM (as root, or into a working directory)
+  nix run nixpkgs#git -- clone https://github.com/rytswd/nix-config /nix-config
+#+end_src
+
+* Constraint: no private-input credential
+The flake's ~nix-config-private~ input is fetched over SSH with my personal key, which the work machine likely doesn't have. This is the /degraded build/ path covered in [[../../docs/runbooks/credential-bootstrap.org]] -- substitute the public stub and every host still evaluates, with eval-time warnings for what's missing (no ~hashedPassword~, no private git identity, no sops secrets):
+#+begin_src bash
+  sudo nixos-rebuild switch --flake "/nix-config#nixos-parallels" \
+      --override-input nix-config-private 'github:rytswd/nix-config?dir=stubs/nix-config-private'
+#+end_src
+
+NOTE: With the degraded build, users get no password from the private module -- make sure a login path exists before rebooting (e.g. keep the ~root~ password set during install, or set ~users.users.ryota.initialPassword~ temporarily).
+
+* Create the VM
+1. Download the aarch64 NixOS ISO from https://nixos.org/download (same image as the UTM flow).
+2. In Parallels: File → New → "Install Windows or another OS from a DVD or image file", point it at the ISO. Parallels may not recognise the ISO -- pick "Other Linux" manually when prompted.
+3. Give it sufficient CPU/memory (Configure → Hardware), and disk to taste (100GB+; resizing later follows the same fdisk + resize2fs dance as the UTM doc).
+4. Shared folders: Configure → Options → Sharing. With Parallels Desktop 20+, shares are auto-mounted under ~/mnt/psf~ in the guest by prl-tools (no manual mount step, unlike UTM's WebDAV flow).
+
+* Prepare the VM
+Same script as UTM (~../mbp-utm/prepare-vm.sh~), with one difference: Parallels typically presents the disk as ~/dev/sda~ (SCSI/SATA) rather than UTM's ~/dev/vda~ (virtio-blk). Verify with ~lsblk~ inside the installer first, then:
+#+begin_src bash
+  cd ../mbp-utm
+  NIXOS_BLOCK_DEVICE=sda ./prepare-vm.sh
+#+end_src
+
+The guest ~hardware.nix~ mounts everything by label and carries initrd modules for both hypervisors' disk presentations, so the same installed system works regardless of which device name it ends up on.
+
+* Configure NixOS with Nix Flake
+Identical to the UTM doc, with the target swapped -- and the stub override appended if this is a work machine without the private credential (see above):
+#+begin_src bash
+  sudo nixos-rebuild switch --flake "/nix-config#nixos-parallels"
+#+end_src
+
+* Parallels-specific notes
+- ~prl-tools~ is unfree; the shared ~nix-base.nix~ already sets ~allowUnfree~ globally so no extra config is needed.
+- The parallels-guest module disables ~systemd-timesyncd~ -- prltoolsd does its own host time sync.
+- Clipboard sync and dynamic resolution come from ~prlcc~ (runs in the graphical session) rather than spice-vdagent. spice-vdagentd is still enabled by the shared VM bundle but just idles without a SPICE channel.
+- Like UTM, GL is forced to software rendering (~LIBGL_ALWAYS_SOFTWARE=1~) -- Parallels' 3D acceleration targets Windows/x86 guests, not ARM Linux. Revisit if that changes.
+- If niri comes up with no output configured, check the connector name with ~niri msg outputs~ and adjust ~user-config/modules/window-manager/niri/output-nixos-parallels.kdl~.

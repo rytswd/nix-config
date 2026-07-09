@@ -16,9 +16,8 @@ On my personal macOS machine, I use [[https://github.com/LnL7/nix-darwin][nix-da
 
 On my work macOS machine, company policy restricts what can be installed at the system level, so nix-darwin is not an option there. In that more restricted environment I skip the system layer and reuse the raw config files from this repository directly (dotfiles, shell config, etc.), applying only the pieces that do not require elevated privileges.
 
-*** For NixOS with UTM (on Mac)
-NOTE: I have not been using this at all, and many of the configurations are broken at this point.
-For the UTM setup for VM on macOS, you can find more in [[machine-setup/mbp-utm/README.org]]. Other VM solutions may also be added as I get to test more.
+*** For NixOS in a VM (on Mac)
+One shared guest configuration (~nixos-config/mbp-vm~) serves two hypervisors: UTM (~#nixos-utm~) and Parallels Desktop (~#nixos-parallels~), differing only in the guest-tools leaf and hostname. For the UTM setup, see [[machine-setup/mbp-utm/README.org]]; for Parallels (including the no-Nix-on-host work-machine flow), see [[machine-setup/mbp-parallels/README.org]].
 
 *** Home Manager Standalone
 Regardless of the underlying OS, the user-level configuration is managed by [[https://github.com/nix-community/home-manager][home-manager]] in *standalone* mode rather than as a NixOS / nix-darwin module. This keeps user settings decoupled from the system, so updating shell, editor, or CLI tooling never requires a system rebuild or ~sudo~.

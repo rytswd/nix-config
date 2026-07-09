@@ -2,6 +2,8 @@
 
 This document is about how to set up UTM https://github.com/utmapp/UTM on my macOS machine (as of writing, it is M1 MBP) for NixOS. As this is more for my own usages, it may not be generic enough to work for all cases.
 
+NOTE: The guest NixOS configuration lives in ~nixos-config/mbp-vm~, which is shared with the Parallels-hosted variant -- the flake exposes ~#nixos-utm~ and ~#nixos-parallels~ from the same directory, differing only in the guest-tools leaf and hostname. For the Parallels flow (including the work-machine constraints: no Nix on the host, no private-input credential), see [[../mbp-parallels/README.org]].
+
 * Install UTM
 One can install UTM from https://mac.getutm.app/, but as I use Nix for my macOS configurations as well, I simply need to pull in the UTM package of ~nixpkgs.utm~. This can be found in my ~user-config~ directory.
 
@@ -138,7 +140,7 @@ I have a simple shell script (~machine-setup/mbp-utm/prepare-vm.sh~) that SSHs i
 #+begin_src bash
   ./prepare-vm.sh
 #+end_src
-It prompts for the VM IP if ~NIXOS_IP~ isn't already exported (see "Check IP Address" above).
+It prompts for the VM IP if ~NIXOS_IP~ isn't already exported (see "Check IP Address" above). The target disk defaults to ~/dev/vda~ (UTM's virtio-blk); for other hypervisors override with ~NIXOS_BLOCK_DEVICE=sda ./prepare-vm.sh~ (check ~lsblk~ inside the installer).
 
 Once the setup is complete, I can shut down the VM, remove the original boot image of NixOS.iso from UTM, and reboot. With that, I should have a fully operational NixOS ready to be used (although really vanilla setup).
 

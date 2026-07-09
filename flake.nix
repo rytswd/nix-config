@@ -306,13 +306,24 @@
           }
         );
 
-        # Apple Silicon UTM VM -- mirrors `asus-rog-flow-z13-2025` (same
-        # shared module set, niri + hyprland + GNOME), minus disko /
-        # impermanence / ZFS / asus-specific quirks.
+        # Apple Silicon VMs on macOS -- one shared config dir
+        # (`nixos-config/mbp-vm`), two hypervisor variants. Both mirror
+        # `asus-rog-flow-z13-2025` (same shared module set, niri +
+        # hyprland + GNOME), minus disko / impermanence / ZFS /
+        # asus-specific quirks. Only the guest-tools leaf and hostname
+        # differ between the two.
         nixos-utm = (
-          import ./nixos-config/mbp-utm {
+          import ./nixos-config/mbp-vm {
             inherit self nixpkgs nixpkgs-unstable inputs overlays home-manager;
             system = "aarch64-linux";
+            variant = "utm";
+          }
+        );
+        nixos-parallels = (
+          import ./nixos-config/mbp-vm {
+            inherit self nixpkgs nixpkgs-unstable inputs overlays home-manager;
+            system = "aarch64-linux";
+            variant = "parallels";
           }
         );
       };
@@ -370,6 +381,14 @@
           # Apple Silicon MBPs
           "ryota@mbp-m1-max" = mkHome "aarch64-darwin" "mbp-m1-max" ./user-config/ryota/macos.nix;
           "ryota@mbp-m5-max" = mkHome "aarch64-darwin" "mbp-m5-max" ./user-config/ryota/macos.nix;
+
+          # Apple Silicon VM guests (UTM / Parallels) -- same stripped-down
+          # profile as the embedded hm wiring in `nixos-config/mbp-vm`, so
+          # standalone switches stay in lockstep.
+          "ryota@nixos-utm" = mkHome "aarch64-linux" "nixos-utm" ./user-config/ryota/vm.nix;
+          "ryota@nixos-parallels" =
+            mkHome "aarch64-linux" "nixos-parallels"
+              ./user-config/ryota/vm.nix;
 
           # Headless servers — same profile as the integrated hm wiring in
           # the host's default.nix, so standalone switches stay in lockstep.

@@ -1,0 +1,22 @@
+// Parallels-hosted aarch64 NixOS VM (host = nixos-parallels).
+//
+// Like UTM, the guest display comes up as a virtual connector -- listed
+// here as "Virtual-1"/"Virtual-2" (virtio-gpu naming). The resolution is
+// driven by the Parallels window size + guest tools, so we don't pin a
+// fixed `mode` -- niri picks the preferred mode and follows host resizes.
+// scale 1 since the VM has no HiDPI panel of its own.
+//
+// niri silently ignores output blocks for connectors that aren't present,
+// so listing both virtual outputs is harmless on a single-display VM. If
+// Parallels exposes a differently-named connector, check with
+// `niri msg outputs` and add a matching block here.
+output "Virtual-1" {
+    scale 1
+    transform "normal"
+}
+
+output "Virtual-2" {
+    scale 1
+    transform "normal"
+    position x=1920 y=0
+}

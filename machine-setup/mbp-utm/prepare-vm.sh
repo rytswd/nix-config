@@ -8,8 +8,14 @@ if [ -z "$NIXOS_IP" ]; then
     fi
 fi
 
-NIXOS_PORT="22"
-NIXOS_BLOCK_DEVICE="vda" # This is the default for UTM
+NIXOS_PORT="${NIXOS_PORT:-22}"
+# Target disk inside the VM. UTM/QEMU presents it as virtio-blk -> vda
+# (the default); Parallels typically presents it as SCSI/SATA -> sda.
+# Check with `lsblk` inside the installer if unsure, then override:
+#
+#     NIXOS_BLOCK_DEVICE=sda ./prepare-vm.sh
+#
+NIXOS_BLOCK_DEVICE="${NIXOS_BLOCK_DEVICE:-vda}"
 
 cat <<EOD
 

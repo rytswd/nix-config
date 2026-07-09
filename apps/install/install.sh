@@ -304,7 +304,8 @@ phase "Phase 4/6: disk partitioning (disko)"
 host_dir() {
     case "$1" in
         hetzner-k8s-cp-*) printf 'nixos-config/hetzner-k8s\n' ;;
-        nixos-utm)        printf 'nixos-config/mbp-utm\n' ;;
+        nixos-utm)        printf 'nixos-config/mbp-vm\n' ;;
+        nixos-parallels)  printf 'nixos-config/mbp-vm\n' ;;
         *)                printf 'nixos-config/%s\n' "$1" ;;
     esac
 }

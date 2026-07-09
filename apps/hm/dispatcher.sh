@@ -33,6 +33,8 @@ known_profile() {
         ryota@asus-rog-flow-z13-2025 | \
         ryota@mbp-m1-max | \
         ryota@mbp-m5-max | \
+        ryota@nixos-utm | \
+        ryota@nixos-parallels | \
         ryota@ryota-aws-ec2-devbox | \
         coder | coder-aarch64 | \
         ryota@coder | ryota@coder-aarch64)
@@ -77,6 +79,10 @@ resolve_profile() {
     case "$target" in
         # Host-only matches
         asus-rog-zephyrus-g14-2024) echo "ryota@asus-rog-zephyrus-g14-2024"; return 0 ;;
+        # Apple Silicon VM guests -- hostname is derived from the flake
+        # variant (nixos-config/mbp-vm), so exact matches are safe here.
+        nixos-utm)       echo "ryota@nixos-utm"; return 0 ;;
+        nixos-parallels) echo "ryota@nixos-parallels"; return 0 ;;
     esac
     case "$target" in
         # Glob fallbacks
@@ -85,7 +91,6 @@ resolve_profile() {
         # should override via `home-manager switch --flake .#coder-aarch64`.
         coder-*)      echo "coder"; return 0 ;;
         *-devspace-*) echo "coder"; return 0 ;;
-        *-utm)        echo ""; return 1 ;;  # TODO: utm profile
     esac
     # No common fallback yet -- explicit unknown.
     return 1

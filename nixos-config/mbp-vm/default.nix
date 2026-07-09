@@ -6,14 +6,28 @@
   system,
   overlays,
   inputs,
+  # Which hypervisor hosts this VM. One config dir, two flake outputs:
+  #   variant = "utm"       -> nixosConfigurations.nixos-utm
+  #   variant = "parallels" -> nixosConfigurations.nixos-parallels
+  # The hostname is derived as "nixos-${variant}" and must keep matching
+  # the flake attribute name (nh finds the target by hostname; niri picks
+  # `output-<hostname>.kdl` in user-config).
+  variant,
   ...
 }:
 
-# UTM-hosted aarch64-linux NixOS VM on Apple Silicon. Configuration shape
-# intentionally mirrors `nixos-config/asus-rog-flow-z13-2025/` and
-# `asus-rog-zephyrus-g14-2024/`; the per-host differences (no disko / no
-# impermanence / no Limine / no asus quirks / UTM guest agents) are
-# documented inside `configuration.nix`.
+# Apple Silicon aarch64-linux NixOS VM on macOS, hosted by either UTM or
+# Parallels Desktop. Configuration shape intentionally mirrors
+# `nixos-config/asus-rog-flow-z13-2025/` and `asus-rog-zephyrus-g14-2024/`;
+# the per-host differences (no disko / no impermanence / no Limine / no
+# asus quirks / VM guest agents) are documented inside `configuration.nix`.
+# The only per-hypervisor deltas are the guest-tools leaf selected below
+# and the hostname.
+
+assert nixpkgs.lib.assertOneOf "variant" variant [
+  "utm"
+  "parallels"
+];
 
 nixpkgs.lib.nixosSystem rec {
   inherit system;
@@ -32,8 +46,9 @@ nixpkgs.lib.nixosSystem rec {
     ##  Disk setup
     #------------------------------------------
     # disko defines the partition and filesystem setup.
-    # NOTE: disko isn't used for this machine -- UTM provisions the disk
-    # via its installer and `hardware.nix` mounts it by label.
+    # NOTE: disko isn't used for this machine -- the disk is prepared by
+    # `machine-setup/mbp-utm/prepare-vm.sh` (works for both hypervisors)
+    # and `hardware.nix` mounts it by label.
     # inputs.disko.nixosModules.disko
     # ./disko.nix
 
@@ -64,6 +79,19 @@ nixpkgs.lib.nixosSystem rec {
     # configuration.nix pulls in various modules to achieve similar
     # configuration across machines.
     ./configuration.nix
+
+    ###----------------------------------------
+    ##  Hypervisor variant
+    #------------------------------------------
+    # Guest-tools leaf for the hosting hypervisor (UTM: spice-webdavd +
+    # QEMU quirks; Parallels: prl-tools). The generic QEMU-guest baseline
+    # is imported by configuration.nix for both.
+    "${self}/nixos-config/modules/virtual-machine/${variant}.nix"
+    {
+      # NOTE: This should match the name used for nixosConfigurations, so
+      # that nh tool can automatically find the right target.
+      networking.hostName = "nixos-${variant}";
+    }
 
     ###----------------------------------------
     ##  User Setup
@@ -99,19 +127,13 @@ nixpkgs.lib.nixosSystem rec {
         # Because home-manager needs to know where the home directory is,
         # I need to specify the username again.
 
+        # Stripped-down VM profile -- nixos.nix minus the vendor product
+        # bundles. Shared with the standalone
+        # `homeConfigurations."ryota@nixos-{utm,parallels}"` entries so
+        # embedded and standalone HM stay in lockstep.
         users.ryota = {
           imports = [
-            "${self}/user-config/ryota/nixos.nix"
-          ];
-          # mbp-utm is a stripped-down VM -- skip the vendor product
-          # bundles imported by `user-config/ryota/nixos.nix`. The paths
-          # below match exactly how they appear in that file's `imports`
-          # list (bare directory paths -- module-system canonicalisation
-          # resolves them to each bundle's `default.nix`).
-          disabledModules = [
-            "${self}/user-config/modules/product/vcs"
-            "${self}/user-config/modules/product/collaboration"
-            "${self}/user-config/modules/product/music"
+            "${self}/user-config/ryota/vm.nix"
           ];
         };
       };

@@ -30,7 +30,7 @@
 let
   systems = [
     "x86_64-linux"
-    "aarch64-linux" # nixos-utm
+    "aarch64-linux" # nixos-utm / nixos-parallels
     "aarch64-darwin"
   ];
 

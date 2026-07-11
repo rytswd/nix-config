@@ -55,6 +55,10 @@ ssh -o PubkeyAuthentication=no \
 			services.openssh.settings.PasswordAuthentication = true;\n \
 			services.openssh.settings.PermitRootLogin = \"yes\";\n \
 			users.users.root.initialPassword = \"root\";\n \
+			# git is required on the seed system: the first flake switch\n \
+			# vendors cargo git-dependencies (e.g. niri -> Smithay) at eval\n \
+			# time, and the Nix git fetcher shells out to the git binary.\n \
+			environment.systemPackages = [ pkgs.git ];\n \
 		' /mnt/etc/nixos/configuration.nix; \
 		nixos-install --no-root-passwd; \
 	"

@@ -69,7 +69,7 @@ When UTM is installed with Nix (not the NixOS itself, but rather on macOS using 
 #+DOWNLOADED: screenshot @ 2024-01-14 23:26:39
 [[file:Prepare_UTM/2024-01-14_23-26-39_screenshot.png]]
 
-As of writing in Jan 2024, there is an open issue for this:
+As of writing in Jan 2024, there is an open issue for this (re-checked July 2026 -- still open):
 https://github.com/NixOS/nixpkgs/issues/244663
 
 As the permission error is in the file under ~~/Library~ which is not under Nix control, I simply go in and update the permission on the file. (Note that the file name derives the VM name I gave earlier, and for me it uses "NixOS.utm".)
@@ -180,6 +180,14 @@ With all the configuration files in place, I can rebuild NixOS using Nix Flake.
       "sudo nixos-rebuild switch --flake \"/nix-config#nixos-utm\""
 #+end_src
 
+** Subsequent Updates
+After the first switch, everything runs from inside the VM -- no host involvement needed.
+
+- System: ~nh os switch /nix-config~ (~nh~ finds the ~nixos-utm~ target by hostname), or plain ~nixos-rebuild switch --flake /nix-config#nixos-utm~.
+- User level: ~hm switch~ -- the dispatcher (~apps/hm/dispatcher.sh~) resolves the ~nixos-utm~ hostname to the standalone ~homeConfigurations."ryota@nixos-utm"~ profile, which is the same stripped-down ~user-config/ryota/vm.nix~ the system build embeds.
+
+If the private input isn't reachable from this machine (e.g. no personal SSH key), append the stub override described in [[../mbp-parallels/README.org]] -- the same degraded-build flow applies to UTM.
+
 
 * Setup Modification
 In some situation, I need to update the UTM configuration from the original preparation steps above.
@@ -262,13 +270,15 @@ It was clear that my filesystem was not updated, although the partition has been
   /dev/disk/by-label/nixos  139G   73G   60G  56% /
 #+end_src
 
-Also, ensure to run the following to get the swap in place correctly.
+Also, ensure to run the following to get the swap in place correctly. NOTE: The ~-L swap~ label is required -- ~nixos-config/mbp-vm/hardware.nix~ activates swap via ~/dev/disk/by-label/swap~ (with ~nofail~, so a missing label silently means no swap rather than a boot failure).
 #+begin_src bash
-  # Format the swap partition and again enable swap 
-  ❯ sudo mkswap /dev/vda2; sudo swapon /dev/vda2
+  # Format the swap partition (keeping the label the config mounts by),
+  # and again enable swap
+  ❯ sudo mkswap -L swap /dev/vda2; sudo swapon /dev/vda2
   Setting up swapspace version 1, size = 8 GiB (8588881920 bytes)
-  no label, UUID=7c95d918-2dbf-4751-9ae3-806588a9a9ab
+  LABEL=swap, UUID=7c95d918-2dbf-4751-9ae3-806588a9a9ab
 #+end_src
+If swap was ever formatted without the label, it can be fixed in place with ~sudo swaplabel -L swap /dev/vda2~.
 
 With the above in place, I can confirm that the disk space is updated correctly.
 #+begin_src bash
@@ -294,8 +304,8 @@ With the above in place, I can confirm that the disk space is updated correctly.
 The below is just some note that I will need to revisit:
 
 - At some point I got the networking issue where I couldn't connect to internet from my guest NixOS. I updated the network setting to bridged, which seemed to do the trick. Not sure what's actually caused it, though, because it was working with the default network setup.
-- Even with spice-vdagent, the display resolution didn't get updated when UTM window was resized -- it seems to have been fixed after restart of the host system?
+- Even with spice-vdagent, the display resolution didn't get updated when UTM window was resized -- it seems to have been fixed after restart of the host system? (The guest side -- ~spice-vdagentd~ -- is enabled declaratively via ~nixos-config/modules/virtual-machine/common.nix~.)
 - rebuild doesn't always update dconf setup; only when a full rebuild is triggered due to the configuration change
-- I need to use env var for LIBGL even when graphics acceleration is set up from the host
+- LIBGL software rendering is required even when graphics acceleration is set up from the host -- this is now handled declaratively (~LIBGL_ALWAYS_SOFTWARE=1~ in ~nixos-config/modules/virtual-machine/utm.nix~), no manual env var needed.
 
 

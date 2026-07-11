@@ -48,19 +48,13 @@ darwin.lib.darwinSystem {
     home-manager.darwinModules.home-manager
     "${self}/shared/home-manager.nix"
     {
-      home-manager = {
-        extraSpecialArgs = { inherit self inputs; };
-
-        users.ryota = {
-          imports = [
-            "${self}/user-config/ryota/macos.nix"
-            # darwin-only HM modules layered on top of the cross-platform
-            # HM config imported by ryota/macos.nix itself.
-            "${self}/user-config/modules/darwin-defaults"
-            "${self}/user-config/modules/appearance/font.nix"
-          ];
-        };
-      };
+      home-manager.users.ryota.imports = [
+        "${self}/user-config/ryota/macos.nix"
+        # darwin-only HM modules layered on top of the cross-platform
+        # HM config imported by ryota/macos.nix itself.
+        "${self}/user-config/modules/darwin-defaults"
+        "${self}/user-config/modules/appearance/font.nix"
+      ];
     }
   ];
 }

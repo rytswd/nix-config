@@ -72,32 +72,12 @@ nixpkgs.lib.nixosSystem rec {
     home-manager.nixosModules.home-manager
     "${self}/shared/home-manager.nix"
     {
-      home-manager = {
-        # Update pkgs to point to nixpkgs-unstable.
-        extraSpecialArgs = {
-          inherit self inputs;
-          pkgs = import nixpkgs-unstable {
-            inherit system;
-            config.allowUnfree = true;
-            overlays = overlays;
-          };
-        };
-
-        # Each user needs to be set up separately.
-        # Because home-manager needs to know where the home directory is,
-        # I need to specify the username again.
-
-        users.admin = {
-          imports = [
-            "${self}/user-config/admin/nixos.nix"
-          ];
-        };
-        users.ryota =  {
-          imports = [
-            "${self}/user-config/ryota/nixos.nix"
-          ];
-        };
-      };
+      home-manager.users.admin.imports = [
+        "${self}/user-config/admin/nixos.nix"
+      ];
+      home-manager.users.ryota.imports = [
+        "${self}/user-config/ryota/nixos.nix"
+      ];
     }
   ];
 }

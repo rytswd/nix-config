@@ -43,19 +43,7 @@ nixpkgs-unstable.lib.nixosSystem {
     home-manager.nixosModules.home-manager
     "${self}/shared/home-manager.nix"
     {
-      home-manager = {
-        extraSpecialArgs = {
-          inherit self inputs;
-          pkgs = import nixpkgs-unstable {
-            inherit system;
-            config.allowUnfree = true;
-            overlays = overlays;
-          };
-        };
-        users.ryota = {
-          imports = [ "${self}/user-config/ryota/server.nix" ];
-        };
-      };
+      home-manager.users.ryota.imports = [ "${self}/user-config/ryota/server.nix" ];
     }
   ];
 }

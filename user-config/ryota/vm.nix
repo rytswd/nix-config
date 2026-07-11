@@ -22,4 +22,15 @@
     "${self}/user-config/modules/product/collaboration"
     "${self}/user-config/modules/product/music"
   ];
+
+  # Keyless host: no YubiKey in the guest and no enrolled per-instance age
+  # key, so no sops decryption is possible here. Without this, core-class
+  # secret declarations (e.g. vcs/git/yubikey's key stubs) point at the
+  # private repo's sops files and the build fails at sops-install-secrets
+  # manifest validation on degraded (stub) builds -- and would fail
+  # decryption at activation even on full ones. Same knob as the coder
+  # profile; if this VM is ever enrolled, switch to
+  # `local.secrets = { enable = true; tier = "ephemeral"; }` like
+  # server.nix instead.
+  local.secrets.enable = false;
 }

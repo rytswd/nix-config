@@ -3,11 +3,14 @@
 # The public module user-config/modules/vcs/git/yubikey.nix declares sops
 # secrets whose `sopsFile` points into `inputs.nix-config-private` by path,
 # so this file path is part of the consumed private interface. The Home
-# Manager sops-nix module does not currently force the file's existence at
-# eval time (verified: the degraded eval passes without this file), but the
-# NixOS-side sops module does validate eagerly -- this placeholder is cheap
-# insurance for either consumer growing stricter. It is NOT a sops file and
-# cannot be decrypted, so a degraded activation will fail the YubiKey
-# stub-key secrets. That is the expected shape of "degraded": no secret
-# material without the private repo and an age key.
+# Manager sops-nix module does not force the file's existence at eval time,
+# but `sops-install-secrets` DOES validate the manifest at BUILD time: any
+# host that declares secrets against this placeholder fails to build with
+# "the key '<name>' cannot be found" (observed on the nixos-utm degraded
+# build, 2026-07). It is NOT a sops file and cannot be decrypted either.
+# Consequence: keyless hosts must not declare these secrets at all -- set
+# `local.secrets.enable = false` in the host profile (see
+# user-config/modules/lib/secrets.nix for the gating contract); the
+# `coreAvailable` gate then keeps the declarations out of the manifest.
+# This placeholder remains so the path itself stays resolvable.
 {}

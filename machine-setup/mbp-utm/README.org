@@ -180,6 +180,15 @@ With all the configuration files in place, I can rebuild NixOS using Nix Flake.
       "sudo nixos-rebuild switch --flake \"/nix-config#nixos-utm\""
 #+end_src
 
+*** Troubleshooting: narHash mismatch on first switch
+If the first switch fails with ~error: mismatch in field 'narHash'~ for the /same/ rev of some input, it's a fetcher-generation gap: for repos carrying Git LFS files, GitHub tarballs (smudged files) and plain git checkouts (pointer files) hash differently, and the installer ISO's Nix can sit on the other side of that behaviour line from the Nix that wrote ~flake.lock~. This bit ~niri~ once (LFS-tracked wiki PNGs, since removed upstream; resolved here by updating the input past the removal -- the tarball and git hashes now agree, verified for both ~niri-unstable~ and ~niri-stable~).
+
+If it ever recurs on some input, the one-time workaround is to let the VM resolve the same rev itself by appending, e.g.:
+#+begin_src bash
+  --override-input <input-path> 'github:<owner>/<repo>/<rev-from-flake.lock>'
+#+end_src
+After that switch the system runs the flake-pinned Nix, the locked hashes verify natively, and no override is needed again. Expect the affected package to build from source that once (the overridden tree won't hit binary caches).
+
 ** Subsequent Updates
 After the first switch, everything runs from inside the VM -- no host involvement needed.
 

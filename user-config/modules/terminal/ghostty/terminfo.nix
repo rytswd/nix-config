@@ -12,7 +12,24 @@
 # Imported by the full ghostty module (terminal bundle) AND directly by
 # headless profiles (e.g. user-config/ryota/server.nix) that skip the
 # terminal bundle entirely.
-{ pkgs, ... }:
+#
+# The terminfo must come from the SAME source as the Ghostty app (the flake
+# input), otherwise buildEnv sees two share/terminfo/g/ghostty entries from
+# different versions (e.g. flake 1.3.2-dev vs nixpkgs 1.3.1-terminfo) and
+# fails with a "conflicting subpath" error. The flake package exposes a
+# dedicated `terminfo` output, so headless closures still stay tiny.
+#
+# On Darwin the flake has no buildable Ghostty package, so fall back to the
+# nixpkgs terminfo -- there the app is never installed via Nix, so nothing
+# conflicts with it.
+{ pkgs, inputs, ... }:
 {
-  home.packages = [ pkgs.ghostty.terminfo ];
+  home.packages = [
+    (
+      if pkgs.stdenv.isDarwin then
+        pkgs.ghostty.terminfo
+      else
+        inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default.terminfo
+    )
+  ];
 }

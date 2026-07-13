@@ -28,6 +28,8 @@
     ##  Desktop session
     #------------------------------------------
     "${self}/nixos-config/modules/login-manager/sddm"
+    # Publishes ryota's ~/.face as the login avatar (leaf, like devices/yubikey).
+    "${self}/nixos-config/modules/login-manager/user-avatar.nix"
     "${self}/nixos-config/modules/window-manager"
     "${self}/nixos-config/modules/desktop-environment"
     "${self}/nixos-config/modules/desktop-environment/dconf.nix"
@@ -61,6 +63,14 @@
   ###========================================
   ##   Other specific configurations
   #==========================================
+
+  ###----------------------------------------
+  ##   Login screen avatar
+  #------------------------------------------
+  # Publish ryota's ~/.face to /var/lib/AccountsService/icons/ryota so the SDDM
+  # taketomi theme renders it instead of the initial-letter tile. Mechanism and
+  # rationale live in login-manager/user-avatar.nix.
+  loginManager.avatar.user = "ryota";
 
   ###----------------------------------------
   ##   YubiKey setup

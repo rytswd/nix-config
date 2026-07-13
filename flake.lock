@@ -79,31 +79,6 @@
     "blueprint": {
       "inputs": {
         "nixpkgs": [
-          "llm-agents",
-          "nixpkgs"
-        ],
-        "systems": [
-          "llm-agents",
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1776249299,
-        "narHash": "sha256-Dt9t1TGRmJFc0xVYhttNBD6QsAgHOHCArqGa0AyjrJY=",
-        "owner": "numtide",
-        "repo": "blueprint",
-        "rev": "56131e8628f173d24a27f6d27c0215eff57e40dd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "blueprint",
-        "type": "github"
-      }
-    },
-    "blueprint_2": {
-      "inputs": {
-        "nixpkgs": [
           "pi-agent-extensions",
           "nixpkgs"
         ],
@@ -123,7 +98,7 @@
         "type": "github"
       }
     },
-    "blueprint_3": {
+    "blueprint_2": {
       "inputs": {
         "nixpkgs": [
           "pi-agent-extensions",
@@ -146,7 +121,7 @@
         "type": "github"
       }
     },
-    "blueprint_4": {
+    "blueprint_3": {
       "inputs": {
         "nixpkgs": [
           "skills",
@@ -168,7 +143,7 @@
         "type": "github"
       }
     },
-    "blueprint_5": {
+    "blueprint_4": {
       "inputs": {
         "nixpkgs": [
           "swapdir",
@@ -190,7 +165,7 @@
         "type": "github"
       }
     },
-    "blueprint_6": {
+    "blueprint_5": {
       "inputs": {
         "nixpkgs": [
           "swapdir",
@@ -213,7 +188,7 @@
         "type": "github"
       }
     },
-    "blueprint_7": {
+    "blueprint_6": {
       "inputs": {
         "nixpkgs": [
           "treesitter-grammars",
@@ -235,7 +210,7 @@
         "type": "github"
       }
     },
-    "blueprint_8": {
+    "blueprint_7": {
       "inputs": {
         "nixpkgs": [
           "zignix",
@@ -277,11 +252,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778446047,
-        "narHash": "sha256-oQvcadh2BCkrog+SGrG6YffKJrveYpjj3TdQJWaKhaM=",
+        "lastModified": 1782772816,
+        "narHash": "sha256-s9BuFv0mRuZx9C1MF8qPHRdcAK14ONi0A5m6E2wqOoM=",
         "owner": "nix-community",
         "repo": "bun2nix",
-        "rev": "f2bc12af1a6369648aac41041ceeaa0b866599c6",
+        "rev": "5a39d717029e94163ac223aee8d5c9946cafed1c",
         "type": "github"
       },
       "original": {
@@ -605,11 +580,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778716662,
-        "narHash": "sha256-m1Yf0wZ8j1OHjTc2UwHwyQRSnNeSgLJOd7q5Y45hzi4=",
+        "lastModified": 1782949081,
+        "narHash": "sha256-vp6Y/Grm98ESt6ceOkWiHWyZRDV3J1RID4w+6NWK9yA=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "f7c1a2d347e4c52d5fb8d10cb4d94b5884e546fb",
+        "rev": "17c9d6cdfc60c64f4ee8d306f9bc0b4ccb51481e",
         "type": "github"
       },
       "original": {
@@ -664,11 +639,11 @@
         "zon2nix": "zon2nix"
       },
       "locked": {
-        "lastModified": 1778144164,
-        "narHash": "sha256-LfvUpnZvX62E+LIRUn2TaJgGFbBaxpeHO5OUBIVg5SY=",
+        "lastModified": 1783904600,
+        "narHash": "sha256-Hijlz/UQGpnij+V+9u9o2FTsTPc8fq2gsLp3l6IJCGA=",
         "owner": "ghostty-org",
         "repo": "ghostty",
-        "rev": "063ac3ecc5adae6360ae2044dc54e7a68c64f3a1",
+        "rev": "55a3e33ab26a23d75b274b23c7f76d837db00578",
         "type": "github"
       },
       "original": {
@@ -1238,7 +1213,6 @@
     },
     "llm-agents": {
       "inputs": {
-        "blueprint": "blueprint",
         "bun2nix": "bun2nix",
         "flake-parts": "flake-parts_3",
         "nixpkgs": "nixpkgs_8",
@@ -1246,11 +1220,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1782366663,
-        "narHash": "sha256-hcxEl/eWQQaYkUqygP4ca8S7WlX9c6vqgvQCqtV3vuw=",
+        "lastModified": 1783861198,
+        "narHash": "sha256-/jI3lyq8UwsBnVB0ZYvLgTpLVH8nAyc30NKkTfnhyBY=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "5f9d86061f538b3f5f3568583c001fb9c0705b71",
+        "rev": "039e0472ee7bee20f9c16f83c5911ec614c21040",
         "type": "github"
       },
       "original": {
@@ -1261,7 +1235,7 @@
     },
     "llm-agents_2": {
       "inputs": {
-        "blueprint": "blueprint_3",
+        "blueprint": "blueprint_2",
         "nixpkgs": [
           "pi-agent-extensions",
           "nixpkgs"
@@ -1495,11 +1469,11 @@
     },
     "nixpkgs-unstable-fast-track": {
       "locked": {
-        "lastModified": 1782666739,
-        "narHash": "sha256-2CYuaRDT7hcYnGW+3TTTy+fNnY4jQ6/mGk6ew035XP4=",
+        "lastModified": 1783816212,
+        "narHash": "sha256-2aZisVTVGSFEk3MYcOiWQp3zvwyzbqpktB69Rcfp150=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "534ee3d8beb1737b5342995f8837e2b2705ce0d8",
+        "rev": "3b32825de172d0bc85664f495edb096b10862524",
         "type": "github"
       },
       "original": {
@@ -1732,11 +1706,11 @@
     },
     "nixpkgs_8": {
       "locked": {
-        "lastModified": 1782118813,
-        "narHash": "sha256-BnbXO5s5EhV89lLXMAGCzPdEN5a6vNqvMk71obeTEUw=",
+        "lastModified": 1783791668,
+        "narHash": "sha256-zbcZ1dmBTPfJ7Mlqh/yLEPGpgJnwuv4Xr1xucy2WqMA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b3c092d3c36d91e2f61f3dfb39a159f180a56659",
+        "rev": "716c7a2664ca8325617b8a7fbb609273f2c4cae7",
         "type": "github"
       },
       "original": {
@@ -1768,11 +1742,11 @@
         "noctalia-qs": "noctalia-qs"
       },
       "locked": {
-        "lastModified": 1780949817,
-        "narHash": "sha256-2oJuPyt+4dd+ZzO7TFqpmkSAAYpRg9SF4eV8kJGl6Tk=",
+        "lastModified": 1783017890,
+        "narHash": "sha256-bAzrtN0GDMH0dOZkgeI3zSxfFs2rdD3pMuzOxvTF0bs=",
         "owner": "noctalia-dev",
         "repo": "noctalia",
-        "rev": "f816591afc2f2f606d1f0cf70b51e95c04a7a8aa",
+        "rev": "a48885b9fec485c903c955749a7da6e30147cd38",
         "type": "github"
       },
       "original": {
@@ -1807,7 +1781,7 @@
     },
     "pi-agent-extensions": {
       "inputs": {
-        "blueprint": "blueprint_2",
+        "blueprint": "blueprint",
         "llm-agents": "llm-agents_2",
         "nixpkgs": "nixpkgs_12"
       },
@@ -1954,7 +1928,7 @@
     },
     "skills": {
       "inputs": {
-        "blueprint": "blueprint_4",
+        "blueprint": "blueprint_3",
         "nixpkgs": "nixpkgs_13",
         "workmux-src": "workmux-src"
       },
@@ -2014,7 +1988,7 @@
     },
     "swapdir": {
       "inputs": {
-        "blueprint": "blueprint_5",
+        "blueprint": "blueprint_4",
         "nixpkgs": "nixpkgs_14",
         "zignix": "zignix"
       },
@@ -2328,7 +2302,7 @@
     },
     "treesitter-grammars": {
       "inputs": {
-        "blueprint": "blueprint_7",
+        "blueprint": "blueprint_6",
         "nixpkgs": "nixpkgs_15"
       },
       "locked": {
@@ -2569,7 +2543,7 @@
     },
     "zignix": {
       "inputs": {
-        "blueprint": "blueprint_6",
+        "blueprint": "blueprint_5",
         "nixpkgs": [
           "swapdir",
           "nixpkgs"
@@ -2591,17 +2565,17 @@
     },
     "zignix_2": {
       "inputs": {
-        "blueprint": "blueprint_8",
+        "blueprint": "blueprint_7",
         "nixpkgs": [
           "nixpkgs-unstable"
         ]
       },
       "locked": {
-        "lastModified": 1783588834,
-        "narHash": "sha256-dSZvSTogb6idfLsa3tvBPlfFM0npyk49jBUGbLosZcE=",
+        "lastModified": 1783907287,
+        "narHash": "sha256-OPtP8hZTOoPAYUg2Wqo3C6N22PcrD/otGD+pY5kpenc=",
         "owner": "withre",
         "repo": "zignix",
-        "rev": "9f336124c463e24ed76dc17241a8f5a4f2faf5d8",
+        "rev": "89acf0ee2593ce05d1dd7c5d24ed25a03d688fc3",
         "type": "github"
       },
       "original": {

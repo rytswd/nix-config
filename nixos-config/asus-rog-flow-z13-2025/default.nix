@@ -36,6 +36,17 @@ nixpkgs.lib.nixosSystem rec {
     inputs.impermanence.nixosModules.impermanence
     "${self}/nixos-config/modules/nix-impermanence.nix"
 
+    # The dedicated ZFS cache dataset (see disko-*.nix) mounts at
+    # /home/ryota/.cache. A freshly-provisioned dataset root is owned
+    # root:root, so without this the user cannot write their own cache
+    # (rsync / apps fail with EACCES). tmpfiles runs after local-fs.target,
+    # i.e. after the dataset is mounted, so this fixes the mounted root.
+    {
+      systemd.tmpfiles.rules = [
+        "d /home/ryota/.cache 0755 ryota users -"
+      ];
+    }
+
     ###----------------------------------------
     ##  Third party solutions
     #------------------------------------------

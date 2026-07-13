@@ -607,12 +607,12 @@ It is also far easier to configure here than setting up systemd, so I sometimes 
 Ref: https://noctalia.dev/
 Use Noctalia shell for most of the setup. Noctalia is made available via home-manager, it used to have systemd but is now deprecated. Each compositor is responsible for launching it.
 #+begin_src kdl
-  spawn-at-startup "noctalia-shell"
+  spawn-at-startup "noctalia"
 #+end_src
 
-NOTE: Noctalia v5 (alpha) renamed the binary from ~noctalia-shell~ to ~noctalia~. Kept here untangled (=:tangle no=) until v5 is ready for daily use; swap the two blocks when migrating.
+NOTE: v5 renamed the binary from ~noctalia-shell~ to ~noctalia~. The old v4 launcher is kept untangled (=:tangle no=) below in case of a rollback to the ~legacy-v4~ branch.
 #+begin_src kdl :tangle no
-  spawn-at-startup "noctalia"
+  spawn-at-startup "noctalia-shell"
 #+end_src
 
 **** Other
@@ -701,20 +701,20 @@ NOTE: I got a lot of configurations in Xremap, and without it, many of the bindi
 :PROPERTIES:
 :header-args: :tangle no :noweb-ref key-bindings-commands
 :END:
-Noctalia based commands
+Noctalia based commands. v5 exposes runtime control through ~noctalia msg ...~ (the v4 ~ipc call~ interface is gone). Panels are toggled by id, with an optional trailing context/query: the launcher's ~/emo~ prefix opens the emoji provider, and ~control-center notifications~ jumps straight to the notification-history tab.
 #+begin_src kdl
+  Alt+Space         { spawn-sh "noctalia msg panel-toggle launcher"; }
+  Super+Shift+F12   { spawn-sh "noctalia msg panel-toggle clipboard"; }
+  Super+Alt+Backslash { spawn-sh "noctalia msg panel-toggle launcher \"/emo\""; }
+  Super+Shift+Backslash { spawn-sh "noctalia msg panel-toggle control-center notifications"; }
+#+end_src
+
+NOTE: The old v4 ~ipc call~ bindings are kept untangled below for reference / rollback. The explicit =:noweb-ref v5-archive= keeps them out of the tangled =<<key-bindings-commands>>= expansion (otherwise they would inherit this section's =:noweb-ref key-bindings-commands=).
+#+begin_src kdl :tangle no :noweb-ref v5-archive
   Alt+Space         { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
   Super+Shift+F12   { spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
   Super+Alt+Backslash { spawn "noctalia-shell" "ipc" "call" "launcher" "emoji"; }
   Super+Shift+Backslash { spawn "noctalia-shell" "ipc" "call" "notifications" "toggleHistory"; }
-#+end_src
-
-NOTE: Noctalia v5 (alpha) replaced the ~ipc call~ interface with ~noctalia msg ...~. Kept untangled until v5 is ready -- the explicit =:noweb-ref v5-archive= keeps it out of the tangled =<<key-bindings-commands>>= expansion (otherwise it would inherit this section's =:noweb-ref key-bindings-commands=). v5 has no documented dedicated emoji / notification-history panel command yet, so those map to the nearest equivalents.
-#+begin_src kdl :tangle no :noweb-ref v5-archive
-  Alt+Space         { spawn-sh "noctalia msg panel-toggle launcher"; }
-  Super+Shift+F12   { spawn-sh "noctalia msg panel-toggle clipboard"; }
-  Super+Alt+Backslash { spawn-sh "noctalia msg panel-toggle launcher"; }
-  Super+Shift+Backslash { spawn-sh "noctalia msg panel-toggle control-center"; }
 #+end_src
 
 +I use ~fuzzel~ for my launcher.+

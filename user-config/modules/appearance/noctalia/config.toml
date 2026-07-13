@@ -1,0 +1,95 @@
+# Noctalia v5 declarative base config (Nix-managed, read-only).
+#
+# Wired via `programs.noctalia.settings = ./config.toml` in ./default.nix and
+# symlinked read-only to ~/.config/noctalia/config.toml. Runtime/GUI tweaks
+# layer on top in ~/.local/state/noctalia/settings.toml (state dir), so the
+# shell stays adjustable without editing this file.
+#
+# Validated at build time by `noctalia config validate` (validateConfig
+# defaults to true). Full reference: https://docs.noctalia.dev/v5/ and the
+# upstream example.toml. Only intentional overrides live here; everything else
+# falls back to built-in defaults.
+
+[shell]
+settings_show_advanced = true
+
+# ── Theme ─────────────────────────────────────────────────────────────
+[theme]
+mode             = "dark"
+source           = "wallpaper"      # derive colours from the active wallpaper
+wallpaper_scheme = "m3-rainbow"
+# To use the bundled custom palette instead of wallpaper colours, set:
+#   source         = "custom"
+#   custom_palette = "Rytswd"
+# The palette is declared via programs.noctalia.customPalettes and lands at
+# ~/.config/noctalia/palettes/Rytswd.json (see ./palettes/Rytswd.json).
+
+# ── Wallpaper ─────────────────────────────────────────────────────────
+[wallpaper]
+directory = "~/Pictures/Wallpapers"
+
+[wallpaper.default]
+path = "~/Pictures/Wallpapers/maldives-sea.png"
+
+[wallpaper.automation]
+enabled = true
+
+# ── Bar ───────────────────────────────────────────────────────────────
+[bar]
+order = ["main"]
+
+[bar.main]
+position           = "top"
+enabled            = true
+thickness          = 24
+scale              = 0.8
+background_opacity = 0.46
+padding            = 18
+radius             = 4
+margin_ends        = 0              # full width along the main axis
+margin_edge        = 0              # flush to the screen edge
+capsule            = true
+capsule_opacity    = 0.4
+
+start  = [ "launcher", "session", "workspaces" ]
+center = [ "active_window", "media" ]
+end    = [
+  "tray",
+  "caffeine",
+  "wallpaper",
+  "network",
+  "bluetooth",
+  "volume",
+  "battery",
+  "clock",
+  "control-center",
+  "notifications",
+]
+
+# ── Dock ──────────────────────────────────────────────────────────────
+[dock]
+enabled             = true
+auto_hide           = true
+icon_size           = 24
+background_opacity  = 0.36
+cross_axis_padding  = 4
+magnification       = true
+magnification_scale = 1.2
+
+# ── Widgets ───────────────────────────────────────────────────────────
+[widget.battery]
+display_mode = "graphic"
+
+[widget.clock]
+format         = "{:%H:%M:%S}"
+tooltip_format = "{:%A, %B %d, %Y}"
+
+[widget.launcher]
+glyph = "rocket"
+
+[widget.media]
+hide_when_no_media = true
+title_scroll       = "on_hover"
+
+[widget.tray]
+drawer = true

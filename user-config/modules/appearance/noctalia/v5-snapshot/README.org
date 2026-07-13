@@ -1,37 +1,45 @@
 #+title: Noctalia v5 settings snapshot
 
-This directory is an *archive*, not a live module. Nothing here is imported or symlinked by =../default.nix= (which is pinned to Noctalia *v4*). It preserves the look-and-feel work done on the v5 alpha so it can be restored when v5 is ready for daily use.
+=../default.nix= runs Noctalia *v5* with *declarative* config:
+=programs.noctalia.settings= points at =../config.toml= and
+=programs.noctalia.customPalettes.Rytswd= at =../palettes/Rytswd.json=. Those live
+files were distilled from this snapshot and re-expressed in the v5 *beta* schema
+(then checked with =noctalia config validate=), so nothing in this directory is
+imported or symlinked any more. It is a *historical capture* of the early-v5
+look-and-feel work, kept as a record of where the live config came from. The GUI
+still layers runtime tweaks on top in =~/.local/state/noctalia/=.
 
 * Why this exists
-v4 and v5 store config completely differently, so the v5 tweaks can't just live in the v4 =settings.json=:
+v4 and v5 store config completely differently, so the old v4 =settings.json=
+could not simply carry over:
 
-| Aspect        | v4 (active)                             | v5 (this snapshot)                      |
-|---------------+-----------------------------------------+-----------------------------------------|
-| Main settings | =~/.config/noctalia/settings.json= (JSON) | =~/.local/state/noctalia/settings.toml=   |
-| Colors        | inline in settings.json                 | =~/.config/noctalia/colors.json=          |
-| Plugins       | manual                                  | =~/.config/noctalia/plugins.json= + repos |
-| Binary        | =noctalia-shell=                          | =noctalia=                                |
+| Aspect        | v4 (retired)                            | v5 (current)                              |
+|---------------+-----------------------------------------+-------------------------------------------|
+| Binary        | =noctalia-shell=                          | =noctalia=                                  |
+| GUI state     | =~/.config/noctalia/settings.json= (JSON) | =~/.local/state/noctalia/settings.toml=     |
+| Declarative   | (out-of-store symlink workaround)       | =programs.noctalia.settings= -> =config.toml= |
+| Colors        | inline in settings.json                 | =programs.noctalia.customPalettes= -> =palettes/<name>.json= |
+| Plugins       | manual                                  | =[plugins]= in the TOML config + installed under =~/.local/share/noctalia= |
 
 * Files
-- =settings.toml= -- copied from =~/.local/state/noctalia/settings.toml=. Bar layout (Main bar: opacity, capsule, order, scale 0.8, thickness 24), dock (auto-hide), theme (wallpaper / m3-rainbow), per-widget tweaks (clock format, battery graphic, media, launcher glyph), lockscreen widget.
-- =colors.json= -- copied from =~/.config/noctalia/colors.json=. Custom M3 palette (blue primary, dark surface).
-- =plugins.json= -- copied from =~/.config/noctalia/plugins.json=. Plugin sources incl. =github:rytswd/noctalia-extra=, and per-plugin enabled state.
+Captured on 2026-06-14 from the running early-v5 instance. These are *alpha-era*
+dumps -- the v5 beta config schema has moved on, so treat them as a reference,
+not a drop-in. Validate anything before adopting it with =noctalia config validate=.
+- =settings.toml= -- from =~/.local/state/noctalia/settings.toml=. Bar layout (Main bar: opacity, capsule, order, scale 0.8, thickness 24), dock (auto-hide), theme (wallpaper / m3-rainbow), per-widget tweaks (clock format, battery graphic, media, launcher glyph), lockscreen widget. Distilled into =../config.toml= -- note the beta key renames (=[bar.Main]= -> =[bar.main]=, =margin_edge/ends= are the real keys not =margin_h/v=, no =date= widget, =font_weight= is a string), and the alpha-only lockscreen widget block was dropped (it was disabled anyway).
+- =colors.json= -- a custom M3 palette (blue primary, dark surface). Reproduced as =../palettes/Rytswd.json= wrapped in the v5 beta ={ "dark": { ... } }= palette shape (=programs.noctalia.customPalettes=).
+- =plugins.json= -- plugin sources incl. =github:rytswd/noctalia-extra=, and per-plugin enabled state. Plugins must be v5-compatible to load; expect the old extras to need porting.
 
-Captured on 2026-06-14 from the running v5 alpha instance.
-
-* Host-specific values to review before restoring
+* Host-specific values to review before adopting
 - Wallpaper paths are absolute (=/home/ryota/Pictures/Wallpapers/...=).
 - =settings.toml= references =eDP-1= (single internal display) and a lockscreen widget positioned for a 1728-wide output -- re-check per host.
 
-* Restoring when v5 lands
-1. Re-pin the input in =flake.nix=: =noctalia.url = "github:noctalia-dev/noctalia";= (drop the legacy-v4 ref), then =nix flake lock --update-input noctalia=.
-2. Restore the v5 form of =../default.nix= (=programs.noctalia=, no out-of-store settings.json) -- it's preserved in git at commit =f3dc3bc "Adjust noctalia to be v5 ready"=.
-3. Re-point the compositors at the v5 binary / IPC: niri =config.kdl= and hyprland =processes.conf= (=noctalia= + =noctalia msg ...=); also in =f3dc3bc=.
-4. Seed the GUI state from this snapshot, then let the GUI own it:
-   #+begin_src bash
-     mkdir -p ~/.local/state/noctalia ~/.config/noctalia
-     cp settings.toml ~/.local/state/noctalia/settings.toml
-     cp colors.json   ~/.config/noctalia/colors.json
-     cp plugins.json  ~/.config/noctalia/plugins.json
-   #+end_src
-   v5 writes runtime changes back to the state dir (Nix doesn't manage it), so this is a one-time seed -- refresh this snapshot from the live files if you want to re-capture later.
+* Superseded by the declarative config
+The look-and-feel here is now live and Nix-managed via =../config.toml= and
+=../palettes/Rytswd.json= -- no manual seeding needed. The bundled palette is
+not active while =[theme].source = "wallpaper"=; to use it set =source = "custom"=
+and =custom_palette = "Rytswd"= in =../config.toml=.
+
+Only =plugins.json= has no declarative home: plugins must be v5-compatible to
+load (the old =noctalia-extra= extras need porting), and their enabled state
+lives in =[plugins]= in the runtime config / =~/.local/share/noctalia=. Re-dump
+this directory from the live files if I want to re-capture a later state.

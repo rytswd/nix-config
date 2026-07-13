@@ -95,12 +95,11 @@
     # With own binary cache (and thus no nixpkgs following)
     ghostty.url = "github:ghostty-org/ghostty";
     llm-agents.url = "github:numtide/llm-agents.nix";
-    # Pinned to v4 (the `legacy-v4` branch) -- v5 alpha (C++/OpenGL ES
-    # rewrite) isn't ready for my use cases yet. The repo was renamed
-    # `noctalia-shell` -> `noctalia`; the old name now redirects to the v5
-    # default branch, so v4 must be tracked via the `legacy-v4` branch
-    # explicitly. Switch back to `github:noctalia-dev/noctalia` for v5.
-    noctalia.url = "github:noctalia-dev/noctalia/legacy-v4";
+    # v5 beta (C++/OpenGL ES rewrite). The repo was renamed
+    # `noctalia-shell` -> `noctalia`, and v5 lives on the default branch;
+    # v4 remains on the `legacy-v4` branch
+    # (`github:noctalia-dev/noctalia/legacy-v4`) if a rollback is needed.
+    noctalia.url = "github:noctalia-dev/noctalia";
 
     librepods.url = "github:kavishdevar/librepods/linux/rust";
 

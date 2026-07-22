@@ -9,6 +9,11 @@
       rev = "main";
       # useWorktree = false;  # Default: clone to Coding/.../emacs-config/
       update = true; # Pull updates on each activation
+      # A `switch` that restarts NetworkManager briefly drops DNS, and this
+      # on-activation `git pull` races that window (retries span only ~6s).
+      # Warn instead of erroring so a transient network blip can't fail the
+      # whole system switch.
+      updateFailMode = "warn";
       bypassGitConfig = true;
     };
     # "Coding/github.com/rytswd/emacs-config" = {

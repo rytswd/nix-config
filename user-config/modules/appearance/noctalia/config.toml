@@ -12,12 +12,21 @@
 
 [shell]
 settings_show_advanced = true
+niri_overview_type_to_launch_enabled = true   # type-to-launch in the niri overview (GUI tweak)
+
+[shell.panel]
+transparency_mode = "soft"                     # panel transparency mode (GUI tweak)
+
+[shell.screen_corners]
+enabled = true                                 # rounded screen corners on (GUI tweak)
+size    = 7                                    # corner radius (GUI tweak)
 
 # ── Theme ─────────────────────────────────────────────────────────────
 [theme]
 mode             = "dark"
 source           = "wallpaper"      # derive colours from the active wallpaper
 wallpaper_scheme = "m3-rainbow"
+pure_black_dark  = true             # true-black background in dark mode (GUI tweak)
 # To use the bundled custom palette instead of wallpaper colours, set:
 #   source         = "custom"
 #   custom_palette = "Rytswd"
@@ -29,7 +38,7 @@ wallpaper_scheme = "m3-rainbow"
 directory = "~/Pictures/Wallpapers"
 
 [wallpaper.default]
-path = "~/Pictures/Wallpapers/maldives-sea.png"
+path = "~/Pictures/Wallpapers/hasliberg.jpg"
 
 [wallpaper.automation]
 enabled = true
@@ -42,14 +51,16 @@ order = ["main"]
 position           = "top"
 enabled            = true
 thickness          = 24
-scale              = 0.8
-background_opacity = 0.46
-padding            = 18
+scale              = 0.9
+background_opacity = 0.53
+padding            = 10
 radius             = 4
 margin_ends        = 0              # full width along the main axis
 margin_edge        = 0              # flush to the screen edge
 capsule            = true
-capsule_opacity    = 0.4
+capsule_opacity    = 0.0
+capsule_padding    = 2.0
+font_weight        = 400
 
 start  = [ "launcher", "session", "workspaces" ]
 center = [ "active_window", "media" ]
@@ -60,9 +71,11 @@ end    = [
   "network",
   "bluetooth",
   "volume",
+  "output_volume",
+  "input_volume",
   "battery",
-  "clock",
   "control-center",
+  "clock",
   "notifications",
 ]
 
@@ -75,14 +88,25 @@ background_opacity  = 0.36
 cross_axis_padding  = 4
 magnification       = true
 magnification_scale = 1.2
+reserve_space       = false        # auto-hide: don't reserve an exclusion zone (GUI tweak)
+
+# ── Hot corners ───────────────────────────────────────────────────────
+[hot_corners.top_left]
+action = "window_switcher"         # top-left hot corner -> window switcher (GUI tweak)
 
 # ── Widgets ───────────────────────────────────────────────────────────
 [widget.battery]
 display_mode = "graphic"
 
 [widget.clock]
-format         = "{:%H:%M:%S}"
+format         = "{:%a, %d %b, %Y  %H:%M:%S}"
 tooltip_format = "{:%A, %B %d, %Y}"
+
+[widget.control-center]
+scale = 1.1
+
+[widget.input_volume]
+mute_color = "surface_variant"
 
 [widget.launcher]
 glyph = "rocket"
@@ -91,5 +115,18 @@ glyph = "rocket"
 hide_when_no_media = true
 title_scroll       = "on_hover"
 
+[widget.network]
+show_label = false
+
+[widget.notifications]
+scale = 1.1
+
+[widget.output_volume]
+mute_color = "surface_variant"
+
 [widget.tray]
-drawer = true
+drawer         = true
+drawer_columns = 5
+
+[widget.volume]
+enabled = false

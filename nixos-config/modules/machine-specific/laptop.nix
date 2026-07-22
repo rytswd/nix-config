@@ -70,8 +70,10 @@
   ];
   services = {
     logind.settings.Login = {
-      HandleLidSwitch = "suspend"; # on battery -> sleep
-      HandleLidSwitchExternalPower = "ignore"; # on AC -> do nothing (keep running)
+      # Suspend on lid close regardless of power source. To keep the system
+      # running with the lid closed, use the noctalia lid-toggle inhibitor
+      # (rytswd/noctalia-extra) instead.
+      HandleLidSwitch = "suspend";
     };
     thermald.enable = true;
     power-profiles-daemon.enable = false;

@@ -1,0 +1,42 @@
+From 6a3b7f7a00392782ed8a86173ca0e4ee0523489e Mon Sep 17 00:00:00 2001
+From: ASUS Z13 tester <you@example.com>
+Date: Sun, 19 Jul 2026 22:00:00 +0100
+Subject: [PATCH] rog-aura: enable Lightbar (chassis RGB) power zone for ROG
+ Flow Z13 GZ302EA
+
+The GZ302EA (ROG Flow Z13 2025) exposes its see-through rear-panel RGB
+through the 0x18c6 Aura MCU, not through a Slash device: rog-slash gates
+SlashType on board names G614F/GA403/GA605/GU605 + USB PID 0x193b/0x19b6,
+so 0x18c6 on GZ302 is correctly detected as a LaptopKeyboardPre2021 Aura
+device. Its existing aura_support.ron entry declared power_zones:[None],
+so asusd never offered the chassis lightbar power domain.
+
+Give the entry Keyboard+Lightbar power zones (matching the other 0x18c6
+pre-2021 laptop, G533QS). asusd then builds a KeyboardAndLightbar power
+state and exposes SupportedPowerZones=[Keyboard,Lightbar] on the 0x18c6
+Aura interface, driving the rear panel via the standard Aura protocol.
+
+Refs: asus-linux/asusctl#656, #681
+Tested on GZ302EA, kernel 6.18.37, asusd built from 6.3.8.
+
+Signed-off-by: dev <dev@example.com>
+---
+ rog-aura/data/aura_support.ron | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/rog-aura/data/aura_support.ron b/rog-aura/data/aura_support.ron
+index f916365..7c530cd 100644
+--- a/rog-aura/data/aura_support.ron
++++ b/rog-aura/data/aura_support.ron
+@@ -1095,7 +1095,7 @@
+         basic_modes: [Static, Breathe, Pulse],
+         basic_zones: [],
+         advanced_type: r#None,
+-        power_zones: [r#None],
++        power_zones: [Keyboard, Lightbar],
+     ),
+     (
+         device_name: "GZ302",
+-- 
+2.54.0
+

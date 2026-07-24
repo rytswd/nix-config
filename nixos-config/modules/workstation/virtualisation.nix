@@ -5,6 +5,10 @@
   virtualisation = {
       docker = {
         enable = true;
+        # docker_28 was flagged insecure/unmaintained on 2025-11 (nixpkgs
+        # marks it as such), and the module default still resolves to it.
+        # Pin docker_29 explicitly until the module default catches up.
+        package = pkgs.docker_29;
         # NOTE: When using rootless Docker, I cannot make it work with GPU, such
         # as using it with Ollama.
         # rootless = {

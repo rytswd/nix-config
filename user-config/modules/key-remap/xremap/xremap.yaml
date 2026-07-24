@@ -36,7 +36,7 @@ keymap:
   # which could be overridden by other key bindings later on.
   - name: Slack specific
     application:
-      only: Slack
+      only: slack
     remap:
       # NOTE: Because Xremap intercepts before Dvorak key binding comes into
       # action, the left hand side is based on the QWERTY binding. However, for

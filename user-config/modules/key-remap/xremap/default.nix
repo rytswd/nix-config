@@ -16,7 +16,7 @@
 
   services.xremap = {
     enable = true;
-    withWlroots = true;
+    withNiri = true;
     # Ensures I do not have to restart the service when definition changes
     watch = true;
     # The list of devices can be seen in xremap initialisation logs:

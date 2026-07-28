@@ -1327,10 +1327,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1783107235,
-        "narHash": "sha256-jsdDxvlhIq8gvIvKYkTLAhetv6lZqbfgCHjfuqds+Lg=",
+        "lastModified": 1785199477,
+        "narHash": "sha256-d/WcwXK7hQE5IlULYRDqPjN4v+PNrJjcPlfCfd6sd94=",
         "ref": "main",
-        "rev": "f32ba760ce64a7e573d39824fad890058f60a45d",
+        "rev": "3099b2c480f014d5d42885090f4efc86ac4d6943",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/rytswd/nix-config-private"
@@ -1738,11 +1738,11 @@
         "nixpkgs": "nixpkgs_11"
       },
       "locked": {
-        "lastModified": 1785109537,
-        "narHash": "sha256-BuIxpvjglnMkKVWNIJ8/4mDRd9QU5H0+KYgcj/vPujU=",
+        "lastModified": 1785191981,
+        "narHash": "sha256-VJXqeaxCqyMOt/k7ePNoD4nAHdF1eTSuuddmrh/5O6Q=",
         "owner": "noctalia-dev",
         "repo": "noctalia",
-        "rev": "34e68c787226f40853728172385d1bb039a69be1",
+        "rev": "d24fe45e9a798317072547fa5d56950607750e68",
         "type": "github"
       },
       "original": {

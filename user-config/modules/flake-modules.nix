@@ -37,7 +37,6 @@
   communication   = ./communication;
   dictionary      = ./dictionary;
   editor          = ./editor;
-  file-management = ./file-management;
   i18n            = ./i18n;
   image           = ./image;
   key-remap       = ./key-remap;

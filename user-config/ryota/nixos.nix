@@ -42,7 +42,6 @@ in
     "${self}/user-config/modules/programming"
     "${self}/user-config/modules/vpn"
     "${self}/user-config/modules/security"
-    "${self}/user-config/modules/file-management"
     "${self}/user-config/modules/dictionary"
     "${self}/user-config/modules/communication"
     "${self}/user-config/modules/i18n"

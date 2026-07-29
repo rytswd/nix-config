@@ -2,6 +2,5 @@
 # via Maestral) live in `../product/file-management/`.
 {
   imports = [
-    ./syncthing.nix
   ];
 }

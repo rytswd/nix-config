@@ -205,7 +205,30 @@
       # Each `flake-modules.nix` lives next to the modules it lists, so
       # adding/hiding a module is a single-line change in the relevant
       # tree -- not in flake.nix.
-      nixosModules = import ./nixos-config/modules/flake-modules.nix;
+      nixosModules = import ./nixos-config/modules/flake-modules.nix // {
+        # Machines as modules, not as built systems. `nixosConfigurations`
+        # below builds each one here; these outputs let another flake build
+        # the same machine with extra modules of its own -- a clan inventory
+        # adding mesh membership, say -- without duplicating the module list
+        # or re-deriving it from a finished nixosSystem.
+        #
+        # The two paths share `modules.nix`, so a machine cannot drift
+        # between them: whatever is added here is added everywhere.
+        #
+        # TODO: a machine that is clan-managed still has a plain
+        # `nixosConfigurations` entry below, and switching to it succeeds --
+        # building a complete machine *without* mesh membership, which
+        # silently drops the host off the wireguard and syncthing meshes
+        # until it is switched from the clan flake again. Decide between
+        # tagging those builds (`system.nixos.tags = [ "unmeshed" ]`, visible
+        # in the boot menu) and removing the entry outright so the wrong
+        # command fails instead of quietly doing the wrong thing.
+        machines = {
+          asus-rog-zephyrus-g14-2024 = import ./nixos-config/asus-rog-zephyrus-g14-2024/modules.nix;
+          asus-rog-flow-z13-2025 = import ./nixos-config/asus-rog-flow-z13-2025/modules.nix;
+          mbp-vm = import ./nixos-config/mbp-vm/modules.nix;
+        };
+      };
       homeModules = import ./user-config/modules/flake-modules.nix;
       darwinModules = import ./macos-config/modules/flake-modules.nix;
 

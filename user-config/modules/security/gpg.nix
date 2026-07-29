@@ -19,6 +19,21 @@
       # fail, such as SOPS usage. Adding this back resolved the issue, but
       # I have never got to the bottom of why this setup wasn't working in
       # the first place.
+      #
+      # 2026-07-29: when signing started asking for the PIN on EVERY
+      # operation, the cause was a stale pcscd -- not this setting. scdaemon
+      # was re-acquiring the card through it on every operation, so each
+      # signature met an unverified card. Restarting pcscd (not just
+      # gpg-agent and scdaemon) restored the expected behaviour: one PIN,
+      # then quiet, with sops still working.
+      #
+      # So if the PIN is demanded repeatedly, restart pcscd FIRST:
+      #   sudo systemctl restart pcscd.socket && gpgconf --kill scdaemon
+      #
+      # Removing disable-ccid also stops the prompts, because scdaemon then
+      # holds the USB device directly -- but pcscd can no longer see the key
+      # and sops/age-plugin-yubikey reports "yubikey is not inserted". That
+      # is the trade this line encodes, and it is not the fix.
     };
   };
   services.gpg-agent = {

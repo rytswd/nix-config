@@ -11,7 +11,7 @@
   description = "NixOS and other Nix configurations for rytswd";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     # NOTE: Dedicated nixpkgs input that can be updated independently from the
     # main nixpkgs-unstable, for packages that need the latest version without

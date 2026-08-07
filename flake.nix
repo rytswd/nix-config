@@ -136,11 +136,18 @@
 
     # Window Manager
     niri.url = "github:sodiboo/niri-flake";
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
+    # NOTE: No `hyprland` / `hyprland-plugins` inputs. Hyprland here comes
+    # from nixpkgs (`programs.hyprland.enable` plus home-manager's
+    # `wayland.windowManager.hyprland`), so the upstream flakes were never
+    # referenced -- only a commented-out `hyprbars` line in
+    # user-config/modules/window-manager/hyprland/default.nix. Dead inputs
+    # are not free: they stay in flake.lock, get prefetched and gc-rooted on
+    # every CI eval, and one of them (hyprtoolkit, reached via
+    # hyprland-guiutils) wedged nixbot for three builds -- its store path had
+    # been collected on the CI host and `nix flake prefetch-inputs` kept
+    # reporting it as fetched, so gc-rooting failed before eval even started.
+    # Add them back alongside the first line that actually consumes
+    # `inputs.hyprland`, e.g. a plugin package.
 
     # Desktop Environment
     # cosmic = {

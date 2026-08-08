@@ -85,6 +85,21 @@
     # Ref: https://github.com/devyn/nu_plugin_dbus/issues/11
     # Ref: https://github.com/devyn/nu_plugin_dbus/pull/12
     # "nushell/plugins/nu_plugin_dbus".source = "${pkgs.nushellPlugins.dbus}/bin/nu_plugin_dbus";
-    "nushell/plugins/nu_plugin_polars".source = "${pkgs.nushellPlugins.polars}/bin/nu_plugin_polars";
+
+    # TODO: re-enable once the nixpkgs-unstable channel moves past
+    # 2026-08-05. nu_plugin_polars 0.114.1 pins ethnum 1.5.2, whose
+    # `mem::transmute::<(), TryFromIntError>(())` stopped compiling on
+    # rustc 1.97, so the derivation fails to build -- and because
+    # home-manager here follows nixpkgs-unstable, that took every host with
+    # this module down in CI. The fix (ethnum 1.5.3) is merged upstream in
+    # NixOS/nixpkgs#546343, but the channel is still parked on 2026-08-03,
+    # so no amount of `nix flake update` picks it up yet.
+    #
+    # Not overriding the package in an overlay to carry the same cargo
+    # lockfile patch: that trades a cached build for a from-source polars
+    # rebuild on every host, for a plugin that still has to be registered
+    # by hand (`plugin add nu_plugin_polars`).
+    # Ref: https://github.com/NixOS/nixpkgs/issues/546250
+    # "nushell/plugins/nu_plugin_polars".source = "${pkgs.nushellPlugins.polars}/bin/nu_plugin_polars";
   };
 }

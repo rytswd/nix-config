@@ -184,6 +184,11 @@
       # emacsOverlay = inputs.emacs-overlay.overlays.default;
       # vscodeOverlay = (import ./overlays/vscode.nix);
 
+      # Shell related overlays
+      # nushell from unstable on the stable hosts, so the login shell matches
+      # the one home-manager writes config.nu for.
+      nushellOverlay = (import ./overlays/nushell.nix nixpkgs-unstable);
+
       # Other utility related overlays
       # gripOverlay = (import ./overlays/grip.nix );
       # erdtreeOverlay = (import ./overlays/erdtree.nix );
@@ -196,6 +201,8 @@
         # goOverlay -- intentionally NOT global. Consumed locally in
         # user-config/modules/programming/go.nix so only home-manager rebuilds
         # Go; the stable system closure is left untouched.
+
+        nushellOverlay
 
         # emacsOverlay
         # vscodeOverlay

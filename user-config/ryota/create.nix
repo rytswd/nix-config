@@ -15,6 +15,7 @@ let
       {
         home = "/home/ryota";
 
+        # Unstable even on the stable hosts -- see ./overlays/nushell.nix.
         shell = pkgs.nushell;
 
         isNormalUser = true;

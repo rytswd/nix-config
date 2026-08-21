@@ -1,6 +1,8 @@
 // All the configs are pulled in from Org Mode file. Check out README.org.
 
 input {
+    disable-power-key-handling
+
     keyboard {
         xkb {
             layout "us,us"

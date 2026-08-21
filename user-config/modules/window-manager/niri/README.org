@@ -19,6 +19,8 @@ Input configures a few things
 
 #+begin_src kdl :tangle config.kdl :noweb yes
   input {
+      disable-power-key-handling
+
       keyboard {
           <<input-keyboard>>
       }
@@ -30,6 +32,15 @@ Input configures a few things
       }
   }
 #+end_src
+
+**** Power key
+By default niri takes a ~handle-power-key~ *block* inhibitor from logind so that ~XF86PowerOff~ can be bound like any other key. That is only useful if you actually bind it. I don't, so the button ended up doing nothing at all: logind was inhibited and niri swallowed the key.
+
+The symptom was confusing on a laptop. The power button is an ACPI wake source below the OS, so pressing it while suspended still woke the machine -- but nothing could put it back to sleep, which looked like "the button wakes it up incorrectly" with the lid shut.
+
+~disable-power-key-handling~ makes niri leave the inhibitor alone, so logind handles the key per ~HandlePowerKey~ (set to ~suspend~ in ~nixos-config/modules/machine-specific/laptop.nix~). Doing it in logind rather than as a niri bind means it still works when the session is locked, when the lid is closed, and if niri is wedged.
+
+NOTE: ~HandlePowerKey~ must be set alongside this. logind's default is ~poweroff~, so dropping the inhibitor without setting it would turn the button into a hard power-off.
 
 **** Keyboard
 :PROPERTIES:

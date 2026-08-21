@@ -10,6 +10,43 @@
   networking.networkmanager.enable = true;
 
   ###----------------------------------------
+  ##   Wi-Fi regulatory domain
+  #------------------------------------------
+  # Pin the regulatory domain to US. Without an explicit country cfg80211 boots
+  # into the world domain ("00"), which does not permit 6 GHz. The AP's Country
+  # IE only moves it there transiently -- the journal shows `REGDOM-CHANGE
+  # init=COUNTRY_IE type=COUNTRY alpha2=US`, then `regulatory prevented using AP
+  # config, downgraded`, then a revert to `init=CORE type=WORLD`.
+  #
+  # The visible symptom is not "no 6 GHz" but a link that drops every few
+  # minutes: the mt7925 keeps deciding to roam onto a 6 GHz BSSID, tears down
+  # the working association first, and the auth is then refused by the
+  # regulatory core -- `SME: Authentication request to the driver failed`.
+  # Measured as ~195 such failures over 48h, every one to a 6 GHz frequency
+  # (6295 / 6935 MHz), across two different networks.
+  #
+  # wireless-regdb is already on the system -- it arrives via
+  # `hardware.enableRedistributableFirmware` -- so the table was never the
+  # missing piece; nothing was selecting a row from it. The option is set
+  # explicitly anyway to keep the pairing obvious and to survive a change in
+  # what the firmware bundle happens to pull in.
+  #
+  # Takes effect on reboot (or a cfg80211 reload); verify with
+  # `cat /sys/module/cfg80211/parameters/ieee80211_regdom` -- expect `US`.
+  #
+  # NOTE: there is a matching runtime workaround applied out-of-band with
+  # `nmcli connection modify "IFT Admin" 802-11-wireless.band a`, which hides
+  # the 6 GHz BSSIDs from that profile entirely. It is NOT represented in this
+  # repo (NM profiles are mutable state). Once the domain reads `US`, clear it
+  # with `802-11-wireless.band ""` to get 6 GHz back -- and re-test, because
+  # mt7925 6 GHz has its own history; this option only makes the band legal,
+  # not necessarily reliable.
+  hardware.wirelessRegulatoryDatabase = true;
+  boot.extraModprobeConfig = ''
+    options cfg80211 ieee80211_regdom=US
+  '';
+
+  ###----------------------------------------
   ##   Wi-Fi link stability
   #------------------------------------------
   # Wi-Fi power save drops beacons on the mt7925 (Flow Z13), which shows up as

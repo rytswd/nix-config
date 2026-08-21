@@ -74,6 +74,20 @@
       # running with the lid closed, use the noctalia lid-toggle inhibitor
       # (rytswd/noctalia-extra) instead.
       HandleLidSwitch = "suspend";
+
+      # Power button suspends, regardless of lid state. Requires
+      # `disable-power-key-handling` in the niri config -- niri otherwise holds
+      # a `handle-power-key` block inhibitor and swallows the key. Handling it
+      # here rather than as a niri bind keeps it working while the session is
+      # locked, while the lid is shut, and if niri is wedged. See
+      # user-config/modules/window-manager/niri/README.org ("Power key").
+      #
+      # HandlePowerKey must stay set: logind's default is `poweroff`, so
+      # dropping niri's inhibitor without this turns the button into a hard
+      # power-off.
+      # TODO: This is relevant for Flow Z13, not for all the laptops perhaps.
+      HandlePowerKey = "suspend";
+      HandlePowerKeyLongPress = "poweroff";
     };
     thermald.enable = true;
     power-profiles-daemon.enable = false;

@@ -66,9 +66,15 @@
       ];
     };
     extraConfig = ''
-      def l [i = .] { ls $i | sort-by type }
-      def ll [i = .] { ls -l $i | sort-by type }
-      def la [i = .] { ls -la $i | sort-by type }
+      # NOTE: the `: path` annotations matter. With `completions.algorithm =
+      # "fuzzy"`, an untyped positional makes Nushell fuzzy-match the whole
+      # buffer against every command name in scope -- including the hundreds
+      # of multi-word subcommands from the vendor autoload completions (jj,
+      # niri, starship, ...) -- so `l s`<TAB> listed ~500 commands instead of
+      # the files. Declaring the shape as `path` forces path completion.
+      def l [i: path = .] { ls $i | sort-by type }
+      def ll [i: path = .] { ls -l $i | sort-by type }
+      def la [i: path = .] { ls -la $i | sort-by type }
     '';
   };
 

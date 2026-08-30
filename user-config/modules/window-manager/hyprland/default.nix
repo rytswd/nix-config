@@ -4,6 +4,17 @@
 {
   wayland.windowManager.hyprland = {
     enable = true;
+
+    # Pinned explicitly: home-manager flipped this default from "hyprlang" to
+    # "lua" in 26.05, and only keeps the legacy value while
+    # `home.stateVersion` is older -- which it warns about on every eval.
+    # Everything here is hyprlang (the `source=` line below plus the whole
+    # ./config tree), so "lua" would write a hyprland.lua and treat
+    # `extraConfig` as raw Lua. Stating the legacy value silences the warning
+    # without changing behaviour; switching to "lua" is a full rewrite of
+    # ./config, not a flag flip.
+    configType = "hyprlang";
+
     # This assumes that the below XDG config is mapped to provide extra conf
     # file, which can refer to as a relative path.
     extraConfig = ''

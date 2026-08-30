@@ -75,6 +75,7 @@
       enable = true;
       enableFishIntegration = true;
       enableZshIntegration = true;
+      historyWidget.command = "";
     };
 
     # Atuin and Yazi are handled separately in a dedicated module for each.

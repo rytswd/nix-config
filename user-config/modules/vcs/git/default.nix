@@ -1,4 +1,12 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  inputs,
+  ...
+}:
+let
+  allKeys = import "${inputs.self}/shared/keys.nix";
+in
 {
   programs.git = {
     enable = true;
@@ -36,11 +44,29 @@
         name = "Ryota";
         # NOTE: email is set separately.
         useConfigOnly = true;
-        # REMOVED: signingkey (handled dynamically)
-        # Key with YubiKey
-        # signingkey = "0D952F25BB1123EA";
-        # Old with 3 YubiKeys
-        # signingkey = "0651ED8112A83CB5";
+
+        # The GPG signing key is a constant shared by all four YubiKeys, so
+        # it is baked in statically here and the mutable yubikey-status file
+        # included above only *overrides* it for the SSH-signing fallback.
+        #
+        # WHY NOT leave this dynamic-only: git-signing-yubikey probes the card
+        # (`gpg --card-status`) and truncates yubikey-status when the probe
+        # fails, so it cannot tell "no YubiKey on this machine" apart from
+        # "scdaemon could not reach the card for a moment". A stale pcscd --
+        # the exact failure documented in security/gpg.nix -- made the udev
+        # hook clear the file, which dropped user.signingkey entirely. git
+        # then falls back to `$user.name <$user.email>` as the gpg -u selector
+        # ("Ryota <rytswd@gmail.com>"), and since gpg substring-matches UIDs
+        # that never matches the real "Ryota Sawada (with ECC) <...>" uid:
+        # every commit failed with "No secret key" until the unit was re-run
+        # by hand. Pinning the key id means a transient card hiccup surfaces
+        # as a clear gpg error at signing time instead of silently
+        # reconfiguring git.
+        #
+        # Costs nothing at runtime: this is an eval-time constant written
+        # straight into the generated gitconfig, so the common path no longer
+        # depends on a card round-trip having succeeded.
+        signingkey = allKeys.gpg-key-id;
       };
       github.user = "rytswd";
       gitlab.user = "rytswd";

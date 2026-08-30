@@ -35,6 +35,25 @@ to run a `jj`/`git` command and haven't checked this list, stop.
   `HEAD` and the next edit lands in the working tree.
 - **Don't create PRs unless explicitly asked.** Even after pushing
   a topic branch.
+- **[jj] `jj sign` re-signs everything you point it at, and rewriting
+  a commit replaces it.** Scope it to what is unsigned:
+  `jj sign -r '<range> ~ empty() ~ signed()'`. A revset like `::main`
+  means *every ancestor*, so an unscoped sign rewrites the whole
+  history: every commit gets a new hash and the old ones are gone.
+  Anything that named them -- a note, an issue, a message, a published
+  id, someone else's clone -- now points at nothing, and no diff shows
+  it because the content is identical. The signing cost is not the
+  problem (the GPG cache handles that); *losing the commits* is.
+  `jj sign --help` says it outright: "revisions are always re-signed."
+  So does the output -- `sign commit <id> and 510 more` -- so read the
+  count, not just the last line.
+- **[jj] Rewrite in place; never re-point a bookmark by hash after
+  rewriting.** `jj sign`, `jj metaedit` and `jj rebase` rewrite
+  commits and carry bookmarks with them. Setting a bookmark to a
+  literal pre-rewrite id afterwards points it back at the
+  un-rewritten commit -- silently discarding the signature or author
+  change and leaving divergent change ids. Move the bookmark to the
+  new tip **first**, then rewrite `::<bookmark>`.
 - **Never force-push `main` or any shared branch.** Force-push on
   own topic branches is OK only before a reviewer has loaded the diff.
 - **Don't manage tags or releases unless asked.** No `git tag`,

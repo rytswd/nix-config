@@ -5,5 +5,6 @@
     ./helix.nix
     ./vscode.nix
     ./zed.nix
+    ./rnote.nix
   ];
 }

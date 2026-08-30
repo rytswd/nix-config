@@ -116,8 +116,15 @@ in
     enable = true;
     enableDefaultConfig = false;
     # Priority: GPG-based SSH auth (first), then FIDO2 SSH keys (fallback)
-    matchBlocks = {
-      # Core-class only: every identityFile listed here is a YubiKey stub
+    #
+    # `matchBlocks` is deprecated upstream in favour of `settings`: blocks are
+    # still keyed by the `Host` pattern (names starting with `Host `/`Match `
+    # are taken literally), but the values are now freeform and use the
+    # upstream ssh_config(5) directive names -- `User`, `IdentityFile`, ...
+    # instead of the old camelCase aliases -- with no `extraOptions` escape
+    # hatch. `settings."*"` is always rendered last, as the default block.
+    settings = {
+      # Core-class only: every IdentityFile listed here is a YubiKey stub
       # whose private half comes from core-class sops secrets. On hosts
       # without core access (ephemeral tier) the files never exist, and --
       # because specifying IdentityFile suppresses ssh's default identity
@@ -125,9 +132,9 @@ in
       # when a perfectly good ~/.ssh/id_ed25519 is present. Gating the
       # block restores ssh's defaults on those hosts.
       "github.com" = lib.mkIf config.local.secrets.coreAvailable {
-        user = "git";
+        User = "git";
         # Try GPG-based SSH first (shares cache with GPG signing), then FIDO2 SSH keys
-        identityFile =
+        IdentityFile =
           # Note: GPG-based SSH keys are managed by gpg-agent via enableSshSupport
           # The agent automatically provides the key when available. We list the
           # FIDO2 resident keys as fallback when GPG is not set up.
@@ -137,9 +144,7 @@ in
 
       # Suppress warnings from trying multiple keys
       "*" = {
-        extraOptions = {
-          LogLevel = "ERROR";
-        };
+        LogLevel = "ERROR";
       };
     };
   };

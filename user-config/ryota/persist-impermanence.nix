@@ -24,8 +24,19 @@
       ###========================================
       ##  XDG Cache & Data & State
       #==========================================
-      # Key files I should always need
-      ".cache/fontconfig"
+      # NOTE on `.cache/*`: `~/.cache` is already its own ZFS dataset
+      # (`zroot/store/cache`) with `com.sun:auto-snapshot = false`. It is
+      # persistent -- nothing rolls it back -- so listing a `.cache/*` path
+      # here does NOT make it survive reboot; it survives either way. All an
+      # entry does is relocate the blocks onto the snapshotted `persist`
+      # dataset.
+      #
+      # So the question per path is *do I want snapshot coverage for this?*,
+      # not *do I want to keep it?*. Answer yes only when the app has
+      # misnamed unrecoverable state as cache. Regenerable build/HTTP caches
+      # stay on the cache dataset, which is the whole point of splitting it
+      # out -- see the disko comment about a corrupt cache block getting
+      # pinned into snapshot history and surviving scrub + reboot.
       ".cache/nix"
       ".local/share/direnv"
       ".local/share/fonts"
@@ -45,20 +56,17 @@
       ###----------------------------------------
       ##  Application specific
       #------------------------------------------
-      # Emacs
-      ".cache/mu"
+      # Emacs -- `.cache/org-persist` is org state, not cache.
       ".cache/emacs"
       ".cache/org-persist"
       ".local/share/emacs"
       ".local/state/emacs"
 
-      # Proton
-      ".cache/Proton"
-
-      # Browsers
+      # Browsers -- profile only. Cookies, logins and site storage live in
+      # `.zen/<profile>/storage` and `.config/vivaldi/Default`, both covered
+      # here. `.cache/{zen,vivaldi}` is HTTP + V8 bytecode cache only, so it
+      # is deliberately left on the cache dataset.
       ".zen"
-      ".cache/vivaldi"
-      ".cache/zen"
 
       # Steam
       ".local/share/Steam"
@@ -67,35 +75,24 @@
       ###----------------------------------------
       ##  Tooling
       #------------------------------------------
-      ".cache/awww"
-      ".cache/noctalia"
       # Noctalia v5: GUI-written settings + UI state, and installed plugins.
+      # `.cache/noctalia` is misnamed -- it holds the selected wallpaper set
+      # (`images/wallpapers` + `wallpapers.json`), shell layout, and paired
+      # bluetooth devices. None of it regenerates.
+      ".cache/noctalia"
       ".local/state/noctalia"
       ".local/share/noctalia"
-      ".cache/starship"
+
       ".local/share/atuin"
       ".local/share/docker"
       ".local/share/zoxide"
       ".local/share/kubebuilder-envtest"
       ".local/share/password-store"
 
-      ###----------------------------------------
-      ##  Coding
-      #------------------------------------------
-      # Zig
-      ".cache/zig"
-      ".cache/zls"
-
-      # Go
-      ".cache/golangci-lint"
-      ".cache/gopls"
-
-      # JavaScript
-      ".cache/bun"
-      ".cache/pnpm"
-      ".cache/mesa_shader_cache"
-      ".cache/ms-playwright"
-      ".cache/ms-playwright-go"
+      # No `##  Coding` section: zig/zls, golangci-lint/gopls, bun/pnpm,
+      # mesa_shader_cache and ms-playwright* were all listed here and are all
+      # regenerable toolchain cache. They keep working untouched on the cache
+      # dataset; persisting them only fed churn into snapshot history.
     ];
     files = [
       ".claude.json"

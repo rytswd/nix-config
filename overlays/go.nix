@@ -1,13 +1,15 @@
 final: prev:
 
-# NOTE: Temporary overlay to track a Go release newer than what nixpkgs
-# currently ships (nixpkgs-unstable is on 1.26.5 while 1.26.7 is out
-# upstream, and we specifically need 1.26.7).
+# NOTE: Temporary overlay to track a Go release newer than what the locked
+# nixpkgs-unstable ships: it only has `go_1_27` at 1.27rc2, while we need
+# 1.27.1. nixpkgs itself is already on 1.27.1 (`go_1_27` / `go_latest`), so
+# this goes away with the next nixpkgs-unstable bump.
 #
-# Why base the override on `prev.go_1_26` and not `prev.go`: on the stable
-# channel `prev.go` is 1.25.x and ships an OLD (1.22) bootstrap, but building
-# Go 1.26 needs a >=1.24.6 bootstrap. `go_1_26` already uses the right
-# bootstrap, so bumping its patch version is safe.
+# Why base the override on `prev.go_1_27` and not `prev.go`: `prev.go` is
+# still the 1.26 line, while `go_1_27` already carries the bootstrap and
+# patches for 1.27. nixpkgs' 1.27.nix differs between 1.27rc2 and 1.27.1 only
+# in version and hash, and its patch files are identical, so bumping just the
+# version is safe.
 #
 # Why there is no longer a patch override: the 1.26.4 pin had to swap out
 # nixpkgs' `go_no_vendor_checks` patch, whose context predated the upstream
@@ -31,11 +33,11 @@ final: prev:
 # Remove this overlay once nixpkgs catches up.
 
 {
-  go = prev.go_1_26.overrideAttrs (_: {
-    version = "1.26.7";
+  go = prev.go_1_27.overrideAttrs (_: {
+    version = "1.27.1";
     src = prev.fetchurl {
-      url = "https://go.dev/dl/go1.26.7.src.tar.gz";
-      hash = "sha256-DtJOrHVRBQhbif6cq8J0K5GgrXuUtZ0602SRjryJVq0=";
+      url = "https://go.dev/dl/go1.27.1.src.tar.gz";
+      hash = "sha256-TkCKuuEm2Ra2FkYnGT8sVPDjyhMS1pO4bbRfhiqyOLE=";
     };
   });
 }
